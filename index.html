@@ -3,439 +3,377 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artzainak - Prototype d'Application</title>
+    <title>Artzainak - Éducation de chiens de troupeau</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#5D5CDE',
+                            dark: '#4A49B0'
+                        },
+                        basque: {
+                            red: '#DC3545',
+                            green: '#198754'
+                        }
+                    }
+                }
+            }
+        }
+
+        // Detect dark mode
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    </script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            color: #333;
+            font-family: 'Open Sans', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            scroll-behavior: smooth;
         }
-        .container {
-            max-width: 100%;
-            padding: 10px;
-        }
-        .header {
-            background-color: #4a6741;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            border-radius: 5px 5px 0 0;
-        }
-        .nav {
-            display: flex;
-            justify-content: space-around;
-            background-color: #e9e9e9;
-            padding: 10px;
-        }
-        .nav-item {
-            padding: 8px 12px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        .nav-item:hover, .nav-item.active {
-            background-color: #4a6741;
-            color: white;
-        }
-        .content {
-            padding: 15px;
-            background-color: white;
-            border-radius: 0 0 5px 5px;
-            margin-bottom: 15px;
-            min-height: 400px;
-        }
-        .screen {
-            display: none;
-        }
-        .screen.active {
-            display: block;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #4a6741;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #5c8252;
-        }
-        .reservation-item, .rental-item {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-        }
-        .admin-panel {
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            padding: 15px;
-        }
-        .admin-section {
-            margin-bottom: 20px;
-        }
-        .admin-tabs {
-            display: flex;
-            margin-bottom: 15px;
-        }
-        .admin-tab {
-            padding: 8px 15px;
-            cursor: pointer;
-            border: 1px solid #ddd;
-            background-color: #f1f1f1;
-            margin-right: 5px;
-        }
-        .admin-tab.active {
-            background-color: #4a6741;
-            color: white;
-            border-color: #4a6741;
-        }
-        .admin-content {
-            display: none;
-        }
-        .admin-content.active {
-            display: block;
-        }
-        .status-pending {
-            color: orange;
-        }
-        .status-confirmed {
-            color: green;
-        }
-        .status-canceled {
-            color: red;
-        }
-        .phone-frame {
-            max-width: 375px;
-            margin: 20px auto;
-            border: 16px solid #111;
-            border-radius: 36px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        .phone-content {
-            width: 100%;
-            height: 667px;
-            overflow-y: auto;
-            position: relative;
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="phone-frame">
-            <div class="phone-content">
-                <div class="header">
-                    <h2>Artzainak</h2>
-                    <p>Éducation de chiens de troupeau au Pays Basque</p>
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
+    <!-- Header -->
+    <header class="bg-primary p-4 text-white sticky top-0 z-10 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold">ARTZAINAK</h1>
+            <p class="text-sm hidden sm:block">Éducation de chiens de troupeau au Pays Basque</p>
+            <button id="menuToggle" class="md:hidden focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+            <nav id="mainNav" class="hidden md:block">
+                <ul class="flex space-x-4">
+                    <li><a href="#services" class="hover:underline">Services</a></li>
+                    <li><a href="#contact" class="hover:underline">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+        <nav id="mobileNav" class="hidden bg-primary-dark py-2 px-4">
+            <ul class="space-y-2">
+                <li><a href="#services" class="block hover:underline">Services</a></li>
+                <li><a href="#contact" class="block hover:underline">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-12 px-4 bg-basque-green/10 dark:bg-basque-green/5">
+        <div class="container mx-auto">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-4">Bienvenue chez Artzainak</h2>
+                <p class="text-lg mb-6">Spécialiste de l'éducation des chiens de troupeau et de l'écopâturage au Pays Basque</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSffFQy1cOxbcJoUH46VW6nZbNaJzuoZYzXdAD8iBJnb31FyQg/viewform?usp=header" target="_blank" class="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300 text-center flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                        </svg>
+                        Réserver un cours
+                    </a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeZQYEvtsw06LJ3nJijgJ43ve-pNfiRcIW6d0-Zr8V50vKJyw/viewform?usp=header" target="_blank" class="bg-basque-green hover:bg-basque-green/80 text-white font-bold py-3 px-6 rounded-lg transition duration-300 text-center flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                        </svg>
+                        Louer des brebis
+                    </a>
                 </div>
-                
-                <div class="nav">
-                    <div class="nav-item active" onclick="showScreen('home')">Accueil</div>
-                    <div class="nav-item" onclick="showScreen('cours')">Cours</div>
-                    <div class="nav-item" onclick="showScreen('ecopaturage')">Écopâturage</div>
-                    <div class="nav-item" onclick="showScreen('admin')">Admin</div>
-                </div>
-                
-                <div class="content">
-                    <!-- Écran d'accueil -->
-                    <div id="home" class="screen active">
-                        <h3>Bienvenue chez Artzainak</h3>
-                        <p>Spécialiste de l'éducation des chiens de troupeau au Pays Basque</p>
-                        <p>À travers cette application, vous pouvez :</p>
-                        <ul>
-                            <li>Réserver des cours à domicile ou à notre ferme</li>
-                            <li>Louer des brebis pour de l'écopâturage sur votre terrain</li>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-12 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-2xl font-bold mb-8 text-center">Nos Services</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <!-- Cours d'éducation -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 service-card">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-primary/20 dark:bg-primary/30 p-3 rounded-full mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold">Cours d'éducation canine</h3>
+                    </div>
+                    
+                    <p class="mb-4">Formation professionnelle pour chiens de troupeau. Apprenez à votre chien les techniques de conduite et de rassemblement de troupeau.</p>
+                    
+                    <div class="mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <h4 class="font-semibold mb-2">Nos formules :</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-basque-green mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span><strong>Initiation</strong> : Découverte des bases du travail au troupeau</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-basque-green mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span><strong>Perfectionnement</strong> : Amélioration des techniques et correction des défauts</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-basque-green mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span><strong>Cours à l'heure ou journée complète</strong> : Adaptés à vos disponibilités</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-basque-green mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span><strong>Formation à Arbonne ou à domicile</strong> : Selon votre préférence</span>
+                            </li>
                         </ul>
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect width='300' height='200' fill='%234a6741' opacity='0.2'/%3E%3Cpath d='M150 40 C 100 40, 50 100, 100 150 C 120 170, 180 170, 200 150 C 250 100, 200 40, 150 40 Z' fill='%23f5f5f5' stroke='%234a6741' stroke-width='2'/%3E%3Ccircle cx='120' cy='80' r='8' fill='%234a6741'/%3E%3Ccircle cx='180' cy='80' r='8' fill='%234a6741'/%3E%3Cpath d='M130 110 Q 150 130, 170 110' fill='none' stroke='%234a6741' stroke-width='2'/%3E%3Cpath d='M100 30 Q 150 60, 200 30' fill='none' stroke='%234a6741' stroke-width='2'/%3E%3C/svg%3E" alt="Illustration d'un chien de berger" style="width:100%;">
-                        <button onclick="showScreen('cours')">Réserver un cours</button>
-                        <button onclick="showScreen('ecopaturage')" style="margin-top: 10px;">Louer des brebis</button>
                     </div>
                     
-                    <!-- Écran de réservation de cours -->
-                    <div id="cours" class="screen">
-                        <h3>Réservation de cours</h3>
-                        <form id="courseForm">
-                            <div class="form-group">
-                                <label for="course-type">Type de cours :</label>
-                                <select id="course-type">
-                                    <option value="ferme">À la ferme (Arbonne)</option>
-                                    <option value="domicile">À domicile</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="course-date">Date souhaitée :</label>
-                                <input type="date" id="course-date">
-                            </div>
-                            <div class="form-group">
-                                <label for="course-time">Durée :</label>
-                                <select id="course-time">
-                                    <option value="1h">1 heure (60€)</option>
-                                    <option value="2h">2 heures (110€)</option>
-                                    <option value="jour">Journée complète (250€)</option>
-                                </select>
-                            </div>
-                            <div class="form-group" id="address-group" style="display:none;">
-                                <label for="address">Votre adresse :</label>
-                                <textarea id="address" rows="3"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="course-notes">Informations supplémentaires :</label>
-                                <textarea id="course-notes" rows="3" placeholder="Niveau de votre chien, race, âge..."></textarea>
-                            </div>
-                            <button type="button" onclick="reserveCourse()">Réserver</button>
-                        </form>
-                        <div id="course-confirmation" style="display:none; margin-top:20px; padding:10px; background-color:#e8f5e9; border-radius:4px;">
-                            <h4>Réservation envoyée !</h4>
-                            <p>Votre demande a été transmise. Nous vous contacterons rapidement pour confirmer la réservation.</p>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSffFQy1cOxbcJoUH46VW6nZbNaJzuoZYzXdAD8iBJnb31FyQg/viewform?usp=header" target="_blank" class="block text-center bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                        </svg>
+                        Réserver un cours
+                    </a>
+                </div>
+                
+                <!-- Écopâturage -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 service-card">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-basque-green/20 p-3 rounded-full mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-basque-green" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold">Location de brebis pour écopâturage</h3>
+                    </div>
+                    
+                    <p class="mb-4">Entretenez vos espaces verts de façon écologique avec nos brebis. Solution idéale pour l'entretien naturel de vos terrains.</p>
+                    
+                    <div class="mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <h4 class="font-semibold mb-2">Avantages :</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-basque-green mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span><strong>Entretien écologique</strong> sans produits chimiques</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-basque-green mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span><strong>Fertilisation naturelle</strong> du sol</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-basque-green mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span><strong>Nombre de brebis adapté</strong> à votre surface</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-basque-green mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span><strong>Solution économique</strong> sur le long terme</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeZQYEvtsw06LJ3nJijgJ43ve-pNfiRcIW6d0-Zr8V50vKJyw/viewform?usp=header" target="_blank" class="block text-center bg-basque-green hover:bg-basque-green/80 text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                        </svg>
+                        Louer des brebis
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Fonctionnement -->
+            <div class="max-w-3xl mx-auto mt-12 mb-6">
+                <h3 class="text-xl font-bold mb-6 text-center">Comment ça fonctionne ?</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Fonctionnement cours -->
+                    <div class="bg-primary/10 dark:bg-primary/20 p-6 rounded-lg">
+                        <h4 class="font-semibold mb-4 flex items-center">
+                            <span class="bg-primary text-white p-1 w-6 h-6 inline-flex items-center justify-center rounded-full mr-2">1</span>
+                            Cours d'éducation canine
+                        </h4>
+                        <ol class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="bg-primary/20 dark:bg-primary/30 text-primary w-6 h-6 inline-flex items-center justify-center rounded-full mr-2">1</span>
+                                <span>Complétez le formulaire de réservation en ligne</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-primary/20 dark:bg-primary/30 text-primary w-6 h-6 inline-flex items-center justify-center rounded-full mr-2">2</span>
+                                <span>Nous vous contactons pour confirmer la date et l'heure</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-primary/20 dark:bg-primary/30 text-primary w-6 h-6 inline-flex items-center justify-center rounded-full mr-2">3</span>
+                                <span>Venez avec votre chien et profitez de votre séance</span>
+                            </li>
+                        </ol>
+                        <div class="mt-4 text-center">
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSffFQy1cOxbcJoUH46VW6nZbNaJzuoZYzXdAD8iBJnb31FyQg/viewform?usp=header" target="_blank" class="inline-block mt-2 text-primary hover:underline">
+                                Réserver maintenant →
+                            </a>
                         </div>
                     </div>
                     
-                    <!-- Écran de location de brebis -->
-                    <div id="ecopaturage" class="screen">
-                        <h3>Location de brebis pour écopâturage</h3>
-                        <form id="rentalForm">
-                            <div class="form-group">
-                                <label for="surface">Surface à entretenir (m²) :</label>
-                                <input type="number" id="surface" min="100">
-                            </div>
-                            <div class="form-group">
-                                <label for="rental-address">Adresse complète :</label>
-                                <textarea id="rental-address" rows="3"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="rental-duration">Durée souhaitée :</label>
-                                <select id="rental-duration">
-                                    <option value="week">1 semaine</option>
-                                    <option value="2weeks">2 semaines</option>
-                                    <option value="month">1 mois</option>
-                                    <option value="custom">Autre (précisez)</option>
-                                </select>
-                            </div>
-                            <div class="form-group" id="custom-duration" style="display:none;">
-                                <label for="custom-days">Nombre de jours :</label>
-                                <input type="number" id="custom-days" min="1">
-                            </div>
-                            <div class="form-group">
-                                <label for="rental-notes">Informations sur le terrain :</label>
-                                <textarea id="rental-notes" rows="3" placeholder="Clôture existante, type de végétation, accès à l'eau..."></textarea>
-                            </div>
-                            <div class="form-group">
-                                <p><strong>Estimation :</strong> <span id="sheep-estimation">--</span> brebis recommandées</p>
-                                <p><strong>Prix estimé :</strong> <span id="price-estimation">--</span> €</p>
-                            </div>
-                            <button type="button" onclick="requestRental()">Envoyer une demande</button>
-                        </form>
-                        <div id="rental-confirmation" style="display:none; margin-top:20px; padding:10px; background-color:#e8f5e9; border-radius:4px;">
-                            <h4>Demande envoyée !</h4>
-                            <p>Votre demande d'écopâturage a été transmise. Nous vous contacterons pour finaliser les détails.</p>
+                    <!-- Fonctionnement écopâturage -->
+                    <div class="bg-basque-green/10 dark:bg-basque-green/20 p-6 rounded-lg">
+                        <h4 class="font-semibold mb-4 flex items-center">
+                            <span class="bg-basque-green text-white p-1 w-6 h-6 inline-flex items-center justify-center rounded-full mr-2">2</span>
+                            Location de brebis
+                        </h4>
+                        <ol class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="bg-basque-green/20 text-basque-green w-6 h-6 inline-flex items-center justify-center rounded-full mr-2">1</span>
+                                <span>Remplissez le formulaire avec les détails de votre terrain</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-basque-green/20 text-basque-green w-6 h-6 inline-flex items-center justify-center rounded-full mr-2">2</span>
+                                <span>Nous élaborons un devis selon la surface et la durée</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-basque-green/20 text-basque-green w-6 h-6 inline-flex items-center justify-center rounded-full mr-2">3</span>
+                                <span>Nous amenons nos brebis qui entretiennent votre terrain</span>
+                            </li>
+                        </ol>
+                        <div class="mt-4 text-center">
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeZQYEvtsw06LJ3nJijgJ43ve-pNfiRcIW6d0-Zr8V50vKJyw/viewform?usp=header" target="_blank" class="inline-block mt-2 text-basque-green hover:underline">
+                                Demander un devis →
+                            </a>
                         </div>
                     </div>
-                    
-                    <!-- Écran administrateur -->
-                    <div id="admin" class="screen">
-                        <div class="admin-panel">
-                            <h3>Panneau d'administration</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-12 px-4 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto">
+            <h2 class="text-2xl font-bold mb-8 text-center">Contact</h2>
+            
+            <div class="max-w-4xl mx-auto bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-2/5 p-6 bg-primary text-white">
+                        <h3 class="text-xl font-semibold mb-4">Artzainak</h3>
+                        <p class="mb-6">Éducation de chiens de troupeau au Pays Basque</p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                                </svg>
+                                <div>
+                                    <p class="font-semibold">Adresse</p>
+                                    <p>Arbonne, Pays Basque</p>
+                                </div>
+                            </div>
                             
-                            <div class="admin-section">
-                                <div class="admin-tabs">
-                                    <div class="admin-tab active" onclick="showAdminContent('reservations')">Cours</div>
-                                    <div class="admin-tab" onclick="showAdminContent('rentals')">Écopâturage</div>
-                                    <div class="admin-tab" onclick="showAdminContent('calendar')">Calendrier</div>
+                            <div class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                                </svg>
+                                <div>
+                                    <p class="font-semibold">Téléphone</p>
+                                    <p>+33 (0) 608 919 431</p>
                                 </div>
-                                
-                                <div id="admin-reservations" class="admin-content active">
-                                    <h4>Réservations de cours</h4>
-                                    <div class="reservation-item">
-                                        <p><strong>Date :</strong> 05/04/2025 - 14:00</p>
-                                        <p><strong>Client :</strong> Marie Dupont</p>
-                                        <p><strong>Type :</strong> À domicile (2h)</p>
-                                        <p><strong>Adresse :</strong> 12 rue des Fleurs, 64200 Biarritz</p>
-                                        <p><strong>Status :</strong> <span class="status-pending">En attente</span></p>
-                                        <button onclick="updateReservationStatus(1, 'confirmed')">Confirmer</button>
-                                        <button onclick="updateReservationStatus(1, 'canceled')" style="background-color: #d32f2f;">Annuler</button>
-                                    </div>
-                                    <div class="reservation-item">
-                                        <p><strong>Date :</strong> 10/04/2025 - 10:00</p>
-                                        <p><strong>Client :</strong> Jean Martin</p>
-                                        <p><strong>Type :</strong> À la ferme (journée)</p>
-                                        <p><strong>Status :</strong> <span class="status-confirmed">Confirmé</span></p>
-                                        <button onclick="updateReservationStatus(2, 'canceled')" style="background-color: #d32f2f;">Annuler</button>
-                                    </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                                </svg>
+                                <div>
+                                    <p class="font-semibold">Email</p>
+                                    <p>pierocarlo@gmx.fr</p>
                                 </div>
-                                
-                                <div id="admin-rentals" class="admin-content">
-                                    <h4>Demandes d'écopâturage</h4>
-                                    <div class="rental-item">
-                                        <p><strong>Client :</strong> Sophie Bernard</p>
-                                        <p><strong>Surface :</strong> 2000 m²</p>
-                                        <p><strong>Adresse :</strong> 5 chemin du Lac, 64210 Bidart</p>
-                                        <p><strong>Durée :</strong> 2 semaines</p>
-                                        <p><strong>Brebis recommandées :</strong> 5</p>
-                                        <p><strong>Status :</strong> <span class="status-pending">En attente</span></p>
-                                        <button onclick="updateRentalStatus(1, 'confirmed')">Confirmer</button>
-                                        <button onclick="updateRentalStatus(1, 'canceled')" style="background-color: #d32f2f;">Annuler</button>
-                                    </div>
-                                </div>
-                                
-                                <div id="admin-calendar" class="admin-content">
-                                    <h4>Calendrier des activités</h4>
-                                    <div style="background: #f0f0f0; padding: 10px; border-radius: 4px;">
-                                        <h5>Avril 2025</h5>
-                                        <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center;">
-                                            <div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div>
-                                            <div style="padding: 5px;">1</div>
-                                            <div style="padding: 5px;">2</div>
-                                            <div style="padding: 5px;">3</div>
-                                            <div style="padding: 5px;">4</div>
-                                            <div style="background: #ffd180; padding: 5px; border-radius: 3px;">5</div>
-                                            <div style="padding: 5px;">6</div>
-                                            <div style="padding: 5px;">7</div>
-                                            <div style="padding: 5px;">8</div>
-                                            <div style="padding: 5px;">9</div>
-                                            <div style="background: #a5d6a7; padding: 5px; border-radius: 3px;">10</div>
-                                            <div style="padding: 5px;">11</div>
-                                            <div style="padding: 5px;">12</div>
-                                            <div style="padding: 5px;">13</div>
-                                            <div style="padding: 5px;">14</div>
-                                        </div>
-                                        <p style="margin-top: 10px; font-size: 12px;">
-                                            <span style="display: inline-block; width: 12px; height: 12px; background: #ffd180; margin-right: 5px;"></span> En attente
-                                            <span style="display: inline-block; width: 12px; height: 12px; background: #a5d6a7; margin: 0 5px 0 15px;"></span> Confirmé
-                                        </p>
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:w-3/5 p-6">
+                        <h3 class="text-xl font-semibold mb-4">Envoyez-nous un message</h3>
+                        
+                        <div class="space-y-6">
+                            <p class="text-base">Une question ? Un besoin spécifique ? N'hésitez pas à nous contacter à travers notre formulaire en ligne.</p>
+                            
+                            <div class="flex justify-center mt-6">
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLSenvmFEJbqhJSh0lMDTjD5MIktGyaILt_2vmujh4JLw7tV3Rg/viewform?usp=header" 
+                                   target="_blank" 
+                                   class="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                                    </svg>
+                                    Nous contacter
+                                </a>
+                            </div>
+                            
+                            <div class="bg-gray-100 dark:bg-gray-600 p-4 rounded-lg mt-6">
+                                <p class="text-sm">Vous serez redirigé vers un formulaire Google Forms dans un nouvel onglet. Vos informations seront traitées conformément à notre politique de confidentialité.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-6 px-4 bg-gray-800 text-white">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h2 class="text-xl font-bold">ARTZAINAK</h2>
+                    <p class="text-sm">Éducation de chiens de troupeau au Pays Basque</p>
+                </div>
+                
+                <div class="text-sm text-center md:text-right">
+                    <div class="flex gap-4 justify-center md:justify-end mb-2">
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSffFQy1cOxbcJoUH46VW6nZbNaJzuoZYzXdAD8iBJnb31FyQg/viewform?usp=header" target="_blank" class="text-white hover:text-primary transition duration-300">Réserver un cours</a>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeZQYEvtsw06LJ3nJijgJ43ve-pNfiRcIW6d0-Zr8V50vKJyw/viewform?usp=header" target="_blank" class="text-white hover:text-basque-green transition duration-300">Louer des brebis</a>
+                    </div>
+                    <p>&copy; 2023 Artzainak. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // Afficher l'écran sélectionné
-        function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            document.getElementById(screenId).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(item => {
-                if (item.textContent.toLowerCase().includes(screenId.toLowerCase())) {
-                    item.classList.add('active');
-                }
-            });
-        }
+        // Menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileNav = document.getElementById('mobileNav');
         
-        // Afficher/masquer le champ d'adresse pour les cours à domicile
-        document.getElementById('course-type').addEventListener('change', function() {
-            const addressGroup = document.getElementById('address-group');
-            if (this.value === 'domicile') {
-                addressGroup.style.display = 'block';
-            } else {
-                addressGroup.style.display = 'none';
-            }
+        menuToggle.addEventListener('click', () => {
+            mobileNav.classList.toggle('hidden');
         });
-        
-        // Afficher/masquer le champ personnalisé pour la durée de location
-        document.getElementById('rental-duration').addEventListener('change', function() {
-            const customDuration = document.getElementById('custom-duration');
-            if (this.value === 'custom') {
-                customDuration.style.display = 'block';
-            } else {
-                customDuration.style.display = 'none';
-            }
-        });
-        
-        // Calculer l'estimation pour l'écopâturage
-        document.getElementById('surface').addEventListener('input', calculateEstimation);
-        document.getElementById('rental-duration').addEventListener('change', calculateEstimation);
-        document.getElementById('custom-days').addEventListener('input', calculateEstimation);
-        
-        function calculateEstimation() {
-            const surface = parseInt(document.getElementById('surface').value) || 0;
-            const sheepNeeded = Math.ceil(surface / 400); // Approximation: 1 brebis pour 400m²
-            
-            let days = 0;
-            const durationType = document.getElementById('rental-duration').value;
-            
-            switch(durationType) {
-                case 'week': days = 7; break;
-                case '2weeks': days = 14; break;
-                case 'month': days = 30; break;
-                case 'custom': 
-                    days = parseInt(document.getElementById('custom-days').value) || 0;
-                    break;
-            }
-            
-            // Prix de base: 5€ par brebis par jour + 100€ de frais fixe de transport
-            const price = surface > 0 ? (sheepNeeded * 5 * days) + 100 : 0;
-            
-            document.getElementById('sheep-estimation').textContent = sheepNeeded;
-            document.getElementById('price-estimation').textContent = price;
-        }
-        
-        // Réserver un cours
-        function reserveCourse() {
-            document.getElementById('course-confirmation').style.display = 'block';
-            // En production: envoi des données au serveur
-        }
-        
-        // Demander une location de brebis
-        function requestRental() {
-            document.getElementById('rental-confirmation').style.display = 'block';
-            // En production: envoi des données au serveur
-        }
-        
-        // Afficher le contenu admin sélectionné
-        function showAdminContent(contentId) {
-            document.querySelectorAll('.admin-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.querySelectorAll('.admin-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            document.getElementById('admin-' + contentId).classList.add('active');
-            document.querySelectorAll('.admin-tab').forEach(tab => {
-                if (tab.textContent.toLowerCase().includes(contentId.toLowerCase())) {
-                    tab.classList.add('active');
-                }
-            });
-        }
-        
-        // Mettre à jour le statut d'une réservation
-        function updateReservationStatus(id, status) {
-            alert(`Réservation #${id} marquée comme ${status}`);
-            // En production: mise à jour dans la base de données
-        }
-        
-        // Mettre à jour le statut d'une location
-        function updateRentalStatus(id, status) {
-            alert(`Demande d'écopâturage #${id} marquée comme ${status}`);
-            // En production: mise à jour dans la base de données
-        }
     </script>
 </body>
 </html>
