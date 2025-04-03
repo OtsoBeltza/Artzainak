@@ -219,10 +219,10 @@
                         </ul>
                     </div>
                     
-                    <!-- Calculateur d'écopâturage -->
+                    <!-- Calculateur d'écopâturage mis à jour -->
                     <div class="mb-6 p-4 bg-basque-green/5 dark:bg-basque-green/10 rounded-lg">
                         <h4 class="font-semibold mb-3">Calculateur d'écopâturage :</h4>
-                        <p class="mb-4 text-sm">Estimez le nombre de brebis nécessaires et le tarif pour votre terrain :</p>
+                        <p class="mb-4 text-sm">Estimez le nombre de brebis nécessaires et le coût pour votre terrain (forfait à la semaine) :</p>
                         
                         <div class="space-y-4">
                             <div>
@@ -239,9 +239,12 @@
                             </div>
                             
                             <div>
-                                <label for="rentalDuration" class="block mb-1 font-medium text-sm">Durée de location (jours)</label>
-                                <input type="number" id="rentalDuration" min="1" value="7" 
-                                    class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-basque-green dark:bg-gray-800 dark:border-gray-600 dark:text-white">
+                                <label for="terrain" class="block mb-1 font-medium text-sm">Type de terrain</label>
+                                <select id="terrain" class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-basque-green dark:bg-gray-800 dark:border-gray-600 dark:text-white">
+                                    <option value="normal">Prairie normale</option>
+                                    <option value="rich">Prairie riche</option>
+                                    <option value="poor">Prairie pauvre</option>
+                                </select>
                             </div>
                             
                             <button id="calculateBtn" class="bg-basque-green hover:bg-basque-green/80 text-white font-medium py-2 px-4 rounded transition duration-300 text-sm">
@@ -251,10 +254,11 @@
                         
                         <div id="calculationResult" class="hidden mt-4 p-4 bg-gray-100 dark:bg-gray-600 rounded-lg text-sm">
                             <p class="mb-1">Surface à entretenir: <span id="areaSummary" class="font-medium">0</span> m²</p>
+                            <p class="mb-1">Type de terrain: <span id="terrainTypeSummary" class="font-medium">Prairie normale</span></p>
                             <p class="mb-1">Nombre de brebis recommandé: <span id="sheepCount" class="font-medium">0</span></p>
                             <p class="mb-1">Distance depuis Arbonne: <span id="distanceSummary" class="font-medium">0</span> km</p>
-                            <p class="mb-1">Durée de location: <span id="durationSummary" class="font-medium">0</span> jours</p>
-                            <p class="font-bold mt-2 text-base">Estimation du tarif: <span id="totalPrice">0</span> €</p>
+                            <p class="font-bold mt-2 text-base">Estimation du tarif: <span id="totalPrice">0</span> € / semaine</p>
+                            <p class="mt-1 text-xs italic">Forfait hebdomadaire incluant livraison, installation et suivi des animaux</p>
                         </div>
                     </div>
                     
@@ -312,11 +316,11 @@
                             </li>
                             <li class="flex items-start">
                                 <span class="bg-basque-green/20 text-basque-green w-6 h-6 inline-flex items-center justify-center rounded-full mr-2">2</span>
-                                <span>Nous élaborons un devis selon la surface et la durée</span>
+                                <span>Nous élaborons un devis selon la surface et le type de terrain</span>
                             </li>
                             <li class="flex items-start">
                                 <span class="bg-basque-green/20 text-basque-green w-6 h-6 inline-flex items-center justify-center rounded-full mr-2">3</span>
-                                <span>Nous amenons nos brebis qui entretiennent votre terrain</span>
+                                <span>Nous amenons nos brebis qui entretiennent votre terrain pour une semaine</span>
                             </li>
                         </ol>
                         <div class="mt-4 text-center">
@@ -369,7 +373,7 @@
                                 </svg>
                                 <div>
                                     <p class="font-semibold">Email</p>
-                                    <p>pierocarlo@gmx.fr</p>
+                                    <p>pierocarlo@gmx.fr.fr</p>
                                 </div>
                             </div>
                         </div>
@@ -438,6 +442,7 @@
             const calculationResult = document.getElementById('calculationResult');
             const landSizeInput = document.getElementById('landSize');
             const sizeError = document.getElementById('sizeError');
+            const terrainSelect = document.getElementById('terrain');
             
             // Validation de la surface minimale
             landSizeInput.addEventListener('input', function() {
@@ -451,27 +456,50 @@
             calculateBtn.addEventListener('click', () => {
                 const landSize = parseFloat(document.getElementById('landSize').value) || 0;
                 const distance = parseFloat(document.getElementById('distance').value) || 0;
-                const duration = parseInt(document.getElementById('rentalDuration').value) || 7;
+                const terrainType = document.getElementById('terrain').value;
                 
                 if (landSize < 1000) {
                     sizeError.classList.remove('hidden');
                     return;
                 }
                 
-                // Calculate number of sheep (1 sheep per 500m²)
-                const sheepCount = Math.max(2, Math.ceil(landSize / 500));
+                // Convert to hectares
+                const hectares = landSize / 10000;
                 
-                // Calculate price (base price + distance fee + sheep count fee)
-                const basePrice = 200;
-                const distanceFee = distance * 2;
-                const sheepFee = sheepCount * 10 * duration;
-                const totalPrice = basePrice + distanceFee + sheepFee;
+                // Set sheep ratio based on terrain type
+                let sheepPerHectare;
+                let terrainTypeName;
+                
+                switch(terrainType) {
+                    case 'rich':
+                        sheepPerHectare = 11; // 10-12 for rich terrain
+                        terrainTypeName = "Prairie riche";
+                        break;
+                    case 'poor':
+                        sheepPerHectare = 5.5; // 5-6 for poor terrain
+                        terrainTypeName = "Prairie pauvre";
+                        break;
+                    default: // normal
+                        sheepPerHectare = 8.5; // 8-9 for normal terrain
+                        terrainTypeName = "Prairie normale";
+                }
+                
+                // Calculate number of sheep (minimum of 2)
+                const sheepCount = Math.max(2, Math.round(hectares * sheepPerHectare));
+                
+                // Calculate price
+                // Base price + distance fee + sheep fee (per week)
+                const basePrice = 150; // Base installation fee
+                const distanceFee = distance * 1.5; // €1.50 per km
+                const sheepFee = sheepCount * 25; // €25 per sheep per week
+                
+                const totalPrice = Math.round(basePrice + distanceFee + sheepFee);
                 
                 // Update result display
                 document.getElementById('areaSummary').textContent = landSize;
+                document.getElementById('terrainTypeSummary').textContent = terrainTypeName;
                 document.getElementById('sheepCount').textContent = sheepCount;
                 document.getElementById('distanceSummary').textContent = distance;
-                document.getElementById('durationSummary').textContent = duration;
                 document.getElementById('totalPrice').textContent = totalPrice;
                 
                 calculationResult.classList.remove('hidden');
