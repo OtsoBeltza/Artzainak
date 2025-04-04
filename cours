@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réservation de Cours d'Éducation Canine</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #45a049;
+            --accent-color: #f1f1f1;
+            --text-color: #333;
+            --error-color: #f44336;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        
+        header h1 {
+            text-align: center;
+            color: var(--primary-color);
+        }
+        
+        .reservation-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .calendar-container {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .calendar-container iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+        
+        .form-container {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="time"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 8px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .error {
+            color: var(--error-color);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        #confirmation {
+            display: none;
+            background-color: #dff0d8;
+            color: #3c763d;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .reservation-wrapper {
+                flex-direction: column;
+            }
+            
+            .calendar-container iframe {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Réservation de Cours d'Éducation Canine</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="reservation-wrapper">
+            <div class="calendar-container">
+                <h2>Disponibilités</h2>
+                <p>Consultez notre calendrier pour voir les créneaux disponibles :</p>
+                <iframe src="https://calendar.google.com/calendar/embed?src=9626d5a14962036eda0f45f8cc3b2a51e4c1a43f7f080456e5852226ca2dce32%40group.calendar.google.com&ctz=Europe%2FParis" frameborder="0" scrolling="no"></iframe>
+            </div>
+            
+            <div class="form-container">
+                <h2>Formulaire de réservation</h2>
+                <form id="reservation-form">
+                    <div class="form-group">
+                        <label for="name">Nom et Prénom *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Téléphone *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dog-name">Nom du chien *</label>
+                        <input type="text" id="dog-name" name="dog-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dog-breed">Race du chien</label>
+                        <input type="text" id="dog-breed" name="dog-breed">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dog-age">Âge du chien *</label>
+                        <input type="text" id="dog-age" name="dog-age" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Type de cours *</label>
+                        <select id="course-type" name="course-type" required>
+                            <option value="">Sélectionnez une option</option>
+                            <option value="individual">Cours individuel</option>
+                            <option value="group">Cours collectif</option>
+                            <option value="puppy">École des chiots</option>
+                            <option value="behavior">Problèmes comportementaux</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date">Date souhaitée *</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="time">Heure souhaitée *</label>
+                        <select id="time" name="time" required>
+                            <option value="">Sélectionnez une heure</option>
+                            <option value="9:00">9:00</option>
+                            <option value="10:30">10:30</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:30">14:30</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:30">17:30</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Avez-vous déjà suivi des cours d'éducation canine ? *</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="previous-yes" name="previous-training" value="yes">
+                                <label for="previous-yes">Oui</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="previous-no" name="previous-training" value="no">
+                                <label for="previous-no">Non</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message complémentaire</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+                    
+                    <button type="submit">Réserver</button>
+                </form>
+                
+                <div id="confirmation">
+                    <h3>Merci pour votre réservation !</h3>
+                    <p>Nous avons bien reçu votre demande et vous contacterons rapidement pour confirmer votre rendez-vous.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        $(document).ready(function() {
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            $('#date').attr('min', today);
+            
+            $('#reservation-form').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Here you would typically send the form data to your server
+                // For this example, we'll just show the confirmation message
+                
+                // Form validation
+                let valid = true;
+                $('input[required], select[required]').each(function() {
+                    if (!$(this).val()) {
+                        valid = false;
+                        $(this).addClass('error');
+                    } else {
+                        $(this).removeClass('error');
+                    }
+                });
+                
+                if (!$('input[name="previous-training"]:checked').val()) {
+                    valid = false;
+                    $('input[name="previous-training"]').closest('.form-group').addClass('error');
+                } else {
+                    $('input[name="previous-training"]').closest('.form-group').removeClass('error');
+                }
+                
+                if (valid) {
+                    // Get form data
+                    const formData = {
+                        name: $('#name').val(),
+                        email: $('#email').val(),
+                        phone: $('#phone').val(),
+                        dogName: $('#dog-name').val(),
+                        dogBreed: $('#dog-breed').val(),
+                        dogAge: $('#dog-age').val(),
+                        courseType: $('#course-type').val(),
+                        date: $('#date').val(),
+                        time: $('#time').val(),
+                        previousTraining: $('input[name="previous-training"]:checked').val(),
+                        message: $('#message').val()
+                    };
+                    
+                    // In a real implementation, you would send this data to your server
+                    // which would then use Google Calendar API to create an event
+                    console.log('Form data:', formData);
+                    
+                    // Show confirmation message
+                    $('#reservation-form').hide();
+                    $('#confirmation').show();
+                    
+                    // For this example, let's create a Google Calendar event link
+                    // This is a simplified example - in a real implementation, you'd use the Google Calendar API
+                    const eventTitle = `Cours d'éducation canine - ${formData.courseType} - ${formData.name} - ${formData.dogName}`;
+                    const eventStart = `${formData.date}T${formData.time}:00`;
+                    // Calculate end time (1 hour after start)
+                    const startMoment = moment(eventStart);
+                    const endMoment = startMoment.clone().add(1, 'hours');
+                    const eventEnd = endMoment.format('YYYY-MM-DDTHH:mm:00');
+                    
+                    const eventDetails = `
+                        Propriétaire: ${formData.name}
+                        Email: ${formData.email}
+                        Téléphone: ${formData.phone}
+                        Chien: ${formData.dogName} (${formData.dogBreed})
+                        Âge du chien: ${formData.dogAge}
+                        Type de cours: ${formData.courseType}
+                        Expérience préalable: ${formData.previousTraining === 'yes' ? 'Oui' : 'Non'}
+                        
+                        Message:
+                        ${formData.message}
+                    `;
+                    
+                    // Note: In a real implementation, you would use server-side code to create the event
+                    // This link is just for demonstration purposes
+                    console.log('Event details for Google Calendar API:', {
+                        summary: eventTitle,
+                        description: eventDetails,
+                        start: { dateTime: eventStart },
+                        end: { dateTime: eventEnd }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
