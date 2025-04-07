@@ -375,3 +375,226 @@
                         lat: parseFloat(data[0].lat),
                         lng: parseFloat(data[0].lon)
                     };
+if (data && data.length > 0) {
+                    return {
+                        lat: parseFloat(data[0].lat),
+                        lng: parseFloat(data[0].lon)
+                    };
+                } else {
+                    throw new Error("Adresse introuvable");
+                }
+            } catch (error) {
+                console.error("Erreur de géocodage:", error);
+                return null;
+            }
+        }
+        
+        // Calculateur d'écopâturage
+        document.getElementById('calculateBtn').addEventListener('click', async function() {
+            const landSize = parseFloat(document.getElementById('landSize').value);
+            const terrain = document.getElementById('terrain').value;
+            const address = document.getElementById('address').value;
+            
+            // Validation de la taille du terrain
+            if (landSize < 1000) {
+                document.getElementById('sizeError').classList.remove('hidden');
+                return;
+            } else {
+                document.getElementById('sizeError').classList.add('hidden');
+            }
+            
+            // Affichage des résultats initiaux
+            document.getElementById('calculationResult').classList.remove('hidden');
+            document.getElementById('loadingDistance').classList.remove('hidden');
+            document.getElementById('areaSummary').textContent = landSize.toLocaleString();
+            
+            // Calcul du nombre de brebis nécessaires selon le type de terrain
+            let sheepPerHectare;
+            let terrainTypeName;
+            
+            switch(terrain) {
+                case 'rich':
+                    sheepPerHectare = 15;
+                    terrainTypeName = "Prairie riche";
+                    break;
+                case 'poor':
+                    sheepPerHectare = 5;
+                    terrainTypeName = "Prairie pauvre";
+                    break;
+                default: // normal
+                    sheepPerHectare = 10;
+                    terrainTypeName = "Prairie normale";
+            }
+            
+            document.getElementById('terrainTypeSummary').textContent = terrainTypeName;
+            
+            // Calcul du nombre de brebis (conversion m² en hectares)
+            const hectares = landSize / 10000;
+            const sheepCount = Math.max(5, Math.round(hectares * sheepPerHectare));
+            document.getElementById('sheepCount').textContent = sheepCount;
+            
+            // Calcul de la distance et du prix
+            if (address) {
+                try {
+                    const geoData = await geocodeAddress(address);
+                    if (geoData) {
+                        const distance = calculateDistance(ARBONNE_LAT, ARBONNE_LNG, geoData.lat, geoData.lng);
+                        document.getElementById('distanceSummary').textContent = distance;
+                        
+                        // Calcul du prix basé sur le nombre de brebis et la distance
+                        const basePricePerSheep = 15; // Prix de base par brebis par semaine
+                        const distanceFee = Math.max(0, (distance - 20) * 2); // Frais de distance au-delà de 20km
+                        
+                        const totalPrice = (sheepCount * basePricePerSheep) + distanceFee;
+                        document.getElementById('totalPrice').textContent = totalPrice.toLocaleString();
+                    } else {
+                        document.getElementById('distanceSummary').textContent = "Non déterminée";
+                        
+                        // Prix approximatif sans distance
+                        const approximatePrice = sheepCount * 15;
+                        document.getElementById('totalPrice').textContent = `~${approximatePrice.toLocaleString()} (estimation)`;
+                    }
+                } catch (error) {
+                    document.getElementById('distanceSummary').textContent = "Non déterminée";
+                    // Prix approximatif sans distance
+                    const approximatePrice = sheepCount * 15;
+                    document.getElementById('totalPrice').textContent = `~${approximatePrice.toLocaleString()} (estimation)`;
+                }
+            } else {
+                document.getElementById('distanceSummary').textContent = "Non déterminée";
+                // Prix approximatif sans distance
+                const approximatePrice = sheepCount * 15;
+                document.getElementById('totalPrice').textContent = `~${approximatePrice.toLocaleString()} (estimation)`;
+            }
+            
+            document.getElementById('loadingDistance').classList.add('hidden');
+        });
+        
+        // Gestion du formulaire de location
+        document.getElementById('rentalForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Récupération des données du formulaire
+            const formData = new FormData(this);
+            
+            // Récupérer les valeurs sélectionnées/calculées
+            formData.append('calculatedSheepCount', document.getElementById('sheepCount').textContent || '0');
+            formData.append('calculatedPrice', document.getElementById('totalPrice').textContent || '0');
+            
+            // Si une durée personnalisée est spécifiée
+            if (document.getElementById('duration').value === 'custom') {
+                formData.append('durationDetail', document.getElementById('customDuration').value);
+            }
+            
+            try {
+                // Afficher un indicateur de chargement sur le bouton
+                const submitButton = document.getElementById('submitButton');
+                const originalButtonText = submitButton.innerHTML;
+                submitButton.innerHTML = '<svg class="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Envoi en cours...';
+                submitButton.disabled = true;
+                
+                // Envoi des données au script Google Apps Script
+                const response = await fetch('https://script.google.com/macros/s/AKfycbxrO7ot7RiHaQql6uUMpMmLsIw1AQLQG7l6mXie1p2pZAepRpnPEobFQrYcdHXZXBJfeQ/exec', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                // Vérification de la réponse
+                if (response.ok) {
+                    // Afficher la notification de succès
+                    document.getElementById('successNotification').classList.remove('hidden');
+                    
+                    // Réinitialiser le formulaire
+                    document.getElementById('rentalForm').reset();
+                    
+                    // Masquer l'aperçu des photos
+                    document.getElementById('photosPreviewContainer').classList.add('hidden');
+                    document.getElementById('photosPreview').innerHTML = '';
+                } else {
+                    throw new Error('Échec de l\'envoi du formulaire');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer plus tard.');
+            } finally {
+                // Restaurer le bouton
+                const submitButton = document.getElementById('submitButton');
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
+            }
+        });
+        
+        // Gestion de la durée personnalisée
+        document.getElementById('duration').addEventListener('change', function() {
+            const customDurationContainer = document.getElementById('customDurationContainer');
+            if (this.value === 'custom') {
+                customDurationContainer.classList.remove('hidden');
+                document.getElementById('customDuration').required = true;
+            } else {
+                customDurationContainer.classList.add('hidden');
+                document.getElementById('customDuration').required = false;
+            }
+        });
+        
+        // Prévisualisation des photos
+        document.getElementById('landPhotos').addEventListener('change', function(e) {
+            const previewContainer = document.getElementById('photosPreviewContainer');
+            const previewElement = document.getElementById('photosPreview');
+            previewElement.innerHTML = '';
+            
+            // Limiter à 3 photos
+            const files = Array.from(e.target.files).slice(0, 3);
+            
+            if (files.length > 0) {
+                previewContainer.classList.remove('hidden');
+                
+                files.forEach(file => {
+                    if (file.type.match('image.*')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const imgContainer = document.createElement('div');
+                            imgContainer.className = 'relative';
+                            
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.className = 'h-24 w-24 object-cover rounded border';
+                            
+                            imgContainer.appendChild(img);
+                            previewElement.appendChild(imgContainer);
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                });
+            } else {
+                previewContainer.classList.add('hidden');
+            }
+        });
+        
+        // Notification de succès
+        document.getElementById('closeNotification').addEventListener('click', function() {
+            document.getElementById('successNotification').classList.add('hidden');
+        });
+        
+        // Copier l'adresse du calculateur vers le formulaire
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            const calculatorAddress = document.getElementById('address').value;
+            if (calculatorAddress) {
+                document.getElementById('landAddress').value = calculatorAddress;
+            }
+            
+            const calculatorSize = document.getElementById('landSize').value;
+            if (calculatorSize) {
+                document.getElementById('landSizeForm').value = calculatorSize;
+            }
+        });
+        
+        // Initialiser la date minimum à aujourd'hui
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        const todayFormatted = `${yyyy}-${mm}-${dd}`;
+        document.getElementById('startDate').min = todayFormatted;
+    </script>
+</body>
+</html>
