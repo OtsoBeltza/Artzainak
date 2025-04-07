@@ -71,19 +71,32 @@
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
         <div class="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-            <!-- Introduction -->
+            <!-- Introduction avec touche personnelle -->
             <div class="mb-8">
-                <h2 class="text-xl font-semibold mb-4">Réservez votre cours d'éducation canine</h2>
-                <p class="mb-4">Formez votre chien aux techniques de conduite de troupeau avec notre équipe spécialisée. Que vous soyez débutant ou que vous souhaitiez perfectionner les compétences de votre chien, nous adaptons notre formation à vos besoins.</p>
+                <h2 class="text-xl font-semibold mb-4">Bienvenue dans votre parcours d'éducation canine</h2>
+                <p class="mb-4">Chaque chien est unique, avec sa propre personnalité et ses propres besoins. Chez Artzainak, nous prenons le temps de comprendre votre compagnon et de vous accompagner dans une approche sur mesure pour développer ses compétences de troupeau.</p>
                 
-                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-                    <h3 class="font-semibold mb-2">Ce que vous devez savoir :</h3>
+                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg mb-6">
+                    <h3 class="font-semibold mb-2">Ce que vous pouvez attendre de nos séances :</h3>
                     <ul class="list-disc pl-5 space-y-1">
-                        <li>Les cours sont disponibles du lundi au vendredi</li>
-                        <li>Nos créneaux horaires sont de 8h à 12h et de 14h à 18h (sessions d'une heure)</li>
-                        <li>Votre chien doit être à jour dans ses vaccinations</li>
-                        <li>Prévoyez une laisse et de l'eau pour votre compagnon</li>
+                        <li>Une attention personnalisée à votre chien et ses besoins spécifiques</li>
+                        <li>Des exercices adaptés au niveau et au rythme d'apprentissage de votre compagnon</li>
+                        <li>Des conseils pratiques que vous pourrez appliquer à la maison</li>
+                        <li>Un environnement bienveillant et sécurisé pour l'apprentissage</li>
                     </ul>
+                </div>
+                
+                <div class="bg-basque-green/10 p-4 rounded-lg">
+                    <div class="flex items-start">
+                        <div class="bg-basque-green rounded-full p-2 mr-3 text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm">Après votre réservation, j'échangerai avec vous par téléphone pour mieux comprendre vos attentes et vous proposer la meilleure approche pour votre chien. Cette conversation préalable me permet de préparer une séance vraiment adaptée à vos besoins.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -103,35 +116,141 @@
                 </div>
             </div>
             
-            <!-- Cal.com Booking Widget -->
+            <!-- Options de réservation avec tabs -->
             <div class="mb-8">
-                <h3 class="text-lg font-semibold mb-4">Réservez votre créneau</h3>
+                <h3 class="text-lg font-semibold mb-4">Choisissez votre formule</h3>
                 
-                <!-- Remplacez "VOTRE_LIEN_CALCOM" par votre lien Cal.com -->
-                <div 
-                    class="cal-inline-widget" 
-                    data-cal-link="https://cal.com/les-drailles-aux-loups-4pvzck" 
-                    data-cal-namespace="ui"
-                    data-cal-config='{"layout":"month_view"}'
-                    style="width:100%;height:700px;overflow:hidden"
-                ></div>
+                <div class="mb-6">
+                    <div class="flex border-b">
+                        <button id="tab-individual" class="py-2 px-4 font-medium border-b-2 border-primary -mb-px">Séance individuelle (1h)</button>
+                        <button id="tab-group" class="py-2 px-4 font-medium border-b-2 border-transparent">Séance en groupe (3h)</button>
+                    </div>
+                    
+                    <!-- Description des formules -->
+                    <div id="content-individual" class="py-4">
+                        <p class="mb-4">La séance individuelle d'une heure est idéale pour travailler sur des besoins spécifiques de votre chien. Nous pourrons nous concentrer entièrement sur ses points forts et ses axes d'amélioration.</p>
+                        
+                        <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg mb-6">
+                            <p class="text-sm"><strong>Idéal pour :</strong> Les chiens débutants, les comportements spécifiques à corriger, ou une attention personnalisée.</p>
+                        </div>
+                        
+                        <!-- Cal.com pour séance individuelle -->
+                        <div id="cal-booking-individual"></div>
+                    </div>
+                    
+                    <div id="content-group" class="py-4 hidden">
+                        <p class="mb-4">La séance en groupe de trois heures permet à votre chien de travailler dans un environnement social avec d'autres chiens. C'est une excellente façon d'améliorer à la fois ses compétences de troupeau et sa socialisation.</p>
+                        
+                        <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg mb-6">
+                            <p class="text-sm"><strong>Idéal pour :</strong> Les chiens ayant déjà des notions de base, l'apprentissage par observation, et le travail en environnement distrayant.</p>
+                        </div>
+                        
+                        <!-- Cal.com pour séance de groupe -->
+                        <div id="cal-booking-group"></div>
+                    </div>
+                </div>
             </div>
             
-            <!-- Instructions supplémentaires -->
+            <!-- Témoignages pour ajouter de la confiance -->
+            <div class="pt-4 border-t border-gray-200 dark:border-gray-700 mb-8">
+                <h4 class="font-medium mb-4">Ce que disent nos clients</h4>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <div class="flex text-yellow-400 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                        </div>
+                        <p class="italic mb-2">"Notre Border Collie était complètement perdu face aux brebis. Après seulement trois séances, la transformation est incroyable. L'approche patiente et personnalisée a fait toute la différence."</p>
+                        <p class="text-sm font-medium">Marie et Léo, avec Fendi</p>
+                    </div>
+                    
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <div class="flex text-yellow-400 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                        </div>
+                        <p class="italic mb-2">"J'appréhendais les cours en groupe, mon Beauceron étant assez dominant. L'éducateur a su gérer parfaitement la dynamique entre les chiens. Les progrès sont visibles et j'ai reçu d'excellents conseils pour continuer à la maison."</p>
+                        <p class="text-sm font-medium">Thomas, avec Rocky</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ - Questions fréquentes -->
             <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
-                <h4 class="font-medium mb-4">Comment se déroule votre réservation</h4>
+                <h4 class="font-medium mb-4">Questions fréquentes</h4>
                 
-                <ol class="list-decimal pl-5 space-y-2">
-                    <li>Sélectionnez un créneau disponible dans le calendrier ci-dessus</li>
-                    <li>Complétez le formulaire avec vos informations personnelles et celles de votre chien</li>
-                    <li>Recevez une confirmation par email</li>
-                    <li>Vous recevrez un rappel 24h avant votre cours</li>
-                </ol>
-                
-                <div class="mt-6 bg-blue-50 dark:bg-blue-900 p-4 rounded-lg">
-                    <p class="text-blue-800 dark:text-blue-200">
-                        <strong>Note:</strong> Après votre demande de réservation, nous examinerons votre demande et vous enverrons une confirmation. Vous pouvez annuler ou modifier votre réservation jusqu'à 24h avant le début du cours.
-                    </p>
+                <div class="space-y-4">
+                    <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                        <button class="faq-toggle w-full flex justify-between items-center p-4 text-left font-medium">
+                            <span>Que faut-il prévoir pour la première séance ?</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="faq-content hidden p-4 pt-0">
+                            <p>Pour votre première séance, veuillez apporter :</p>
+                            <ul class="list-disc pl-5 mt-2">
+                                <li>Le carnet de santé de votre chien (avec vaccinations à jour)</li>
+                                <li>Une laisse solide et un collier adapté</li>
+                                <li>De l'eau pour votre compagnon</li>
+                                <li>Des friandises si votre chien y est sensible</li>
+                                <li>Des vêtements et chaussures adaptés à l'extérieur</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                        <button class="faq-toggle w-full flex justify-between items-center p-4 text-left font-medium">
+                            <span>Quel âge doit avoir mon chien pour commencer l'éducation ?</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="faq-content hidden p-4 pt-0">
+                            <p>Nous acceptons les chiens à partir de 6 mois pour l'initiation. Pour un travail plus intensif avec le troupeau, l'idéal est d'avoir un chien d'au moins 12 mois, dont la croissance est bien avancée.</p>
+                            <p class="mt-2">Cependant, chaque chien est différent, et nous adaptons notre approche à la maturité et au tempérament de votre compagnon.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                        <button class="faq-toggle w-full flex justify-between items-center p-4 text-left font-medium">
+                            <span>Toutes les races de chiens peuvent-elles participer ?</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="faq-content hidden p-4 pt-0">
+                            <p>Bien que les races de berger (Border Collie, Berger Australien, Beauceron, etc.) aient un instinct naturel pour le troupeau, nous accueillons toutes les races qui montrent un intérêt pour cette activité.</p>
+                            <p class="mt-2">L'important est la motivation du chien et votre engagement dans son apprentissage. Contactez-nous si vous avez des doutes sur l'aptitude de votre chien.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -162,6 +281,78 @@
     // Toggle menu pour mobile
     document.getElementById('menuToggle').addEventListener('click', function() {
         document.getElementById('mobileNav').classList.toggle('hidden');
+    });
+    
+    // Tabs pour les types de séances
+    document.getElementById('tab-individual').addEventListener('click', function() {
+        document.getElementById('tab-individual').classList.add('border-primary');
+        document.getElementById('tab-group').classList.remove('border-primary');
+        document.getElementById('tab-group').classList.add('border-transparent');
+        document.getElementById('content-individual').classList.remove('hidden');
+        document.getElementById('content-group').classList.add('hidden');
+    });
+    
+    document.getElementById('tab-group').addEventListener('click', function() {
+        document.getElementById('tab-group').classList.add('border-primary');
+        document.getElementById('tab-individual').classList.remove('border-primary');
+        document.getElementById('tab-individual').classList.add('border-transparent');
+        document.getElementById('content-group').classList.remove('hidden');
+        document.getElementById('content-individual').classList.add('hidden');
+    });
+    
+    // FAQ toggles
+    document.querySelectorAll('.faq-toggle').forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            const icon = this.querySelector('svg');
+            
+            // Toggle content visibility
+            content.classList.toggle('hidden');
+            
+            // Rotate icon
+            if (content.classList.contains('hidden')) {
+                icon.classList.remove('rotate-180');
+            } else {
+                icon.classList.add('rotate-180');
+            }
+        });
+    });
+    
+    // Initialiser Cal.com pour séance individuelle
+    Cal("init", {
+        api_key: "cal_live_5a57d69478f4f90d53cca6661befa740"
+    });
+    
+    // Cal.com pour séance individuelle
+    Cal("inline", {
+        elementId: "cal-booking-individual",
+        calLink: "VOTRE_USERNAME/seance-dune-heure", // Remplacez par votre lien d'événement
+        config: {
+            theme: "light",
+            hideEventTypeDetails: false,
+            layout: "month_view",
+            styles: {
+                branding: {
+                    brandColor: "#5D5CDE"
+                }
+            }
+        }
+    });
+    
+    // Cal.com pour séance de groupe
+    Cal("inline", {
+        elementId: "cal-booking-group",
+        calLink: "VOTRE_USERNAME/seance-en-groupe-3h", // Remplacez par votre lien d'événement
+        config: {
+            theme: "light",
+            hideEventTypeDetails: false,
+            layout: "month_view",
+            styles: {
+                branding: {
+                    brandColor: "#5D5CDE"
+                }
+            }
+        }
     });
     </script>
 </body>
