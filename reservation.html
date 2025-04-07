@@ -102,7 +102,7 @@
             </div>
             
             <!-- Formulaire de réservation modifié pour Google Apps Script -->
-            <form id="reservationForm" class="space-y-6" method="POST" action="https://script.google.com/macros/s/AKfycbxOt17xEkDNtqOkTgGRycbX8VHnCZ725NhtEMWVizR0I7iFS3PMwkHtpk30SK41EqJo/exec">
+            <form id="reservationForm" class="space-y-6" method="POST" action="https://script.google.com/macros/s/AKfycbwTZAGk3Guy36hZElGlQmSjeYLYDS_WvRj9LIKn1kZtyu1hG_LwmfgTjNdIGZpSadN5uw/exec">
                 <h3 class="text-lg font-semibold">Formulaire de réservation</h3>
                 
                 <!-- Personal Information -->
@@ -291,5 +291,43 @@
             submitButton.disabled = true;
         });
     </script>
+        // Fonction pour récupérer les paramètres de l'URL
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+    
+    // Vérifier si le formulaire a été soumis avec succès
+    window.addEventListener('DOMContentLoaded', function() {
+        const status = getUrlParameter('status');
+        if (status === 'success') {
+            // Créer un message de confirmation
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'fixed top-0 left-0 right-0 bg-basque-green text-white p-4 shadow-md text-center';
+            messageDiv.innerHTML = `
+                <div class="container mx-auto flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Votre demande de réservation a bien été envoyée. Nous vous contacterons prochainement.</span>
+                    <button onclick="this.parentNode.parentNode.remove()" class="ml-4 p-1 rounded hover:bg-green-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            `;
+            document.body.prepend(messageDiv);
+            
+            // Nettoyer l'URL pour éviter de réafficher le message lors des rafraîchissements
+            history.replaceState(null, document.title, window.location.pathname);
+            
+            // Faire défiler vers le haut de la page
+            window.scrollTo(0, 0);
+        }
+    });
+</script>
 </body>
 </html>
