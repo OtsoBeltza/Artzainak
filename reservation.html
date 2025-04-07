@@ -313,23 +313,42 @@
     async function fetchReservedSlots(date) {
         try {
             // URL de votre script Google Apps Script déployé
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbw1Go-gzAvZrPBw_6l0_njmnjy-kdzursNNFaha1ukmJ2BT4OQQhaMxbk5-Xp8YluypcA/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbykIsxUCa2PlRk1Hk0H9Edp7g7TrhsanMLoDRCjBjsivzROiJ4N2y--hgfX0Y9DAdxjSw/exec';
             
-            const response = await fetch(`${scriptURL}?date=${date}`, {
+            console.log(`Récupération des créneaux pour le ${date}`);
+            
+            // Ajouter un paramètre timestamp pour éviter le cache du navigateur
+            const timestamp = new Date().getTime();
+            
+            const response = await fetch(`${scriptURL}?date=${date}&cache=${timestamp}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
 
-            const data = await response.json();
-
-            if (data.status === 'error') {
-                console.error('Erreur de récupération:', data.message);
+            if (!response.ok) {
+                console.error(`Erreur HTTP: ${response.status}`);
                 return [];
             }
 
-            return data.reservedSlots || [];
+            const text = await response.text();
+            console.log("Réponse texte:", text);
+            
+            try {
+                const data = JSON.parse(text);
+                
+                if (data.status === 'error') {
+                    console.error('Erreur de récupération:', data.message);
+                    return [];
+                }
+
+                return data.reservedSlots || [];
+            } catch (parseError) {
+                console.error('Erreur de parsing JSON:', parseError);
+                console.log('Texte reçu:', text);
+                return [];
+            }
         } catch (error) {
             console.error('Erreur lors de la récupération des réservations:', error);
             return [];
@@ -365,6 +384,7 @@
             
             // Récupérer les créneaux réservés pour cette date
             const reservedSlots = await fetchReservedSlots(selectedDate);
+            console.log("Créneaux réservés:", reservedSlots);
             
             // Générer tous les créneaux
             const allTimeSlots = generateTimeSlots();
@@ -402,16 +422,25 @@
             document.getElementById('preferredTime').value = this.value;
             
             if (this.value) {
-                availabilityInfo.innerHTML += `
-                    <div class="bg-green-50 dark:bg-green-900 p-3 mt-3 rounded-lg flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <p class="text-green-800 dark:text-green-200">
-                            Le créneau est disponible pour votre réservation
-                        </p>
-                    </div>
+                // Ajouter un message de confirmation du créneau sélectionné
+                const selectedTimeInfo = document.createElement('div');
+                selectedTimeInfo.className = 'bg-green-50 dark:bg-green-900 p-3 mt-3 rounded-lg flex items-center';
+                selectedTimeInfo.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p class="text-green-800 dark:text-green-200">
+                        Le créneau est disponible pour votre réservation
+                    </p>
                 `;
+                
+                // Supprimer d'abord les anciens messages de confirmation s'ils existent
+                const existingConfirmation = availabilityInfo.querySelector('.bg-green-50, .dark\\:bg-green-900');
+                if (existingConfirmation) {
+                    existingConfirmation.remove();
+                }
+                
+                availabilityInfo.appendChild(selectedTimeInfo);
             }
         });
     }
@@ -431,14 +460,19 @@
     });
     
     // Gestion du formulaire de réservation
-    document.getElementById('reservationForm').addEventListener('submit', function(e) {
+    document.getElementById('reservationForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         
         // Récupération des données du formulaire
         const formData = new FormData(this);
         
+        // Conversion en objet pour le debug
+        const formObject = {};
+        formData.forEach((value, key) => { formObject[key] = value });
+        console.log("Données du formulaire:", formObject);
+        
         // URL de votre script Google Apps Script pour l'enregistrement
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwehl0VLqjXD5AYVcrg3HSO4ICFSOVXkzi_k1Y_y5jQ65uyqZcagDk0yC6VaLSJgu7NWg/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbza1SF-xGv_76FpgqlbIpln26Iyrff8ml5ZCyFhonyvY-DyukfiB19gGLlSSiPIHfJEnQ/exec';
         
         try {
             // Afficher un indicateur de chargement sur le bouton
@@ -447,45 +481,74 @@
             submitButton.innerHTML = '<svg class="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Envoi en cours...';
             submitButton.disabled = true;
             
-            // Envoi des données via fetch
-            fetch(scriptURL, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    // Afficher la notification de succès
-                    document.getElementById('successNotification').classList.remove('hidden');
-                    
-                    // Réinitialiser le formulaire
-                    document.getElementById('reservationForm').reset();
-                    
-                    // Masquer le champ d'adresse client si visible
-                    document.getElementById('clientLocationContainer').classList.add('hidden');
-                    
-                    // Réinitialiser les sélections de date et heure
-                    document.getElementById('availabilityInfo').innerHTML = '';
-                    document.getElementById('selectedTime').innerHTML = '<option value="">Sélectionnez une heure</option>';
-                    document.getElementById('preferredDate').value = '';
-                    document.getElementById('preferredTime').value = '';
-                } else {
-                    alert('Erreur: ' + (data.message || 'Une erreur est survenue'));
-                }
-            })
-            .catch(error => {
-                console.error('Erreur:', error);
-                alert('Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer plus tard.');
-            })
-            .finally(() => {
-                // Restaurer le bouton
-                submitButton.innerHTML = originalButtonText;
-                submitButton.disabled = false;
+            // Construction de l'URL avec les paramètres
+            const url = new URL(scriptURL);
+            formData.forEach((value, key) => {
+                url.searchParams.append(key, value);
             });
             
+            // Ajouter un timestamp pour éviter le cache
+            url.searchParams.append('cache', new Date().getTime());
+            
+            console.log("URL de soumission:", url.toString());
+            
+            // Utiliser GET pour contourner certains problèmes CORS
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP: ${response.status}`);
+            }
+            
+            const text = await response.text();
+            console.log("Réponse texte:", text);
+            
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (parseError) {
+                console.error("Erreur de parsing JSON:", parseError);
+                console.log("Texte reçu:", text);
+                throw new Error("Format de réponse invalide");
+            }
+            
+            console.log("Données parsées:", data);
+            
+            if (data.status === 'success') {
+                // Afficher la notification de succès
+                document.getElementById('successNotification').classList.remove('hidden');
+                
+                // Réinitialiser le formulaire
+                this.reset();
+                
+                // Masquer le champ d'adresse client si visible
+                document.getElementById('clientLocationContainer').classList.add('hidden');
+                
+                // Réinitialiser les sélections de date et heure
+                document.getElementById('availabilityInfo').innerHTML = '';
+                document.getElementById('selectedTime').innerHTML = '<option value="">Sélectionnez une heure</option>';
+                document.getElementById('preferredDate').value = '';
+                document.getElementById('preferredTime').value = '';
+            } else {
+                alert('Erreur: ' + (data.message || 'Une erreur est survenue'));
+            }
         } catch (error) {
-            console.error('Erreur:', error);
+            console.error('Erreur détaillée:', error);
             alert('Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer plus tard.');
+        } finally {
+            // Restaurer le bouton
+            const submitButton = document.getElementById('submitButton');
+            submitButton.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                Envoyer ma demande de réservation
+            `;
+            submitButton.disabled = false;
         }
     });
 
@@ -496,6 +559,11 @@
     
     // Initialiser le calendrier une fois le DOM chargé
     document.addEventListener('DOMContentLoaded', initializeBookingCalendar);
+    
+    // Toggle menu pour mobile
+    document.getElementById('menuToggle').addEventListener('click', function() {
+        document.getElementById('mobileNav').classList.toggle('hidden');
+    });
     </script>
 </body>
 </html>
