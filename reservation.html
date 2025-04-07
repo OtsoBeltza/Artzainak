@@ -32,14 +32,9 @@
     
     <!-- Charger Babel pour la transpilation JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <!-- Bibliothèques supplémentaires pour le calendrier -->
-    <link rel="stylesheet" href="https://unpkg.com/react-big-calendar/lib/css/react-big-calendar.css">
-    <script src="https://unpkg.com/moment@2.29.1/moment.js"></script>
-    <script src="https://unpkg.com/react-big-calendar/lib/index.js"></script>
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
-    <!-- Notification de succès (comme dans votre code original) -->
+    <!-- Notification de succès -->
     <div id="successNotification" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
         <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md mx-4 shadow-xl">
             <div class="flex items-center justify-center text-basque-green mb-4">
@@ -55,9 +50,35 @@
         </div>
     </div>
 
-    <!-- Header (comme dans votre code original) -->
+    <!-- Header -->
     <header class="bg-primary p-4 text-white sticky top-0 z-10 shadow-md">
-        <!-- Votre code de header existant -->
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold">ARTZAINAK</a>
+            <p class="text-sm hidden sm:block">Éducation de chiens de troupeau au Pays Basque</p>
+            <button id="menuToggle" class="md:hidden focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+            <nav id="mainNav" class="hidden md:block">
+                <ul class="flex space-x-4">
+                    <li><a href="index.html" class="hover:underline">Accueil</a></li>
+                    <li><a href="index.html#services" class="hover:underline">Services</a></li>
+                    <li><a href="reservation.html" class="hover:underline font-bold">Réserver</a></li>
+                    <li><a href="location.html" class="hover:underline">Louer</a></li>
+                    <li><a href="contact.html" class="hover:underline">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+        <nav id="mobileNav" class="hidden bg-primary-dark py-2 px-4">
+            <ul class="space-y-2">
+                <li><a href="index.html" class="block hover:underline">Accueil</a></li>
+                <li><a href="index.html#services" class="block hover:underline">Services</a></li>
+                <li><a href="reservation.html" class="block hover:underline font-bold">Réserver</a></li>
+                <li><a href="location.html" class="block hover:underline">Louer</a></li>
+                <li><a href="contact.html" class="block hover:underline">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
     <!-- Page Title -->
@@ -70,7 +91,7 @@
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
         <div class="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-            <!-- Introduction (comme dans votre code original) -->
+            <!-- Introduction -->
             <div class="mb-8">
                 <h2 class="text-xl font-semibold mb-4">Réservez votre cours d'éducation canine</h2>
                 <p class="mb-4">Formez votre chien aux techniques de conduite de troupeau avec notre équipe spécialisée. Que vous soyez débutant ou que vous souhaitiez perfectionner les compétences de votre chien, nous adaptons notre formation à vos besoins.</p>
@@ -86,47 +107,172 @@
                 </div>
             </div>
             
-            <!-- Photo Gallery (comme dans votre code original) -->
+            <!-- Photo Gallery -->
             <div class="mb-8">
-                <!-- Votre galerie photo existante -->
+                <h3 class="text-lg font-semibold mb-4">Nos séances d'éducation en images</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="aspect-video rounded overflow-hidden">
+                        <img src="images/training1.jpg" alt="Chien en formation" class="w-full h-full object-cover">
+                    </div>
+                    <div class="aspect-video rounded overflow-hidden">
+                        <img src="images/training2.jpg" alt="Session d'entraînement" class="w-full h-full object-cover">
+                    </div>
+                    <div class="aspect-video rounded overflow-hidden">
+                        <img src="images/training3.jpg" alt="Travail avec les brebis" class="w-full h-full object-cover">
+                    </div>
+                </div>
             </div>
             
             <!-- Formulaire de réservation -->
             <form id="reservationForm" class="space-y-6">
                 <h3 class="text-lg font-semibold">Formulaire de réservation</h3>
                 
-                <!-- Conteneur pour le calendrier React -->
+                <!-- Calendrier React -->
                 <div id="react-calendar-container" class="mb-4"></div>
+                
+                <!-- Champs cachés pour la date et l'heure -->
+                <input type="hidden" id="preferredDate" name="preferredDate" required>
+                <input type="hidden" id="preferredTime" name="preferredTime" required>
                 
                 <!-- Personal Information -->
                 <div class="space-y-4">
-                    <!-- Vos champs de formulaire existants -->
-                    <!-- Les champs de date et d'heure seront désormais gérés par le composant React -->
-                    <input type="hidden" id="preferredDate" name="preferredDate" required>
-                    <input type="hidden" id="preferredTime" name="preferredTime" required>
-                    
-                    <!-- Reste de votre formulaire inchangé -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label for="firstName" class="block mb-1 font-medium">Prénom</label>
                             <input type="text" id="firstName" name="firstName" required
                                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                         </div>
-                        <!-- Autres champs comme dans votre code original -->
+                        <div>
+                            <label for="lastName" class="block mb-1 font-medium">Nom</label>
+                            <input type="text" id="lastName" name="lastName" required
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="email" class="block mb-1 font-medium">Email</label>
+                            <input type="email" id="email" name="email" required
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        </div>
+                        <div>
+                            <label for="phone" class="block mb-1 font-medium">Téléphone</label>
+                            <input type="tel" id="phone" name="phone" required
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Reste de votre formulaire -->
+                <!-- Dog Information -->
+                <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <h4 class="font-medium mb-4">Informations sur votre chien</h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="dogName" class="block mb-1 font-medium">Nom du chien</label>
+                            <input type="text" id="dogName" name="dogName" required
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        </div>
+                        <div>
+                            <label for="dogBreed" class="block mb-1 font-medium">Race du chien</label>
+                            <input type="text" id="dogBreed" name="dogBreed" required
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="dogAge" class="block mb-1 font-medium">Âge du chien</label>
+                            <input type="number" id="dogAge" name="dogAge" min="1" required
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        </div>
+                        <div>
+                            <label for="experience" class="block mb-1 font-medium">Niveau d'expérience</label>
+                            <select id="experience" name="experience" required
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <option value="">Sélectionnez un niveau</option>
+                                <option value="beginner">Débutant - aucune expérience</option>
+                                <option value="intermediate">Intermédiaire - quelques bases</option>
+                                <option value="advanced">Avancé - perfectionnement</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="dogInfo" class="block mb-1 font-medium">Informations supplémentaires</label>
+                        <textarea id="dogInfo" name="dogInfo" rows="3" placeholder="Comportement, problèmes spécifiques, objectifs particuliers..."
+                            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white"></textarea>
+                    </div>
+                </div>
+                
+                <!-- Course Details -->
+                <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <h4 class="font-medium mb-4">Détails du cours</h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="courseType" class="block mb-1 font-medium">Type de cours</label>
+                            <select id="courseType" name="courseType" required
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <option value="">Sélectionnez un type</option>
+                                <option value="hour">Cours d'une heure</option>
+                                <option value="halfday">Demi-journée</option>
+                                <option value="fullday">Journée complète</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="location" class="block mb-1 font-medium">Lieu du cours</label>
+                            <select id="location" name="location" required
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <option value="">Sélectionnez un lieu</option>
+                                <option value="arbonne">À Arbonne (notre terrain)</option>
+                                <option value="client">À votre domicile</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div id="clientLocationContainer" class="hidden mb-4">
+                        <label for="clientAddress" class="block mb-1 font-medium">Votre adresse</label>
+                        <textarea id="clientAddress" name="clientAddress" rows="2" placeholder="Adresse complète pour le cours à domicile"
+                            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white"></textarea>
+                    </div>
+                </div>
+                
+                <!-- Submit Button -->
+                <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="submit" id="submitButton" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                        Envoyer ma demande de réservation
+                    </button>
+                </div>
             </form>
         </div>
     </main>
 
-    <!-- Footer (comme dans votre code original) -->
+    <!-- Footer -->
     <footer class="py-6 px-4 bg-gray-800 text-white">
-        <!-- Votre code de footer existant -->
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h2 class="text-xl font-bold">ARTZAINAK</h2>
+                    <p class="text-sm">Éducation de chiens de troupeau au Pays Basque</p>
+                </div>
+                
+                <div class="text-sm text-center md:text-right">
+                    <div class="flex gap-4 justify-center md:justify-end mb-2">
+                        <a href="reservation.html" class="text-white hover:text-primary transition duration-300">Réserver un cours</a>
+                        <a href="location.html" class="text-white hover:text-basque-green transition duration-300">Louer des brebis</a>
+                        <a href="contact.html" class="text-white hover:text-gray-300 transition duration-300">Contact</a>
+                    </div>
+                    <p>&copy; 2023 Artzainak. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
     </footer>
     
-    <!-- Script pour le calendrier React -->
+    <!-- Scripts React et Calendrier -->
     <script type="text/babel">
         const BookingCalendar = () => {
             const [selectedDate, setSelectedDate] = React.useState('');
@@ -256,7 +402,7 @@
     
     <script src="js/script.js"></script>
     <script>
-    // Logique existante pour le lieu du cours
+    // Logique pour afficher/masquer le champ d'adresse client
     document.getElementById('location').addEventListener('change', function() {
         const clientLocationContainer = document.getElementById('clientLocationContainer');
         const clientAddressField = document.getElementById('clientAddress');
@@ -270,7 +416,7 @@
         }
     });
     
-    // Gestion du formulaire de réservation (code existant)
+    // Gestion du formulaire de réservation
     document.getElementById('reservationForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
