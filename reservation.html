@@ -293,7 +293,14 @@
     
     // Nouvelle gestion de soumission du formulaire avec fetch API
     document.getElementById('reservationForm').addEventListener('submit', function(e) {
-        e.preventDefault(); // Empêcher le comportement de soumission par défaut
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    // Debug - Afficher l'URL et les données
+    console.log('URL utilisée:', scriptURL);
+    console.log('Données envoyées:', Object.fromEntries(formData));
+
         
         // Afficher l'indicateur de chargement
         const submitButton = document.getElementById('submitButton');
