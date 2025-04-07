@@ -375,11 +375,6 @@
                         lat: parseFloat(data[0].lat),
                         lng: parseFloat(data[0].lon)
                     };
-if (data && data.length > 0) {
-                    return {
-                        lat: parseFloat(data[0].lat),
-                        lng: parseFloat(data[0].lon)
-                    };
                 } else {
                     throw new Error("Adresse introuvable");
                 }
@@ -450,13 +445,8 @@ if (data && data.length > 0) {
                     } else {
                         document.getElementById('distanceSummary').textContent = "Non déterminée";
                         
-                        // Prix approximatif sans distance
-                        const approximatePrice = sheepCount * 15;
-                        document.getElementById('totalPrice').textContent = `~${approximatePrice.toLocaleString()} (estimation)`;
-                    }
-                } catch (error) {
-                    document.getElementById('distanceSummary').textContent = "Non déterminée";
                     // Prix approximatif sans distance
+                    const approximate// Prix approximatif sans distance
                     const approximatePrice = sheepCount * 15;
                     document.getElementById('totalPrice').textContent = `~${approximatePrice.toLocaleString()} (estimation)`;
                 }
@@ -494,7 +484,7 @@ if (data && data.length > 0) {
                 submitButton.disabled = true;
                 
                 // Envoi des données au script Google Apps Script
-                const response = await fetch('https://script.google.com/macros/s/AKfycbxrO7ot7RiHaQql6uUMpMmLsIw1AQLQG7l6mXie1p2pZAepRpnPEobFQrYcdHXZXBJfeQ/exec', {
+                const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
                     body: formData
                 });
