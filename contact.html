@@ -188,29 +188,72 @@
         </div>
     </footer>
     
+    <!-- Notification de succès -->
+    <div id="successNotification" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md mx-4 shadow-xl">
+            <div class="flex items-center justify-center text-primary mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-center">Message envoyé avec succès !</h3>
+            <p class="text-center mb-4">Nous vous répondrons dans les meilleurs délais. Merci de nous avoir contactés.</p>
+            <button id="closeNotification" class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2 px-4 rounded transition duration-300">
+                Fermer
+            </button>
+        </div>
+    </div>
+    
     <script src="js/script.js"></script>
     <script>
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        // URL de votre script Google Apps Script déployé en tant qu'application web
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwNlfTV8MJoT7Pv0UQn3A9UbHjheH5EHvQWx5G_DPPOcoPIqiexSTT8daxN8XQ3tPuJnQ/exec";
+        
+        // Gestion du formulaire de contact
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Display submit button as loading
-            const submitButton = document.getElementById('submitButton');
-            const originalText = submitButton.innerHTML;
-            submitButton.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Envoi en cours...';
-            submitButton.disabled = true;
+            // Récupération des données du formulaire
+            const formData = new FormData(this);
+            formData.append('formType', 'contact'); // Pour identifier le type de formulaire côté serveur
             
-            // Simulate API call
-            setTimeout(function() {
-                alert('Votre message a été envoyé avec succès ! Nous vous répondrons dans les meilleurs délais.');
+            try {
+                // Afficher un indicateur de chargement sur le bouton
+                const submitButton = document.getElementById('submitButton');
+                const originalButtonText = submitButton.innerHTML;
+                submitButton.innerHTML = '<svg class="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Envoi en cours...';
+                submitButton.disabled = true;
                 
-                // Reset form
-                document.getElementById('contactForm').reset();
+                // Envoi des données au script Google Apps Script
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData
+                });
                 
-                // Reset button
-                submitButton.innerHTML = originalText;
+                // Vérification de la réponse
+                if (response.ok) {
+                    // Afficher la notification de succès
+                    document.getElementById('successNotification').classList.remove('hidden');
+                    
+                    // Réinitialiser le formulaire
+                    document.getElementById('contactForm').reset();
+                } else {
+                    throw new Error('Échec de l\'envoi du formulaire');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer plus tard.');
+            } finally {
+                // Restaurer le bouton
+                const submitButton = document.getElementById('submitButton');
+                submitButton.innerHTML = originalButtonText;
                 submitButton.disabled = false;
-            }, 1500);
+            }
+        });
+        
+        // Notification de succès
+        document.getElementById('closeNotification').addEventListener('click', function() {
+            document.getElementById('successNotification').classList.add('hidden');
         });
     </script>
 </body>
