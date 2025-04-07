@@ -325,7 +325,7 @@
             const fetchReservedSlots = async (date) => {
                 try {
                     // URL du script Google Apps Script pour récupérer les réservations
-                    const scriptURL = 'https://script.google.com/macros/s/AKfycbwvqy7ABlGRWmgmM671BJesB-hBxTsAzcMyHInNjWm-2WA08IsCVOZGh1kp28x7rgov_Q/exec;
+                    const scriptURL = 'https://script.google.com/macros/s/AKfycbzqXcu1jAGfwwEkkQsvACdha-ahCizh6GUquRE0A79cgsbTLUkNyE19iDPQojG5oI7uwQ/exec;
                     
                     const response = await fetch(`${scriptURL}?date=${date}`, {
                         method: 'GET',
@@ -592,7 +592,7 @@
     // Fonction pour récupérer les créneaux réservés
     async function fetchReservedSlots(date) {
         try {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbw9WSXbC8H9QqYgeAtSAOmW_1_9ClDMjVw869-Zn9KyoLu3JQtJmQxPj0-68miw2MyfkA/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzqXcu1jAGfwwEkkQsvACdha-ahCizh6GUquRE0A79cgsbTLUkNyE19iDPQojG5oI7uwQ/exec';
             
             const response = await fetch(`${scriptURL}?date=${date}`, {
                 method: 'GET',
