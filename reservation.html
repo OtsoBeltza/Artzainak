@@ -219,296 +219,297 @@
                                 <option value="halfday">Demi-journée</option>
                                 <option value="fullday">Journée complète</option>
                             </select>
-                            <div>
-                                <label for="location" class="block mb-1 font-medium">Lieu du cours</label>
-                                <select id="location" name="location" required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                    <option value="">Sélectionnez un lieu</option>
-                                    <option value="arbonne">À Arbonne (notre terrain)</option>
-                                    <option value="client">À votre domicile</option>
-                                </select>
-                            </div>
                         </div>
-                        
-                        <div id="clientLocationContainer" class="hidden mb-4">
-                            <label for="clientAddress" class="block mb-1 font-medium">Votre adresse</label>
-                            <textarea id="clientAddress" name="clientAddress" rows="2" placeholder="Adresse complète pour le cours à domicile"
-                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white"></textarea>
+                        <div>
+                            <label for="location" class="block mb-1 font-medium">Lieu du cours</label>
+                            <select id="location" name="location" required
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <option value="">Sélectionnez un lieu</option>
+                                <option value="arbonne">À Arbonne (notre terrain)</option>
+                                <option value="client">À votre domicile</option>
+                            </select>
                         </div>
                     </div>
                     
-                    <!-- Submit Button -->
-                    <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
-                        <button type="submit" id="submitButton" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                            Envoyer ma demande de réservation
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </main>
-    
-        <!-- Footer -->
-        <footer class="py-6 px-4 bg-gray-800 text-white">
-            <div class="container mx-auto">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <div class="mb-4 md:mb-0">
-                        <h2 class="text-xl font-bold">ARTZAINAK</h2>
-                        <p class="text-sm">Éducation de chiens de troupeau au Pays Basque</p>
-                    </div>
-                    
-                    <div class="text-sm text-center md:text-right">
-                        <div class="flex gap-4 justify-center md:justify-end mb-2">
-                            <a href="reservation.html" class="text-white hover:text-primary transition duration-300">Réserver un cours</a>
-                            <a href="location.html" class="text-white hover:text-basque-green transition duration-300">Louer des brebis</a>
-                            <a href="contact.html" class="text-white hover:text-gray-300 transition duration-300">Contact</a>
-                        </div>
-                        <p>&copy; 2023 Artzainak. Tous droits réservés.</p>
+                    <div id="clientLocationContainer" class="hidden mb-4">
+                        <label for="clientAddress" class="block mb-1 font-medium">Votre adresse</label>
+                        <textarea id="clientAddress" name="clientAddress" rows="2" placeholder="Adresse complète pour le cours à domicile"
+                            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white"></textarea>
                     </div>
                 </div>
+                
+                <!-- Submit Button -->
+                <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="submit" id="submitButton" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                        Envoyer ma demande de réservation
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-6 px-4 bg-gray-800 text-white">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h2 class="text-xl font-bold">ARTZAINAK</h2>
+                    <p class="text-sm">Éducation de chiens de troupeau au Pays Basque</p>
+                </div>
+                
+                <div class="text-sm text-center md:text-right">
+                    <div class="flex gap-4 justify-center md:justify-end mb-2">
+                        <a href="reservation.html" class="text-white hover:text-primary transition duration-300">Réserver un cours</a>
+                        <a href="location.html" class="text-white hover:text-basque-green transition duration-300">Louer des brebis</a>
+                        <a href="contact.html" class="text-white hover:text-gray-300 transition duration-300">Contact</a>
+                    </div>
+                    <p>&copy; 2023 Artzainak. Tous droits réservés.</p>
+                </div>
             </div>
-        </footer>
-        
-        <!-- Script React pour le Calendrier -->
-        <script type="text/babel">
-            const BookingCalendar = () => {
-                const [selectedDate, setSelectedDate] = React.useState('');
-                const [availableTimes, setAvailableTimes] = React.useState([]);
-                const [selectedTime, setSelectedTime] = React.useState('');
-                const [reservedSlots, setReservedSlots] = React.useState([]);
-    
-                // Génération des créneaux horaires de base
-                const generateTimeSlots = () => {
-                    const morningSlots = [];
-                    const afternoonSlots = [];
-    
-                    // Créneaux du matin (8h à 12h)
-                    for (let hour = 8; hour < 12; hour++) {
-                        morningSlots.push(`${hour}h00 - ${hour}h59`);
-                    }
-    
-                    // Créneaux de l'après-midi (14h à 18h)
-                    for (let hour = 14; hour < 18; hour++) {
-                        afternoonSlots.push(`${hour}h00 - ${hour}h59`);
-                    }
-    
-                    return [...morningSlots, ...afternoonSlots];
-                };
-    
-                // Récupérer les réservations depuis Google Apps Script
-                const fetchReservedSlots = async (date) => {
-                    try {
-                        // URL du script Google Apps Script pour récupérer les réservations
-                        const scriptURL = 'https://script.google.com/macros/s/AKfycbw9WSXbC8H9QqYgeAtSAOmW_1_9ClDMjVw869-Zn9KyoLu3JQtJmQxPj0-68miw2MyfkA/exec';
-                        
-                        const response = await fetch(`${scriptURL}?date=${date}`, {
-                            method: 'GET',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            }
-                        });
-    
-                        if (!response.ok) {
-                            throw new Error('Erreur de récupération des réservations');
+        </div>
+    </footer><!-- Script React pour le Calendrier -->
+    <script type="text/babel">
+        const BookingCalendar = () => {
+            const [selectedDate, setSelectedDate] = React.useState('');
+            const [availableTimes, setAvailableTimes] = React.useState([]);
+            const [selectedTime, setSelectedTime] = React.useState('');
+            const [reservedSlots, setReservedSlots] = React.useState([]);
+
+            // Génération des créneaux horaires de base
+            const generateTimeSlots = () => {
+                const morningSlots = [];
+                const afternoonSlots = [];
+
+                // Créneaux du matin (8h à 12h)
+                for (let hour = 8; hour < 12; hour++) {
+                    morningSlots.push(`${hour}h00 - ${hour}h59`);
+                }
+
+                // Créneaux de l'après-midi (14h à 18h)
+                for (let hour = 14; hour < 18; hour++) {
+                    afternoonSlots.push(`${hour}h00 - ${hour}h59`);
+                }
+
+                return [...morningSlots, ...afternoonSlots];
+            };
+
+            // Récupérer les réservations depuis Google Apps Script
+            const fetchReservedSlots = async (date) => {
+                try {
+                    // URL du script Google Apps Script pour récupérer les réservations
+                    const scriptURL = 'https://script.google.com/macros/s/AKfycbxq5GPm2bQLpszwThEburvXjiVMMedM7-zng0DJ12ERIRm_qqeJxBu5p2xgow2dUz9GeQ/exec;
+                    
+                    const response = await fetch(`${scriptURL}?date=${date}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
                         }
-    
-                        const data = await response.json();
-                        return data.reservedSlots || [];
-                    } catch (error) {
-                        console.error('Erreur lors de la récupération des réservations:', error);
-                        // En cas d'erreur, retourner un tableau vide
+                    });
+
+                    const data = await response.json();
+
+                    if (data.status === 'error') {
+                        console.error('Erreur de récupération:', data.message);
                         return [];
                     }
-                };
-    
-                // Filtrer les créneaux disponibles en fonction des réservations
-                const filterAvailableSlots = (allSlots, reservedSlots) => {
-                    return allSlots.filter(slot => 
-                        !reservedSlots.includes(slot)
-                    );
-                };
-    
-                // Effet pour récupérer les créneaux initiaux
-                React.useEffect(() => {
-                    const slots = generateTimeSlots();
-                    setAvailableTimes(slots);
-                }, []);
-    
-                // Mise à jour des créneaux disponibles quand une date est sélectionnée
-                const handleDateChange = async (e) => {
-                    const date = e.target.value;
-                    setSelectedDate(date);
-                    
-                    // Mise à jour du champ caché dans le formulaire
-                    document.getElementById('preferredDate').value = date;
-                    
-                    // Récupérer les créneaux réservés pour cette date
-                    const reserved = await fetchReservedSlots(date);
-                    setReservedSlots(reserved);
-    
-                    // Filtrer les créneaux disponibles
-                    const allSlots = generateTimeSlots();
-                    const availableSlots = filterAvailableSlots(allSlots, reserved);
-                    
-                    setAvailableTimes(availableSlots);
-                    
-                    // Réinitialisation du temps sélectionné
-                    setSelectedTime('');
-                    document.getElementById('preferredTime').value = '';
-                };
-    
-                // Mise à jour de l'heure sélectionnée
-                const handleTimeChange = (e) => {
-                    const time = e.target.value;
-                    setSelectedTime(time);
-                    
-                    // Mise à jour du champ caché dans le formulaire
-                    document.getElementById('preferredTime').value = time;
-                };
-    
-                // Récupération de la date minimale (aujourd'hui)
-                const getMinDate = () => {
-                    const today = new Date();
-                    const yyyy = today.getFullYear();
-                    const mm = String(today.getMonth() + 1).padStart(2, '0');
-                    const dd = String(today.getDate()).padStart(2, '0');
-                    return `${yyyy}-${mm}-${dd}`;
-                };
-    
-                return (
-                    React.createElement('div', { className: 'space-y-4' },
-                        React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-2 gap-4' },
-                            React.createElement('div', null,
-                                React.createElement('label', { 
-                                    htmlFor: 'selectedDate', 
-                                    className: 'block mb-1 font-medium' 
-                                }, 'Date souhaitée'),
-                                React.createElement('input', { 
-                                    type: 'date', 
-                                    id: 'selectedDate', 
-                                    required: true,
-                                    min: getMinDate(),
-                                    value: selectedDate,
-                                    onChange: handleDateChange,
-                                    className: 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white'
-                                })
-                            ),
-                            React.createElement('div', null,
-                                React.createElement('label', { 
-                                    htmlFor: 'selectedTime', 
-                                    className: 'block mb-1 font-medium' 
-                                }, 'Heure préférée'),
-                                React.createElement('select', { 
-                                    id: 'selectedTime', 
-                                    required: true,
-                                    value: selectedTime,
-                                    onChange: handleTimeChange,
-                                    className: 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white'
-                                },
-                                    React.createElement('option', { value: '' }, 'Sélectionnez une heure'),
-                                    availableTimes.map((time, index) => 
-                                        React.createElement('option', { key: index, value: time }, time)
-                                    )
-                                )
-                            )
-                        ),
-                        // Indication des créneaux disponibles/réservés
-                        selectedDate && 
-                        React.createElement('div', { className: 'mt-4' },
-                            React.createElement('p', { 
-                                className: availableTimes.length > 0 
-                                    ? 'text-green-600' 
-                                    : 'text-red-600' 
-                            }, 
-                                availableTimes.length > 0 
-                                    ? `${availableTimes.length} créneaux disponibles` 
-                                    : 'Aucun créneau disponible pour cette date'
-                            ),
-                            reservedSlots.length > 0 && 
-                            React.createElement('div', { className: 'mt-2 text-gray-600' },
-                                React.createElement('p', { className: 'font-medium' }, 'Créneaux déjà réservés :'),
-                                React.createElement('ul', { className: 'list-disc list-inside' },
-                                    reservedSlots.map((slot, index) => 
-                                        React.createElement('li', { key: index }, slot)
-                                    )
-                                )
-                            )
-                        ),
-                        selectedDate && selectedTime && 
-                        React.createElement('div', { className: 'bg-green-50 dark:bg-green-900 p-3 rounded-lg flex items-center' },
-                            React.createElement('svg', { 
-                                xmlns: 'http://www.w3.org/2000/svg', 
-                                className: 'h-6 w-6 text-green-600 mr-2', 
-                                fill: 'none', 
-                                viewBox: '0 0 24 24', 
-                                stroke: 'currentColor' 
-                            },
-                                React.createElement('path', { 
-                                    strokeLinecap: 'round', 
-                                    strokeLinejoin: 'round', 
-                                    strokeWidth: 2, 
-                                    d: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' 
-                                })
-                            ),
-                            React.createElement('p', { className: 'text-green-800 dark:text-green-200' }, 
-                                'Le créneau est disponible pour votre réservation'
-                            )
-                        )
-                    )
+
+                    return data.reservedSlots || [];
+                } catch (error) {
+                    console.error('Erreur lors de la récupération des réservations:', error);
+                    return [];
+                }
+            };
+
+            // Filtrer les créneaux disponibles en fonction des réservations
+            const filterAvailableSlots = (allSlots, reservedSlots) => {
+                return allSlots.filter(slot => 
+                    !reservedSlots.includes(slot)
                 );
             };
-    
-            ReactDOM.render(
-                React.createElement(BookingCalendar),
-                document.getElementById('react-calendar-container')
-            );
-        </script>
-        
-        <script src="js/script.js"></script>
-        <script>
-        // Logique pour afficher/masquer le champ d'adresse client
-        document.getElementById('location').addEventListener('change', function() {
-            const clientLocationContainer = document.getElementById('clientLocationContainer');
-            const clientAddressField = document.getElementById('clientAddress');
-            
-            if (this.value === 'client') {
-                clientLocationContainer.classList.remove('hidden');
-                clientAddressField.setAttribute('required', true);
-            } else {
-                clientLocationContainer.classList.add('hidden');
-                clientAddressField.removeAttribute('required');
-            }
-        });
-        
-        // Gestion du formulaire de réservation
-        document.getElementById('reservationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Récupération des données du formulaire
-            const formData = new FormData(this);
-            
-            // URL de votre script Google Apps Script
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbz1LHrIKS9vyBtGP0jp1smlIdxRgIgpD26DHHU6NIYP7wKaez8jKYIMR0HWf2pYVkhyEg/exec';
-            
-            try {
-                // Afficher un indicateur de chargement sur le bouton
-                const submitButton = document.getElementById('submitButton');
-                const originalButtonText = submitButton.innerHTML;
-                submitButton.innerHTML = '<svg class="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Envoi en cours...';
-                submitButton.disabled = true;
+
+            // Effet pour récupérer les créneaux initiaux
+            React.useEffect(() => {
+                const slots = generateTimeSlots();
+                setAvailableTimes(slots);
+            }, []);
+
+            // Mise à jour des créneaux disponibles quand une date est sélectionnée
+            const handleDateChange = async (e) => {
+                const date = e.target.value;
+                setSelectedDate(date);
                 
-                // Envoi des données via fetch
-                fetch(scriptURL, {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => {
-                    if (response.ok) {
-                        // Afficher la notification de succès
-                        document.getElementById('successNotification').classList.remove('hidden');
-                        // Réinitialiser le formulaire
+                // Mise à jour du champ caché dans le formulaire
+                document.getElementById('preferredDate').value = date;
+                
+                // Récupérer les créneaux réservés pour cette date
+                const reserved = await fetchReservedSlots(date);
+                setReservedSlots(reserved);
+
+                // Filtrer les créneaux disponibles
+                const allSlots = generateTimeSlots();
+                const availableSlots = filterAvailableSlots(allSlots, reserved);
+                
+                setAvailableTimes(availableSlots);
+                
+                // Réinitialisation du temps sélectionné
+                setSelectedTime('');
+                document.getElementById('preferredTime').value = '';
+            };
+
+            // Mise à jour de l'heure sélectionnée
+            const handleTimeChange = (e) => {
+                const time = e.target.value;
+                setSelectedTime(time);
+                
+                // Mise à jour du champ caché dans le formulaire
+                document.getElementById('preferredTime').value = time;
+            };
+
+            // Récupération de la date minimale (aujourd'hui)
+            const getMinDate = () => {
+                const today = new Date();
+                const yyyy = today.getFullYear();
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
+                const dd = String(today.getDate()).padStart(2, '0');
+                return `${yyyy}-${mm}-${dd}`;
+            };
+
+            return (
+                React.createElement('div', { className: 'space-y-4' },
+                    React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-2 gap-4' },
+                        React.createElement('div', null,
+                            React.createElement('label', { 
+                                htmlFor: 'selectedDate', 
+                                className: 'block mb-1 font-medium' 
+                            }, 'Date souhaitée'),
+                            React.createElement('input', { 
+                                type: 'date', 
+                                id: 'selectedDate', 
+                                required: true,
+                                min: getMinDate(),
+                                value: selectedDate,
+                                onChange: handleDateChange,
+                                className: 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white'
+                            })
+                        ),
+                        React.createElement('div', null,
+                            React.createElement('label', { 
+                                htmlFor: 'selectedTime', 
+                                className: 'block mb-1 font-medium' 
+                            }, 'Heure préférée'),
+                            React.createElement('select', { 
+                                id: 'selectedTime', 
+                                required: true,
+                                value: selectedTime,
+                                onChange: handleTimeChange,
+                                className: 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white'
+                            },
+                                React.createElement('option', { value: '' }, 'Sélectionnez une heure'),
+                                availableTimes.map((time, index) => 
+                                    React.createElement('option', { key: index, value: time }, time)
+                                )
+                            )
+                        )
+                    ),
+                    // Indication des créneaux disponibles/réservés
+                    selectedDate && 
+                    React.createElement('div', { className: 'mt-4' },
+                        React.createElement('p', { 
+                            className: availableTimes.length > 0 
+                                ? 'text-green-600' 
+                                : 'text-red-600' 
+                        }, 
+                            availableTimes.length > 0 
+                                ? `${availableTimes.length} créneaux disponibles` 
+                                : 'Aucun créneau disponible pour cette date'
+                        ),
+                        reservedSlots.length > 0 && 
+                        React.createElement('div', { className: 'mt-2 text-gray-600' },
+                            React.createElement('p', { className: 'font-medium' }, 'Créneaux déjà réservés :'),
+                            React.createElement('ul', { className: 'list-disc list-inside' },
+                                reservedSlots.map((slot, index) => 
+                                    React.createElement('li', { key: index }, slot)
+                                )
+                            )
+                        )
+                    ),
+                    selectedDate && selectedTime && 
+                    React.createElement('div', { className: 'bg-green-50 dark:bg-green-900 p-3 rounded-lg flex items-center' },
+                        React.createElement('svg', { 
+                            xmlns: 'http://www.w3.org/2000/svg', 
+                            className: 'h-6 w-6 text-green-600 mr-2', 
+                            fill: 'none', 
+                            viewBox: '0 0 24 24', 
+                            stroke: 'currentColor' 
+                        },
+                            React.createElement('path', { 
+                                strokeLinecap: 'round', 
+                                strokeLinejoin: 'round', 
+                                strokeWidth: 2, 
+                                d: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' 
+                            })
+                        ),
+                        React.createElement('p', { className: 'text-green-800 dark:text-green-200' }, 
+                            'Le créneau est disponible pour votre réservation'
+                        )
+                    )
+                )
+            );
+        };
+
+        ReactDOM.render(
+            React.createElement(BookingCalendar),
+            document.getElementById('react-calendar-container')
+        );
+    </script>
+    
+    <script src="js/script.js"></script>
+    <script>
+    // Logique pour afficher/masquer le champ d'adresse client
+    document.getElementById('location').addEventListener('change', function() {
+        const clientLocationContainer = document.getElementById('clientLocationContainer');
+        const clientAddressField = document.getElementById('clientAddress');
+        
+        if (this.value === 'client') {
+            clientLocationContainer.classList.remove('hidden');
+            clientAddressField.setAttribute('required', true);
+        } else {
+            clientLocationContainer.classList.add('hidden');
+            clientAddressField.removeAttribute('required');
+        }
+    });
+    
+    // Gestion du formulaire de réservation
+    document.getElementById('reservationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Récupération des données du formulaire
+        const formData = new FormData(this);
+        
+        // URL de votre script Google Apps Script
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz1LHrIKS9vyBtGP0jp1smlIdxRgIgpD26DHHU6NIYP7wKaez8jKYIMR0HWf2pYVkhyEg/exec';
+        
+        try {
+            // Afficher un indicateur de chargement sur le bouton
+            const submitButton = document.getElementById('submitButton');
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.innerHTML = '<svg class="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Envoi en cours...';
+            submitButton.disabled = true;
+            
+            // Envoi des données via fetch
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Afficher la notification de succès
+                    document.getElementById('successNotification').classList.remove('hidden');
+                    
+                    // Réinitialiser le formulaire
                     document.getElementById('reservationForm').reset();
                     
                     // Masquer le champ d'adresse client si visible
