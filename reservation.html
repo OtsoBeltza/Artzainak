@@ -101,16 +101,15 @@
                 </div>
             </div>
             
-            <!-- Reservation Form -->
-            <form id="reservationForm" class="space-y-6" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" name="reservation-form">
-    <!-- Champ honeypot pour protection anti-spam -->
-    <p class="hidden">
-        <label>Ne pas remplir si vous êtes humain: <input name="bot-field" /></label>
-    </p>
-    <!-- Champ caché requis par Netlify -->
-    <input type="hidden" name="form-name" value="reservation-form" />
-    
-    <!-- Reste du formulaire inchangé -->
+            <!-- Reservation Form avec modifications Netlify Forms -->
+            <form id="reservationForm" class="space-y-6" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" name="reservation-form" action="/success.html">
+                <!-- Champ honeypot pour protection anti-spam -->
+                <p class="hidden">
+                    <label>Ne pas remplir si vous êtes humain: <input name="bot-field" /></label>
+                </p>
+                <!-- Champ caché requis par Netlify -->
+                <input type="hidden" name="form-name" value="reservation-form" />
+                
                 <h3 class="text-lg font-semibold">Formulaire de réservation</h3>
                 
                 <!-- Personal Information -->
@@ -322,39 +321,18 @@
             }
         });
         
-        // Form submission
-document.getElementById('reservationForm').addEventListener('submit', function(e) {
-    // Ne pas empêcher la soumission du formulaire par défaut
-    // car nous voulons maintenant que le formulaire soit soumis à Netlify
-    
-    // Afficher l'indicateur de chargement
-    const submitButton = document.getElementById('submitButton');
-    const originalText = submitButton.innerHTML;
-    submitButton.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Traitement en cours...';
-    submitButton.disabled = true;
-    
-    // La soumission se fait naturellement à Netlify
-});
+        // Form submission avec modifications pour Netlify Forms
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            // Ne pas empêcher la soumission du formulaire par défaut
+            // car nous voulons maintenant que le formulaire soit soumis à Netlify
             
-            // Display submit button as loading
+            // Afficher l'indicateur de chargement
             const submitButton = document.getElementById('submitButton');
             const originalText = submitButton.innerHTML;
             submitButton.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Traitement en cours...';
             submitButton.disabled = true;
             
-            // Simulate API call
-            setTimeout(function() {
-                alert('Votre demande de réservation a été envoyée avec succès ! Nous vous contacterons rapidement pour confirmer votre cours.');
-                
-                // Reset form
-                document.getElementById('reservationForm').reset();
-                document.getElementById('photoPreviewContainer').classList.add('hidden');
-                document.getElementById('clientLocationContainer').classList.add('hidden');
-                
-                // Reset button
-                submitButton.innerHTML = originalText;
-                submitButton.disabled = false;
-            }, 1500);
+            // La soumission se fait naturellement à Netlify
         });
     </script>
 </body>
