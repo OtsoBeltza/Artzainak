@@ -102,7 +102,15 @@
             </div>
             
             <!-- Reservation Form -->
-            <form id="reservationForm" class="space-y-6">
+            <form id="reservationForm" class="space-y-6" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" name="reservation-form">
+    <!-- Champ honeypot pour protection anti-spam -->
+    <p class="hidden">
+        <label>Ne pas remplir si vous êtes humain: <input name="bot-field" /></label>
+    </p>
+    <!-- Champ caché requis par Netlify -->
+    <input type="hidden" name="form-name" value="reservation-form" />
+    
+    <!-- Reste du formulaire inchangé -->
                 <h3 class="text-lg font-semibold">Formulaire de réservation</h3>
                 
                 <!-- Personal Information -->
