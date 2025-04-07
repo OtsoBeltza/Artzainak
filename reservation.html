@@ -27,17 +27,18 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
-    <!-- Message de confirmation (invisible par défaut) -->
-    <div id="successMessage" class="fixed top-0 left-0 right-0 bg-basque-green text-white p-4 shadow-md text-center hidden z-50">
-        <div class="container mx-auto flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>Votre demande de réservation a bien été envoyée. Nous vous contacterons prochainement.</span>
-            <button onclick="document.getElementById('successMessage').classList.add('hidden')" class="ml-4 p-1 rounded hover:bg-green-700">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    <!-- Notification de succès -->
+    <div id="successNotification" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md mx-4 shadow-xl">
+            <div class="flex items-center justify-center text-basque-green mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-center">Demande envoyée avec succès !</h3>
+            <p class="text-center mb-4">Nous vous contacterons rapidement pour discuter des détails et établir un devis personnalisé.</p>
+            <button id="closeNotification" class="w-full bg-basque-green hover:bg-basque-green/80 text-white font-medium py-2 px-4 rounded transition duration-300">
+                Fermer
             </button>
         </div>
     </div>
@@ -103,7 +104,6 @@
             <div class="mb-8">
                 <h3 class="text-lg font-semibold mb-4">Nos séances d'éducation en images</h3>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <!-- Exemple d'images - Remplacez par vos propres images -->
                     <div class="aspect-video rounded overflow-hidden">
                         <img src="images/training1.jpg" alt="Chien en formation" class="w-full h-full object-cover">
                     </div>
@@ -116,7 +116,7 @@
                 </div>
             </div>
             
-            <!-- Formulaire de réservation modifié pour la soumission AJAX -->
+            <!-- Formulaire de réservation -->
             <form id="reservationForm" class="space-y-6">
                 <h3 class="text-lg font-semibold">Formulaire de réservation</h3>
                 
@@ -291,89 +291,70 @@
         }
     });
     
-    // Nouvelle gestion de soumission du formulaire avec fetch API
+    // Gestion du formulaire de réservation
     document.getElementById('reservationForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const formData = new FormData(this);
-    
-    // Debug - Afficher l'URL et les données
-    console.log('URL utilisée:', scriptURL);
-    console.log('Données envoyées:', Object.fromEntries(formData));
-
+        e.preventDefault();
         
-        // Afficher l'indicateur de chargement
-        const submitButton = document.getElementById('submitButton');
-        const originalText = submitButton.innerHTML;
-        submitButton.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Traitement en cours...';
-        submitButton.disabled = true;
-        
-        // Collecter les données du formulaire
+        // Récupération des données du formulaire
         const formData = new FormData(this);
         
-        // URL de votre Google Apps Script
+        // URL de votre script Google Apps Script
         const scriptURL = 'https://script.google.com/macros/s/AKfycbz1LHrIKS9vyBtGP0jp1smlIdxRgIgpD26DHHU6NIYP7wKaez8jKYIMR0HWf2pYVkhyEg/exec';
         
-        // Envoyer les données via fetch
-        fetch(scriptURL, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            // Réinitialiser le bouton
-            submitButton.innerHTML = originalText;
-            submitButton.disabled = false;
+        try {
+            // Afficher un indicateur de chargement sur le bouton
+            const submitButton = document.getElementById('submitButton');
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.innerHTML = '<svg class="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Envoi en cours...';
+            submitButton.disabled = true;
             
-            if (response.ok) {
-                // Afficher le message de succès
-                document.getElementById('successMessage').classList.remove('hidden');
-                
-                // Faire défiler vers le haut de la page
-                window.scrollTo(0, 0);
-                
-                // Réinitialiser le formulaire
-                document.getElementById('reservationForm').reset();
-                
-                // Masquer le champ d'adresse client si visible
-                document.getElementById('clientLocationContainer').classList.add('hidden');
-            } else {
-                // Gérer l'erreur
-                alert('Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer.');
-            }
-        })
-        .catch(error => {
-            // Réinitialiser le bouton
-            submitButton.innerHTML = originalText;
-            submitButton.disabled = false;
+            // Envoi des données via fetch
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Afficher la notification de succès
+                    document.getElementById('successNotification').classList.remove('hidden');
+                    
+                    // Réinitialiser le formulaire
+                    document.getElementById('reservationForm').reset();
+                    
+                    // Masquer le champ d'adresse client si visible
+                    document.getElementById('clientLocationContainer').classList.add('hidden');
+                } else {
+                    throw new Error('Échec de l\'envoi du formulaire');
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                alert('Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer plus tard.');
+            })
+            .finally(() => {
+                // Restaurer le bouton
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
+            });
             
-            // Afficher l'erreur
+        } catch (error) {
             console.error('Erreur:', error);
-            alert('Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer.');
-        });
-    });
-    
-    // Fonction pour récupérer les paramètres de l'URL (gardée pour la compatibilité)
-    function getUrlParameter(name) {
-        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        var results = regex.exec(location.search);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-    }
-    
-    // Vérifier si le formulaire a été soumis avec succès via l'URL (pour la compatibilité)
-    window.addEventListener('DOMContentLoaded', function() {
-        const status = getUrlParameter('status');
-        if (status === 'success') {
-            // Afficher le message de succès
-            document.getElementById('successMessage').classList.remove('hidden');
-            
-            // Nettoyer l'URL pour éviter de réafficher le message lors des rafraîchissements
-            history.replaceState(null, document.title, window.location.pathname);
-            
-            // Faire défiler vers le haut de la page
-            window.scrollTo(0, 0);
+            alert('Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer plus tard.');
         }
     });
+
+    // Gestion de la notification de succès
+    document.getElementById('closeNotification').addEventListener('click', function() {
+        document.getElementById('successNotification').classList.add('hidden');
+    });
+
+    // Initialiser la date minimum à aujourd'hui
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const todayFormatted = `${yyyy}-${mm}-${dd}`;
+    document.getElementById('preferredDate').min = todayFormatted;
     </script>
 </body>
 </html>
