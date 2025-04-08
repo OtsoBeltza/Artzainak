@@ -4,6 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Réserver un cours - Artzainak</title>
+    
+    <!-- Métadonnées SEO -->
+    <meta name="description" content="Réservez votre cours d'éducation canine pour chien de troupeau au Pays Basque. Formations professionnelles, cours individuels ou en groupe avec un éducateur spécialisé.">
+    
+    <!-- Balises Open Graph pour les réseaux sociaux -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Réservation de cours - Artzainak">
+    <meta property="og:description" content="Réservez votre cours d'éducation canine pour chien de troupeau au Pays Basque. Formations professionnelles adaptées à tous les niveaux.">
+    <meta property="og:image" content="https://artzainak.netlify.app/images/og-image.jpg">
+    <meta property="og:url" content="https://artzainak.netlify.app/reservation.html">
+    <meta property="og:site_name" content="Artzainak">
+    
+    <!-- Balises de langue et canonical -->
+    <link rel="alternate" hreflang="fr" href="https://artzainak.netlify.app/reservation.html">
+    <link rel="canonical" href="https://artzainak.netlify.app/reservation.html">
+    
+    <!-- Google Tag Manager -->
+    <script src="js/marketing-tracking.js"></script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -25,6 +44,14 @@
         }
     </script>
     <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("gXAUQo9QLLKuoIzGC");
+        })();
+    </script>
     
     <!-- Styles pour forcer le mode sombre et améliorer l'interface -->
     <style>
@@ -177,6 +204,11 @@
     </style>
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen force-dark">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <!-- Header -->
     <header class="bg-primary p-4 text-white sticky top-0 z-10 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
@@ -193,6 +225,7 @@
                     <li><a href="index.html#services" class="hover:underline">Services</a></li>
                     <li><a href="reservation.html" class="hover:underline font-bold">Réserver</a></li>
                     <li><a href="location.html" class="hover:underline">Louer</a></li>
+                    <li><a href="ressources.html" class="hover:underline">Ressources</a></li>
                     <li><a href="contact.html" class="hover:underline">Contact</a></li>
                 </ul>
             </nav>
@@ -203,6 +236,7 @@
                 <li><a href="index.html#services" class="block hover:underline">Services</a></li>
                 <li><a href="reservation.html" class="block hover:underline font-bold">Réserver</a></li>
                 <li><a href="location.html" class="block hover:underline">Louer</a></li>
+                <li><a href="ressources.html" class="block hover:underline">Ressources</a></li>
                 <li><a href="contact.html" class="block hover:underline">Contact</a></li>
             </ul>
         </nav>
@@ -288,7 +322,7 @@
                 </div>
             </div>
             
-            <!-- Réservation de calendrier (CETTE SECTION VIENT MAINTENANT EN PREMIER) -->
+            <!-- Réservation de calendrier -->
             <div class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8" id="calendar-section">
                 <h2 class="text-xl font-semibold mb-4 text-center high-contrast">Étape 1 : Choisissez votre créneau</h2>
                 <p class="mb-4 text-center text-sm">Sélectionnez d'abord un créneau disponible puis remplissez le formulaire qui apparaîtra.</p>
@@ -362,8 +396,7 @@
                 <h2 class="text-xl font-semibold mb-4 high-contrast">Étape 2 : Informations sur votre chien</h2>
                 <p class="mb-4">Pour mieux comprendre vos besoins et ceux de votre chien, merci de remplir ce formulaire pour compléter votre réservation.</p>
                 
-                <!-- REMPLACER VOTRE_EMAIL@EXAMPLE.COM par votre adresse email réelle -->
-                <form id="preBookingForm" action="https://formspree.io/f/manelkoo" method="POST" class="space-y-4">
+                <form id="bookingForm" action="https://formspree.io/f/manelkoo" method="POST" class="space-y-4">
                     <!-- Champs cachés pour les informations de réservation -->
                     <input type="hidden" id="booking_type" name="booking_type">
                     <input type="hidden" id="booking_date" name="booking_date">
@@ -569,6 +602,7 @@
                     <div class="flex gap-4 justify-center md:justify-end mb-2">
                         <a href="reservation.html" class="text-white hover:text-primary transition duration-300">Réserver un cours</a>
                         <a href="location.html" class="text-white hover:text-basque-green transition duration-300">Louer des brebis</a>
+                        <a href="ressources.html" class="text-white hover:text-primary transition duration-300">Ressources</a>
                         <a href="contact.html" class="text-white hover:text-gray-300 transition duration-300">Contact</a>
                     </div>
                     <p>&copy; 2023 Artzainak. Tous droits réservés.</p>
@@ -580,11 +614,12 @@
     <!-- Script Cal.com -->
     <script src="https://app.cal.com/embed/embed.js"></script>
 
-    <!-- Chargement du script JavaScript séparé -->
-    <script src="js/reservation.js"></script>
+    <!-- Scripts personnalisés -->
+    <script src="js/script.js"></script>
     <script src="js/improved-cal.js"></script>
     <script src="js/email-notifications.js"></script>
     <script src="js/mobile-optimizations.js"></script>
+    <script src="js/performance-optimizations.js"></script>
     <script src="js/floating-cta.js"></script>
 </body>
 </html>
