@@ -134,6 +134,9 @@ function initializeCalendar() {
 
 // Gère les événements de Cal.com
 function handleCalendarEvents(e) {
+    // Afficher tous les messages reçus pour le débogage
+    console.log('Message reçu:', e.data);
+    
     // Vérifie si l'événement provient de Cal.com et si c'est une réservation réussie
     if (e.data && e.data.type === 'CAL:BOOKING_SUCCESSFUL') {
         try {
@@ -154,6 +157,14 @@ function handleCalendarEvents(e) {
             const bookingDate = bookingData.date ? formatDate(bookingData.date) : 'Date non spécifiée';
             const bookingTimeRaw = bookingData.startTime || '';
             const bookingTime = formatTime(bookingTimeRaw);
+            
+            // Afficher un débogage
+            console.log('Données formatées:', {
+                sessionType,
+                bookingDate,
+                bookingTime,
+                uid: bookingData.uid || ''
+            });
             
             // Remplir les champs du formulaire
             updateBookingFormFields(sessionType, bookingData.date || '', bookingTimeRaw, bookingData.uid || '');
