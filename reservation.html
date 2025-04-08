@@ -26,19 +26,15 @@
     </script>
     <link rel="stylesheet" href="css/styles.css">
     
+    <!-- Script Cal.com (tel que fourni initialement) -->
+    <script src="https://cal.com/embed.js"></script>
+    
     <!-- Styles pour forcer le mode sombre et améliorer l'interface -->
     <style>
         /* Force dark mode */
         .force-dark {
             background-color: #1a202c !important;
             color: #e2e8f0 !important;
-        }
-        
-        /* Style pour les iframes Cal.com */
-        .cal-iframe-container {
-            width: 100%;
-            min-height: 500px;
-            margin: 20px 0;
         }
         
         /* Animations de chargement */
@@ -188,7 +184,7 @@
                             <li>Progression plus rapide</li>
                             <li>Adaptée aux débutants</li>
                         </ul>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Prix : 60€ / séance</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Prix : 40€ / séance</p>
                     </div>
                     
                     <div class="bg-primary/5 dark:bg-primary/10 p-4 rounded-lg border border-primary/20">
@@ -199,7 +195,7 @@
                             <li>Apprentissage par observation</li>
                             <li>Socialisation avec d'autres chiens</li>
                         </ul>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Prix : 90€ / séance</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Prix : 120€ / séance</p>
                     </div>
                 </div>
             </div>
@@ -300,51 +296,23 @@
                 <div class="session-tabs">
                     <button id="tab-individual" class="session-tab active">
                         <span class="block text-lg">Séance individuelle</span>
-                        <span class="text-xs opacity-80">1 heure</span>
+                        <span class="text-xs opacity-80">1 heure - 40€</span>
                     </button>
                     <button id="tab-group" class="session-tab">
                         <span class="block text-lg">Séance en groupe</span>
-                        <span class="text-xs opacity-80">3 heures</span>
+                        <span class="text-xs opacity-80">3 heures - 120€</span>
                     </button>
                 </div>
                 
                 <!-- Calendriers -->
                 <div id="content-individual" class="py-4">
-                    <!-- Cal.com remplacé par iframe direct -->
-                    <div class="cal-iframe-container" id="individual-calendar-container">
-                        <div class="flex justify-center items-center my-8">
-                            <div class="loading-spinner"></div>
-                            <p class="ml-4">Chargement du calendrier...</p>
-                        </div>
-                        <iframe 
-                            id="individual-calendar-iframe"
-                            src="https://cal.com/les-drailles-aux-loups-4pvzck/seance-d-une-heure?embed=true&theme=dark" 
-                            style="width:100%; height:600px; border:none;" 
-                            frameborder="0"
-                            allow="camera; microphone; autoplay; fullscreen"
-                            loading="lazy"
-                            class="hidden">
-                        </iframe>
-                    </div>
+                    <!-- Cal.com pour séance individuelle -->
+                    <div id="cal-booking-individual"></div>
                 </div>
                 
                 <div id="content-group" class="py-4 hidden">
-                    <!-- Cal.com remplacé par iframe direct -->
-                    <div class="cal-iframe-container" id="group-calendar-container">
-                        <div class="flex justify-center items-center my-8">
-                            <div class="loading-spinner"></div>
-                            <p class="ml-4">Chargement du calendrier...</p>
-                        </div>
-                        <iframe 
-                            id="group-calendar-iframe"
-                            src="https://cal.com/les-drailles-aux-loups-4pvzck/seance-de-groupe-3h?embed=true&theme=dark" 
-                            style="width:100%; height:600px; border:none;" 
-                            frameborder="0"
-                            allow="camera; microphone; autoplay; fullscreen"
-                            loading="lazy"
-                            class="hidden">
-                        </iframe>
-                    </div>
+                    <!-- Cal.com pour séance de groupe -->
+                    <div id="cal-booking-group"></div>
                 </div>
             </div>
             
@@ -361,7 +329,7 @@
                             </svg>
                         </button>
                         <div class="faq-content hidden p-3 pt-0">
-                            <p>Pour votre première séance, apportez une laisse solide, de l'eau pour votre chien et des vêtements adaptés à l'extérieur.</p>
+                            <p>Pour votre première séance, apportez le carnet de santé, une laisse solide, de l'eau pour votre chien et des vêtements adaptés à l'extérieur.</p>
                         </div>
                     </div>
                     
@@ -418,10 +386,10 @@
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
     <script>
-    // Initialiser EmailJS
+    // Initialiser EmailJS avec les identifiants corrects
     (function() {
-        // Remplacez "YOUR_USER_ID" par votre identifiant EmailJS
-        emailjs.init("gXAUQo9QLLKuoIzGC");
+        // Les identifiants Email.js à remplacer
+        emailjs.init("gXAUQo9QLLKuoIzGC"); // Exemple d'ID - à remplacer par le vôtre
     })();
     
     // Toggle menu pour mobile
@@ -429,6 +397,12 @@
         document.getElementById('mobileNav').classList.toggle('hidden');
     });
     
+    // Force le mode sombre
+    function enableDarkMode() {
+        document.documentElement.classList.add('dark');
+        document.body.classList.add('force-dark');
+    }
+
     // Gestion des onglets de réservation
     document.getElementById('tab-individual').addEventListener('click', function() {
         // Mise à jour des classes pour les onglets
@@ -438,9 +412,6 @@
         // Affichage du contenu
         document.getElementById('content-individual').classList.remove('hidden');
         document.getElementById('content-group').classList.add('hidden');
-        
-        // Afficher l'iframe après un court délai (si pas déjà fait)
-        showCalendarIframe('individual');
     });
     
     document.getElementById('tab-group').addEventListener('click', function() {
@@ -451,25 +422,138 @@
         // Affichage du contenu
         document.getElementById('content-group').classList.remove('hidden');
         document.getElementById('content-individual').classList.add('hidden');
-        
-        // Afficher l'iframe après un court délai (si pas déjà fait)
-        showCalendarIframe('group');
     });
     
-    // Fonction pour afficher les iframes de calendrier
-    function showCalendarIframe(type) {
-        setTimeout(function() {
-            document.getElementById(type + '-calendar-iframe').classList.remove('hidden');
-            document.getElementById(type + '-calendar-container').querySelector('.flex').classList.add('hidden');
-        }, 1000);
+    // FAQ toggles
+    document.querySelectorAll('.faq-toggle').forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            const icon = this.querySelector('svg');
+            
+            // Toggle content visibility
+            content.classList.toggle('hidden');
+            
+            // Rotate icon
+            if (content.classList.contains('hidden')) {
+                icon.classList.remove('rotate-180');
+            } else {
+                icon.classList.add('rotate-180');
+            }
+        });
+    });
+    
+    // Gestion du formulaire
+    document.getElementById('preBookingForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Récupérer les données du formulaire
+        const formData = {
+            ownerName: document.getElementById('ownerName').value,
+            ownerEmail: document.getElementById('ownerEmail').value,
+            dogName: document.getElementById('dogName').value,
+            dogBreed: document.getElementById('dogBreed').value,
+            dogAge: document.getElementById('dogAge').value,
+            experience: document.getElementById('experience').options[document.getElementById('experience').selectedIndex].text,
+            problems: document.getElementById('problems').value,
+            objectives: document.getElementById('objectives').value
+        };
+        
+        // Préparation pour EmailJS
+        const templateParams = {
+            owner_name: formData.ownerName,
+            owner_email: formData.ownerEmail,
+            dog_name: formData.dogName,
+            dog_breed: formData.dogBreed,
+            dog_age: formData.dogAge,
+            experience: formData.experience,
+            problems: formData.problems,
+            objectives: formData.objectives
+        };
+        
+        // Envoi du formulaire via EmailJS avec les IDs corrects
+        emailjs.send('service_ucp821f', 'template-mfsiq3i', templateParams)
+            .then(function(response) {
+                // Afficher le message de confirmation
+                document.getElementById('preBookingForm').classList.add('hidden');
+                document.getElementById('formConfirmation').classList.remove('hidden');
+                
+                // Faire défiler jusqu'à la section de calendrier
+                document.getElementById('calendar-section').scrollIntoView({ behavior: 'smooth' });
+                
+                // Envoi d'une copie au client
+                sendConfirmationEmail(formData);
+                
+                console.log('Formulaire envoyé!', response.status, response.text);
+            }, function(error) {
+                // Gestion des erreurs
+                alert('Oups! Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer ou nous contacter directement.');
+                console.log('Erreur:', error);
+            });
+    });
+    
+    // Fonction pour envoyer un email de confirmation au client
+    function sendConfirmationEmail(formData) {
+        // Préparer les paramètres pour l'email de confirmation
+        const confirmParams = {
+            to_email: formData.ownerEmail,
+            to_name: formData.ownerName,
+            dog_name: formData.dogName,
+            dog_breed: formData.dogBreed,
+            dog_age: formData.dogAge,
+            experience: formData.experience
+        };
+        
+        // Envoyer l'email de confirmation avec les IDs corrects
+        emailjs.send('service_ucp821f', 'template-ptck188', confirmParams)
+            .then(function(response) {
+                console.log('Email de confirmation envoyé!', response.status);
+            }, function(error) {
+                console.log('Erreur lors de l\'envoi de la confirmation:', error);
+            });
     }
     
-    // Afficher les iframes des calendriers au chargement de la page
+    // Initialisation de Cal.com
     document.addEventListener('DOMContentLoaded', function() {
-        // Initier le chargement des deux calendriers
-        showCalendarIframe('individual');
-        // Le calendrier de groupe sera chargé lors du clic sur l'onglet
-        
-        // Force le mode sombre
+        // Activer le mode sombre
         enableDarkMode();
+        
+        // Initialiser Cal.com avec votre API key
+        Cal("init", {
+            api_key: "cal_live_5a57d69478f4f90d53cca6661befa740"
+        });
+        
+        // Cal.com pour séance individuelle
+        Cal("inline", {
+            elementId: "cal-booking-individual",
+            calLink: "les-drailles-aux-loups-4pvzck/seance-d-une-heure",
+            config: {
+                theme: "dark",
+                hideEventTypeDetails: false,
+                layout: "month_view",
+                styles: {
+                    branding: {
+                        brandColor: "#5D5CDE"
+                    }
+                }
+            }
+        });
+        
+        // Cal.com pour séance de groupe
+        Cal("inline", {
+            elementId: "cal-booking-group",
+            calLink: "les-drailles-aux-loups-4pvzck/seance-de-groupe-3h",
+            config: {
+                theme: "dark",
+                hideEventTypeDetails: false,
+                layout: "month_view",
+                styles: {
+                    branding: {
+                        brandColor: "#5D5CDE"
+                    }
+                }
+            }
+        });
     });
+    </script>
+</body>
+</html>
