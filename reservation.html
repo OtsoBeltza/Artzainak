@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,10 +26,38 @@
     </script>
     <link rel="stylesheet" href="css/styles.css">
     
-    <!-- Script Cal.com -->
-    <script src="https://cal.com/embed.js"></script>
+    <!-- Styles pour forcer le mode sombre -->
+    <style>
+        /* Force dark mode */
+        .force-dark {
+            background-color: #1a202c !important;
+            color: #e2e8f0 !important;
+        }
+        
+        /* Style pour les iframes Cal.com */
+        .cal-iframe-container {
+            width: 100%;
+            min-height: 500px;
+            margin: 20px 0;
+        }
+        
+        /* Animations de chargement */
+        .loading-spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(93, 92, 222, 0.3);
+            border-radius: 50%;
+            border-top-color: #5D5CDE;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
 </head>
-<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen force-dark">
     <!-- Header -->
     <header class="bg-primary p-4 text-white sticky top-0 z-10 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
@@ -192,8 +220,22 @@
                             <p class="text-sm"><strong>Idéal pour :</strong> Les chiens débutants, les comportements spécifiques à corriger, ou une attention personnalisée.</p>
                         </div>
                         
-                        <!-- Cal.com pour séance individuelle -->
-                        <div id="cal-booking-individual"></div>
+                        <!-- Cal.com remplacé par iframe direct -->
+                        <div class="cal-iframe-container" id="individual-calendar-container">
+                            <div class="flex justify-center items-center my-8">
+                                <div class="loading-spinner"></div>
+                                <p class="ml-4">Chargement du calendrier...</p>
+                            </div>
+                            <iframe 
+                                id="individual-calendar-iframe"
+                                src="https://cal.com/les-drailles-aux-loups-4pvzck/seance-d-une-heure?embed=true&theme=dark" 
+                                style="width:100%; height:600px; border:none;" 
+                                frameborder="0"
+                                allow="camera; microphone; autoplay; fullscreen"
+                                loading="lazy"
+                                class="hidden">
+                            </iframe>
+                        </div>
                     </div>
                     
                     <div id="content-group" class="py-4 hidden">
@@ -203,8 +245,22 @@
                             <p class="text-sm"><strong>Idéal pour :</strong> Les chiens ayant déjà des notions de base, l'apprentissage par observation, et le travail en environnement distrayant.</p>
                         </div>
                         
-                        <!-- Cal.com pour séance de groupe -->
-                        <div id="cal-booking-group"></div>
+                        <!-- Cal.com remplacé par iframe direct -->
+                        <div class="cal-iframe-container" id="group-calendar-container">
+                            <div class="flex justify-center items-center my-8">
+                                <div class="loading-spinner"></div>
+                                <p class="ml-4">Chargement du calendrier...</p>
+                            </div>
+                            <iframe 
+                                id="group-calendar-iframe"
+                                src="https://cal.com/les-drailles-aux-loups-4pvzck/seance-de-groupe-3h?embed=true&theme=dark" 
+                                style="width:100%; height:600px; border:none;" 
+                                frameborder="0"
+                                allow="camera; microphone; autoplay; fullscreen"
+                                loading="lazy"
+                                class="hidden">
+                            </iframe>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -299,6 +355,17 @@
         
         // Faire défiler jusqu'au calendrier
         document.getElementById('bookingSection').scrollIntoView({ behavior: 'smooth' });
+        
+        // Afficher les iframes après un court délai pour permettre leur chargement
+        setTimeout(function() {
+            // Afficher l'iframe individuel et masquer le spinner
+            document.getElementById('individual-calendar-iframe').classList.remove('hidden');
+            document.getElementById('individual-calendar-container').querySelector('.flex').classList.add('hidden');
+            
+            // Préparer l'iframe de groupe (sera affiché lors du clic sur l'onglet)
+            document.getElementById('group-calendar-iframe').classList.remove('hidden');
+            document.getElementById('group-calendar-container').querySelector('.flex').classList.add('hidden');
+        }, 2000);
     });
     
     // Tabs pour les types de séances
@@ -336,57 +403,41 @@
         });
     });
     
-    // Initialiser Cal.com après que la page soit complètement chargée
-    document.addEventListener('DOMContentLoaded', function() {
-        // Vérifier si Cal.com est chargé
-        if (typeof Cal !== 'undefined') {
-            initCalendar();
-        } else {
-            // Attendre que Cal.com soit chargé
-            window.addEventListener('CalEmbed', function() {
-                initCalendar();
-            });
-        }
+    // Gestion des événements d'erreur pour les iframes
+    document.getElementById('individual-calendar-iframe').addEventListener('error', function() {
+        handleIframeError('individual-calendar-container');
     });
     
-    function initCalendar() {
-        // Initialiser Cal.com
-        Cal("init", {
-            api_key: "cal_live_5a57d69478f4f90d53cca6661befa740"
-        });
+    document.getElementById('group-calendar-iframe').addEventListener('error', function() {
+        handleIframeError('group-calendar-container');
+    });
+    
+    function handleIframeError(containerId) {
+        const container = document.getElementById(containerId);
+        container.querySelector('.flex').classList.add('hidden');
         
-        // Cal.com pour séance individuelle
-        Cal("inline", {
-            elementId: "cal-booking-individual",
-            calLink: "https://cal.com/les-drailles-aux-loups-4pvzck/seance-d-une-heure", // Remplacez par votre lien d'événement
-            config: {
-                theme: "dark", // Thème adapté au mode sombre
-                hideEventTypeDetails: false,
-                layout: "month_view",
-                styles: {
-                    branding: {
-                        brandColor: "#5D5CDE"
-                    }
-                }
-            }
-        });
-        
-        // Cal.com pour séance de groupe
-        Cal("inline", {
-            elementId: "cal-booking-group",
-            calLink: "https://cal.com/les-drailles-aux-loups-4pvzck/seance-de-groupe-3h", // Remplacez par votre lien d'événement
-            config: {
-                theme: "dark", // Thème adapté au mode sombre
-                hideEventTypeDetails: false,
-                layout: "month_view",
-                styles: {
-                    branding: {
-                        brandColor: "#5D5CDE"
-                    }
-                }
-            }
-        });
+        // Afficher un message d'erreur
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'p-4 bg-red-100 dark:bg-red-900/30 rounded-lg text-center';
+        errorDiv.innerHTML = `
+            <p class="mb-2"><strong>Impossible de charger le calendrier</strong></p>
+            <p>Veuillez contacter directement Charles Pierot pour réserver votre séance :</p>
+            <a href="tel:+33612345678" class="text-primary hover:underline block mt-2">+33 6 12 34 56 78</a>
+            <a href="mailto:contact@artzainak.fr" class="text-primary hover:underline block mt-2">contact@artzainak.fr</a>
+        `;
+        container.appendChild(errorDiv);
     }
+    
+    // Force le mode sombre
+    function enableDarkMode() {
+        document.documentElement.classList.add('dark');
+        document.body.classList.add('force-dark');
+    }
+    
+    // Appliquer le mode sombre au chargement
+    window.addEventListener('DOMContentLoaded', function() {
+        enableDarkMode();
+    });
     </script>
 </body>
-</html>
+</html
