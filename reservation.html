@@ -204,12 +204,16 @@
                 </div>
             </div>
             
-            <!-- Questionnaire préalable -->
+            <!-- Questionnaire préalable avec Formspree -->
             <div class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
                 <h2 class="text-xl font-semibold mb-4">Informations sur votre chien</h2>
                 <p class="mb-4">Pour mieux comprendre vos besoins et ceux de votre chien, merci de remplir ce questionnaire avant votre réservation.</p>
                 
-                <form id="preBookingForm" class="space-y-4">
+                <!-- REMPLACER VOTRE_EMAIL@EXAMPLE.COM par votre adresse email réelle -->
+                <form id="preBookingForm" action="https://formspree.io/f/manelkoo" method="POST" class="space-y-4">
+                    <!-- Champ caché pour redirection après soumission -->
+                    <input type="hidden" name="_next" value="https://artzainak.netlify.app/reservation.html#calendar-section">
+                    
                     <!-- Informations sur le propriétaire -->
                     <div class="p-4 bg-gray-100 dark:bg-gray-700 rounded-lg mb-4">
                         <h3 class="font-medium mb-3 text-primary">Vos coordonnées</h3>
@@ -282,7 +286,7 @@
                     </div>
                 </form>
                 
-                <!-- Message de confirmation caché -->
+                <!-- Message de confirmation caché - Sera géré par JavaScript -->
                 <div id="formConfirmation" class="hidden bg-green-100 dark:bg-green-900/30 p-4 rounded-lg mt-4 text-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-2 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -308,11 +312,11 @@
                     </button>
                 </div>
                 
-                <!-- Calendriers - Utilisation d'iframes au lieu de Cal.com -->
+                <!-- Calendriers Cal.com en français -->
                 <div id="content-individual" class="py-4">
                     <div class="cal-iframe-container">
                         <iframe 
-                            src="https://cal.com/les-drailles-aux-loups-4pvzck/seance-d-une-heure?embed=true&theme=dark" 
+                            src="https://cal.com/les-drailles-aux-loups-4pvzck/seance-d-une-heure?embed=true&theme=dark&lang=fr" 
                             width="100%" 
                             height="600" 
                             frameborder="0"
@@ -324,7 +328,7 @@
                 <div id="content-group" class="py-4 hidden">
                     <div class="cal-iframe-container">
                         <iframe 
-                            src="https://cal.com/les-drailles-aux-loups-4pvzck/seance-de-groupe-3h?embed=true&theme=dark" 
+                            src="https://cal.com/les-drailles-aux-loups-4pvzck/seance-de-groupe-3h?embed=true&theme=dark&lang=fr" 
                             width="100%" 
                             height="600" 
                             frameborder="0"
@@ -400,16 +404,7 @@
         </div>
     </footer>
 
-    <!-- Email.js pour l'envoi de formulaire -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
     <script>
-    // Initialiser EmailJS avec les identifiants corrects
-    (function() {
-        // Votre User ID EmailJS
-        emailjs.init('gXAUQo9QLLKuoIzGC');
-    })();
-    
     // Toggle menu pour mobile
     document.getElementById('menuToggle').addEventListener('click', function() {
         document.getElementById('mobileNav').classList.toggle('hidden');
@@ -460,51 +455,43 @@
         });
     });
     
-// Gestion du formulaire
-document.getElementById('preBookingForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Désactiver le bouton et montrer que l'envoi est en cours
-    const submitBtn = document.getElementById('submitFormBtn');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Envoi en cours...';
-    
-    // Récupérer les données de façon sécurisée
-    const formData = {
-        owner_name: document.getElementById('ownerName').value || '',
-        owner_email: document.getElementById('ownerEmail').value || '',
-        dog_name: document.getElementById('dogName').value || '',
-        dog_breed: document.getElementById('dogBreed').value || '',
-        dog_age: document.getElementById('dogAge').value ? document.getElementById('dogAge').value.toString() : '',
-        experience: document.getElementById('experience').value || '',
-        problems: document.getElementById('problems').value || '',
-        objectives: document.getElementById('objectives').value || ''
-    };
-    
-    // Envoi du formulaire via EmailJS
-    emailjs.send('default_service', 'template_mfsiq3i', formData)
-        .then(function(response) {
-            // Afficher le message de confirmation
-            document.getElementById('preBookingForm').classList.add('hidden');
-            document.getElementById('formConfirmation').classList.remove('hidden');
-            document.getElementById('calendar-section').scrollIntoView({ behavior: 'smooth' });
-            console.log('Formulaire envoyé!', response.status, response.text);
-        }, function(error) {
-            alert('Oups! Une erreur est survenue. Veuillez réessayer ou nous contacter directement.');
-            console.log('Erreur:', error);
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Enregistrer mes informations';
-        });
-    
-    // Sauvegarde dans localStorage pour référence future
-    localStorage.setItem('ownerInfo', JSON.stringify(formData));
-    console.log('Informations sauvegardées localement:', formData);
-});
-
-    // Activer le mode sombre au chargement de la page
-    document.addEventListener('DOMContentLoaded', function() {
-        enableDarkMode();
+    // Gestion du formulaire Formspree avec sauvegarde locale
+    document.getElementById('preBookingForm').addEventListener('submit', function(e) {
+        // Ne pas empêcher la soumission, Formspree s'en occupera
+        // e.preventDefault();
+        
+        // Sauvegarde dans localStorage pour référence future
+        const formData = {
+            ownerName: document.getElementById('ownerName').value,
+            ownerEmail: document.getElementById('ownerEmail').value,
+            dogName: document.getElementById('dogName').value,
+            dogBreed: document.getElementById('dogBreed').value,
+            dogAge: document.getElementById('dogAge').value,
+            experience: document.getElementById('experience').value,
+            problems: document.getElementById('problems').value,
+            objectives: document.getElementById('objectives').value
+        };
+        localStorage.setItem('ownerInfo', JSON.stringify(formData));
+        console.log('Informations sauvegardées localement:', formData);
     });
-    </script>
+
+// Vérifier si on revient d'une soumission de formulaire
+    document.addEventListener('DOMContentLoaded', function() {
+        // Activer le mode sombre
+        enableDarkMode();
+        
+        // Vérifier si nous venons d'une soumission de formulaire (via l'ancre dans l'URL)
+        if (window.location.hash === '#calendar-section') {
+            // Cacher le formulaire et afficher le message de confirmation
+            if (document.getElementById('preBookingForm') && localStorage.getItem('ownerInfo')) {
+                document.getElementById('preBookingForm').classList.add('hidden');
+                document.getElementById('formConfirmation').classList.remove('hidden');
+            }
+            
+            // Faire défiler jusqu'à la section de calendrier
+            document.getElementById('calendar-section').scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+</script>
 </body>
 </html>
