@@ -34,9 +34,6 @@ function initializeEventListeners() {
     document.getElementById('privacy-link').addEventListener('click', showPrivacyModal);
     document.getElementById('close-privacy').addEventListener('click', hidePrivacyModal);
     document.getElementById('privacy-modal').addEventListener('click', handleModalOutsideClick);
-    
-    // Gestion du formulaire
-    document.getElementById('preBookingForm').addEventListener('submit', handleFormSubmit);
 }
 
 // Fonctions de base pour l'interface utilisateur
@@ -154,174 +151,79 @@ function handleCalendarEvents(e) {
             }
             
             // Vérifiez si les propriétés nécessaires existent
-            const bookingDate = bookingData.date ? formatDate(bookingData.date) : 'Date non spécifiée';
-            const bookingTimeRaw = bookingData.startTime || '';
-            const bookingTime = formatTime(bookingTimeRaw);
+            const bookingDate = bookingData.date || '';
+            const bookingTime = bookingData.startTime || '';
+            const bookingId = bookingData.uid || '';
             
-            // Afficher un débogage
+            // Afficher les informations de débogage
             console.log('Données formatées:', {
                 sessionType,
                 bookingDate,
                 bookingTime,
-                uid: bookingData.uid || ''
+                bookingId
             });
             
-            // Remplir les champs du formulaire
-            updateBookingFormFields(sessionType, bookingData.date || '', bookingTimeRaw, bookingData.uid || '');
+            // Sauvegarder les données de réservation dans localStorage
+            saveBookingData(sessionType, bookingDate, bookingTime, bookingId);
             
-            // Mettre à jour le récapitulatif visible
-            updateBookingSummary(sessionType, bookingDate, bookingTime);
+            // Rediriger vers la page du formulaire avec les paramètres dans l'URL
+            redirectToFormPage(sessionType, bookingDate, bookingTime, bookingId);
             
-            // Afficher le formulaire et la notification
-            showBookingForm();
-            showBookingNotification(sessionType, bookingDate, bookingTime);
         } catch (error) {
             console.error('Erreur lors du traitement des données de réservation:', error);
+            // En cas d'erreur, rediriger quand même mais avec un message d'erreur
+            window.location.href = 'reservation-form.html?error=true';
         }
     }
 }
 
-// Met à jour les champs cachés du formulaire
-function updateBookingFormFields(type, date, time, uid) {
-    document.getElementById('booking_type').value = type;
-    document.getElementById('booking_date').value = date;
-    document.getElementById('booking_time').value = time;
-    document.getElementById('booking_id').value = uid;
-}
-
-// Met à jour le récapitulatif visible
-function updateBookingSummary(type, date, time) {
-    document.getElementById('summary_type').textContent = type;
-    document.getElementById('summary_date').textContent = date;
-    document.getElementById('summary_time').textContent = time;
-}
-
-// Affiche le formulaire de réservation
-function showBookingForm() {
-    const formSection = document.getElementById('booking-form-section');
-    formSection.classList.remove('hidden');
-    formSection.scrollIntoView({ behavior: 'smooth' });
-}
-
-// Affiche la notification de réservation
-function showBookingNotification(type, date, time) {
-    const notification = document.getElementById('booking-notification');
-    const details = document.getElementById('booking-details');
-    
-    details.textContent = `${type} réservée le ${date} à ${time}. Veuillez compléter votre réservation ci-dessous.`;
-    notification.classList.add('show');
-    
-    // Masquer après 6 secondes
-    setTimeout(() => {
-        notification.classList.remove('show');
-    }, 6000);
-}
-
-// Gère la soumission du formulaire
-function handleFormSubmit(e) {
-    e.preventDefault();
-    
-    // Récupération du bouton
-    const submitButton = document.getElementById('submitFormBtn');
-    const originalText = submitButton.innerHTML;
-    
-    // Affiche le loader
-    submitButton.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-5 w-5 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Traitement en cours...';
-    submitButton.disabled = true;
-    
-    // Sauvegarde des données dans localStorage
-    saveFormDataToLocalStorage();
-    
-    // Construction des données à envoyer
-    const formData = new FormData(this);
-    
-    // Envoi des données à Formspree
-    fetch(this.action, {
-        method: this.method,
-        body: formData,
-        headers: {
-            'Accept': 'application/json'
-        },
-        mode: 'cors' // Assure que les requêtes cross-origin sont bien gérées
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error(`Erreur ${response.status}: ${response.statusText}`);
-        }
-    })
-    .then(data => {
-        console.log('Succès:', data);
-        showFormConfirmation();
-    })
-    .catch(error => {
-        console.error('Erreur:', error);
-        
-        // Si Formspree échoue, tentative avec l'approche no-cors
-        return fetchWithNoCors(this.action, formData)
-            .then(() => {
-                showFormConfirmation();
-            })
-            .catch(fallbackError => {
-                console.error('Erreur avec approche de secours:', fallbackError);
-                alert('Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer ou nous contacter directement.');
-                
-                // Réinitialiser le bouton
-                submitButton.innerHTML = originalText;
-                submitButton.disabled = false;
-            });
-    });
-}
-
-// Sauvegarde les données du formulaire dans localStorage
-function saveFormDataToLocalStorage() {
-    const formData = {
-        ownerName: document.getElementById('ownerName').value,
-        ownerEmail: document.getElementById('ownerEmail').value,
-        ownerPhone: document.getElementById('ownerPhone').value,
-        dogName: document.getElementById('dogName').value,
-        dogBreed: document.getElementById('dogBreed').value,
-        dogAge: document.getElementById('dogAge').value,
-        experience: document.getElementById('experience').value,
-        problems: document.getElementById('problems').value,
-        objectives: document.getElementById('objectives').value,
-        bookingType: document.getElementById('booking_type').value,
-        bookingDate: document.getElementById('booking_date').value,
-        bookingTime: document.getElementById('booking_time').value,
-        bookingId: document.getElementById('booking_id').value
+// Fonction pour sauvegarder les données de réservation
+function saveBookingData(type, date, time, id) {
+    const bookingData = {
+        type: type,
+        date: date,
+        time: time,
+        id: id,
+        timestamp: new Date().toISOString()
     };
     
-    localStorage.setItem('artzainak_booking', JSON.stringify(formData));
-    console.log('Informations sauvegardées localement:', formData);
+    localStorage.setItem('artzainak_booking_data', JSON.stringify(bookingData));
+    console.log('Données de réservation sauvegardées:', bookingData);
 }
 
-// Tente d'envoyer avec l'approche no-cors comme solution de secours
-function fetchWithNoCors(url, formData) {
-    // Convertir FormData en URLSearchParams
+// Fonction pour rediriger vers la page du formulaire
+function redirectToFormPage(type, date, time, id) {
+    // Encoder les paramètres pour l'URL
     const params = new URLSearchParams();
-    for (const [key, value] of formData.entries()) {
-        params.append(key, value);
-    }
+    params.append('type', encodeURIComponent(type));
+    params.append('date', encodeURIComponent(date));
+    params.append('time', encodeURIComponent(time));
+    params.append('id', encodeURIComponent(id));
     
-    return fetch(url, {
-        method: 'POST',
-        mode: 'no-cors', // Important pour les requêtes cross-origin sans CORS
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: params.toString()
-    });
+    // Rediriger vers la page du formulaire avec les paramètres
+    window.location.href = `reservation-form.html?${params.toString()}`;
 }
 
-// Affiche la confirmation après soumission du formulaire
-function showFormConfirmation() {
-    // Cacher le formulaire
-    document.getElementById('preBookingForm').style.display = 'none';
-    
-    // Montrer la confirmation
-    document.getElementById('formConfirmation').classList.remove('hidden');
-    
-    // Réinitialiser le formulaire en arrière-plan
-    document.getElementById('preBookingForm').reset();
-}
+// Ajouter un bouton de secours après 3 secondes
+setTimeout(function() {
+    const calendarSection = document.getElementById('calendar-section');
+    if (calendarSection) {
+        // Créer un bouton d'aide
+        const helpDiv = document.createElement('div');
+        helpDiv.className = 'mt-6 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-center';
+        helpDiv.innerHTML = `
+            <p class="mb-3">Vous avez déjà reçu une confirmation par email mais le formulaire ne s'affiche pas ?</p>
+            <button id="manual-redirect-btn" class="bg-basque-green hover:bg-basque-green/80 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
+                Accéder au formulaire de renseignements
+            </button>
+        `;
+        
+        // Ajouter le bouton au conteneur
+        calendarSection.appendChild(helpDiv);
+        
+        // Ajouter l'écouteur d'événement
+        document.getElementById('manual-redirect-btn').addEventListener('click', function() {
+            window.location.href = 'reservation-form.html';
+        });
+    }
+}, 3000);
