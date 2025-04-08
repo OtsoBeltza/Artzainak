@@ -39,6 +39,7 @@
             width: 100%;
             min-height: 500px;
             margin: 20px 0;
+            position: relative;
         }
         
         /* Animations de chargement */
@@ -50,6 +51,22 @@
             border-radius: 50%;
             border-top-color: #5D5CDE;
             animation: spin 1s ease-in-out infinite;
+        }
+
+        .iframe-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(26, 32, 44, 0.7);
+            z-index: 10;
+            border-radius: 0.5rem;
+            transition: opacity 0.3s ease;
         }
         
         /* Style amélioré pour les onglets */
@@ -86,9 +103,76 @@
             background-color: #4a5568;
             color: white;
         }
+
+        /* Notification de réservation */
+        .booking-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #5D5CDE;
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transform: translateX(120%);
+            transition: transform 0.3s ease-out;
+            max-width: 350px;
+        }
+        
+        .booking-notification.show {
+            transform: translateX(0);
+        }
+
+        /* Amélioration de l'accessibilité et du contraste */
+        .high-contrast {
+            color: #ffffff !important;
+        }
+
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .form-required::after {
+            content: "*";
+            color: #DC3545;
+            margin-left: 4px;
+        }
         
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+
+        /* Animation d'apparition */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Optimisation mobile */
+        @media (max-width: 640px) {
+            .cal-iframe-container {
+                min-height: 600px; /* Plus d'espace sur mobile */
+            }
+            
+            .session-tab {
+                padding: 0.5rem 0.25rem;
+            }
+            
+            .session-tab span {
+                font-size: 0.875rem;
+            }
+            
+            .session-tab span.text-xs {
+                font-size: 0.75rem;
+            }
         }
     </style>
 </head>
@@ -98,7 +182,7 @@
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html" class="text-xl font-bold">ARTZAINAK</a>
             <p class="text-sm hidden sm:block">Éducation de chiens de troupeau au Pays Basque</p>
-            <button id="menuToggle" class="md:hidden focus:outline-none">
+            <button id="menuToggle" class="md:hidden focus:outline-none" aria-label="Menu principal" aria-expanded="false" aria-controls="mobileNav">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
@@ -127,7 +211,7 @@
     <!-- Page Title -->
     <div class="bg-primary/10 dark:bg-primary/20 py-6">
         <div class="container mx-auto px-4">
-            <h1 class="text-3xl font-bold text-center">Réservation de cours d'éducation canine</h1>
+            <h1 class="text-3xl font-bold text-center high-contrast">Réservation de cours d'éducation canine</h1>
         </div>
     </div>
 
@@ -139,7 +223,7 @@
                 <div class="flex items-center space-x-4 mb-4">
                     <img src="images/profile.jpg" alt="Charles Pierot" class="w-16 h-16 rounded-full object-cover" onerror="this.src='https://via.placeholder.com/64?text=CP'">
                     <div>
-                        <h4 class="font-medium">Charles Pierot</h4>
+                        <h4 class="font-medium high-contrast">Charles Pierot</h4>
                         <p class="text-sm">Berger et éducateur canin spécialisé en chiens de troupeau au Pays Basque</p>
                     </div>
                 </div>
@@ -177,7 +261,7 @@
             
             <!-- Choix des types de séances avec descriptions -->
             <div class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
-                <h2 class="text-xl font-semibold mb-4 text-center">Nos formules</h2>
+                <h2 class="text-xl font-semibold mb-4 text-center high-contrast">Nos formules</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="bg-primary/5 dark:bg-primary/10 p-4 rounded-lg border border-primary/20">
@@ -188,7 +272,7 @@
                             <li>Progression plus rapide</li>
                             <li>Adaptée aux débutants</li>
                         </ul>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Prix : 40€ / séance</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 font-medium">Prix : 40€ / séance</p>
                     </div>
                     
                     <div class="bg-primary/5 dark:bg-primary/10 p-4 rounded-lg border border-primary/20">
@@ -199,35 +283,122 @@
                             <li>Apprentissage par observation</li>
                             <li>Socialisation avec d'autres chiens</li>
                         </ul>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Prix : 120€ / séance</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 font-medium">Prix : 120€ / séance</p>
                     </div>
                 </div>
             </div>
             
-            <!-- Questionnaire préalable avec Formspree -->
-            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
-                <h2 class="text-xl font-semibold mb-4">Informations sur votre chien</h2>
-                <p class="mb-4">Pour mieux comprendre vos besoins et ceux de votre chien, merci de remplir ce questionnaire avant votre réservation.</p>
+            <!-- Réservation de calendrier (CETTE SECTION VIENT MAINTENANT EN PREMIER) -->
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8" id="calendar-section">
+                <h2 class="text-xl font-semibold mb-4 text-center high-contrast">Étape 1 : Choisissez votre créneau</h2>
+                <p class="mb-4 text-center text-sm">Sélectionnez d'abord un créneau disponible puis remplissez le formulaire qui apparaîtra.</p>
+                
+                <div class="session-tabs" role="tablist" aria-label="Types de séances">
+                    <button id="tab-individual" class="session-tab active" role="tab" aria-selected="true" aria-controls="content-individual">
+                        <span class="block text-lg">Séance individuelle</span>
+                        <span class="text-xs opacity-80">1 heure - 40€</span>
+                    </button>
+                    <button id="tab-group" class="session-tab" role="tab" aria-selected="false" aria-controls="content-group">
+                        <span class="block text-lg">Séance en groupe</span>
+                        <span class="text-xs opacity-80">3 heures - 120€</span>
+                    </button>
+                </div>
+                
+                <!-- Calendriers Cal.com en français -->
+                <div id="content-individual" class="py-4" role="tabpanel" aria-labelledby="tab-individual">
+                    <div class="cal-iframe-container">
+                        <div id="loading-individual" class="iframe-loading">
+                            <div class="loading-spinner mb-4"></div>
+                            <p>Chargement du calendrier...</p>
+                        </div>
+                        <iframe 
+                            id="cal-iframe-individual"
+                            src="https://cal.com/artzainak/seance-d-une-heure?embed=true&theme=dark&lang=fr" 
+                            width="100%" 
+                            height="600" 
+                            frameborder="0"
+                            allow="camera; microphone; autoplay; fullscreen"
+                            onload="hideLoading('loading-individual')">
+                        </iframe>
+                    </div>
+                </div>
+                
+                <div id="content-group" class="py-4 hidden" role="tabpanel" aria-labelledby="tab-group">
+                    <div class="cal-iframe-container">
+                        <div id="loading-group" class="iframe-loading">
+                            <div class="loading-spinner mb-4"></div>
+                            <p>Chargement du calendrier...</p>
+                        </div>
+                        <iframe 
+                            id="cal-iframe-group"
+                            src="https://cal.com/artzainak/seance-de-groupe-3h?embed=true&theme=dark&lang=fr" 
+                            width="100%" 
+                            height="600" 
+                            frameborder="0"
+                            allow="camera; microphone; autoplay; fullscreen"
+                            onload="hideLoading('loading-group')">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Notification de réservation (initialement cachée) -->
+            <div id="booking-notification" class="booking-notification" role="alert" aria-live="assertive">
+                <div class="flex items-start">
+                    <div class="mr-3 bg-white bg-opacity-20 rounded-full p-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm">Créneau sélectionné!</h4>
+                        <p id="booking-details" class="text-xs mt-1">Veuillez remplir le formulaire ci-dessous pour compléter votre réservation.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Questionnaire préalable avec Formspree (CACHÉ PAR DÉFAUT) -->
+            <div id="booking-form-section" class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8 hidden fade-in">
+                <h2 class="text-xl font-semibold mb-4 high-contrast">Étape 2 : Informations sur votre chien</h2>
+                <p class="mb-4">Pour mieux comprendre vos besoins et ceux de votre chien, merci de remplir ce formulaire pour compléter votre réservation.</p>
                 
                 <!-- REMPLACER VOTRE_EMAIL@EXAMPLE.COM par votre adresse email réelle -->
                 <form id="preBookingForm" action="https://formspree.io/f/manelkoo" method="POST" class="space-y-4">
-                    <!-- Champ caché pour redirection après soumission -->
-                    <input type="hidden" name="_next" value="https://artzainak.netlify.app/reservation.html#calendar-section">
+                    <!-- Champs cachés pour les informations de réservation -->
+                    <input type="hidden" id="booking_type" name="booking_type">
+                    <input type="hidden" id="booking_date" name="booking_date">
+                    <input type="hidden" id="booking_time" name="booking_time">
+                    <input type="hidden" id="booking_id" name="booking_id">
                     
                     <!-- Informations sur le propriétaire -->
                     <div class="p-4 bg-gray-100 dark:bg-gray-700 rounded-lg mb-4">
                         <h3 class="font-medium mb-3 text-primary">Vos coordonnées</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label for="ownerName" class="block mb-1 text-sm">Votre nom</label>
+                                <label for="ownerName" class="form-label form-required">Votre nom</label>
                                 <input type="text" id="ownerName" name="owner_name" required
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                             </div>
                             <div>
-                                <label for="ownerEmail" class="block mb-1 text-sm">Votre email</label>
+                                <label for="ownerEmail" class="form-label form-required">Votre email</label>
                                 <input type="email" id="ownerEmail" name="owner_email" required
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                             </div>
+                        </div>
+                        <div class="mt-3">
+                            <label for="ownerPhone" class="form-label form-required">Téléphone</label>
+                            <input type="tel" id="ownerPhone" name="owner_phone" required
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                        </div>
+                    </div>
+                    
+                    <!-- Récapitulatif réservation -->
+                    <div class="p-4 bg-primary/10 dark:bg-primary/20 rounded-lg">
+                        <h3 class="font-medium mb-3 text-primary">Récapitulatif de votre réservation</h3>
+                        <div class="space-y-2">
+                            <p><strong>Type de séance :</strong> <span id="summary_type"></span></p>
+                            <p><strong>Date :</strong> <span id="summary_date"></span></p>
+                            <p><strong>Heure :</strong> <span id="summary_time"></span></p>
                         </div>
                     </div>
                     
@@ -236,12 +407,12 @@
                         <h3 class="font-medium mb-3 text-primary">Informations sur votre chien</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label for="dogName" class="block mb-1 text-sm">Nom du chien</label>
+                                <label for="dogName" class="form-label form-required">Nom du chien</label>
                                 <input type="text" id="dogName" name="dog_name" required
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                             </div>
                             <div>
-                                <label for="dogBreed" class="block mb-1 text-sm">Race du chien</label>
+                                <label for="dogBreed" class="form-label form-required">Race du chien</label>
                                 <input type="text" id="dogBreed" name="dog_breed" required
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                             </div>
@@ -249,12 +420,12 @@
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
                             <div>
-                                <label for="dogAge" class="block mb-1 text-sm">Âge du chien (mois)</label>
+                                <label for="dogAge" class="form-label form-required">Âge du chien (mois)</label>
                                 <input type="number" id="dogAge" name="dog_age" min="1" required
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                             </div>
                             <div>
-                                <label for="experience" class="block mb-1 text-sm">Niveau d'expérience</label>
+                                <label for="experience" class="form-label form-required">Niveau d'expérience</label>
                                 <select id="experience" name="experience" required
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                                     <option value="">Sélectionnez un niveau</option>
@@ -267,22 +438,22 @@
                     </div>
                     
                     <div>
-                        <label for="problems" class="block mb-1 text-sm">Difficultés rencontrées</label>
+                        <label for="problems" class="form-label">Difficultés rencontrées</label>
                         <textarea id="problems" name="problems" rows="2" placeholder="Décrivez les difficultés que vous rencontrez avec votre chien..."
                             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white"></textarea>
                     </div>
                     
                     <div>
-                        <label for="objectives" class="block mb-1 text-sm">Objectifs</label>
+                        <label for="objectives" class="form-label">Objectifs</label>
                         <textarea id="objectives" name="objectives" rows="2" placeholder="Quels sont vos objectifs pour cette formation ?"
                             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white"></textarea>
                     </div>
                     
                     <div class="pt-2">
                         <button type="submit" id="submitFormBtn" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 px-4 rounded-lg transition duration-300">
-                            Enregistrer mes informations
+                            Confirmer ma réservation
                         </button>
-                        <p class="text-xs text-center mt-2 text-gray-400">En soumettant ce formulaire, vous acceptez que les informations fournies soient utilisées dans le cadre de votre demande.</p>
+                        <p class="text-xs text-center mt-2 text-gray-400">En soumettant ce formulaire, vous acceptez que les informations fournies soient utilisées dans le cadre de votre réservation. <a href="#" class="text-primary hover:underline" id="privacy-link">Consulter notre politique de confidentialité</a>.</p>
                     </div>
                 </form>
                 
@@ -291,90 +462,92 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-2 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
-                    <p class="font-medium">Merci ! Vos informations ont été enregistrées.</p>
-                    <p class="text-sm mt-1 mb-3">Nous avons envoyé une copie à votre adresse email.</p>
-                    <p class="text-sm font-medium">Vous pouvez maintenant choisir votre créneau ci-dessous ⬇️</p>
+                    <p class="font-medium">Merci ! Votre réservation est confirmée.</p>
+                    <p class="text-sm mt-1 mb-3">Nous avons envoyé une confirmation à votre adresse email.</p>
+                    <p class="text-sm font-medium">À bientôt pour votre séance d'éducation canine.</p>
                 </div>
             </div>
             
-            <!-- Réservation de calendrier (toujours visible) -->
-            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8" id="calendar-section">
-                <h2 class="text-xl font-semibold mb-4 text-center">Choisissez votre créneau</h2>
-                
-                <div class="session-tabs">
-                    <button id="tab-individual" class="session-tab active">
-                        <span class="block text-lg">Séance individuelle</span>
-                        <span class="text-xs opacity-80">1 heure - 40€</span>
-                    </button>
-                    <button id="tab-group" class="session-tab">
-                        <span class="block text-lg">Séance en groupe</span>
-                        <span class="text-xs opacity-80">3 heures - 120€</span>
-                    </button>
-                </div>
-                
-                <!-- Calendriers Cal.com en français -->
-                <div id="content-individual" class="py-4">
-                    <div class="cal-iframe-container">
-                        <iframe 
-                            src="https://cal.com/artzainak/seance-d-une-heure?embed=true&theme=dark&lang=fr" 
-                            width="100%" 
-                            height="600" 
-                            frameborder="0"
-                            allow="camera; microphone; autoplay; fullscreen">
-                        </iframe>
+            <!-- Modal pour politique de confidentialité -->
+            <div id="privacy-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-lg max-w-2xl mx-4 p-6 max-h-[80vh] overflow-y-auto">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-bold">Politique de confidentialité</h3>
+                        <button id="close-privacy" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
                     </div>
-                </div>
-                
-                <div id="content-group" class="py-4 hidden">
-                    <div class="cal-iframe-container">
-                        <iframe 
-                            src="https://cal.com/artzainak/seance-de-groupe-3h?embed=true&theme=dark&lang=fr" 
-                            width="100%" 
-                            height="600" 
-                            frameborder="0"
-                            allow="camera; microphone; autoplay; fullscreen">
-                        </iframe>
+                    <div class="prose dark:prose-invert prose-sm max-w-none">
+                        <p>Chez Artzainak, nous prenons votre vie privée au sérieux. Cette politique explique comment nous utilisons les données collectées via notre formulaire de réservation.</p>
+                        
+                        <h4>Informations collectées</h4>
+                        <p>Nous collectons les informations que vous nous fournissez volontairement, notamment :</p>
+                        <ul>
+                            <li>Vos coordonnées (nom, email, téléphone)</li>
+                            <li>Les informations sur votre chien</li>
+                            <li>Les détails de votre réservation</li>
+                        </ul>
+                        
+                        <h4>Utilisation des informations</h4>
+                        <p>Les informations que vous nous fournissez sont utilisées pour :</p>
+                        <ul>
+                            <li>Traiter votre réservation</li>
+                            <li>Vous contacter concernant votre séance</li>
+                            <li>Adapter notre service à vos besoins et ceux de votre chien</li>
+                            <li>Vous envoyer des informations relatives à votre réservation</li>
+                        </ul>
+                        
+                        <h4>Conservation des données</h4>
+                        <p>Nous conservons vos données aussi longtemps que nécessaire pour fournir nos services ou pour respecter nos obligations légales.</p>
+                        
+                        <h4>Tiers et partage de données</h4>
+                        <p>Nous utilisons Formspree pour traiter nos formulaires et Cal.com pour la gestion des réservations. Ces services peuvent avoir accès à certaines informations que vous fournissez.</p>
+                        
+                        <h4>Vos droits</h4>
+                        <p>Vous avez le droit d'accéder à vos données personnelles, de les rectifier ou de les supprimer. Pour exercer ces droits, contactez-nous à l'adresse pierocarlo@gmx.fr.</p>
                     </div>
                 </div>
             </div>
             
             <!-- FAQ - Questions fréquentes (version réduite) -->
             <div class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6">
-                <h4 class="font-medium mb-4">Questions fréquentes</h4>
+                <h4 class="font-medium mb-4 high-contrast">Questions fréquentes</h4>
                 
                 <div class="space-y-3">
                     <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-                        <button class="faq-toggle w-full flex justify-between items-center p-3 text-left font-medium">
+                        <button class="faq-toggle w-full flex justify-between items-center p-3 text-left font-medium" aria-expanded="false" aria-controls="faq-content-1">
                             <span>Que faut-il prévoir pour la première séance ?</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                             </svg>
                         </button>
-                        <div class="faq-content hidden p-3 pt-0">
+                        <div id="faq-content-1" class="faq-content hidden p-3 pt-0">
                             <p>Pour votre première séance, apportez le carnet de santé, une laisse solide, de l'eau pour votre chien et des vêtements adaptés à l'extérieur.</p>
                         </div>
                     </div>
                     
                     <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-                        <button class="faq-toggle w-full flex justify-between items-center p-3 text-left font-medium">
+                        <button class="faq-toggle w-full flex justify-between items-center p-3 text-left font-medium" aria-expanded="false" aria-controls="faq-content-2">
                             <span>À partir de quel âge peut-on commencer la formation ?</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                             </svg>
                         </button>
-                        <div class="faq-content hidden p-3 pt-0">
+                        <div id="faq-content-2" class="faq-content hidden p-3 pt-0">
                             <p>Nous acceptons les chiens à partir de 6 mois pour l'initiation. Pour un travail plus intensif, l'idéal est d'avoir un chien d'au moins 12 mois.</p>
                         </div>
                     </div>
                     
                     <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-                        <button class="faq-toggle w-full flex justify-between items-center p-3 text-left font-medium">
+                        <button class="faq-toggle w-full flex justify-between items-center p-3 text-left font-medium" aria-expanded="false" aria-controls="faq-content-3">
                             <span>Toutes les races de chiens sont-elles acceptées ?</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                             </svg>
                         </button>
-                        <div class="faq-content hidden p-3 pt-0">
+                        <div id="faq-content-3" class="faq-content hidden p-3 pt-0">
                             <p>Bien que les races de berger (Border Collie, Berger Australien, etc.) aient un instinct naturel pour le troupeau, nous accueillons toutes les races qui montrent un intérêt pour cette activité.</p>
                         </div>
                     </div>
@@ -404,10 +577,15 @@
         </div>
     </footer>
 
+    <!-- Script Cal.com -->
+    <script src="https://app.cal.com/embed/embed.js"></script>
+
     <script>
     // Toggle menu pour mobile
     document.getElementById('menuToggle').addEventListener('click', function() {
-        document.getElementById('mobileNav').classList.toggle('hidden');
+        const mobileNav = document.getElementById('mobileNav');
+        const expanded = mobileNav.classList.toggle('hidden') ? 'false' : 'true';
+        this.setAttribute('aria-expanded', expanded);
     });
     
     // Force le mode sombre
@@ -416,11 +594,35 @@
         document.body.classList.add('force-dark');
     }
 
+    // Fonction pour masquer les loaders d'iframe
+    function hideLoading(loaderId) {
+        const loader = document.getElementById(loaderId);
+        if (loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 300);
+        }
+    }
+
+    // Fonction pour formater la date (2023-11-20 -> 20 novembre 2023)
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('fr-FR', options);
+    }
+
+    // Fonction pour formater l'heure (14:30:00 -> 14h30)
+    function formatTime(timeString) {
+        return timeString.substring(0, 5).replace(':', 'h');
+    }
+
     // Gestion des onglets de réservation
     document.getElementById('tab-individual').addEventListener('click', function() {
         // Mise à jour des classes pour les onglets
         document.getElementById('tab-individual').classList.add('active');
         document.getElementById('tab-group').classList.remove('active');
+        document.getElementById('tab-individual').setAttribute('aria-selected', 'true');
+        document.getElementById('tab-group').setAttribute('aria-selected', 'false');
         
         // Affichage du contenu
         document.getElementById('content-individual').classList.remove('hidden');
@@ -431,6 +633,8 @@
         // Mise à jour des classes pour les onglets
         document.getElementById('tab-group').classList.add('active');
         document.getElementById('tab-individual').classList.remove('active');
+        document.getElementById('tab-group').setAttribute('aria-selected', 'true');
+        document.getElementById('tab-individual').setAttribute('aria-selected', 'false');
         
         // Affichage du contenu
         document.getElementById('content-group').classList.remove('hidden');
@@ -442,9 +646,8 @@
         toggle.addEventListener('click', function() {
             const content = this.nextElementSibling;
             const icon = this.querySelector('svg');
-            
-            // Toggle content visibility
-            content.classList.toggle('hidden');
+            const expanded = content.classList.toggle('hidden') ? 'false' : 'true';
+            this.setAttribute('aria-expanded', expanded);
             
             // Rotate icon
             if (content.classList.contains('hidden')) {
@@ -455,42 +658,153 @@
         });
     });
     
+    // Gestion de la politique de confidentialité
+    document.getElementById('privacy-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('privacy-modal').classList.remove('hidden');
+    });
+    
+    document.getElementById('close-privacy').addEventListener('click', function() {
+        document.getElementById('privacy-modal').classList.add('hidden');
+    });
+    
+    // Fermeture de la modal au clic à l'extérieur
+    document.getElementById('privacy-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.classList.add('hidden');
+        }
+    });
+    
+    // Intégration avec Cal.com
+    // Cette fonction permet de capturer les événements de réservation de Cal.com
+    window.addEventListener('message', function(e) {
+        if (e.data.type === 'CAL:BOOKING_SUCCESSFUL') {
+            // Extraire les informations de la réservation
+            const bookingData = e.data.data;
+            console.log('Réservation réussie:', bookingData);
+            
+            // Déterminer le type de séance
+            let sessionType;
+            if (bookingData.eventSlug === 'seance-d-une-heure') {
+                sessionType = 'Séance individuelle (1h)';
+            } else if (bookingData.eventSlug === 'seance-de-groupe-3h') {
+                sessionType = 'Séance en groupe (3h)';
+            } else {
+                sessionType = 'Séance non spécifiée';
+            }
+            
+            // Formater la date et l'heure pour l'affichage
+            const bookingDate = formatDate(bookingData.date);
+            const bookingTime = formatTime(bookingData.startTime);
+            
+            // Remplir les champs cachés du formulaire
+            document.getElementById('booking_type').value = sessionType;
+            document.getElementById('booking_date').value = bookingData.date;
+            document.getElementById('booking_time').value = bookingData.startTime;
+            document.getElementById('booking_id').value = bookingData.uid;
+            
+            // Mettre à jour le récapitulatif
+            document.getElementById('summary_type').textContent = sessionType;
+            document.getElementById('summary_date').textContent = bookingDate;
+            document.getElementById('summary_time').textContent = bookingTime;
+            
+            // Afficher le formulaire
+            document.getElementById('booking-form-section').classList.remove('hidden');
+            
+            // Faire défiler jusqu'au formulaire
+            document.getElementById('booking-form-section').scrollIntoView({ behavior: 'smooth' });
+            
+            // Afficher une notification
+            const notification = document.getElementById('booking-notification');
+            const bookingDetails = document.getElementById('booking-details');
+            bookingDetails.textContent = `${sessionType} réservée le ${bookingDate} à ${bookingTime}. Veuillez compléter votre réservation ci-dessous.`;
+            notification.classList.add('show');
+            
+            // Masquer la notification après 6 secondes
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 6000);
+        }
+    });
+
     // Gestion du formulaire Formspree avec sauvegarde locale
     document.getElementById('preBookingForm').addEventListener('submit', function(e) {
-        // Ne pas empêcher la soumission, Formspree s'en occupera
-        // e.preventDefault();
+        // Afficher un indicateur de chargement sur le bouton
+        const submitButton = document.getElementById('submitFormBtn');
+        const originalText = submitButton.innerHTML;
+        submitButton.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-5 w-5 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Traitement en cours...';
+        submitButton.disabled = true;
         
         // Sauvegarde dans localStorage pour référence future
         const formData = {
             ownerName: document.getElementById('ownerName').value,
             ownerEmail: document.getElementById('ownerEmail').value,
+            ownerPhone: document.getElementById('ownerPhone').value,
             dogName: document.getElementById('dogName').value,
             dogBreed: document.getElementById('dogBreed').value,
             dogAge: document.getElementById('dogAge').value,
             experience: document.getElementById('experience').value,
             problems: document.getElementById('problems').value,
-            objectives: document.getElementById('objectives').value
+            objectives: document.getElementById('objectives').value,
+            bookingType: document.getElementById('booking_type').value,
+            bookingDate: document.getElementById('booking_date').value,
+            bookingTime: document.getElementById('booking_time').value,
+            bookingId: document.getElementById('booking_id').value
         };
         localStorage.setItem('ownerInfo', JSON.stringify(formData));
         console.log('Informations sauvegardées localement:', formData);
+        
+        // Utiliser fetch pour soumettre le formulaire de manière asynchrone
+        fetch(this.action, {
+            method: this.method,
+            body: new FormData(this),
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Erreur lors de l\'envoi du formulaire');
+        })
+        .then(data => {
+            // Cacher le formulaire et montrer la confirmation
+            this.style.display = 'none';
+            document.getElementById('formConfirmation').classList.remove('hidden');
+            
+            // Réinitialiser le formulaire
+            this.reset();
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            alert('Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer.');
+            
+            // Réinitialiser le bouton
+            submitButton.innerHTML = originalText;
+            submitButton.disabled = false;
+        });
+        
+        // Empêcher la soumission traditionnelle du formulaire
+        e.preventDefault();
     });
 
-// Vérifier si on revient d'une soumission de formulaire
+    // Au chargement de la page
     document.addEventListener('DOMContentLoaded', function() {
         // Activer le mode sombre
         enableDarkMode();
         
-        // Vérifier si nous venons d'une soumission de formulaire (via l'ancre dans l'URL)
-        if (window.location.hash === '#calendar-section') {
-            // Cacher le formulaire et afficher le message de confirmation
-            if (document.getElementById('preBookingForm') && localStorage.getItem('ownerInfo')) {
-                document.getElementById('preBookingForm').classList.add('hidden');
-                document.getElementById('formConfirmation').classList.remove('hidden');
-            }
-            
-            // Faire défiler jusqu'à la section de calendrier
-            document.getElementById('calendar-section').scrollIntoView({ behavior: 'smooth' });
-        }
+        // Ajuster les styles de l'iframe Cal.com une fois chargé
+        Cal('ui', {
+            theme: 'dark',
+            styles: {
+                branding: {
+                    brandColor: '#5D5CDE'
+                }
+            },
+            hideEventTypeDetails: false,
+            layout: 'month_view'
+        });
     });
 </script>
 </body>
