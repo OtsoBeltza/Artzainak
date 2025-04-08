@@ -485,7 +485,7 @@
         document.getElementById('calendar-section').scrollIntoView({ behavior: 'smooth' });
         
         // Option 2: Envoyer via EmailJS (décommenter et configurer quand EmailJS sera prêt)
-        /*
+
         // Préparation pour EmailJS
         const templateParams = {
             owner_name: formData.ownerName,
@@ -514,7 +514,6 @@
                 alert('Oups! Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer ou nous contacter directement.');
                 console.log('Erreur:', error);
             });
-        */
         
         // Sauvegarde dans localStorage pour référence future
         localStorage.setItem('ownerInfo', JSON.stringify(formData));
