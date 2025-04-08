@@ -488,14 +488,14 @@
 
         // Préparation pour EmailJS
         const templateParams = {
-            owner_name: formData.ownerName,
-            owner_email: formData.ownerEmail,
-            dog_name: formData.dogName,
-            dog_breed: formData.dogBreed,
-            dog_age: formData.dogAge,
-            experience: formData.experience,
-            problems: formData.problems,
-            objectives: formData.objectives
+    owner_name: formData.ownerName || "",
+    owner_email: formData.ownerEmail || "",
+    dog_name: formData.dogName || "",
+    dog_breed: formData.dogBreed || "",
+    dog_age: formData.dogAge ? formData.dogAge.toString() : "",
+    experience: formData.experience || "",
+    problems: formData.problems || "",
+    objectives: formData.objectives || ""
         };
         
         // Envoi du formulaire via EmailJS avec les IDs corrects
