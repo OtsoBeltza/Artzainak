@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="css/styles.css">
     
     <!-- Script Cal.com -->
-    <script src="https://cal.com/embed.js" defer></script>
+    <script src="https://cal.com/embed.js"></script>
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
     <!-- Header -->
@@ -336,42 +336,57 @@
         });
     });
     
-    // Initialiser Cal.com pour séance individuelle
-    Cal("init", {
-        api_key: "cal_live_5a57d69478f4f90d53cca6661befa740"
-    });
-    
-    // Cal.com pour séance individuelle
-    Cal("inline", {
-        elementId: "cal-booking-individual",
-        calLink: "https://cal.com/les-drailles-aux-loups-4pvzck/seance-d-une-heure", // Remplacez par votre lien d'événement
-        config: {
-            theme: "dark", // Thème adapté au mode sombre
-            hideEventTypeDetails: false,
-            layout: "month_view",
-            styles: {
-                branding: {
-                    brandColor: "#5D5CDE"
-                }
-            }
+    // Initialiser Cal.com après que la page soit complètement chargée
+    document.addEventListener('DOMContentLoaded', function() {
+        // Vérifier si Cal.com est chargé
+        if (typeof Cal !== 'undefined') {
+            initCalendar();
+        } else {
+            // Attendre que Cal.com soit chargé
+            window.addEventListener('CalEmbed', function() {
+                initCalendar();
+            });
         }
     });
     
-    // Cal.com pour séance de groupe
-    Cal("inline", {
-        elementId: "cal-booking-group",
-        calLink: "https://cal.com/les-drailles-aux-loups-4pvzck/seance-de-groupe-3h", // Remplacez par votre lien d'événement
-        config: {
-            theme: "dark", // Thème adapté au mode sombre
-            hideEventTypeDetails: false,
-            layout: "month_view",
-            styles: {
-                branding: {
-                    brandColor: "#5D5CDE"
+    function initCalendar() {
+        // Initialiser Cal.com
+        Cal("init", {
+            api_key: "cal_live_5a57d69478f4f90d53cca6661befa740"
+        });
+        
+        // Cal.com pour séance individuelle
+        Cal("inline", {
+            elementId: "cal-booking-individual",
+            calLink: "https://cal.com/les-drailles-aux-loups-4pvzck/seance-d-une-heure", // Remplacez par votre lien d'événement
+            config: {
+                theme: "dark", // Thème adapté au mode sombre
+                hideEventTypeDetails: false,
+                layout: "month_view",
+                styles: {
+                    branding: {
+                        brandColor: "#5D5CDE"
+                    }
                 }
             }
-        }
-    });
+        });
+        
+        // Cal.com pour séance de groupe
+        Cal("inline", {
+            elementId: "cal-booking-group",
+            calLink: "https://cal.com/les-drailles-aux-loups-4pvzck/seance-de-groupe-3h", // Remplacez par votre lien d'événement
+            config: {
+                theme: "dark", // Thème adapté au mode sombre
+                hideEventTypeDetails: false,
+                layout: "month_view",
+                styles: {
+                    branding: {
+                        brandColor: "#5D5CDE"
+                    }
+                }
+            }
+        });
+    }
     </script>
 </body>
 </html>
