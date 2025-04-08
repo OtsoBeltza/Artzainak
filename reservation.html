@@ -468,22 +468,32 @@
         const submitBtn = document.getElementById('submitFormBtn');
         submitBtn.disabled = true;
         submitBtn.textContent = 'Envoi en cours...';
+        // Récupérer les données de façon sécurisée
+    const formData = {
+        owner_name: document.getElementById('ownerName').value || '',
+        owner_email: document.getElementById('ownerEmail').value || '',
+        dog_name: document.getElementById('dogName').value || '',
+        dog_breed: document.getElementById('dogBreed').value || '',
+        dog_age: document.getElementById('dogAge').value ? document.getElementById('dogAge').value.toString() : '',
+        experience: document.getElementById('experience').value || '',
+        problems: document.getElementById('problems').value || '',
+        objectives: document.getElementById('objectives').value || ''
+        };
         
         // Envoi du formulaire via EmailJS avec sendForm
-        emailjs.sendForm('service_ucp821f', 'template_mfsiq3i', this)
-            .then(function(response) {
-                // Afficher le message de confirmation
-                document.getElementById('preBookingForm').classList.add('hidden');
-                document.getElementById('formConfirmation').classList.remove('hidden');
-                
-                // Faire défiler jusqu'à la section de calendrier
-                document.getElementById('calendar-section').scrollIntoView({ behavior: 'smooth' });
-                
-                console.log('Formulaire envoyé!', response.status, response.text);
-            }, function(error) {
-                // Gestion des erreurs
-                alert('Oups! Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer ou nous contacter directement.');
-                console.log('Erreur:', error);
+        emailjs.send('service_ucp821f', 'template_mfsiq3i', formData)
+        .then(function(response) {
+            // Afficher le message de confirmation
+            document.getElementById('preBookingForm').classList.add('hidden');
+            document.getElementById('formConfirmation').classList.remove('hidden');
+            document.getElementById('calendar-section').scrollIntoView({ behavior: 'smooth' });
+            console.log('Formulaire envoyé!', response.status, response.text);
+        }, function(error) {
+            alert('Oups! Une erreur est survenue. Veuillez réessayer ou nous contacter directement.');
+            console.log('Erreur:', error);
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Enregistrer mes informations';
+        });
                 
                 // Réactiver le bouton
                 submitBtn.disabled = false;
