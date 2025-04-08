@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ressources pour propriétaires de chiens de troupeau - Artzainak</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#5D5CDE',
+                            dark: '#4A49B0'
+                        },
+                        basque: {
+                            red: '#DC3545',
+                            green: '#198754'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Meta description pour le SEO -->
+    <meta name="description" content="Ressources gratuites pour les propriétaires de chiens de troupeau: guides, fiches techniques, vidéos et conseils d'un éducateur canin professionnel au Pays Basque.">
+    
+    <!-- Balises Open Graph pour les réseaux sociaux -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Ressources pour chiens de troupeau - Artzainak">
+    <meta property="og:description" content="Guides, fiches techniques et vidéos pour former et comprendre votre chien de troupeau. Ressources gratuites par un professionnel.">
+    <meta property="og:image" content="https://artzainak.netlify.app/images/og-image-ressources.jpg">
+    <meta property="og:url" content="https://artzainak.netlify.app/ressources.html">
+    <meta property="og:site_name" content="Artzainak">
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
+    <!-- Header -->
+    <header class="bg-primary p-4 text-white sticky top-0 z-10 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold">ARTZAINAK</a>
+            <p class="text-sm hidden sm:block">Éducation de chiens de troupeau au Pays Basque</p>
+            <button id="menuToggle" class="md:hidden focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+            <nav id="mainNav" class="hidden md:block">
+                <ul class="flex space-x-4">
+                    <li><a href="index.html" class="hover:underline">Accueil</a></li>
+                    <li><a href="index.html#services" class="hover:underline">Services</a></li>
+                    <li><a href="reservation.html" class="hover:underline">Réserver</a></li>
+                    <li><a href="location.html" class="hover:underline">Louer</a></li>
+                    <li><a href="ressources.html" class="hover:underline font-bold">Ressources</a></li>
+                    <li><a href="contact.html" class="hover:underline">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+        <nav id="mobileNav" class="hidden bg-primary-dark py-2 px-4">
+            <ul class="space-y-2">
+                <li><a href="index.html" class="block hover:underline">Accueil</a></li>
+                <li><a href="index.html#services" class="block hover:underline">Services</a></li>
+                <li><a href="reservation.html" class="block hover:underline">Réserver</a></li>
+                <li><a href="location.html" class="block hover:underline">Louer</a></li>
+                <li><a href="ressources.html" class="block hover:underline font-bold">Ressources</a></li>
+                <li><a href="contact.html" class="block hover:underline">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-12 px-4 bg-primary/10 dark:bg-primary/5">
+        <div class="container mx-auto">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-3xl font-bold mb-4">Ressources pour propriétaires de chiens de troupeau</h1>
+                <p class="text-lg mb-8">Découvrez nos guides, fiches techniques et vidéos pour vous aider à former et comprendre votre chien de troupeau.</p>
+                
+                <!-- Barre de recherche -->
+                <div class="max-w-md mx-auto">
+                    <div class="relative">
+                        <input type="search" id="resource-search" placeholder="Rechercher une ressource..." 
+                               class="w-full px-4 py-2 pl-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800 dark:border-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filtres de catégories -->
+    <section class="py-8 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-center gap-3">
+                <button class="resource-category-btn active px-4 py-2 rounded-full bg-primary text-white transition-all" data-category="all">
+                    Toutes les ressources
+                </button>
+                <button class="resource-category-btn px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-primary hover:text-white transition-all" data-category="guide">
+                    Guides pratiques
+                </button>
+                <button class="resource-category-btn px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-primary hover:text-white transition-all" data-category="video">
+                    Vidéos tutorielles
+                </button>
+                <button class="resource-category-btn px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-primary hover:text-white transition-all" data-category="fiche">
+                    Fiches techniques
+                </button>
+                <button class="resource-category-btn px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-primary hover:text-white transition-all" data-category="livre">
+                    Livres recommandés
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ressources gratuites -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-8 text-center">Ressources gratuites</h2>
+            
+            <div id="resource-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Guide Débutant -->
+                <div class="resource-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden flex flex-col" data-category="guide">
+                    <div class="relative">
+                        <img src="images/resources/guide-debutant.jpg" alt="Guide du débutant pour le travail au troupeau" class="w-full h-48 object-cover" onerror="this.src='https://via.placeholder.com/400x200?text=Guide+Débutant'">
+                        <div class="absolute top-0 right-0 bg-primary text-white text-xs font-semibold px-3 py-1 m-2 rounded">
+                            Guide pratique
+                        </div>
+                    </div>
+                    <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Guide du débutant pour le travail au troupeau</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Ce guide complet vous aide à débuter avec votre chien de troupeau, couvrant les bases de l'entraînement, les commandes essentielles et les premières séances avec les brebis.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 text-xs rounded">Débutant</span>
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 text-xs rounded">Border Collie</span>
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 text-xs rounded">PDF</span>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 border-t border-gray-200 dark:border-gray-700 mt-auto">
+                        <a href="#" class="block text-center bg-primary hover:bg-primary-dark text-white font-medium py-2 px-4 rounded transition-colors">
+                            Télécharger (PDF, 2.3 MB)
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Vidéo tutorielle -->
+                <div class="resource-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden flex flex-col" data-category="video">
+                    <div class="relative">
+                        <img src="images/resources/video-commandes.jpg" alt="Vidéo sur les commandes de base" class="w-full h-48 object-cover" onerror="this.src='https://via.placeholder.com/400x200?text=Vidéo+Commandes'">
+                        <div class="absolute top-0 right-0 bg-red-500 text-white text-xs font-semibold px-3 py-1 m-2 rounded">
+                            Vidéo tutorielle
+                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-16 h-16 bg-white/80 dark:bg-gray-800/80 rounded-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Les commandes de base pour diriger votre chien</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Cette vidéo présente les commandes verbales et gestuelles essentielles pour guider efficacement votre chien de troupeau. Démonstrations pratiques sur le terrain.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 text-xs rounded">12 min</span>
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 text-xs rounded">Sous-titres</span>
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 text-xs rounded">HD</span>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 border-t border-gray-200 dark:border-gray-700 mt-auto">
+                        <a href="#" class="block text-center bg-primary hover:bg-primary-dark text-white font-medium py-2 px-4 rounded transition-colors">
+                            Regarder la vidéo
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Plus de ressources... -->
+            </div>
+            
+            <!-- Message "Aucun résultat" (caché par défaut) -->
+            <div id="no-results" class="hidden text-center py-10">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p class="text-xl font-semibold mb-2">Aucune ressource ne correspond à votre recherche</p>
+                <p class="text-gray-500 dark:text-gray-400 mb-6">Essayez d'autres termes ou catégories</p>
+                <button id="reset-search" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg transition">
+                    Réinitialiser la recherche
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulaire de demande de ressources -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold mb-6 text-center">Vous ne trouvez pas ce que vous cherchez ?</h2>
+                <p class="text-gray-600 dark:text-gray-300 mb-6 text-center">
+                    Suggérez-nous une ressource ou posez-nous une question spécifique, nous ferons notre possible pour vous aider.
+                </p>
+                
+                <form id="resource-request-form" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="name" class="block mb-1 font-medium">Votre nom</label>
+                            <input type="text" id="name" name="name" required
+                                   class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600">
+                        </div>
+                        <div>
+                            <label for="email" class="block mb-1 font-medium">Votre email</label>
+                            <input type="email" id="email" name="email" required
+                                   class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="resource-type" class="block mb-1 font-medium">Type de ressource souhaité</label>
+                        <select id="resource-type" name="resource-type" required
+                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600">
+                            <option value="">Sélectionnez un type</option>
+                            <option value="guide">Guide pratique</option>
+                            <option value="video">Vidéo tutorielle</option>
+                            <option value="fiche">Fiche technique</option>
+                            <option value="autre">Autre (préciser)</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="subject" class="block mb-1 font-medium">Sujet spécifique</label>
+                        <input type="text" id="subject" name="subject" required
+                               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600"
+                               placeholder="Ex: Dressage pour le rassemblement, Travail avec agneau...">
+                    </div>
+                    
+                    <div>
+                        <label for="details" class="block mb-1 font-medium">Détails de votre demande</label>
+                        <textarea id="details" name="details" rows="4" required
+                                  class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600"
+                                  placeholder="Précisez votre demande ou question..."></textarea>
+                    </div>
+                    
+                    <div class="flex justify-end">
+                        <button type="submit" class="px-6 py-3 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-colors">
+                            Envoyer ma demande
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Message de confirmation (caché par défaut) -->
+                <div id="request-confirmation" class="hidden bg-basque-green/20 text-basque-green dark:text-green-300 p-4 rounded-lg mt-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <p class="text-center">Merci pour votre demande ! Nous l'étudierons et vous répondrons dans les plus brefs délais.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-12 bg-primary/10 dark:bg-primary/5">
+        <div class="container mx-auto px-4">
+            <div class="max-w-xl mx-auto text-center">
+                <h2 class="text-2xl font-bold mb-3">Restez informé</h2>
+                <p class="text-gray-600 dark:text-gray-300 mb-6">Inscrivez-vous à notre newsletter pour recevoir nos nouvelles ressources, conseils et actualités.</p>
+                
+                <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3">
+                    <input type="email" placeholder="Votre adresse e-mail" required 
+                           class="flex-grow px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800 dark:border-gray-700">
+                    <button type="submit" class="bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-2 rounded-lg transition-colors">
+                        S'inscrire
+                    </button>
+                </form>
+                
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-3">
+                    En vous inscrivant, vous acceptez notre <a href="#" class="underline hover:text-primary">politique de confidentialité</a>.
+                    Vous pourrez vous désinscrire à tout moment.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-6 px-4 bg-gray-800 text-white">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h2 class="text-xl font-bold">ARTZAINAK</h2>
+                    <p class="text-sm">Éducation de chiens de troupeau au Pays Basque</p>
+                </div>
+                
+                <div class="text-sm text-center md:text-right">
+                    <div class="flex gap-4 justify-center md:justify-end mb-2">
+                        <a href="reservation.html" class="text-white hover:text-primary transition duration-300">Réserver un cours</a>
+                        <a href="location.html" class="text-white hover:text-basque-green transition duration-300">Louer des brebis</a>
+                        <a href="ressources.html" class="text-white hover:text-primary transition duration-300">Ressources</a>
+                        <a href="contact.html" class="text-white hover:text-gray-300 transition duration-300">Contact</a>
+                    </div>
+                    <p>&copy; 2023 Artzainak. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    
+    <!-- Script spécifique pour la page de ressources -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Filtrage par catégorie
+        const categoryButtons = document.querySelectorAll('.resource-category-btn');
+        const resourceCards = document.querySelectorAll('.resource-card');
+        const noResults = document.getElementById('no-results');
+        
+        // Fonction pour filtrer les ressources
+        function filterResources(category) {
+            let visibleCount = 0;
+            
+            resourceCards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+            
+            // Afficher le message si aucun résultat
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+        
+        // Écouteurs d'événements pour les boutons de catégorie
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Réinitialiser la classe active sur tous les boutons
+                categoryButtons.forEach(btn => {
+                    btn.classList.remove('active', 'bg-primary', 'text-white');
+                    btn.classList.add('bg-gray-200', 'dark:bg-gray-700');
+                });
+                
+                // Ajouter la classe active sur le bouton cliqué
+                this.classList.add('active', 'bg-primary', 'text-white');
+                this.classList.remove('bg-gray-200', 'dark:bg-gray-700');
+                
+                // Filtrer les ressources
+                filterResources(this.dataset.category);
+            });
+        });
+        
+        // Recherche de ressources
+        const searchInput = document.getElementById('resource-search');
+        
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                // Réinitialiser le filtre quand la recherche est vide
+                categoryButtons.forEach(btn => {
+                    if (btn.classList.contains('active')) {
+                        filterResources(btn.dataset.category);
+                    }
+                });
+                return;
+            }
+            
+            // Réinitialiser les boutons de catégorie
+            categoryButtons.forEach(btn => {
+                btn.classList.remove('active', 'bg-primary', 'text-white');
+                btn.classList.add('bg-gray-200', 'dark:bg-gray-700');
+            });
+            
+            // Activer le bouton "Toutes les ressources"
+            document.querySelector('[data-category="all"]').classList.add('active', 'bg-primary', 'text-white');
+            document.querySelector('[data-category="all"]').classList.remove('bg-gray-200', 'dark:bg-gray-700');
+            
+            // Filtrer par terme de recherche
+            let visibleCount = 0;
+            
+            resourceCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                const tags = Array.from(card.querySelectorAll('.bg-gray-100')).map(tag => tag.textContent.toLowerCase());
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm) || tags.some(tag => tag.includes(searchTerm))) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+            
+            // Afficher le message si aucun résultat
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        });
+        
+        // Réinitialiser la recherche
+        const resetButton = document.getElementById('reset-search');
+        
+        resetButton.addEventListener('click', function() {
+            searchInput.value = '';
+            
+            // Activer le bouton "Toutes les ressources"
+            categoryButtons.forEach(btn => {
+                btn.classList.remove('active', 'bg-primary', 'text-white');
+                btn.classList.add('bg-gray-200', 'dark:bg-gray-700');
+            });
+            document.querySelector('[data-category="all"]').classList.add('active', 'bg-primary', 'text-white');
+            document.querySelector('[data-category="all"]').classList.remove('bg-gray-200', 'dark:bg-gray-700');
+            
+            // Afficher toutes les ressources
+            resourceCards.forEach(card => {
+                card.classList.remove('hidden');
+            });
+            
+            // Cacher le message "Aucun résultat"
+            noResults.classList.add('hidden');
+        });
+        
+        // Gestion du formulaire de demande de ressources
+        const resourceRequestForm = document.getElementById('resource-request-form');
+        const requestConfirmation = document.getElementById('request-confirmation');
+        
+        resourceRequestForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulation d'envoi réussi
+            setTimeout(() => {
+                // Cacher le formulaire
+                resourceRequestForm.style.display = 'none';
+                
+                // Afficher le message de confirmation
+                requestConfirmation.classList.remove('hidden');
+            }, 1000);
+        });
+        
+        // Gérer le formulaire de newsletter
+        const newsletterForm = document.getElementById('newsletter-form');
+        
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Afficher un message de confirmation
+            this.innerHTML = `
+                <div class="bg-basque-green/20 text-basque-green dark:text-green-300 p-4 rounded-lg text-center w-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <p>Merci pour votre inscription ! Vous recevrez bientôt nos nouvelles ressources.</p>
+                </div>
+            `;
+        });
+    });
+    </script>
+    
+    <!-- Scripts d'optimisation mobile et performance -->
+    <script src="js/mobile-optimizations.js"></script>
+    <script src="js/performance-optimizations.js"></script>
+    <script src="js/floating-cta.js"></script>
+</body>
+</html>
