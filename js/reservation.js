@@ -31,9 +31,9 @@ function initializeEventListeners() {
     });
     
     // Gestion de la politique de confidentialité
-    document.getElementById('privacy-link').addEventListener('click', showPrivacyModal);
-    document.getElementById('close-privacy').addEventListener('click', hidePrivacyModal);
-    document.getElementById('privacy-modal').addEventListener('click', handleModalOutsideClick);
+    document.getElementById('privacy-link')?.addEventListener('click', showPrivacyModal);
+    document.getElementById('close-privacy')?.addEventListener('click', hidePrivacyModal);
+    document.getElementById('privacy-modal')?.addEventListener('click', handleModalOutsideClick);
 }
 
 // Fonctions de base pour l'interface utilisateur
@@ -132,32 +132,57 @@ function initializeCalendar() {
 // Gère les événements de Cal.com
 function handleCalendarEvents(e) {
     // Afficher tous les messages reçus pour le débogage
-    console.log('Message reçu:', e.data);
+    console.log('Message reçu complet:', e);
+    console.log('Données du message:', e.data);
     
-    // Vérifie si l'événement provient de Cal.com et si c'est une réservation réussie
+    // Essayer de trouver les informations de réservation dans les propriétés de l'événement
     if (e.data && e.data.type === 'CAL:BOOKING_SUCCESSFUL') {
         try {
-            const bookingData = e.data.data;
-            console.log('Réservation réussie:', bookingData);
+            console.log('Données brutes de réservation:', e.data.data);
             
-            // Vérifier que les données essentielles sont présentes
-            if (!bookingData.date || !bookingData.startTime) {
-                throw new Error("Données de réservation incomplètes. Date ou heure manquante.");
+            // Essayer différentes structures de données possibles
+            let bookingData = e.data.data;
+            let bookingDate = '';
+            let bookingTime = '';
+            let bookingId = '';
+            let eventTitle = '';
+            
+            // Explorer les différentes possibilités de structure
+            if (bookingData) {
+                // Essayer de trouver la date et l'heure dans différents emplacements possibles
+                bookingDate = bookingData.date || 
+                              (bookingData.startTime && bookingData.startTime.split('T')[0]) ||
+                              (bookingData.event && bookingData.event.startTime && bookingData.event.startTime.split('T')[0]);
+                              
+                bookingTime = bookingData.startTime || 
+                              (bookingData.event && bookingData.event.startTime && 
+                               bookingData.event.startTime.split('T')[1].substring(0, 8)) ||
+                              '';
+                              
+                bookingId = bookingData.uid || bookingData.id || '';
+                eventTitle = bookingData.eventType || 
+                             (bookingData.event && bookingData.event.title) || 
+                             '';
             }
             
-            // Déterminer le type de séance
+            // Déterminer le type de séance à partir du titre de l'événement ou du slug
             let sessionType;
-            if (bookingData.eventSlug === 'seance-d-une-heure') {
+            if (bookingData.eventSlug === 'seance-d-une-heure' || 
+                eventTitle.includes('1h') || eventTitle.includes('une heure')) {
                 sessionType = 'Séance individuelle (1h)';
-            } else if (bookingData.eventSlug === 'seance-de-groupe-3h') {
+            } else if (bookingData.eventSlug === 'seance-de-groupe-3h' || 
+                      eventTitle.includes('3h') || eventTitle.includes('groupe')) {
                 sessionType = 'Séance en groupe (3h)';
             } else {
-                sessionType = 'Séance non spécifiée';
+                sessionType = 'Séance réservée';
             }
             
-            const bookingDate = bookingData.date;
-            const bookingTime = bookingData.startTime;
-            const bookingId = bookingData.uid || '';
+            // Si on n'a pas trouvé de date/heure, demander à l'utilisateur
+            if (!bookingDate || !bookingTime) {
+                alert("Nous n'avons pas pu récupérer automatiquement les détails de votre réservation. Veuillez les saisir manuellement.");
+                showManualEntryForm(sessionType);
+                return;
+            }
             
             // Afficher les informations de débogage
             console.log('Données formatées:', {
@@ -175,7 +200,7 @@ function handleCalendarEvents(e) {
             
         } catch (error) {
             console.error('Erreur lors du traitement des données de réservation:', error);
-            alert("Nous n'avons pas pu récupérer toutes les informations de votre réservation. Veuillez réessayer ou utiliser le bouton d'accès manuel au formulaire.");
+            showManualEntryForm();
         }
     }
 }
@@ -240,6 +265,95 @@ function showBookingConfirmation(type, date, time, id) {
     }, 8000);
 }
 
+// Fonction pour afficher le formulaire de saisie manuelle des données de réservation
+function showManualEntryForm(defaultType = null) {
+    // Déterminer le type de séance par défaut
+    if (!defaultType) {
+        const activeTab = document.querySelector('.session-tab.active');
+        if (activeTab) {
+            const isIndividual = activeTab.id === 'tab-individual';
+            defaultType = isIndividual ? 'Séance individuelle (1h)' : 'Séance en groupe (3h)';
+        } else {
+            defaultType = 'Séance individuelle (1h)';
+        }
+    }
+    
+    // Créer l'overlay
+    const manualEntryOverlay = document.createElement('div');
+    manualEntryOverlay.className = 'fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70';
+    
+    // Obtenir la date d'aujourd'hui au format YYYY-MM-DD
+    const today = new Date();
+    const formattedToday = today.toISOString().split('T')[0];
+    
+    manualEntryOverlay.innerHTML = `
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md mx-4 shadow-xl">
+            <h3 class="text-xl font-bold mb-4 text-center">Saisir les détails de votre réservation</h3>
+            <form id="manual-booking-form" class="space-y-4">
+                <div>
+                    <label for="manual-session-type" class="block mb-1 font-medium">Type de séance</label>
+                    <select id="manual-session-type" required
+                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <option value="Séance individuelle (1h)" ${defaultType === 'Séance individuelle (1h)' ? 'selected' : ''}>Séance individuelle (1h)</option>
+                        <option value="Séance en groupe (3h)" ${defaultType === 'Séance en groupe (3h)' ? 'selected' : ''}>Séance en groupe (3h)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="manual-date" class="block mb-1 font-medium">Date de votre réservation</label>
+                    <input type="date" id="manual-date" required value="${formattedToday}"
+                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                </div>
+                <div>
+                    <label for="manual-time" class="block mb-1 font-medium">Heure de votre réservation</label>
+                    <input type="time" id="manual-time" required value="10:00"
+                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                </div>
+                <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition duration-300">
+                    Continuer vers le formulaire
+                </button>
+                <button type="button" id="cancel-manual-entry" class="w-full mt-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium py-2 px-4 rounded-lg transition duration-300">
+                    Annuler
+                </button>
+            </form>
+        </div>
+    `;
+    
+    // Ajouter à la page
+    document.body.appendChild(manualEntryOverlay);
+    
+    // Gérer l'annulation
+    document.getElementById('cancel-manual-entry').addEventListener('click', function() {
+        document.body.removeChild(manualEntryOverlay);
+    });
+    
+    // Gérer la soumission
+    document.getElementById('manual-booking-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const sessionType = document.getElementById('manual-session-type').value;
+        const manualDate = document.getElementById('manual-date').value;
+        const manualTime = document.getElementById('manual-time').value + ':00';
+        const manualId = 'manual-booking-' + Date.now();
+        
+        // Sauvegarder ces données
+        saveBookingData(sessionType, manualDate, manualTime, manualId);
+        
+        // Créer l'URL de redirection
+        const params = new URLSearchParams();
+        params.append('type', encodeURIComponent(sessionType || ''));
+        params.append('date', encodeURIComponent(manualDate || ''));
+        params.append('time', encodeURIComponent(manualTime || ''));
+        params.append('id', encodeURIComponent(manualId || ''));
+        const redirectURL = `reservation-form.html?${params.toString()}`;
+        
+        // Supprimer l'overlay
+        document.body.removeChild(manualEntryOverlay);
+        
+        // Rediriger vers la page du formulaire
+        window.location.href = redirectURL;
+    });
+}
+
 // Ajouter un bouton de secours après 3 secondes
 setTimeout(function() {
     const calendarSection = document.getElementById('calendar-section');
@@ -259,75 +373,7 @@ setTimeout(function() {
         
         // Ajouter l'écouteur d'événement
         document.getElementById('manual-redirect-btn').addEventListener('click', function() {
-            // Demander la date et l'heure à l'utilisateur
-            const manualEntryOverlay = document.createElement('div');
-            manualEntryOverlay.className = 'fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70';
-            
-            const activeTab = document.querySelector('.session-tab.active');
-            const isIndividual = activeTab.id === 'tab-individual';
-            const sessionType = isIndividual ? 'Séance individuelle (1h)' : 'Séance en groupe (3h)';
-            
-            // Obtenir la date d'aujourd'hui au format YYYY-MM-DD
-            const today = new Date();
-            const formattedToday = today.toISOString().split('T')[0];
-            
-            manualEntryOverlay.innerHTML = `
-                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md mx-4 shadow-xl">
-                    <h3 class="text-xl font-bold mb-4 text-center">Saisir les détails de votre réservation</h3>
-                    <form id="manual-booking-form" class="space-y-4">
-                        <div>
-                            <label for="manual-date" class="block mb-1 font-medium">Date de votre réservation</label>
-                            <input type="date" id="manual-date" required value="${formattedToday}"
-                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                        </div>
-                        <div>
-                            <label for="manual-time" class="block mb-1 font-medium">Heure de votre réservation</label>
-                            <input type="time" id="manual-time" required value="10:00"
-                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                        </div>
-                        <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition duration-300">
-                            Continuer vers le formulaire
-                        </button>
-                        <button type="button" id="cancel-manual-entry" class="w-full mt-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium py-2 px-4 rounded-lg transition duration-300">
-                            Annuler
-                        </button>
-                    </form>
-                </div>
-            `;
-            
-            // Ajouter à la page
-            document.body.appendChild(manualEntryOverlay);
-            
-            // Gérer l'annulation
-            document.getElementById('cancel-manual-entry').addEventListener('click', function() {
-                document.body.removeChild(manualEntryOverlay);
-            });
-            
-            // Gérer la soumission
-            document.getElementById('manual-booking-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const manualDate = document.getElementById('manual-date').value;
-                const manualTime = document.getElementById('manual-time').value + ':00';
-                const manualId = 'manual-booking-' + Date.now();
-                
-                // Sauvegarder ces données
-                saveBookingData(sessionType, manualDate, manualTime, manualId);
-                
-                // Créer l'URL de redirection
-                const params = new URLSearchParams();
-                params.append('type', encodeURIComponent(sessionType || ''));
-                params.append('date', encodeURIComponent(manualDate || ''));
-                params.append('time', encodeURIComponent(manualTime || ''));
-                params.append('id', encodeURIComponent(manualId || ''));
-                const redirectURL = `reservation-form.html?${params.toString()}`;
-                
-                // Supprimer l'overlay
-                document.body.removeChild(manualEntryOverlay);
-                
-                // Rediriger vers la page du formulaire
-                window.location.href = redirectURL;
-            });
+            showManualEntryForm();
         });
     }
 }, 3000);
