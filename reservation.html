@@ -482,7 +482,7 @@ document.getElementById('preBookingForm').addEventListener('submit', function(e)
     };
     
     // Envoi du formulaire via EmailJS
-    emailjs.send('service_ucp821f', 'template_mfsiq3i', formData)
+    emailjs.send('default_service', 'template_mfsiq3i', formData)
         .then(function(response) {
             // Afficher le message de confirmation
             document.getElementById('preBookingForm').classList.add('hidden');
