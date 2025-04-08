@@ -128,6 +128,7 @@ function initializeCalendar() {
     // Écoute les événements de réservation de Cal.com
     window.addEventListener('message', handleCalendarEvents);
 }
+
 // Gère les événements de Cal.com
 function handleCalendarEvents(e) {
     // Afficher tous les messages reçus pour le débogage
@@ -170,23 +171,45 @@ function handleCalendarEvents(e) {
             saveBookingData(sessionType, bookingDate, bookingTime, bookingId);
             
             // Afficher une confirmation avant de rediriger
-            showBookingConfirmation(sessionType, bookingDate, bookingTime);
+            showBookingConfirmation(sessionType, bookingDate, bookingTime, bookingId);
             
         } catch (error) {
             console.error('Erreur lors du traitement des données de réservation:', error);
-            alert("Nous n'avons pas pu récupérer toutes les informations de votre réservation. Veuillez réessayer ou nous contacter directement.");
+            alert("Nous n'avons pas pu récupérer toutes les informations de votre réservation. Veuillez réessayer ou utiliser le bouton d'accès manuel au formulaire.");
         }
     }
 }
 
+// Fonction pour sauvegarder les données de réservation
+function saveBookingData(type, date, time, id) {
+    const bookingData = {
+        type: type,
+        date: date,
+        time: time,
+        id: id,
+        timestamp: new Date().toISOString()
+    };
+    
+    localStorage.setItem('artzainak_booking_data', JSON.stringify(bookingData));
+    console.log('Données de réservation sauvegardées:', bookingData);
+}
+
 // Affiche une confirmation de la réservation avant redirection
-function showBookingConfirmation(type, date, time) {
-    // Créer l'élément de confirmation
-    const confirmationOverlay = document.createElement('div');
-    confirmationOverlay.className = 'fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70';
+function showBookingConfirmation(type, date, time, id) {
+    // Construire l'URL de redirection à l'avance
+    const params = new URLSearchParams();
+    params.append('type', encodeURIComponent(type || ''));
+    params.append('date', encodeURIComponent(date || ''));
+    params.append('time', encodeURIComponent(time || ''));
+    params.append('id', encodeURIComponent(id || ''));
+    const redirectURL = `reservation-form.html?${params.toString()}`;
     
     const formattedDate = formatDate(date);
     const formattedTime = formatTime(time);
+    
+    // Créer l'élément de confirmation
+    const confirmationOverlay = document.createElement('div');
+    confirmationOverlay.className = 'fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70';
     
     confirmationOverlay.innerHTML = `
         <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md mx-4 shadow-xl">
@@ -202,23 +225,19 @@ function showBookingConfirmation(type, date, time) {
                 <p><strong>Heure :</strong> ${formattedTime}</p>
             </div>
             <p class="text-center mb-4">Veuillez compléter quelques informations supplémentaires pour finaliser votre réservation.</p>
-            <button id="continue-to-form" class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2 px-4 rounded transition duration-300">
+            <a href="${redirectURL}" class="block w-full text-center bg-primary hover:bg-primary-dark text-white font-medium py-2 px-4 rounded transition duration-300">
                 Continuer
-            </button>
+            </a>
         </div>
     `;
     
     // Ajouter à la page
     document.body.appendChild(confirmationOverlay);
     
-    // Gérer le clic sur "Continuer"
-    document.getElementById('continue-to-form').addEventListener('click', function() {
-        // Supprimer l'overlay de confirmation
-        document.body.removeChild(confirmationOverlay);
-        
-        // Rediriger vers la page du formulaire
-        redirectToFormPage(type, date, time, document.getElementById('booking_id')?.value || '');
-    });
+    // Redirection automatique après 8 secondes
+    setTimeout(() => {
+        window.location.href = redirectURL;
+    }, 8000);
 }
 
 // Ajouter un bouton de secours après 3 secondes
@@ -248,18 +267,22 @@ setTimeout(function() {
             const isIndividual = activeTab.id === 'tab-individual';
             const sessionType = isIndividual ? 'Séance individuelle (1h)' : 'Séance en groupe (3h)';
             
+            // Obtenir la date d'aujourd'hui au format YYYY-MM-DD
+            const today = new Date();
+            const formattedToday = today.toISOString().split('T')[0];
+            
             manualEntryOverlay.innerHTML = `
                 <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md mx-4 shadow-xl">
                     <h3 class="text-xl font-bold mb-4 text-center">Saisir les détails de votre réservation</h3>
                     <form id="manual-booking-form" class="space-y-4">
                         <div>
                             <label for="manual-date" class="block mb-1 font-medium">Date de votre réservation</label>
-                            <input type="date" id="manual-date" required
+                            <input type="date" id="manual-date" required value="${formattedToday}"
                                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                         </div>
                         <div>
                             <label for="manual-time" class="block mb-1 font-medium">Heure de votre réservation</label>
-                            <input type="time" id="manual-time" required
+                            <input type="time" id="manual-time" required value="10:00"
                                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                         </div>
                         <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded-lg transition duration-300">
@@ -274,12 +297,6 @@ setTimeout(function() {
             
             // Ajouter à la page
             document.body.appendChild(manualEntryOverlay);
-            
-            // Définir la date par défaut à aujourd'hui
-            const today = new Date();
-            const formattedToday = today.toISOString().split('T')[0];
-            document.getElementById('manual-date').value = formattedToday;
-            document.getElementById('manual-time').value = '10:00';
             
             // Gérer l'annulation
             document.getElementById('cancel-manual-entry').addEventListener('click', function() {
@@ -297,11 +314,19 @@ setTimeout(function() {
                 // Sauvegarder ces données
                 saveBookingData(sessionType, manualDate, manualTime, manualId);
                 
+                // Créer l'URL de redirection
+                const params = new URLSearchParams();
+                params.append('type', encodeURIComponent(sessionType || ''));
+                params.append('date', encodeURIComponent(manualDate || ''));
+                params.append('time', encodeURIComponent(manualTime || ''));
+                params.append('id', encodeURIComponent(manualId || ''));
+                const redirectURL = `reservation-form.html?${params.toString()}`;
+                
                 // Supprimer l'overlay
                 document.body.removeChild(manualEntryOverlay);
                 
                 // Rediriger vers la page du formulaire
-                redirectToFormPage(sessionType, manualDate, manualTime, manualId);
+                window.location.href = redirectURL;
             });
         });
     }
