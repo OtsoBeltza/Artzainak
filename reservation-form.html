@@ -4,6 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finaliser votre réservation - Artzainak</title>
+    
+    <!-- Meta description pour le SEO -->
+    <meta name="description" content="Finalisez votre réservation pour un cours d'éducation canine avec Artzainak au Pays Basque. Formation professionnelle pour chiens de troupeau.">
+    
+    <!-- Balises Open Graph pour les réseaux sociaux -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Finaliser votre réservation - Artzainak">
+    <meta property="og:description" content="Finalisez votre réservation pour un cours d'éducation canine au Pays Basque. Formez votre chien de troupeau avec un professionnel.">
+    <meta property="og:image" content="https://artzainak.netlify.app/images/og-image.jpg">
+    <meta property="og:url" content="https://artzainak.netlify.app/reservation-form.html">
+    <meta property="og:site_name" content="Artzainak">
+    
+    <!-- Balises de langue -->
+    <link rel="alternate" hreflang="fr" href="https://artzainak.netlify.app/reservation-form.html">
+    <link rel="canonical" href="https://artzainak.netlify.app/reservation-form.html">
+    
+    <!-- Préchargement des ressources -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    
+    <!-- Scripts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -25,13 +46,25 @@
         }
     </script>
     <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            // Remplacez "YOUR_PUBLIC_KEY" par votre clé publique EmailJS
             emailjs.init("gXAUQo9QLLKuoIzGC");
         })();
     </script>
+    
+    <!-- Google Tag Manager -->
+    <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');
+    </script>
+    <!-- End Google Tag Manager -->
+    
     <style>
         /* Force dark mode */
         .force-dark {
@@ -61,9 +94,30 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
+        
+        /* Optimisation mobile */
+        @media (max-width: 640px) {
+            input, select, textarea {
+                font-size: 16px; /* Évite le zoom automatique sur iOS */
+            }
+            
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            h1, h2 {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen force-dark">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
     <!-- Header -->
     <header class="bg-primary p-4 text-white sticky top-0 z-10 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
@@ -231,270 +285,258 @@
             </div>
         </div>
     </footer>
-    
-<script>
-    // Activer le mode sombre
-    document.documentElement.classList.add('dark');
-    document.body.classList.add('force-dark');
-    
-    // Variables de débogage globales
-    window.emailJSSuccess = false;
-    window.emailJSError = null;
-    
-    // Configuration d'EmailJS avec débogage
-    function setupEmailJS() {
-        try {
-            // Configuration avec débogage
-            emailjs.init("gXAUQo9QLLKuoIzGC", {debug: true});
-            console.log("EmailJS initialisé avec succès");
-            return true;
-        } catch (error) {
-            console.error("Erreur lors de l'initialisation d'EmailJS:", error);
-            return false;
-        }
-    }
-    
-    // Fonction pour récupérer les paramètres de l'URL
-    function getURLParams() {
-        const params = new URLSearchParams(window.location.search);
-        return {
-            type: params.get('type') ? decodeURIComponent(params.get('type')) : null,
-            date: params.get('date') ? decodeURIComponent(params.get('date')) : null,
-            time: params.get('time') ? decodeURIComponent(params.get('time')) : null,
-            id: params.get('id') ? decodeURIComponent(params.get('id')) : null,
-            error: params.get('error') === 'true'
-        };
-    }
-    
-    // Fonction pour récupérer les données du localStorage
-    function getLocalStorageData() {
-        const data = localStorage.getItem('artzainak_booking_data');
-        return data ? JSON.parse(data) : null;
-    }
-    
-    // Fonction pour formater la date
-    function formatDate(dateString) {
-        if (!dateString) return 'Date non spécifiée';
-        try {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('fr-FR', options);
-        } catch (e) {
-            console.error("Erreur lors du formatage de la date:", e);
-            return dateString || 'Date non spécifiée';
-        }
-    }
-    
-    // Fonction pour formater l'heure
-    function formatTime(timeString) {
-        if (!timeString) return 'Heure non spécifiée';
-        try {
-            return timeString.substring(0, 5).replace(':', 'h');
-        } catch (e) {
-            console.error("Erreur lors du formatage de l'heure:", e);
-            return timeString || 'Heure non spécifiée';
-        }
-    }
-    
-    // Fonction pour remplir le formulaire avec les données de réservation
-    function populateForm() {
-        // Essayer d'abord les paramètres d'URL
-        let bookingData = getURLParams();
-        let hasCompleteData = true;
+
+    <script>
+        // Activer le mode sombre
+        document.documentElement.classList.add('dark');
+        document.body.classList.add('force-dark');
         
-        // Si les paramètres d'URL ne sont pas complets, essayer localStorage
-        if (!bookingData.type || !bookingData.date || !bookingData.time) {
-            const localData = getLocalStorageData();
-            if (localData) {
-                bookingData = {
-                    type: localData.type || bookingData.type,
-                    date: localData.date || bookingData.date,
-                    time: localData.time || bookingData.time,
-                    id: localData.id || bookingData.id
-                };
+        // Initialisation de la couche de données pour le tracking
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'siteName': 'Artzainak',
+            'pageType': 'reservation-form',
+            'userStatus': 'lead'
+        });
+        
+        // Fonction pour récupérer les paramètres de l'URL
+        function getURLParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                type: params.get('type') ? decodeURIComponent(params.get('type')) : null,
+                date: params.get('date') ? decodeURIComponent(params.get('date')) : null,
+                time: params.get('time') ? decodeURIComponent(params.get('time')) : null,
+                id: params.get('id') ? decodeURIComponent(params.get('id')) : null,
+                error: params.get('error') === 'true'
+            };
+        }
+        
+        // Fonction pour récupérer les données du localStorage
+        function getLocalStorageData() {
+            const data = localStorage.getItem('artzainak_booking_data');
+            return data ? JSON.parse(data) : null;
+        }
+        
+        // Fonction pour formater la date
+        function formatDate(dateString) {
+            if (!dateString) return 'Date non spécifiée';
+            try {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString('fr-FR', options);
+            } catch (e) {
+                console.error("Erreur lors du formatage de la date:", e);
+                return dateString || 'Date non spécifiée';
             }
         }
         
-        // Vérifier si on a toutes les données nécessaires
-        if (!bookingData.type || !bookingData.date) {
-            hasCompleteData = false;
-            document.getElementById('missing-data-warning').classList.remove('hidden');
+        // Fonction pour formater l'heure
+        function formatTime(timeString) {
+            if (!timeString) return 'Heure non spécifiée';
+            try {
+                return timeString.substring(0, 5).replace(':', 'h');
+            } catch (e) {
+                console.error("Erreur lors du formatage de l'heure:", e);
+                return timeString || 'Heure non spécifiée';
+            }
         }
         
-        console.log("Données de réservation:", bookingData);
-        
-        // Remplir les champs cachés
-        document.getElementById('booking_type').value = bookingData.type || '';
-        document.getElementById('booking_date').value = bookingData.date || '';
-        document.getElementById('booking_time').value = bookingData.time || '';
-        document.getElementById('booking_id').value = bookingData.id || '';
-        
-        // Mettre à jour le récapitulatif
-        document.getElementById('summary_type').textContent = bookingData.type || 'Non spécifié';
-        document.getElementById('summary_date').textContent = formatDate(bookingData.date);
-        document.getElementById('summary_time').textContent = formatTime(bookingData.time);
-        
-        return hasCompleteData;
-    }
-    
-    // Fonction pour tester l'envoi d'email simple
-    function testEmailJSSend() {
-        const testParams = {
-            to_email: 'takalowshin@gmail.com',
-            subject: 'Test EmailJS',
-            message: 'Ceci est un test depuis la page de réservation'
-        };
-        
-        console.log("Tentative d'envoi d'un email de test:", testParams);
-        
-        return emailjs.send('service_ucp821f', 'template_mfsiq3i', testParams)
-            .then(function(response) {
-                console.log('Test réussi!', response);
-                return true;
-            })
-            .catch(function(error) {
-                console.error('Test échoué:', error);
-                return false;
-            });
-    }
-    
-    // Fonction pour construire une URL mailto comme solution de secours
-    function constructMailtoURL(params) {
-        const email = 'takalowshin@gmail.com';
-        const subject = encodeURIComponent('Réservation Artzainak');
-        
-        let body = encodeURIComponent(
-            `Type de séance: ${params.type}\n` +
-            `Date: ${params.date}\n` +
-            `Heure: ${params.time}\n\n` +
-            `Nom du propriétaire: ${params.owner_name}\n` +
-            `Email: ${params.owner_email}\n` +
-            `Téléphone: ${params.owner_phone}\n\n` +
-            `Nom du chien: ${params.dog_name}\n` +
-            `Race: ${params.dog_breed}\n` +
-            `Âge (mois): ${params.dog_age}\n` +
-            `Niveau d'expérience: ${params.experience}\n\n` +
-            `Difficultés rencontrées:\n${params.problems}\n\n` +
-            `Objectifs:\n${params.objectives}\n`
-        );
-        
-        return `mailto:${email}?subject=${subject}&body=${body}`;
-    }
-    
-    // Initialiser la page et testez EmailJS
-    window.addEventListener('DOMContentLoaded', function() {
-        // Remplir le formulaire
-        populateForm();
-        
-        // Configuration d'EmailJS
-        const emailJSConfigured = setupEmailJS();
-        
-        // Test d'envoi d'email
-        if (emailJSConfigured) {
-            // Ajoutez un bouton de test
-            const testButton = document.createElement('button');
-            testButton.className = 'mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300';
-            testButton.textContent = 'Tester l\'envoi d\'email';
-            testButton.type = 'button';
-            testButton.addEventListener('click', async function() {
-                testButton.disabled = true;
-                testButton.textContent = 'Test en cours...';
-                
-                const result = await testEmailJSSend();
-                
-                if (result) {
-                    testButton.textContent = '✓ Test réussi!';
-                    testButton.className = 'mt-4 w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg';
-                } else {
-                    testButton.textContent = '✗ Test échoué. Voir console';
-                    testButton.className = 'mt-4 w-full bg-red-600 text-white font-bold py-2 px-4 rounded-lg';
+        // Fonction pour remplir le formulaire avec les données de réservation
+        function populateForm() {
+            // Essayer d'abord les paramètres d'URL
+            let bookingData = getURLParams();
+            let hasCompleteData = true;
+            
+            // Si les paramètres d'URL ne sont pas complets, essayer localStorage
+            if (!bookingData.type || !bookingData.date || !bookingData.time) {
+                const localData = getLocalStorageData();
+                if (localData) {
+                    bookingData = {
+                        type: localData.type || bookingData.type,
+                        date: localData.date || bookingData.date,
+                        time: localData.time || bookingData.time,
+                        id: localData.id || bookingData.id
+                    };
                 }
+            }
+            
+            // Vérifier si on a toutes les données nécessaires
+            if (!bookingData.type || !bookingData.date) {
+                hasCompleteData = false;
+                document.getElementById('missing-data-warning').classList.remove('hidden');
+            }
+            
+            // Remplir les champs cachés
+            document.getElementById('booking_type').value = bookingData.type || '';
+            document.getElementById('booking_date').value = bookingData.date || '';
+            document.getElementById('booking_time').value = bookingData.time || '';
+            document.getElementById('booking_id').value = bookingData.id || '';
+            
+            // Mettre à jour le récapitulatif
+            document.getElementById('summary_type').textContent = bookingData.type || 'Non spécifié';
+            document.getElementById('summary_date').textContent = formatDate(bookingData.date);
+            document.getElementById('summary_time').textContent = formatTime(bookingData.time);
+            
+            return hasCompleteData;
+        }
+        
+        // Gestion du formulaire avec EmailJS
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Récupération du bouton
+            const submitButton = document.getElementById('submitButton');
+            const originalText = submitButton.innerHTML;
+            
+            // Affiche le loader
+            submitButton.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-5 w-5 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Traitement en cours...';
+            submitButton.disabled = true;
+            
+            // Préparer les données pour l'email
+            const templateParams = {
+                to_email: 'takalowshin@gmail.com',
+                subject: 'Infos Reservation Client',
+                type: document.getElementById('summary_type').textContent,
+                date: document.getElementById('summary_date').textContent,
+                time: document.getElementById('summary_time').textContent,
+                owner_name: document.getElementById('ownerName').value,
+                owner_email: document.getElementById('ownerEmail').value,
+                owner_phone: document.getElementById('ownerPhone').value,
+                dog_name: document.getElementById('dogName').value,
+                dog_breed: document.getElementById('dogBreed').value,
+                dog_age: document.getElementById('dogAge').value,
+                experience: document.getElementById('experience').value,
+                problems: document.getElementById('problems').value || 'Non spécifié',
+                objectives: document.getElementById('objectives').value || 'Non spécifié'
+            };
+            
+            // Tracking de l'événement
+            window.dataLayer.push({
+                'event': 'formSubmission',
+                'formType': 'reservation',
+                'bookingType': templateParams.type
             });
             
-            document.getElementById('formConfirmation').parentNode.appendChild(testButton);
-        }
-    });
-    
-    // Gestion du formulaire avec EmailJS
-    document.getElementById('bookingForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Récupération du bouton
-        const submitButton = document.getElementById('submitButton');
-        const originalText = submitButton.innerHTML;
-        
-        // Affiche le loader
-        submitButton.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-5 w-5 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Traitement en cours...';
-        submitButton.disabled = true;
-        
-        // Préparer les données pour l'email
-        const templateParams = {
-            to_email: 'takalowshin@gmail.com',
-            reply_to: document.getElementById('ownerEmail').value,
-            subject: 'Nouvelle réservation Artzainak',
-            type: document.getElementById('summary_type').textContent,
-            date: document.getElementById('summary_date').textContent,
-            time: document.getElementById('summary_time').textContent,
-            owner_name: document.getElementById('ownerName').value,
-            owner_email: document.getElementById('ownerEmail').value,
-            owner_phone: document.getElementById('ownerPhone').value,
-            dog_name: document.getElementById('dogName').value,
-            dog_breed: document.getElementById('dogBreed').value,
-            dog_age: document.getElementById('dogAge').value,
-            experience: document.getElementById('experience').value,
-            problems: document.getElementById('problems').value || 'Non spécifié',
-            objectives: document.getElementById('objectives').value || 'Non spécifié',
-            message: `Réservation effectuée par ${document.getElementById('ownerName').value} pour un(e) ${document.getElementById('summary_type').textContent}`
-        };
-        
-        console.log("Tentative d'envoi avec ces paramètres:", templateParams);
-        
-        // Envoyer l'email via EmailJS
-        emailjs.send('service_ucp821f', 'template_mfsiq3i', templateParams)
-            .then(function(response) {
-                console.log('EmailJS succès!', response);
-                window.emailJSSuccess = true;
-                
-                // Cacher le formulaire et montrer la confirmation
-                document.getElementById('bookingForm').style.display = 'none';
-                document.getElementById('formConfirmation').classList.remove('hidden');
-                
-                // Effacer les données locales
-                localStorage.removeItem('artzainak_booking_data');
-                
-                // Enregistrer les données dans un stockage local de sauvegarde
-                localStorage.setItem('artzainak_last_submission', JSON.stringify({
-                    date: new Date().toISOString(),
-                    params: templateParams,
-                    response: { 
-                        status: response.status,
-                        text: response.text
+            // Envoyer l'email via EmailJS
+            emailjs.send('service_ucp821f', 'template_mfsiq3i', templateParams)
+                .then(function(response) {
+                    console.log('Succès!', response.status, response.text);
+                    
+                    // Cacher le formulaire et montrer la confirmation
+                    document.getElementById('bookingForm').style.display = 'none';
+                    document.getElementById('formConfirmation').classList.remove('hidden');
+                    
+                    // Effacer les données locales
+                    localStorage.removeItem('artzainak_booking_data');
+                    
+                    // Enregistrer la réservation pour les rappels
+                    const bookingData = {
+                        ownerName: document.getElementById('ownerName').value,
+                        ownerEmail: document.getElementById('ownerEmail').value,
+                        bookingType: document.getElementById('booking_type').value || document.getElementById('summary_type').textContent,
+                        bookingDate: document.getElementById('booking_date').value,
+                        bookingTime: document.getElementById('booking_time').value,
+                        bookingId: document.getElementById('booking_id').value || `booking-${Date.now()}`,
+                        dogName: document.getElementById('dogName').value
+                    };
+                    
+                    // Sauvegarder pour les rappels automatiques
+                    saveBookingForReminders(bookingData);
+                })
+                .catch(function(error) {
+                    console.error('Erreur EmailJS:', error);
+                    
+                    // Essayer une méthode alternative - formulaire mailto
+                    try {
+                        const mailtoURL = constructMailtoURL(templateParams);
+                        window.location.href = mailtoURL;
+                        
+                        // Cacher le formulaire et montrer la confirmation
+                        document.getElementById('bookingForm').style.display = 'none';
+                        document.getElementById('formConfirmation').classList.remove('hidden');
+                        
+                        // Effacer les données locales
+                        localStorage.removeItem('artzainak_booking_data');
+                    } catch (mailtoError) {
+                        console.error('Erreur avec mailto:', mailtoError);
+                        alert('Le formulaire n\'a pas pu être envoyé. Veuillez nous contacter directement à takalowshin@gmail.com');
+                        
+                        // Réinitialiser le bouton
+                        submitButton.innerHTML = originalText;
+                        submitButton.disabled = false;
                     }
-                }));
-            })
-            .catch(function(error) {
-                console.error('EmailJS erreur:', error);
-                window.emailJSError = error;
+                });
+        });
+        
+        // Fonction pour construire une URL mailto comme solution de secours
+        function constructMailtoURL(params) {
+            const email = 'takalowshin@gmail.com';
+            const subject = encodeURIComponent('Infos Reservation Client');
+            
+            let body = encodeURIComponent(
+                `Type de séance: ${params.type}\n` +
+                `Date: ${params.date}\n` +
+                `Heure: ${params.time}\n\n` +
+                `Nom du propriétaire: ${params.owner_name}\n` +
+                `Email: ${params.owner_email}\n` +
+                `Téléphone: ${params.owner_phone}\n\n` +
+                `Nom du chien: ${params.dog_name}\n` +
+                `Race: ${params.dog_breed}\n` +
+                `Âge (mois): ${params.dog_age}\n` +
+                `Niveau d'expérience: ${params.experience}\n\n` +
+                `Difficultés rencontrées:\n${params.problems}\n\n` +
+                `Objectifs:\n${params.objectives}\n`
+            );
+            
+            return `mailto:${email}?subject=${subject}&body=${body}`;
+        }
+        
+        // Fonction pour sauvegarder la réservation pour les rappels automatiques
+        function saveBookingForReminders(bookingData) {
+            // Récupérer les réservations existantes
+            let bookings = JSON.parse(localStorage.getItem('artzainak_bookings') || '[]');
+            
+            // Ajouter des informations sur les notifications
+            const bookingWithNotifications = {
+                ...bookingData,
+                confirmationSent: true,
+                reminderSent: false,
+                bookingTimestamp: new Date().toISOString()
+            };
+            
+            // Ajouter la nouvelle réservation
+            bookings.push(bookingWithNotifications);
+            
+            // Sauvegarder dans le localStorage
+            localStorage.setItem('artzainak_bookings', JSON.stringify(bookings));
+            
+            console.log('Réservation sauvegardée pour les rappels automatiques');
+        }
+        
+        // Améliorer les performances des formulaires sur mobile
+        function enhanceMobileFormExperience() {
+            document.querySelectorAll('input, select, textarea').forEach(input => {
+                // Améliorer le focus visuel
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('ring-2', 'ring-primary', 'ring-opacity-50', 'rounded-lg');
+                });
                 
-                // Afficher l'erreur et offrir une alternative
-                const errorMessage = 'Erreur lors de l\'envoi: ' + (error.text || error.message || JSON.stringify(error));
-                alert(errorMessage + '\n\nVeuillez utiliser l\'option de messagerie qui va s\'ouvrir ou nous contacter directement à takalowshin@gmail.com');
-                
-                // Essayer une méthode alternative - formulaire mailto
-                try {
-                    const mailtoURL = constructMailtoURL(templateParams);
-                    window.location.href = mailtoURL;
-                } catch (mailtoError) {
-                    console.error('Erreur avec mailto:', mailtoError);
-                }
-                
-                // Réinitialiser le bouton
-                submitButton.innerHTML = originalText;
-                submitButton.disabled = false;
+                input.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('ring-2', 'ring-primary', 'ring-opacity-50', 'rounded-lg');
+                });
             });
-    });
-</script>
-    <script src="js/email-notifications.js"></script>
+        }
+        
+        // Initialiser la page
+        window.addEventListener('DOMContentLoaded', function() {
+            populateForm();
+            enhanceMobileFormExperience();
+        });
+    </script>
+    
+    <!-- Scripts d'optimisation -->
     <script src="js/mobile-optimizations.js"></script>
-    <script src="js/floating-cta.js"></script>
+    <script src="js/performance-optimizations.js"></script>
+    <script src="js/marketing-tracking.js"></script>
+    <script src="js/email-notifications.js"></script>
 </body>
 </html>
