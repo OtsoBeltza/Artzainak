@@ -175,74 +175,39 @@
                 </div>
             </div>
             
-            <!-- Onglets de réservation mis en évidence -->
+            <!-- Choix des types de séances avec descriptions -->
             <div class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
-                <h2 class="text-xl font-semibold mb-4 text-center">Choisissez votre formule</h2>
+                <h2 class="text-xl font-semibold mb-4 text-center">Nos formules</h2>
                 
-                <div class="session-tabs">
-                    <button id="tab-individual" class="session-tab active">
-                        <span class="block text-lg">Séance individuelle</span>
-                        <span class="text-xs opacity-80">1 heure - Attention personnalisée</span>
-                    </button>
-                    <button id="tab-group" class="session-tab">
-                        <span class="block text-lg">Séance en groupe</span>
-                        <span class="text-xs opacity-80">3 heures - Travail collectif</span>
-                    </button>
-                </div>
-                
-                <!-- Description et calendrier - Individuel -->
-                <div id="content-individual" class="py-4">
-                    <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg mb-6">
-                        <p><strong>Pourquoi choisir cette formule :</strong> La séance individuelle est idéale pour les chiens débutants, les problèmes comportementaux spécifiques, ou lorsque vous souhaitez une attention totalement dédiée à votre compagnon.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-primary/5 dark:bg-primary/10 p-4 rounded-lg border border-primary/20">
+                        <h3 class="font-medium text-lg mb-2 text-primary">Séance individuelle (1h)</h3>
+                        <p class="mb-3">Idéale pour travailler sur des besoins spécifiques de votre chien avec une attention personnalisée.</p>
+                        <ul class="list-disc pl-5 text-sm space-y-1 mb-3">
+                            <li>Travail ciblé sur les difficultés de votre chien</li>
+                            <li>Progression plus rapide</li>
+                            <li>Adaptée aux débutants</li>
+                        </ul>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Prix : 60€ / séance</p>
                     </div>
                     
-                    <!-- Cal.com remplacé par iframe direct -->
-                    <div class="cal-iframe-container" id="individual-calendar-container">
-                        <div class="flex justify-center items-center my-8">
-                            <div class="loading-spinner"></div>
-                            <p class="ml-4">Chargement du calendrier...</p>
-                        </div>
-                        <iframe 
-                            id="individual-calendar-iframe"
-                            src="https://cal.com/les-drailles-aux-loups-4pvzck/seance-d-une-heure?embed=true&theme=dark" 
-                            style="width:100%; height:600px; border:none;" 
-                            frameborder="0"
-                            allow="camera; microphone; autoplay; fullscreen"
-                            loading="lazy"
-                            class="hidden">
-                        </iframe>
-                    </div>
-                </div>
-                
-                <!-- Description et calendrier - Groupe -->
-                <div id="content-group" class="py-4 hidden">
-                    <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg mb-6">
-                        <p><strong>Pourquoi choisir cette formule :</strong> La séance en groupe permet à votre chien de travailler dans un environnement social avec d'autres chiens. Parfaite pour améliorer à la fois ses compétences de troupeau et sa socialisation.</p>
-                    </div>
-                    
-                    <!-- Cal.com remplacé par iframe direct -->
-                    <div class="cal-iframe-container" id="group-calendar-container">
-                        <div class="flex justify-center items-center my-8">
-                            <div class="loading-spinner"></div>
-                            <p class="ml-4">Chargement du calendrier...</p>
-                        </div>
-                        <iframe 
-                            id="group-calendar-iframe"
-                            src="https://cal.com/les-drailles-aux-loups-4pvzck/seance-de-groupe-3h?embed=true&theme=dark" 
-                            style="width:100%; height:600px; border:none;" 
-                            frameborder="0"
-                            allow="camera; microphone; autoplay; fullscreen"
-                            loading="lazy"
-                            class="hidden">
-                        </iframe>
+                    <div class="bg-primary/5 dark:bg-primary/10 p-4 rounded-lg border border-primary/20">
+                        <h3 class="font-medium text-lg mb-2 text-primary">Séance en groupe (3h)</h3>
+                        <p class="mb-3">Permet à votre chien de travailler dans un environnement social avec d'autres chiens.</p>
+                        <ul class="list-disc pl-5 text-sm space-y-1 mb-3">
+                            <li>Travail en environnement distrayant</li>
+                            <li>Apprentissage par observation</li>
+                            <li>Socialisation avec d'autres chiens</li>
+                        </ul>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Prix : 90€ / séance</p>
                     </div>
                 </div>
             </div>
             
             <!-- Questionnaire préalable -->
             <div class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
-                <h2 class="text-xl font-semibold mb-4">Questionnaire préalable</h2>
-                <p class="mb-4">Pour mieux comprendre vos besoins et ceux de votre chien, merci de remplir ce questionnaire avant votre premier rendez-vous.</p>
+                <h2 class="text-xl font-semibold mb-4">Informations sur votre chien</h2>
+                <p class="mb-4">Pour mieux comprendre vos besoins et ceux de votre chien, merci de remplir ce questionnaire avant votre réservation.</p>
                 
                 <form id="preBookingForm" class="space-y-4">
                     <!-- Informations sur le propriétaire -->
@@ -311,7 +276,7 @@
                     
                     <div class="pt-2">
                         <button type="submit" id="submitFormBtn" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 px-4 rounded-lg transition duration-300">
-                            Envoyer le questionnaire
+                            Enregistrer mes informations
                         </button>
                         <p class="text-xs text-center mt-2 text-gray-400">En soumettant ce formulaire, vous acceptez que les informations fournies soient utilisées dans le cadre de votre demande.</p>
                     </div>
@@ -322,8 +287,64 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-2 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
-                    <p class="font-medium">Merci ! Votre questionnaire a été envoyé avec succès.</p>
-                    <p class="text-sm mt-1">Nous avons envoyé une copie des informations à votre adresse email.</p>
+                    <p class="font-medium">Merci ! Vos informations ont été enregistrées.</p>
+                    <p class="text-sm mt-1 mb-3">Nous avons envoyé une copie à votre adresse email.</p>
+                    <p class="text-sm font-medium">Vous pouvez maintenant choisir votre créneau ci-dessous ⬇️</p>
+                </div>
+            </div>
+            
+            <!-- Réservation de calendrier (toujours visible) -->
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8" id="calendar-section">
+                <h2 class="text-xl font-semibold mb-4 text-center">Choisissez votre créneau</h2>
+                
+                <div class="session-tabs">
+                    <button id="tab-individual" class="session-tab active">
+                        <span class="block text-lg">Séance individuelle</span>
+                        <span class="text-xs opacity-80">1 heure</span>
+                    </button>
+                    <button id="tab-group" class="session-tab">
+                        <span class="block text-lg">Séance en groupe</span>
+                        <span class="text-xs opacity-80">3 heures</span>
+                    </button>
+                </div>
+                
+                <!-- Calendriers -->
+                <div id="content-individual" class="py-4">
+                    <!-- Cal.com remplacé par iframe direct -->
+                    <div class="cal-iframe-container" id="individual-calendar-container">
+                        <div class="flex justify-center items-center my-8">
+                            <div class="loading-spinner"></div>
+                            <p class="ml-4">Chargement du calendrier...</p>
+                        </div>
+                        <iframe 
+                            id="individual-calendar-iframe"
+                            src="https://cal.com/les-drailles-aux-loups-4pvzck/seance-d-une-heure?embed=true&theme=dark" 
+                            style="width:100%; height:600px; border:none;" 
+                            frameborder="0"
+                            allow="camera; microphone; autoplay; fullscreen"
+                            loading="lazy"
+                            class="hidden">
+                        </iframe>
+                    </div>
+                </div>
+                
+                <div id="content-group" class="py-4 hidden">
+                    <!-- Cal.com remplacé par iframe direct -->
+                    <div class="cal-iframe-container" id="group-calendar-container">
+                        <div class="flex justify-center items-center my-8">
+                            <div class="loading-spinner"></div>
+                            <p class="ml-4">Chargement du calendrier...</p>
+                        </div>
+                        <iframe 
+                            id="group-calendar-iframe"
+                            src="https://cal.com/les-drailles-aux-loups-4pvzck/seance-de-groupe-3h?embed=true&theme=dark" 
+                            style="width:100%; height:600px; border:none;" 
+                            frameborder="0"
+                            allow="camera; microphone; autoplay; fullscreen"
+                            loading="lazy"
+                            class="hidden">
+                        </iframe>
+                    </div>
                 </div>
             </div>
             
@@ -352,7 +373,19 @@
                             </svg>
                         </button>
                         <div class="faq-content hidden p-3 pt-0">
-                            <p>Nous acceptons les chiens à partir de 6 mois pour l'initiation. Pour un travail plus poussé, l'idéal est d'avoir un chien d'au moins 12 mois.</p>
+                            <p>Nous acceptons les chiens à partir de 6 mois pour l'initiation. Pour un travail plus intensif, l'idéal est d'avoir un chien d'au moins 12 mois.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                        <button class="faq-toggle w-full flex justify-between items-center p-3 text-left font-medium">
+                            <span>Toutes les races de chiens sont-elles acceptées ?</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="faq-content hidden p-3 pt-0">
+                            <p>Bien que les races de berger (Border Collie, Berger Australien, etc.) aient un instinct naturel pour le troupeau, nous accueillons toutes les races qui montrent un intérêt pour cette activité.</p>
                         </div>
                     </div>
                 </div>
@@ -388,7 +421,7 @@
     // Initialiser EmailJS
     (function() {
         // Remplacez "YOUR_USER_ID" par votre identifiant EmailJS
-        emailjs.init("Gmail");
+        emailjs.init("gXAUQo9QLLKuoIzGC");
     })();
     
     // Toggle menu pour mobile
@@ -407,10 +440,7 @@
         document.getElementById('content-group').classList.add('hidden');
         
         // Afficher l'iframe après un court délai (si pas déjà fait)
-        setTimeout(function() {
-            document.getElementById('individual-calendar-iframe').classList.remove('hidden');
-            document.getElementById('individual-calendar-container').querySelector('.flex').classList.add('hidden');
-        }, 500);
+        showCalendarIframe('individual');
     });
     
     document.getElementById('tab-group').addEventListener('click', function() {
@@ -423,119 +453,23 @@
         document.getElementById('content-individual').classList.add('hidden');
         
         // Afficher l'iframe après un court délai (si pas déjà fait)
+        showCalendarIframe('group');
+    });
+    
+    // Fonction pour afficher les iframes de calendrier
+    function showCalendarIframe(type) {
         setTimeout(function() {
-            document.getElementById('group-calendar-iframe').classList.remove('hidden');
-            document.getElementById('group-calendar-container').querySelector('.flex').classList.add('hidden');
-        }, 500);
-    });
-    
-    // FAQ toggles
-    document.querySelectorAll('.faq-toggle').forEach(toggle => {
-        toggle.addEventListener('click', function() {
-            const content = this.nextElementSibling;
-            const icon = this.querySelector('svg');
-            
-            // Toggle content visibility
-            content.classList.toggle('hidden');
-            
-            // Rotate icon
-            if (content.classList.contains('hidden')) {
-                icon.classList.remove('rotate-180');
-            } else {
-                icon.classList.add('rotate-180');
-            }
-        });
-    });
-    
-    // Gestion des événements d'erreur pour les iframes
-    document.getElementById('individual-calendar-iframe').addEventListener('error', function() {
-        handleIframeError('individual-calendar-container');
-    });
-    
-    document.getElementById('group-calendar-iframe').addEventListener('error', function() {
-        handleIframeError('group-calendar-container');
-    });
-    
-    function handleIframeError(containerId) {
-        const container = document.getElementById(containerId);
-        container.querySelector('.flex').classList.add('hidden');
-        
-        // Afficher un message d'erreur
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'p-4 bg-red-100 dark:bg-red-900/30 rounded-lg text-center';
-        errorDiv.innerHTML = `
-            <p class="mb-2"><strong>Impossible de charger le calendrier</strong></p>
-            <p>Veuillez contacter directement Charles Pierot pour réserver votre séance :</p>
-            <a href="tel:+33612345678" class="text-primary hover:underline block mt-2">+33 6 12 34 56 78</a>
-            <a href="mailto:contact@artzainak.fr" class="text-primary hover:underline block mt-2">contact@artzainak.fr</a>
-        `;
-        container.appendChild(errorDiv);
+            document.getElementById(type + '-calendar-iframe').classList.remove('hidden');
+            document.getElementById(type + '-calendar-container').querySelector('.flex').classList.add('hidden');
+        }, 1000);
     }
     
-    // Gestion du formulaire
-    document.getElementById('preBookingForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+    // Afficher les iframes des calendriers au chargement de la page
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initier le chargement des deux calendriers
+        showCalendarIframe('individual');
+        // Le calendrier de groupe sera chargé lors du clic sur l'onglet
         
-        // Récupérer les données du formulaire
-        const formData = {
-            ownerName: document.getElementById('ownerName').value,
-            ownerEmail: document.getElementById('ownerEmail').value,
-            dogName: document.getElementById('dogName').value,
-            dogBreed: document.getElementById('dogBreed').value,
-            dogAge: document.getElementById('dogAge').value,
-            experience: document.getElementById('experience').value,
-            problems: document.getElementById('problems').value,
-            objectives: document.getElementById('objectives').value
-        };
-        
-        // Préparation pour EmailJS
-        const templateParams = {
-            owner_name: formData.ownerName,
-            owner_email: formData.ownerEmail,
-            dog_name: formData.dogName,
-            dog_breed: formData.dogBreed,
-            dog_age: formData.dogAge,
-            experience: formData.experience,
-            problems: formData.problems,
-            objectives: formData.objectives
-        };
-        
-        // Envoi du formulaire via EmailJS
-        // Remplacez "YOUR_SERVICE_ID" et "YOUR_TEMPLATE_ID" par vos identifiants EmailJS
-        emailjs.send('service_ucp821f', 'template-ptck188', templateParams)
-            .then(function(response) {
-                // Afficher le message de confirmation
-                document.getElementById('preBookingForm').classList.add('hidden');
-                document.getElementById('formConfirmation').classList.remove('hidden');
-                
-                // Envoi d'une copie au client
-                sendConfirmationEmail(formData);
-                
-                console.log('Formulaire envoyé!', response.status, response.text);
-            }, function(error) {
-                // Gestion des erreurs
-                alert('Oups! Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer ou nous contacter directement.');
-                console.log('Erreur:', error);
-            });
+        // Force le mode sombre
+        enableDarkMode();
     });
-    
-    // Fonction pour envoyer un email de confirmation au client
-    function sendConfirmationEmail(formData) {
-        // Préparer les paramètres pour l'email de confirmation
-        const confirmParams = {
-            to_email: formData.ownerEmail,
-            to_name: formData.ownerName,
-            subject: 'Confirmation de votre demande - Artzainak',
-            dog_name: formData.dogName,
-            message: `Nous avons bien reçu votre demande concernant ${formData.dogName}. Nous la traiterons dans les plus brefs délais et reviendrons vers vous pour confirmer votre réservation.`
-        };
-        
-        // Envoyer l'email de confirmation
-        // Utilisez un template différent pour la confirmation client
-        emailjs.send('service_ucp821f', 'template-ptck188', confirmParams)
-            .then(function(response) {
-                console.log('Email de confirmation envoyé!', response.status);
-            }, function(error) {
-                console.log('Erreur lors de l\'envoi de la confirmation:', error);
-            });
-    }
