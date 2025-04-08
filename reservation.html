@@ -460,15 +460,16 @@
         });
     });
     
-    // Gestion du formulaire avec la nouvelle méthode sendForm
-    document.getElementById('preBookingForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Désactiver le bouton et montrer que l'envoi est en cours
-        const submitBtn = document.getElementById('submitFormBtn');
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Envoi en cours...';
-        // Récupérer les données de façon sécurisée
+// Gestion du formulaire
+document.getElementById('preBookingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Désactiver le bouton et montrer que l'envoi est en cours
+    const submitBtn = document.getElementById('submitFormBtn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Envoi en cours...';
+    
+    // Récupérer les données de façon sécurisée
     const formData = {
         owner_name: document.getElementById('ownerName').value || '',
         owner_email: document.getElementById('ownerEmail').value || '',
@@ -478,10 +479,10 @@
         experience: document.getElementById('experience').value || '',
         problems: document.getElementById('problems').value || '',
         objectives: document.getElementById('objectives').value || ''
-        };
-        
-        // Envoi du formulaire via EmailJS avec sendForm
-        emailjs.send('service_ucp821f', 'template_mfsiq3i', formData)
+    };
+    
+    // Envoi du formulaire via EmailJS
+    emailjs.send('service_ucp821f', 'template_mfsiq3i', formData)
         .then(function(response) {
             // Afficher le message de confirmation
             document.getElementById('preBookingForm').classList.add('hidden');
@@ -494,26 +495,11 @@
             submitBtn.disabled = false;
             submitBtn.textContent = 'Enregistrer mes informations';
         });
-                
-                // Réactiver le bouton
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Enregistrer mes informations';
-            });
-        
-        // Sauvegarde dans localStorage pour référence future
-        const formData = {
-            ownerName: document.getElementById('ownerName').value,
-            ownerEmail: document.getElementById('ownerEmail').value,
-            dogName: document.getElementById('dogName').value,
-            dogBreed: document.getElementById('dogBreed').value,
-            dogAge: document.getElementById('dogAge').value,
-            experience: document.getElementById('experience').options[document.getElementById('experience').selectedIndex].text,
-            problems: document.getElementById('problems').value,
-            objectives: document.getElementById('objectives').value
-        };
-        localStorage.setItem('ownerInfo', JSON.stringify(formData));
-        console.log('Informations sauvegardées localement:', formData);
-    });
+    
+    // Sauvegarde dans localStorage pour référence future
+    localStorage.setItem('ownerInfo', JSON.stringify(formData));
+    console.log('Informations sauvegardées localement:', formData);
+});
 
     // Activer le mode sombre au chargement de la page
     document.addEventListener('DOMContentLoaded', function() {
