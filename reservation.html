@@ -340,7 +340,7 @@
                             </svg>
                         </button>
                         <div class="faq-content hidden p-3 pt-0">
-                            <p>Pour votre première séance, apportez le carnet de santé, une laisse solide, de l'eau pour votre chien et des vêtements adaptés à l'extérieur.</p>
+                            <p>Pour votre première séance, apportez une laisse solide, de l'eau pour votre chien et des vêtements adaptés à l'extérieur.</p>
                         </div>
                     </div>
                     
@@ -352,7 +352,7 @@
                             </svg>
                         </button>
                         <div class="faq-content hidden p-3 pt-0">
-                            <p>Nous acceptons les chiens à partir de 6 mois pour l'initiation. Pour un travail plus intensif, l'idéal est d'avoir un chien d'au moins 12 mois.</p>
+                            <p>Nous acceptons les chiens à partir de 6 mois pour l'initiation. Pour un travail plus poussé, l'idéal est d'avoir un chien d'au moins 12 mois.</p>
                         </div>
                     </div>
                 </div>
@@ -388,7 +388,7 @@
     // Initialiser EmailJS
     (function() {
         // Remplacez "YOUR_USER_ID" par votre identifiant EmailJS
-        emailjs.init("YOUR_USER_ID");
+        emailjs.init("Gmail");
     })();
     
     // Toggle menu pour mobile
@@ -502,7 +502,7 @@
         
         // Envoi du formulaire via EmailJS
         // Remplacez "YOUR_SERVICE_ID" et "YOUR_TEMPLATE_ID" par vos identifiants EmailJS
-        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+        emailjs.send('service_ucp821f', 'template-ptck188', templateParams)
             .then(function(response) {
                 // Afficher le message de confirmation
                 document.getElementById('preBookingForm').classList.add('hidden');
@@ -532,7 +532,7 @@
         
         // Envoyer l'email de confirmation
         // Utilisez un template différent pour la confirmation client
-        emailjs.send('YOUR_SERVICE_ID', 'YOUR_CONFIRMATION_TEMPLATE_ID', confirmParams)
+        emailjs.send('service_ucp821f', 'template-ptck188', confirmParams)
             .then(function(response) {
                 console.log('Email de confirmation envoyé!', response.status);
             }, function(error) {
