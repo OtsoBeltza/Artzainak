@@ -25,6 +25,13 @@
         }
     </script>
     <link rel="stylesheet" href="css/styles.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // Remplacez "YOUR_PUBLIC_KEY" par votre clé publique EmailJS
+            emailjs.init("YOUR_PUBLIC_KEY");
+        })();
+    </script>
     <style>
         /* Force dark mode */
         .force-dark {
@@ -89,6 +96,13 @@
                 <h2 class="text-xl font-semibold mb-4">Informations sur votre chien</h2>
                 <p class="mb-4">Pour mieux comprendre vos besoins et ceux de votre chien, merci de remplir ce formulaire pour compléter votre réservation.</p>
                 
+                <!-- Message d'erreur pour les données manquantes -->
+                <div id="missing-data-warning" class="hidden mb-4 p-4 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 rounded-lg">
+                    <p class="font-medium">Informations de réservation incomplètes</p>
+                    <p class="text-sm mt-1">Certaines informations de votre réservation sont manquantes. Vous pouvez continuer à remplir le formulaire, mais veillez à vérifier les détails de votre réservation.</p>
+                    <a href="reservation.html" class="inline-block mt-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition duration-300">Retour à la page de réservation</a>
+                </div>
+                
                 <!-- Récapitulatif de la réservation -->
                 <div class="p-4 bg-primary/10 dark:bg-primary/20 rounded-lg mb-6">
                     <h3 class="font-medium mb-3 text-primary">Récapitulatif de votre réservation</h3>
@@ -99,8 +113,8 @@
                     </div>
                 </div>
                 
-                <!-- Formulaire Formspree -->
-                <form id="bookingForm" action="https://formspree.io/f/VOTRE_NOUVEAU_ENDPOINT" method="POST" class="space-y-4">
+                <!-- Formulaire avec EmailJS -->
+                <form id="bookingForm" class="space-y-4">
                     <!-- Champs cachés pour les informations de réservation -->
                     <input type="hidden" id="booking_type" name="booking_type">
                     <input type="hidden" id="booking_date" name="booking_date">
@@ -244,20 +258,31 @@
         // Fonction pour formater la date
         function formatDate(dateString) {
             if (!dateString) return 'Date non spécifiée';
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('fr-FR', options);
+            try {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString('fr-FR', options);
+            } catch (e) {
+                console.error("Erreur lors du formatage de la date:", e);
+                return dateString || 'Date non spécifiée';
+            }
         }
         
         // Fonction pour formater l'heure
         function formatTime(timeString) {
             if (!timeString) return 'Heure non spécifiée';
-            return timeString.substring(0, 5).replace(':', 'h');
+            try {
+                return timeString.substring(0, 5).replace(':', 'h');
+            } catch (e) {
+                console.error("Erreur lors du formatage de l'heure:", e);
+                return timeString || 'Heure non spécifiée';
+            }
         }
         
         // Fonction pour remplir le formulaire avec les données de réservation
         function populateForm() {
             // Essayer d'abord les paramètres d'URL
             let bookingData = getURLParams();
+            let hasCompleteData = true;
             
             // Si les paramètres d'URL ne sont pas complets, essayer localStorage
             if (!bookingData.type || !bookingData.date || !bookingData.time) {
@@ -272,28 +297,27 @@
                 }
             }
             
-            // Si on a des données de réservation, remplir le formulaire
-            if (bookingData.type && bookingData.date) {
-                // Remplir les champs cachés
-                document.getElementById('booking_type').value = bookingData.type;
-                document.getElementById('booking_date').value = bookingData.date;
-                document.getElementById('booking_time').value = bookingData.time || '';
-                document.getElementById('booking_id').value = bookingData.id || '';
-                
-                // Mettre à jour le récapitulatif
-                document.getElementById('summary_type').textContent = bookingData.type;
-                document.getElementById('summary_date').textContent = formatDate(bookingData.date);
-                document.getElementById('summary_time').textContent = formatTime(bookingData.time);
-            } else {
-                // Aucune donnée de réservation disponible
-                alert("Aucune information de réservation trouvée. Veuillez revenir à la page de réservation.");
-                document.getElementById('summary_type').textContent = "Information non disponible";
-                document.getElementById('summary_date').textContent = "Information non disponible";
-                document.getElementById('summary_time').textContent = "Information non disponible";
+            // Vérifier si on a toutes les données nécessaires
+            if (!bookingData.type || !bookingData.date) {
+                hasCompleteData = false;
+                document.getElementById('missing-data-warning').classList.remove('hidden');
             }
+            
+            // Remplir les champs cachés
+            document.getElementById('booking_type').value = bookingData.type || '';
+            document.getElementById('booking_date').value = bookingData.date || '';
+            document.getElementById('booking_time').value = bookingData.time || '';
+            document.getElementById('booking_id').value = bookingData.id || '';
+            
+            // Mettre à jour le récapitulatif
+            document.getElementById('summary_type').textContent = bookingData.type || 'Non spécifié';
+            document.getElementById('summary_date').textContent = formatDate(bookingData.date);
+            document.getElementById('summary_time').textContent = formatTime(bookingData.time);
+            
+            return hasCompleteData;
         }
         
-        // Gestion du formulaire
+        // Gestion du formulaire avec EmailJS
         document.getElementById('bookingForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -305,39 +329,84 @@
             submitButton.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-5 w-5 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Traitement en cours...';
             submitButton.disabled = true;
             
-            // Envoi des données à Formspree
-            fetch(this.action, {
-                method: this.method,
-                body: new FormData(this),
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error(`Erreur ${response.status}: ${response.statusText}`);
-                }
-            })
-            .then(data => {
-                console.log('Succès:', data);
-                // Cacher le formulaire et montrer la confirmation
-                this.style.display = 'none';
-                document.getElementById('formConfirmation').classList.remove('hidden');
-                
-                // Effacer les données locales
-                localStorage.removeItem('artzainak_booking_data');
-            })
-            .catch(error => {
-                console.error('Erreur:', error);
-                alert('Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer ou nous contacter directement.');
-                
-                // Réinitialiser le bouton
-                submitButton.innerHTML = originalText;
-                submitButton.disabled = false;
-            });
+            // Préparer les données pour l'email
+            const templateParams = {
+                to_email: 'takalowshin@gmail.com',
+                subject: 'Infos Reservation Client',
+                type: document.getElementById('summary_type').textContent,
+                date: document.getElementById('summary_date').textContent,
+                time: document.getElementById('summary_time').textContent,
+                owner_name: document.getElementById('ownerName').value,
+                owner_email: document.getElementById('ownerEmail').value,
+                owner_phone: document.getElementById('ownerPhone').value,
+                dog_name: document.getElementById('dogName').value,
+                dog_breed: document.getElementById('dogBreed').value,
+                dog_age: document.getElementById('dogAge').value,
+                experience: document.getElementById('experience').value,
+                problems: document.getElementById('problems').value || 'Non spécifié',
+                objectives: document.getElementById('objectives').value || 'Non spécifié'
+            };
+            
+            // Envoyer l'email via EmailJS
+            // Remplacez "YOUR_SERVICE_ID" et "YOUR_TEMPLATE_ID" par vos propres identifiants
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+                .then(function(response) {
+                    console.log('Succès!', response.status, response.text);
+                    
+                    // Cacher le formulaire et montrer la confirmation
+                    document.getElementById('bookingForm').style.display = 'none';
+                    document.getElementById('formConfirmation').classList.remove('hidden');
+                    
+                    // Effacer les données locales
+                    localStorage.removeItem('artzainak_booking_data');
+                })
+                .catch(function(error) {
+                    console.error('Erreur EmailJS:', error);
+                    
+                    // Essayer une méthode alternative - formulaire mailto
+                    try {
+                        const mailtoURL = constructMailtoURL(templateParams);
+                        window.location.href = mailtoURL;
+                        
+                        // Cacher le formulaire et montrer la confirmation
+                        document.getElementById('bookingForm').style.display = 'none';
+                        document.getElementById('formConfirmation').classList.remove('hidden');
+                        
+                        // Effacer les données locales
+                        localStorage.removeItem('artzainak_booking_data');
+                    } catch (mailtoError) {
+                        console.error('Erreur avec mailto:', mailtoError);
+                        alert('Le formulaire n\'a pas pu être envoyé. Veuillez nous contacter directement à takalowshin@gmail.com');
+                        
+                        // Réinitialiser le bouton
+                        submitButton.innerHTML = originalText;
+                        submitButton.disabled = false;
+                    }
+                });
         });
+        
+        // Fonction pour construire une URL mailto comme solution de secours
+        function constructMailtoURL(params) {
+            const email = 'takalowshin@gmail.com';
+            const subject = encodeURIComponent('Infos Reservation Client');
+            
+            let body = encodeURIComponent(
+                `Type de séance: ${params.type}\n` +
+                `Date: ${params.date}\n` +
+                `Heure: ${params.time}\n\n` +
+                `Nom du propriétaire: ${params.owner_name}\n` +
+                `Email: ${params.owner_email}\n` +
+                `Téléphone: ${params.owner_phone}\n\n` +
+                `Nom du chien: ${params.dog_name}\n` +
+                `Race: ${params.dog_breed}\n` +
+                `Âge (mois): ${params.dog_age}\n` +
+                `Niveau d'expérience: ${params.experience}\n\n` +
+                `Difficultés rencontrées:\n${params.problems}\n\n` +
+                `Objectifs:\n${params.objectives}\n`
+            );
+            
+            return `mailto:${email}?subject=${subject}&body=${body}`;
+        }
         
         // Initialiser la page
         window.addEventListener('DOMContentLoaded', populateForm);
