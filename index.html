@@ -4,6 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artzainak - Éducation de chiens de troupeau</title>
+    
+    <!-- Métadonnées SEO -->
+    <meta name="description" content="Artzainak - Services professionnels d'éducation de chiens de troupeau et d'écopâturage au Pays Basque. Découvrez nos formations pour chiens de berger et nos solutions écologiques d'entretien de terrains par écopâturage.">
+    
+    <!-- Balises Open Graph pour les réseaux sociaux -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Artzainak - Éducation canine et écopâturage au Pays Basque">
+    <meta property="og:description" content="Spécialiste de l'éducation des chiens de troupeau et de l'écopâturage au Pays Basque. Formation professionnelle pour Border Collie et autres races de berger.">
+    <meta property="og:image" content="https://artzainak.netlify.app/images/og-image.jpg">
+    <meta property="og:url" content="https://artzainak.netlify.app/">
+    <meta property="og:site_name" content="Artzainak">
+    
+    <!-- Balises Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Artzainak - Éducation canine et écopâturage au Pays Basque">
+    <meta name="twitter:description" content="Spécialiste de l'éducation des chiens de troupeau et de l'écopâturage au Pays Basque. Formation professionnelle pour Border Collie et autres races de berger.">
+    <meta name="twitter:image" content="https://artzainak.netlify.app/images/og-image.jpg">
+    
+    <!-- Métadonnées géographiques -->
+    <meta name="geo.region" content="FR-64">
+    <meta name="geo.placename" content="Arbonne, Pays Basque">
+    <meta name="geo.position" content="43.4373;-1.5477">
+    <meta name="ICBM" content="43.4373, -1.5477">
+    
+    <!-- Balises de langue -->
+    <link rel="alternate" hreflang="fr" href="https://artzainak.netlify.app/">
+    <link rel="canonical" href="https://artzainak.netlify.app/">
+    
+    <!-- Google Tag Manager -->
+    <script src="js/marketing-tracking.js"></script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -28,12 +59,17 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
     <!-- Header -->
     <header class="bg-primary p-4 text-white sticky top-0 z-10 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html" class="text-xl font-bold">ARTZAINAK</a>
             <p class="text-sm hidden sm:block">Éducation de chiens de troupeau au Pays Basque ((site web en construction)) </p>
-            <button id="menuToggle" class="md:hidden focus:outline-none">
+            <button id="menuToggle" class="md:hidden focus:outline-none" aria-label="Menu principal" aria-expanded="false" aria-controls="mobileNav">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
@@ -44,6 +80,7 @@
                     <li><a href="#services" class="hover:underline">Services</a></li>
                     <li><a href="reservation.html" class="hover:underline">Réserver</a></li>
                     <li><a href="location.html" class="hover:underline">Louer</a></li>
+                    <li><a href="ressources.html" class="hover:underline">Ressources</a></li>
                     <li><a href="contact.html" class="hover:underline">Contact</a></li>
                 </ul>
             </nav>
@@ -54,6 +91,7 @@
                 <li><a href="#services" class="block hover:underline">Services</a></li>
                 <li><a href="reservation.html" class="block hover:underline">Réserver</a></li>
                 <li><a href="location.html" class="block hover:underline">Louer</a></li>
+                <li><a href="ressources.html" class="block hover:underline">Ressources</a></li>
                 <li><a href="contact.html" class="block hover:underline">Contact</a></li>
             </ul>
         </nav>
@@ -63,7 +101,7 @@
     <section class="py-12 px-4 bg-basque-green/10 dark:bg-basque-green/5">
         <div class="container mx-auto">
             <div class="max-w-3xl mx-auto text-center">
-                <h2 class="text-3xl font-bold mb-4">Bienvenue chez Artzainak</h2>
+                <h1 class="text-3xl font-bold mb-4">Bienvenue chez Artzainak</h1>
                 <p class="text-lg mb-6">Spécialiste de l'éducation des chiens de troupeau et de l'écopâturage au Pays Basque</p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
                     <a href="reservation.html" class="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300 text-center flex items-center justify-center">
@@ -83,42 +121,90 @@
         </div>
     </section>
 
-    <!-- Photo Gallery Section -->
-    <section class="py-8 px-4">
+    <!-- Galerie photos interactive -->
+    <section class="py-12 px-4">
         <div class="container mx-auto">
-            <h2 class="text-2xl font-bold mb-6 text-center">Galerie Photos</h2>
+            <h2 class="text-2xl font-bold mb-6 text-center">Notre Travail en Images</h2>
             
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <!-- Exemple d'images - Remplacez par vos propres images -->
-                <a href="images/dogs1.jpg" data-lightbox="gallery" data-title="Chien de troupeau en action" class="gallery-item">
-                    <div class="aspect-square overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all">
-                        <img src="images/dogs1.jpg" alt="Chien de troupeau" class="w-full h-full object-cover">
-                    </div>
-                </a>
-                
-                <a href="images/sheep1.jpg" data-lightbox="gallery" data-title="Nos brebis en écopâturage" class="gallery-item">
-                    <div class="aspect-square overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all">
-                        <img src="images/sheep1.jpg" alt="Brebis en écopâturage" class="w-full h-full object-cover">
-                    </div>
-                </a>
-                
-                <a href="images/training1.jpg" data-lightbox="gallery" data-title="Session d'entraînement" class="gallery-item">
-                    <div class="aspect-square overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all">
-                        <img src="images/training1.jpg" alt="Session d'entraînement" class="w-full h-full object-cover">
-                    </div>
-                </a>
-                
-                <a href="images/landscape1.jpg" data-lightbox="gallery" data-title="Le Pays Basque, notre terrain de jeu" class="gallery-item">
-                    <div class="aspect-square overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all">
-                        <img src="images/landscape1.jpg" alt="Paysage du Pays Basque" class="w-full h-full object-cover">
-                    </div>
-                </a>
-                
-                <!-- Vous pouvez ajouter plus d'images ici -->
+            <!-- Filtres de catégories -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button class="filter-btn active px-4 py-2 rounded-full bg-primary text-white transition-all" data-filter="all">
+                    Tous
+                </button>
+                <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-primary hover:text-white transition-all" data-filter="dogs">
+                    Chiens de troupeau
+                </button>
+                <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-primary hover:text-white transition-all" data-filter="sheep">
+                    Écopâturage
+                </button>
+                <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-primary hover:text-white transition-all" data-filter="landscape">
+                    Paysages
+                </button>
             </div>
             
-            <div class="text-center mt-6">
-                <p class="text-sm italic">Ces images illustrent notre travail quotidien avec les chiens de troupeau et nos services d'écopâturage.</p>
+            <!-- Grille de photos avec effet de survol et filtrage -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gallery-container">
+                <!-- Chiens de troupeau -->
+                <div class="gallery-item" data-category="dogs">
+                    <a href="images/dogs1.jpg" data-lightbox="gallery" data-title="Border Collie en plein travail">
+                        <div class="aspect-square overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all relative group">
+                            <img src="images/dogs1.jpg" alt="Border Collie" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                                <div class="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center p-2">
+                                    <span class="text-sm font-medium">Border Collie</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="gallery-item" data-category="dogs">
+                    <a href="images/training1.jpg" data-lightbox="gallery" data-title="Entrainement sur le terrain">
+                        <div class="aspect-square overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all relative group">
+                            <img src="images/training1.jpg" alt="Entrainement" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                                <div class="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center p-2">
+                                    <span class="text-sm font-medium">Entrainement</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Écopâturage -->
+                <div class="gallery-item" data-category="sheep">
+                    <a href="images/sheep1.jpg" data-lightbox="gallery" data-title="Troupeau en écopâturage">
+                        <div class="aspect-square overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all relative group">
+                            <img src="images/sheep1.jpg" alt="Écopâturage" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                                <div class="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center p-2">
+                                    <span class="text-sm font-medium">Troupeau en action</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Paysage -->
+                <div class="gallery-item" data-category="landscape">
+                    <a href="images/landscape1.jpg" data-lightbox="gallery" data-title="Paysages du Pays Basque">
+                        <div class="aspect-square overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all relative group">
+                            <img src="images/landscape1.jpg" alt="Paysage" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                                <div class="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center p-2">
+                                    <span class="text-sm font-medium">Pays Basque</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Bouton "Voir plus" -->
+            <div class="text-center mt-8">
+                <button id="load-more" class="px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-lg transition duration-300">
+                    Voir plus de photos
+                </button>
             </div>
         </div>
     </section>
@@ -231,6 +317,13 @@
                     </a>
                 </div>
             </div>
+            
+            <!-- Lien vers la page Ressources -->
+            <div class="text-center mt-8">
+                <a href="ressources.html" class="inline-block px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-semibold rounded-lg transition duration-300">
+                    Découvrir nos ressources gratuites
+                </a>
+            </div>
         </div>
     </section>
 
@@ -247,6 +340,7 @@
                     <div class="flex gap-4 justify-center md:justify-end mb-2">
                         <a href="reservation.html" class="text-white hover:text-primary transition duration-300">Réserver un cours</a>
                         <a href="location.html" class="text-white hover:text-basque-green transition duration-300">Louer des brebis</a>
+                        <a href="ressources.html" class="text-white hover:text-primary transition duration-300">Ressources</a>
                         <a href="contact.html" class="text-white hover:text-gray-300 transition duration-300">Contact</a>
                     </div>
                     <p>&copy; 2023 Artzainak. Tous droits réservés.</p>
@@ -255,10 +349,46 @@
         </div>
     </footer>
 
+    <!-- Métadonnées structurées pour Google (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Artzainak",
+      "image": "https://artzainak.netlify.app/images/logo.jpg",
+      "url": "https://artzainak.netlify.app/",
+      "telephone": "+33608919431",
+      "email": "takalowshin@gmail.com",
+      "description": "Services professionnels d'éducation de chiens de troupeau et d'écopâturage au Pays Basque.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Arbonne",
+        "addressLocality": "Pays Basque",
+        "postalCode": "64210",
+        "addressCountry": "FR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 43.4373,
+        "longitude": -1.5477
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        }
+      ],
+      "priceRange": "€€"
+    }
+    </script>
+    
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
     <script src="js/script.js"></script>
-    <script src="js/email-notifications.js"></script>
     <script src="js/mobile-optimizations.js"></script>
+    <script src="js/performance-optimizations.js"></script>
     <script src="js/floating-cta.js"></script>
 </body>
 </html>
