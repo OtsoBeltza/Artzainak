@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finaliser votre réservation - Artzainak</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#5D5CDE',
+                            dark: '#4A49B0'
+                        },
+                        basque: {
+                            red: '#DC3545',
+                            green: '#198754'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Force dark mode */
+        .force-dark {
+            background-color: #1a202c !important;
+            color: #e2e8f0 !important;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .form-required::after {
+            content: "*";
+            color: #DC3545;
+            margin-left: 4px;
+        }
+        
+        /* Animation d'apparition */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen force-dark">
+    <!-- Header -->
+    <header class="bg-primary p-4 text-white sticky top-0 z-10 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold">ARTZAINAK</a>
+            <p class="text-sm hidden sm:block">Éducation de chiens de troupeau au Pays Basque</p>
+            <nav id="mainNav" class="hidden md:block">
+                <ul class="flex space-x-4">
+                    <li><a href="index.html" class="hover:underline">Accueil</a></li>
+                    <li><a href="index.html#services" class="hover:underline">Services</a></li>
+                    <li><a href="reservation.html" class="hover:underline font-bold">Réserver</a></li>
+                    <li><a href="location.html" class="hover:underline">Louer</a></li>
+                    <li><a href="contact.html" class="hover:underline">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Title -->
+    <div class="bg-primary/10 dark:bg-primary/20 py-6">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold text-center">Finaliser votre réservation</h1>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 fade-in">
+        <div class="max-w-3xl mx-auto">
+            <!-- Formulaire -->
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
+                <h2 class="text-xl font-semibold mb-4">Informations sur votre chien</h2>
+                <p class="mb-4">Pour mieux comprendre vos besoins et ceux de votre chien, merci de remplir ce formulaire pour compléter votre réservation.</p>
+                
+                <!-- Récapitulatif de la réservation -->
+                <div class="p-4 bg-primary/10 dark:bg-primary/20 rounded-lg mb-6">
+                    <h3 class="font-medium mb-3 text-primary">Récapitulatif de votre réservation</h3>
+                    <div class="space-y-2">
+                        <p><strong>Type de séance :</strong> <span id="summary_type">Chargement...</span></p>
+                        <p><strong>Date :</strong> <span id="summary_date">Chargement...</span></p>
+                        <p><strong>Heure :</strong> <span id="summary_time">Chargement...</span></p>
+                    </div>
+                </div>
+                
+                <!-- Formulaire Formspree -->
+                <form id="bookingForm" action="https://formspree.io/f/VOTRE_NOUVEAU_ENDPOINT" method="POST" class="space-y-4">
+                    <!-- Champs cachés pour les informations de réservation -->
+                    <input type="hidden" id="booking_type" name="booking_type">
+                    <input type="hidden" id="booking_date" name="booking_date">
+                    <input type="hidden" id="booking_time" name="booking_time">
+                    <input type="hidden" id="booking_id" name="booking_id">
+                    
+                    <!-- Informations sur le propriétaire -->
+                    <div class="p-4 bg-gray-100 dark:bg-gray-700 rounded-lg mb-4">
+                        <h3 class="font-medium mb-3 text-primary">Vos coordonnées</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="ownerName" class="form-label form-required">Votre nom</label>
+                                <input type="text" id="ownerName" name="owner_name" required
+                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                            </div>
+                            <div>
+                                <label for="ownerEmail" class="form-label form-required">Votre email</label>
+                                <input type="email" id="ownerEmail" name="owner_email" required
+                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <label for="ownerPhone" class="form-label form-required">Téléphone</label>
+                            <input type="tel" id="ownerPhone" name="owner_phone" required
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                        </div>
+                    </div>
+                    
+                    <!-- Informations sur le chien -->
+                    <div class="p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                        <h3 class="font-medium mb-3 text-primary">Informations sur votre chien</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="dogName" class="form-label form-required">Nom du chien</label>
+                                <input type="text" id="dogName" name="dog_name" required
+                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                            </div>
+                            <div>
+                                <label for="dogBreed" class="form-label form-required">Race du chien</label>
+                                <input type="text" id="dogBreed" name="dog_breed" required
+                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+                            <div>
+                                <label for="dogAge" class="form-label form-required">Âge du chien (mois)</label>
+                                <input type="number" id="dogAge" name="dog_age" min="1" required
+                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                            </div>
+                            <div>
+                                <label for="experience" class="form-label form-required">Niveau d'expérience</label>
+                                <select id="experience" name="experience" required
+                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                                    <option value="">Sélectionnez un niveau</option>
+                                    <option value="Débutant - aucune expérience">Débutant - aucune expérience</option>
+                                    <option value="Intermédiaire - quelques bases">Intermédiaire - quelques bases</option>
+                                    <option value="Avancé - perfectionnement">Avancé - perfectionnement</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="problems" class="form-label">Difficultés rencontrées</label>
+                        <textarea id="problems" name="problems" rows="2" placeholder="Décrivez les difficultés que vous rencontrez avec votre chien..."
+                            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white"></textarea>
+                    </div>
+                    
+                    <div>
+                        <label for="objectives" class="form-label">Objectifs</label>
+                        <textarea id="objectives" name="objectives" rows="2" placeholder="Quels sont vos objectifs pour cette formation ?"
+                            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white"></textarea>
+                    </div>
+                    
+                    <div class="pt-2">
+                        <button type="submit" id="submitButton" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 px-4 rounded-lg transition duration-300">
+                            Confirmer ma réservation
+                        </button>
+                        <p class="text-xs text-center mt-2 text-gray-400">En soumettant ce formulaire, vous acceptez que les informations fournies soient utilisées dans le cadre de votre réservation.</p>
+                    </div>
+                </form>
+                
+                <!-- Message de confirmation caché -->
+                <div id="formConfirmation" class="hidden bg-green-100 dark:bg-green-900/30 p-4 rounded-lg mt-4 text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-2 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <p class="font-medium">Merci ! Votre réservation est confirmée.</p>
+                    <p class="text-sm mt-1 mb-3">Nous avons envoyé une confirmation à votre adresse email.</p>
+                    <p class="text-sm font-medium">À bientôt pour votre séance d'éducation canine.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-6 px-4 bg-gray-800 text-white">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h2 class="text-xl font-bold">ARTZAINAK</h2>
+                    <p class="text-sm">Éducation de chiens de troupeau au Pays Basque</p>
+                </div>
+                
+                <div class="text-sm text-center md:text-right">
+                    <div class="flex gap-4 justify-center md:justify-end mb-2">
+                        <a href="reservation.html" class="text-white hover:text-primary transition duration-300">Réserver un cours</a>
+                        <a href="location.html" class="text-white hover:text-basque-green transition duration-300">Louer des brebis</a>
+                        <a href="contact.html" class="text-white hover:text-gray-300 transition duration-300">Contact</a>
+                    </div>
+                    <p>&copy; 2023 Artzainak. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Activer le mode sombre
+        document.documentElement.classList.add('dark');
+        document.body.classList.add('force-dark');
+        
+        // Fonction pour récupérer les paramètres de l'URL
+        function getURLParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                type: params.get('type') ? decodeURIComponent(params.get('type')) : null,
+                date: params.get('date') ? decodeURIComponent(params.get('date')) : null,
+                time: params.get('time') ? decodeURIComponent(params.get('time')) : null,
+                id: params.get('id') ? decodeURIComponent(params.get('id')) : null,
+                error: params.get('error') === 'true'
+            };
+        }
+        
+        // Fonction pour récupérer les données du localStorage
+        function getLocalStorageData() {
+            const data = localStorage.getItem('artzainak_booking_data');
+            return data ? JSON.parse(data) : null;
+        }
+        
+        // Fonction pour formater la date
+        function formatDate(dateString) {
+            if (!dateString) return 'Date non spécifiée';
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('fr-FR', options);
+        }
+        
+        // Fonction pour formater l'heure
+        function formatTime(timeString) {
+            if (!timeString) return 'Heure non spécifiée';
+            return timeString.substring(0, 5).replace(':', 'h');
+        }
+        
+        // Fonction pour remplir le formulaire avec les données de réservation
+        function populateForm() {
+            // Essayer d'abord les paramètres d'URL
+            let bookingData = getURLParams();
+            
+            // Si les paramètres d'URL ne sont pas complets, essayer localStorage
+            if (!bookingData.type || !bookingData.date || !bookingData.time) {
+                const localData = getLocalStorageData();
+                if (localData) {
+                    bookingData = {
+                        type: localData.type || bookingData.type,
+                        date: localData.date || bookingData.date,
+                        time: localData.time || bookingData.time,
+                        id: localData.id || bookingData.id
+                    };
+                }
+            }
+            
+            // Si on a des données de réservation, remplir le formulaire
+            if (bookingData.type && bookingData.date) {
+                // Remplir les champs cachés
+                document.getElementById('booking_type').value = bookingData.type;
+                document.getElementById('booking_date').value = bookingData.date;
+                document.getElementById('booking_time').value = bookingData.time || '';
+                document.getElementById('booking_id').value = bookingData.id || '';
+                
+                // Mettre à jour le récapitulatif
+                document.getElementById('summary_type').textContent = bookingData.type;
+                document.getElementById('summary_date').textContent = formatDate(bookingData.date);
+                document.getElementById('summary_time').textContent = formatTime(bookingData.time);
+            } else {
+                // Aucune donnée de réservation disponible
+                alert("Aucune information de réservation trouvée. Veuillez revenir à la page de réservation.");
+                document.getElementById('summary_type').textContent = "Information non disponible";
+                document.getElementById('summary_date').textContent = "Information non disponible";
+                document.getElementById('summary_time').textContent = "Information non disponible";
+            }
+        }
+        
+        // Gestion du formulaire
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Récupération du bouton
+            const submitButton = document.getElementById('submitButton');
+            const originalText = submitButton.innerHTML;
+            
+            // Affiche le loader
+            submitButton.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-5 w-5 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Traitement en cours...';
+            submitButton.disabled = true;
+            
+            // Envoi des données à Formspree
+            fetch(this.action, {
+                method: this.method,
+                body: new FormData(this),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error(`Erreur ${response.status}: ${response.statusText}`);
+                }
+            })
+            .then(data => {
+                console.log('Succès:', data);
+                // Cacher le formulaire et montrer la confirmation
+                this.style.display = 'none';
+                document.getElementById('formConfirmation').classList.remove('hidden');
+                
+                // Effacer les données locales
+                localStorage.removeItem('artzainak_booking_data');
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                alert('Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer ou nous contacter directement.');
+                
+                // Réinitialiser le bouton
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+            });
+        });
+        
+        // Initialiser la page
+        window.addEventListener('DOMContentLoaded', populateForm);
+    </script>
+</body>
+</html>
