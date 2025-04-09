@@ -72,7 +72,7 @@
 .cal-iframe-container {
     position: relative;
     width: 100%;
-    min-height: 700px; /* Hauteur minimale plus grande par défaut */
+    min-height: 800px; /* Hauteur minimale plus grande par défaut */
     margin: 20px 0;
     transition: height 0.3s ease;
 }
@@ -86,7 +86,7 @@
     left: 0;
     border: none;
     border-radius: 8px;
-    min-height: 700px; /* Hauteur minimale correspondante */
+    min-height: 800px; /* Hauteur minimale correspondante */
     transition: height 0.3s ease;
 }
 
@@ -661,6 +661,7 @@ function initializeCalendar() {
             },
             hideEventTypeDetails: false,
             layout: 'month_view'
+            autoResize: true
         });
         
         // Configuration explicite pour chaque calendrier
@@ -671,6 +672,7 @@ function initializeCalendar() {
                 config: {
                     theme: 'dark',
                     locale: 'fr'
+                    autoResize: true
                 }
             });
         }
@@ -682,6 +684,7 @@ function initializeCalendar() {
                 config: {
                     theme: 'dark',
                     locale: 'fr'
+                    autoResize: true
                 }
             });
         }
