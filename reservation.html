@@ -328,53 +328,50 @@
                 <p class="mb-4 text-center text-sm">Sélectionnez d'abord un créneau disponible puis remplissez le formulaire qui apparaîtra.</p>
                 
                 <div class="session-tabs" role="tablist" aria-label="Types de séances">
-                    <button id="tab-individual" class="session-tab active" role="tab" aria-selected="true" aria-controls="content-individual">
-                        <span class="block text-lg">Séance individuelle</span>
-                        <span class="text-xs opacity-80">1 heure - 40€</span>
-                    </button>
-                    <button id="tab-group" class="session-tab" role="tab" aria-selected="false" aria-controls="content-group">
-                        <span class="block text-lg">Séance en groupe</span>
-                        <span class="text-xs opacity-80">3 heures - 120€</span>
-                    </button>
-                </div>
-                
-                <!-- Calendriers Cal.com en français -->
-                <div id="content-individual" class="py-4" role="tabpanel" aria-labelledby="tab-individual">
-                    <div class="cal-iframe-container">
-                        <div id="loading-individual" class="iframe-loading">
-                            <div class="loading-spinner mb-4"></div>
-                            <p>Chargement du calendrier...</p>
-                        </div>
-                        <iframe 
-                            id="cal-iframe-individual"
-                            src="https://cal.com/artzainak/seance-d-une-heure?embed=true&theme=dark&lang=fr" 
-                            width="100%" 
-                            height="600" 
-                            frameborder="0"
-                            allow="camera; microphone; autoplay; fullscreen"
-                            onload="hideLoading('loading-individual')">
-                        </iframe>
-                    </div>
-                </div>
-                
-                <div id="content-group" class="py-4 hidden" role="tabpanel" aria-labelledby="tab-group">
-                    <div class="cal-iframe-container">
-                        <div id="loading-group" class="iframe-loading">
-                            <div class="loading-spinner mb-4"></div>
-                            <p>Chargement du calendrier...</p>
-                        </div>
-                        <iframe 
-                            id="cal-iframe-group"
-                            src="https://cal.com/artzainak/seance-de-groupe-3h?embed=true&theme=dark&lang=fr" 
-                            width="100%" 
-                            height="600" 
-                            frameborder="0"
-                            allow="camera; microphone; autoplay; fullscreen"
-                            onload="hideLoading('loading-group')">
-                        </iframe>
-                    </div>
-                </div>
-            </div>
+    <button id="tab-individual" class="session-tab active" role="tab" aria-selected="true" aria-controls="content-individual" onclick="switchTab('individual')">
+        <span class="block text-lg">Séance individuelle</span>
+        <span class="text-xs opacity-80">1 heure - 40€</span>
+    </button>
+    <button id="tab-group" class="session-tab" role="tab" aria-selected="false" aria-controls="content-group" onclick="switchTab('group')">
+        <span class="block text-lg">Séance en groupe</span>
+        <span class="text-xs opacity-80">3 heures - 120€</span>
+    </button>
+</div>
+
+<!-- Calendriers Cal.com en français -->
+<div id="content-individual" class="py-4" role="tabpanel" aria-labelledby="tab-individual">
+    <div class="cal-iframe-container">
+        <div id="loading-individual" class="iframe-loading">
+            <div class="loading-spinner mb-4"></div>
+            <p>Chargement du calendrier...</p>
+        </div>
+        <iframe 
+            id="cal-iframe-individual"
+            src="https://cal.com/artzainak/seance-d-une-heure?embed=true&theme=dark&lang=fr" 
+            width="100%" 
+            height="600" 
+            frameborder="0"
+            allow="camera; microphone; autoplay; fullscreen">
+        </iframe>
+    </div>
+</div>
+
+<div id="content-group" class="py-4 hidden" role="tabpanel" aria-labelledby="tab-group">
+    <div class="cal-iframe-container">
+        <div id="loading-group" class="iframe-loading">
+            <div class="loading-spinner mb-4"></div>
+            <p>Chargement du calendrier...</p>
+        </div>
+        <iframe 
+            id="cal-iframe-group"
+            src="https://cal.com/artzainak/seance-de-groupe-3h?embed=true&theme=dark&lang=fr" 
+            width="100%" 
+            height="600" 
+            frameborder="0"
+            allow="camera; microphone; autoplay; fullscreen">
+        </iframe>
+    </div>
+</div>
             
             <!-- Notification de réservation (initialement cachée) -->
             <div id="booking-notification" class="booking-notification" role="alert" aria-live="assertive">
@@ -453,7 +450,7 @@
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
                             <div>
-                                <label for="dogAge" class="form-label form-required">Âge du chien (mois)</label>
+                                <label for="dogAge" class="form-label form-required">Âge du chien</label>
                                 <input type="number" id="dogAge" name="dog_age" min="1" required
                                     class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                             </div>
@@ -557,7 +554,7 @@
                             </svg>
                         </button>
                         <div id="faq-content-1" class="faq-content hidden p-3 pt-0">
-                            <p>Pour votre première séance, apportez le carnet de santé, une laisse solide, de l'eau pour votre chien et des vêtements adaptés à l'extérieur.</p>
+                            <p>Pour votre première séance apportez une laisse solide, de l'eau pour votre chien, quelques friandises ou jouets préférés et des vêtements adaptés à l'extérieur.</p>
                         </div>
                     </div>
                     
