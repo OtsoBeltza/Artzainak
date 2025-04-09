@@ -693,5 +693,365 @@
         document.getElementById('startDate').min = todayFormatted;
     });
     </script>
+    <script>
+        /**
+ * Script de débogage et correction pour EmailJS
+ * Placez ce script juste avant la fermeture de la balise body dans reservation.html et location.html
+ */
+
+// Fonction pour vérifier la configuration d'EmailJS
+function checkEmailJSConfig() {
+  console.log("Vérification de la configuration EmailJS...");
+  
+  // Vérifier si EmailJS est chargé
+  if (typeof emailjs === 'undefined') {
+    console.error("❌ EmailJS n'est pas chargé correctement!");
+    return false;
+  }
+  
+  console.log("✅ EmailJS est correctement chargé");
+  
+  // Vérifier l'initialisation
+  try {
+    // Réinitialiser pour s'assurer que la clé publique est correcte
+    emailjs.init("gXAUQo9QLLKuoIzGC");
+    console.log("✅ EmailJS a été initialisé avec succès");
+    return true;
+  } catch (error) {
+    console.error("❌ Erreur lors de l'initialisation d'EmailJS:", error);
+    return false;
+  }
+}
+
+// Fonction pour corriger les formulaires
+function fixEmailJSForms() {
+  console.log("Correction des formulaires EmailJS...");
+  
+  // Formulaire de réservation sur reservation.html
+  const bookingForm = document.getElementById('bookingForm');
+  if (bookingForm) {
+    console.log("Formulaire de réservation trouvé, mise en place du gestionnaire...");
+    
+    // Supprimer tous les écouteurs d'événements existants
+    const newForm = bookingForm.cloneNode(true);
+    bookingForm.parentNode.replaceChild(newForm, bookingForm);
+    
+    // Ajouter un nouvel écouteur d'événements avec debug logs
+    newForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      console.log("Formulaire de réservation soumis!");
+      
+      // Obtenir les données du formulaire
+      const formData = new FormData(this);
+      const templateParams = {};
+      
+      // Convertir FormData en objet
+      for (const [key, value] of formData.entries()) {
+        templateParams[key] = value;
+        console.log(`Champ formulaire: ${key} = ${value}`);
+      }
+      
+      // Ajouter des données supplémentaires
+      templateParams.to_email = 'takalowshin@gmail.com'; // Remplacez par votre email
+      templateParams.from_name = templateParams.owner_name || 'Client Artzainak';
+      templateParams.user_email = templateParams.owner_email || '';
+      
+      console.log("Envoi des données à EmailJS...");
+      console.log("Service ID:", 'service_ucp821f');
+      console.log("Template ID:", 'template_mfsiq3i');
+      
+      // Afficher un indicateur de chargement
+      const submitButton = document.querySelector('#bookingForm button[type="submit"]') || 
+                          document.getElementById('submitButton') ||
+                          document.getElementById('submitFormBtn');
+                          
+      if (submitButton) {
+        const originalText = submitButton.innerHTML;
+        submitButton.innerHTML = '<svg class="animate-spin h-5 w-5 mr-2 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Envoi en cours...';
+        submitButton.disabled = true;
+      }
+      
+      // Envoyer via EmailJS avec gestion explicite des erreurs
+      emailjs.send('service_ucp821f', 'template_mfsiq3i', templateParams)
+        .then(function(response) {
+          console.log('✅ Succès!', response.status, response.text);
+          
+          // Afficher un message de succès
+          const confirmationElement = document.getElementById('formConfirmation');
+          if (confirmationElement) {
+            // Cacher le formulaire
+            newForm.style.display = 'none';
+            // Montrer la confirmation
+            confirmationElement.classList.remove('hidden');
+          } else {
+            alert('Votre réservation a été envoyée avec succès!');
+          }
+          
+          // Enregistrer dans localStorage pour référence
+          localStorage.setItem('lastSuccessfulSubmission', JSON.stringify({
+            timestamp: new Date().toISOString(),
+            data: templateParams
+          }));
+        })
+        .catch(function(error) {
+          console.error('❌ Erreur EmailJS:', error);
+          
+          // Tenter une méthode alternative - mailto
+          try {
+            const mailtoURL = `mailto:takalowshin@gmail.com?subject=${encodeURIComponent('Nouvelle réservation')}&body=${encodeURIComponent(JSON.stringify(templateParams, null, 2))}`;
+            window.open(mailtoURL);
+            alert('Le formulaire n\'a pas pu être envoyé automatiquement. Un email a été préparé pour vous.');
+          } catch (mailtoError) {
+            console.error('Erreur avec mailto:', mailtoError);
+            alert('Le formulaire n\'a pas pu être envoyé. Veuillez nous contacter directement à takalowshin@gmail.com');
+          }
+        })
+        .finally(function() {
+          // Restaurer le bouton
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.innerHTML = 'Confirmer ma réservation';
+          }
+        });
+    });
+    
+    console.log("✅ Gestionnaire d'événements mis en place pour le formulaire de réservation");
+  }
+  
+  // Formulaire de location sur location.html
+  const rentalForm = document.getElementById('rentalForm');
+  if (rentalForm) {
+    console.log("Formulaire de location trouvé, mise en place du gestionnaire...");
+    
+    // Supprimer tous les écouteurs d'événements existants
+    const newRentalForm = rentalForm.cloneNode(true);
+    rentalForm.parentNode.replaceChild(newRentalForm, rentalForm);
+    
+    // Ajouter un nouvel écouteur d'événements avec debug logs
+    newRentalForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      console.log("Formulaire de location soumis!");
+      
+      // Obtenir les données du formulaire
+      const formData = new FormData(this);
+      const templateParams = {};
+      
+      // Convertir FormData en objet
+      for (const [key, value] of formData.entries()) {
+        templateParams[key] = value;
+        console.log(`Champ formulaire: ${key} = ${value}`);
+      }
+      
+      // Ajouter des données supplémentaires
+      templateParams.to_email = 'takalowshin@gmail.com'; // Remplacez par votre email
+      templateParams.from_name = `${formData.get('firstName')} ${formData.get('lastName')}` || 'Client Artzainak';
+      templateParams.user_email = formData.get('email') || '';
+      templateParams.user_phone = formData.get('phone') || '';
+      
+      console.log("Envoi des données à EmailJS...");
+      console.log("Service ID:", 'service_ucp821f');
+      console.log("Template ID:", 'template_mfsiq3i');
+      
+      // Afficher un indicateur de chargement
+      const submitButton = document.querySelector('#rentalForm button[type="submit"]') ||
+                           document.getElementById('submitButton');
+                           
+      if (submitButton) {
+        const originalText = submitButton.innerHTML;
+        submitButton.innerHTML = '<svg class="animate-spin h-5 w-5 mr-2 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Envoi en cours...';
+        submitButton.disabled = true;
+      }
+      
+      // Envoyer via EmailJS avec gestion explicite des erreurs
+      emailjs.send('service_ucp821f', 'template_mfsiq3i', templateParams)
+        .then(function(response) {
+          console.log('✅ Succès!', response.status, response.text);
+          
+          // Afficher un message de succès
+          const successNotification = document.getElementById('successNotification');
+          if (successNotification) {
+            successNotification.classList.remove('hidden');
+          } else {
+            alert('Votre demande a été envoyée avec succès!');
+          }
+          
+          // Réinitialiser le formulaire
+          newRentalForm.reset();
+          
+          // Enregistrer dans localStorage pour référence
+          localStorage.setItem('lastSuccessfulSubmission', JSON.stringify({
+            timestamp: new Date().toISOString(),
+            data: templateParams
+          }));
+        })
+        .catch(function(error) {
+          console.error('❌ Erreur EmailJS:', error);
+          
+          // Tenter une méthode alternative - mailto
+          try {
+            const mailtoURL = `mailto:takalowshin@gmail.com?subject=${encodeURIComponent('Nouvelle demande de location')}&body=${encodeURIComponent(JSON.stringify(templateParams, null, 2))}`;
+            window.open(mailtoURL);
+            alert('Le formulaire n\'a pas pu être envoyé automatiquement. Un email a été préparé pour vous.');
+          } catch (mailtoError) {
+            console.error('Erreur avec mailto:', mailtoError);
+            alert('Le formulaire n\'a pas pu être envoyé. Veuillez nous contacter directement à takalowshin@gmail.com');
+          }
+        })
+        .finally(function() {
+          // Restaurer le bouton
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.innerHTML = 'Envoyer ma demande d\'écopâturage';
+          }
+        });
+    });
+    
+    console.log("✅ Gestionnaire d'événements mis en place pour le formulaire de location");
+  }
+  
+  // Formulaire de contact sur contact.html
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    console.log("Formulaire de contact trouvé, mise en place du gestionnaire...");
+    
+    // Supprimer tous les écouteurs d'événements existants
+    const newContactForm = contactForm.cloneNode(true);
+    contactForm.parentNode.replaceChild(newContactForm, contactForm);
+    
+    // Ajouter un nouvel écouteur d'événements avec debug logs
+    newContactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      console.log("Formulaire de contact soumis!");
+      
+      // Obtenir les données du formulaire
+      const formData = new FormData(this);
+      const templateParams = {};
+      
+      // Convertir FormData en objet
+      for (const [key, value] of formData.entries()) {
+        if (key !== 'attachment') { // Ignorer les pièces jointes qui ne sont pas supportées par EmailJS
+          templateParams[key] = value;
+          console.log(`Champ formulaire: ${key} = ${value}`);
+        }
+      }
+      
+      // Ajouter des données supplémentaires
+      templateParams.to_email = 'takalowshin@gmail.com'; // Remplacez par votre email
+      templateParams.from_name = templateParams.name || 'Visiteur Artzainak';
+      templateParams.user_email = templateParams.email || '';
+      
+      console.log("Envoi des données à EmailJS...");
+      console.log("Service ID:", 'service_ucp821f');
+      console.log("Template ID:", 'template_mfsiq3i');
+      
+      // Afficher un indicateur de chargement
+      const submitButton = document.querySelector('#contactForm button[type="submit"]') ||
+                           document.getElementById('submitButton');
+                           
+      if (submitButton) {
+        const originalText = submitButton.innerHTML;
+        submitButton.innerHTML = '<svg class="animate-spin h-5 w-5 mr-2 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Envoi en cours...';
+        submitButton.disabled = true;
+      }
+      
+      // Envoyer via EmailJS avec gestion explicite des erreurs
+      emailjs.send('service_ucp821f', 'template_mfsiq3i', templateParams)
+        .then(function(response) {
+          console.log('✅ Succès!', response.status, response.text);
+          
+          // Afficher un message de succès
+          const successNotification = document.getElementById('successNotification');
+          if (successNotification) {
+            successNotification.classList.remove('hidden');
+          } else {
+            alert('Votre message a été envoyé avec succès!');
+          }
+          
+          // Réinitialiser le formulaire
+          newContactForm.reset();
+          
+          // Enregistrer dans localStorage pour référence
+          localStorage.setItem('lastSuccessfulSubmission', JSON.stringify({
+            timestamp: new Date().toISOString(),
+            data: templateParams
+          }));
+        })
+        .catch(function(error) {
+          console.error('❌ Erreur EmailJS:', error);
+          
+          // Tenter une méthode alternative - mailto
+          try {
+            const mailtoURL = `mailto:takalowshin@gmail.com?subject=${encodeURIComponent(templateParams.subject || 'Message de contact')}&body=${encodeURIComponent(templateParams.message || '')}%0D%0A%0D%0ADe: ${encodeURIComponent(templateParams.name || '')}%0D%0AEmail: ${encodeURIComponent(templateParams.email || '')}`;
+            window.open(mailtoURL);
+            alert('Le formulaire n\'a pas pu être envoyé automatiquement. Un email a été préparé pour vous.');
+          } catch (mailtoError) {
+            console.error('Erreur avec mailto:', mailtoError);
+            alert('Le formulaire n\'a pas pu être envoyé. Veuillez nous contacter directement à takalowshin@gmail.com');
+          }
+        })
+        .finally(function() {
+          // Restaurer le bouton
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.innerHTML = 'Envoyer le message';
+          }
+        });
+    });
+    
+    console.log("✅ Gestionnaire d'événements mis en place pour le formulaire de contact");
+  }
+}
+
+// Exécuter ces fonctions lors du chargement
+document.addEventListener('DOMContentLoaded', function() {
+  console.log("=======================================");
+  console.log("DÉBOGAGE EMAILJS");
+  console.log("=======================================");
+  
+  // Vérifier si nous sommes sur une page de formulaire
+  const hasBookingForm = document.getElementById('bookingForm');
+  const hasRentalForm = document.getElementById('rentalForm');
+  const hasContactForm = document.getElementById('contactForm');
+  
+  if (hasBookingForm || hasRentalForm || hasContactForm) {
+    console.log("Page avec formulaire détectée");
+    
+    // Vérifier et corriger la configuration d'EmailJS
+    if (checkEmailJSConfig()) {
+      // Fixer les formulaires
+      fixEmailJSForms();
+    } else {
+      // Recharger EmailJS si nécessaire
+      console.log("Tentative de rechargement d'EmailJS...");
+      
+      const script = document.createElement('script');
+      script.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js";
+      script.async = true;
+      script.onload = function() {
+        console.log("EmailJS rechargé, initialisation...");
+        emailjs.init("gXAUQo9QLLKuoIzGC");
+        fixEmailJSForms();
+      };
+      document.head.appendChild(script);
+    }
+  } else {
+    console.log("Aucun formulaire détecté sur cette page");
+  }
+});
+
+// Vérifier s'il y a eu des soumissions réussies précédentes
+window.checkPreviousSubmissions = function() {
+  const lastSubmission = localStorage.getItem('lastSuccessfulSubmission');
+  if (lastSubmission) {
+    const submissionData = JSON.parse(lastSubmission);
+    console.log("Dernière soumission réussie:", submissionData);
+    return submissionData;
+  }
+  console.log("Aucune soumission réussie précédente");
+  return null;
+};
+
+console.log("Script de débogage EmailJS chargé avec succès");
+    </script>
 </body>
 </html>
