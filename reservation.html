@@ -611,6 +611,59 @@
     <!-- Script Cal.com -->
     <script src="https://app.cal.com/embed/embed.js"></script>
 
+    <script>
+// Fonction d'initialisation explicite du calendrier
+function initializeCalendar() {
+    // Vérifiez si Cal est disponible
+    if (typeof Cal !== 'undefined') {
+        // Configuration globale
+        Cal('ui', {
+            theme: 'dark',
+            styles: {
+                branding: {
+                    brandColor: '#5D5CDE'
+                }
+            },
+            hideEventTypeDetails: false,
+            layout: 'month_view'
+        });
+        
+        // Configuration explicite pour chaque calendrier
+        if (document.getElementById('cal-iframe-individual')) {
+            Cal('inline', {
+                elementOrSelector: '#cal-iframe-individual',
+                calLink: 'artzainak/seance-d-une-heure',
+                config: {
+                    theme: 'dark',
+                    locale: 'fr'
+                }
+            });
+        }
+        
+        if (document.getElementById('cal-iframe-group')) {
+            Cal('inline', {
+                elementOrSelector: '#cal-iframe-group',
+                calLink: 'artzainak/seance-de-groupe-3h',
+                config: {
+                    theme: 'dark',
+                    locale: 'fr'
+                }
+            });
+        }
+        
+        console.log("Calendriers Cal.com initialisés avec succès");
+    } else {
+        console.error("Cal.com n'est pas chargé correctement");
+    }
+}
+
+// Initialiser les calendriers une fois que tout est chargé
+document.addEventListener('DOMContentLoaded', function() {
+    // Tentative d'initialisation après un court délai
+    setTimeout(initializeCalendar, 1000);
+});
+</script>
+
     <!-- Scripts personnalisés -->
     <script src="js/script.js"></script>
     <script src="js/improved-cal.js"></script>
@@ -618,5 +671,62 @@
     <script src="js/mobile-optimizations.js"></script>
     <script src="js/performance-optimizations.js"></script>
     <script src="js/floating-cta.js"></script>
+    <script src="js/calendar-fix.js"></script>
+<script>
+// Fonction correcte pour changer d'onglet (définie globalement)
+function switchTab(tabId) {
+    console.log(`Changement d'onglet vers: ${tabId}`);
+    
+    // Réinitialiser tous les onglets
+    document.getElementById('tab-individual').classList.remove('active');
+    document.getElementById('tab-group').classList.remove('active');
+    document.getElementById('tab-individual').setAttribute('aria-selected', 'false');
+    document.getElementById('tab-group').setAttribute('aria-selected', 'false');
+    document.getElementById('content-individual').classList.add('hidden');
+    document.getElementById('content-group').classList.add('hidden');
+    
+    // Activer l'onglet sélectionné
+    document.getElementById(`tab-${tabId}`).classList.add('active');
+    document.getElementById(`tab-${tabId}`).setAttribute('aria-selected', 'true');
+    document.getElementById(`content-${tabId}`).classList.remove('hidden');
+    
+    // Forcer le rafraîchissement de l'iframe
+    const iframe = document.getElementById(`cal-iframe-${tabId}`);
+    if (iframe) {
+        const currentSrc = iframe.src;
+        iframe.src = 'about:blank';
+        setTimeout(() => {
+            iframe.src = currentSrc;
+            
+            // Réafficher le loader
+            const loader = document.getElementById(`loading-${tabId}`);
+            if (loader) {
+                loader.style.opacity = '1';
+                loader.style.display = 'flex';
+                
+                // Le masquer après quelques secondes
+                setTimeout(() => {
+                    hideLoading(`loading-${tabId}`);
+                }, 4000);
+            }
+        }, 100);
+    }
+}
+
+// Assurez-vous que les onglets sont correctement initialisés au chargement
+document.addEventListener('DOMContentLoaded', function() {
+    // Vérifier si les onglets sont présents
+    const tabIndividual = document.getElementById('tab-individual');
+    const tabGroup = document.getElementById('tab-group');
+    
+    if (tabIndividual && tabGroup) {
+        console.log("Les onglets de réservation sont bien présents");
+        // L'onglet individuel doit être activé par défaut
+        switchTab('individual');
+    } else {
+        console.error("Impossible de trouver les onglets de réservation");
+    }
+});
+</script>
 </body>
 </html>
