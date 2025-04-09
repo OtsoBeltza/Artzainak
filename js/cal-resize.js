@@ -5,6 +5,54 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Fonction pour désactiver le scrolling dans les iframes
+    const disableIframeScroll = () => {
+        const iframes = document.querySelectorAll('iframe[id^="cal-iframe-"]');
+        
+        iframes.forEach(iframe => {
+            iframe.onload = function() {
+                try {
+                    // Tenter d'accéder au contenu de l'iframe et de modifier son CSS
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    
+                    // Créer une règle CSS pour désactiver le scrolling
+                    const style = iframeDoc.createElement('style');
+                    style.textContent = `
+                        body {
+                            overflow: visible !important;
+                            height: auto !important;
+                            min-height: 100vh !important;
+                        }
+                        
+                        /* Autres sélecteurs qui pourraient avoir du scrolling */
+                        div[class*="scroll"], div[class*="overflow"], main, section {
+                            overflow: visible !important;
+                            height: auto !important;
+                        }
+                    `;
+                    
+                    // Ajouter la règle au head de l'iframe
+                    iframeDoc.head.appendChild(style);
+                    
+                    console.log(`Scrolling désactivé dans l'iframe ${iframe.id}`);
+                } catch (e) {
+                    // En cas d'erreur d'accès cross-origin, ignorer silencieusement
+                    console.log(`Impossible d'accéder au contenu de l'iframe (sécurité cross-origin)`);
+                }
+            };
+        });
+    };
+    
+    // Exécuter cette fonction après un court délai
+    setTimeout(disableIframeScroll, 1500);
+    
+    // Reste du code existant.../**
+ * Script de redimensionnement dynamique pour les iframes Cal.com
+ * Ce script écoute les messages de Cal.com et ajuste la hauteur de l'iframe
+ * pour éviter les barres de défilement internes
+ */
+
+document.addEventListener('DOMContentLoaded', function() {
     // Fonction pour ajuster la taille des iframes Cal.com
     const adjustCalHeight = () => {
         const containers = document.querySelectorAll('.cal-iframe-container');
