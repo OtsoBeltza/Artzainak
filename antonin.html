@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antonin - Tondeur de Brebis Professionnel</title>
+    <style>
+        :root {
+            --primary: #34a853;
+            --primary-dark: #2d8a45;
+            --secondary: #f8f9fa;
+            --dark: #212529;
+            --light: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1200/600');
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .services {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-img {
+            height: 200px;
+            background-color: #ddd;
+            overflow: hidden;
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-content h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .reservation {
+            padding: 5rem 0;
+            background-color: var(--secondary);
+        }
+        
+        .reservation-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .reservation-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .reservation-info h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .reservation-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .testimonials {
+            padding: 5rem 0;
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .testimonial-slide {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+        
+        .testimonial-slide p {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        .client-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .client-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+            background-color: #ddd;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            text-decoration: none;
+            color: #ddd;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .contact-info {
+            list-style: none;
+        }
+        
+        .contact-info li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-icon {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .reservation-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+        
+        /* Calendrier pour la réservation */
+        .calendar {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            text-align: center;
+        }
+        
+        .day-name {
+            font-weight: 500;
+            padding: 0.5rem;
+        }
+        
+        .day {
+            padding: 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .day:hover:not(.disabled) {
+            background-color: #eee;
+        }
+        
+        .day.today {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .day.selected {
+            background-color: var(--primary-dark);
+            color: white;
+        }
+        
+        .day.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        /* Système de disponibilités */
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .time-slot {
+            text-align: center;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .time-slot:hover:not(.disabled) {
+            background-color: #eee;
+        }
+        
+        .time-slot.selected {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .time-slot.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <span class="logo-icon">🐑</span>
+                    <span>Antonin Tondeur</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#tarifs">Tarifs</a></li>
+                    <li><a href="#reservation">Réservation</a></li>
+                    <li><a href="#temoignages">Témoignages</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="accueil" class="hero">
+        <div class="hero-content">
+            <h1>Tonte de Brebis Professionnelle</h1>
+            <p>Plus de 10 ans d'expérience au service des éleveurs.</p>
+            <a href="#reservation" class="btn">Réserver maintenant</a>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Mes Services</h2>
+                <p>Une gamme complète de services pour le bien-être de vos brebis</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="/api/placeholder/400/200" alt="Tonte standard">
+                    </div>
+                    <div class="service-content">
+                        <h3>Tonte Standard</h3>
+                        <p>Une tonte professionnelle réalisée avec soin pour garantir le confort de vos brebis et la qualité optimale de la laine.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="/api/placeholder/400/200" alt="Tonte décorative">
+                    </div>
+                    <div class="service-content">
+                        <h3>Tonte Décorative</h3>
+                        <p>Pour les expositions ou événements spéciaux, je propose un service de tonte décorative mettant en valeur vos plus beaux spécimens.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="/api/placeholder/400/200" alt="Conseils et formation">
+                    </div>
+                    <div class="service-content">
+                        <h3>Conseils et Formation</h3>
+                        <p>Je partage mon expertise avec les éleveurs souhaitant apprendre les techniques de base pour l'entretien quotidien de leur troupeau.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tarifs" class="services" style="background-color: var(--secondary);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tarifs</h2>
+                <p>Des prix adaptés à chaque race et taille de troupeau</p>
+            </div>
+            
+            <div style="background-color: white; border-radius: 10px; padding: 2rem; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);">
+                <h3 style="color: var(--primary); margin-bottom: 1.5rem;">Tarifs par race de brebis</h3>
+                
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 2rem;">
+                        <thead>
+                            <tr style="background-color: var(--primary); color: white;">
+                                <th style="padding: 1rem; text-align: left;">Race de brebis</th>
+                                <th style="padding: 1rem; text-align: center;">Type de laine</th>
+                                <th style="padding: 1rem; text-align: center;">Prix unitaire</th>
+                                <th style="padding: 1rem; text-align: center;">10-50 brebis</th>
+                                <th style="padding: 1rem; text-align: center;">51-200 brebis</th>
+                                <th style="padding: 1rem; text-align: center;">201+ brebis</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem; text-align: left;">Mérinos</td>
+                                <td style="padding: 1rem; text-align: center;">Très fine et dense</td>
+                                <td style="padding: 1rem; text-align: center;">5,20 €</td>
+                                <td style="padding: 1rem; text-align: center;">5,00 €</td>
+                                <td style="padding: 1rem; text-align: center;">4,70 €</td>
+                                <td style="padding: 1rem; text-align: center;">4,40 €</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem; text-align: left;">Lacaune</td>
+                                <td style="padding: 1rem; text-align: center;">Fine</td>
+                                <td style="padding: 1rem; text-align: center;">4,80 €</td>
+                                <td style="padding: 1rem; text-align: center;">4,60 €</td>
+                                <td style="padding: 1rem; text-align: center;">4,30 €</td>
+                                <td style="padding: 1rem; text-align: center;">4,00 €</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem; text-align: left;">Île-de-France</td>
+                                <td style="padding: 1rem; text-align: center;">Moyenne</td>
+                                <td style="padding: 1rem; text-align: center;">4,50 €</td>
+                                <td style="padding: 1rem; text-align: center;">4,30 €</td>
+                                <td style="padding: 1rem; text-align: center;">4,00 €</td>
+                                <td style="padding: 1rem; text-align: center;">3,80 €</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem; text-align: left;">Suffolk</td>
+                                <td style="padding: 1rem; text-align: center;">Moyenne à grossière</td>
+                                <td style="padding: 1rem; text-align: center;">4,20 €</td>
+                                <td style="padding: 1rem; text-align: center;">4,00 €</td>
+                                <td style="padding: 1rem; text-align: center;">3,80 €</td>
+                                <td style="padding: 1rem; text-align: center;">3,60 €</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 1rem; text-align: left;">Romane</td>
+                                <td style="padding: 1rem; text-align: center;">Grossière</td>
+                                <td style="padding: 1rem; text-align: center;">3,90 €</td>
+                                <td style="padding: 1rem; text-align: center;">3,70 €</td>
+                                <td style="padding: 1rem; text-align: center;">3,50 €</td>
+                                <td style="padding: 1rem; text-align: center;">3,30 €</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3 style="color: var(--primary); margin: 1.5rem 0;">Services additionnels</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    <div style="background-color: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary);">
+                        <h4 style="margin-bottom: 0.5rem;">Tonte décorative</h4>
+                        <p style="margin-bottom: 0.5rem;">À partir de 12 € / brebis</p>
+                        <small>Prix variable selon la complexité du motif</small>
+                    </div>
+                    
+                    <div style="background-color: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary);">
+                        <h4 style="margin-bottom: 0.5rem;">Frais de déplacement</h4>
+                        <p style="margin-bottom: 0.5rem;">0,60 € / km</p>
+                        <small>Gratuit au-delà de 200 brebis dans un rayon de 50 km</small>
+                    </div>
+                    
+                    <div style="background-color: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary);">
+                        <h4 style="margin-bottom: 0.5rem;">Formation</h4>
+                        <p style="margin-bottom: 0.5rem;">350 € / journée</p>
+                        <small>Pour groupe de 1 à 4 personnes</small>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem; padding: 1rem; background-color: #e9f7ef; border-radius: 8px; border-left: 4px solid var(--primary);">
+                    <h4 style="color: var(--primary);">Offre spéciale nouveaux clients</h4>
+                    <p>-10% sur votre première prestation de tonte pour tout nouveau client (minimum 30 brebis)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reservation" class="reservation">
+        <div class="container">
+            <div class="section-title">
+                <h2>Réservation en ligne</h2>
+                <p>Simple, rapide et pratique</p>
+            </div>
+            <div class="reservation-container">
+                <div class="reservation-info">
+                    <h2>Comment ça marche ?</h2>
+                    <p>1. Sélectionnez une date disponible dans le calendrier</p>
+                    <p>2. Choisissez un créneau horaire qui vous convient</p>
+                    <p>3. Indiquez le nombre de brebis à tondre</p>
+                    <p>4. Remplissez vos coordonnées</p>
+                    <p>5. Confirmez votre réservation</p>
+                    <p>Je vous contacterai pour confirmer votre réservation dans les 24 heures.</p>
+                </div>
+                <div class="reservation-form">
+                    <div class="calendar">
+                        <div class="calendar-header">
+                            <button>&lt;</button>
+                            <h3>Avril 2025</h3>
+                            <button>&gt;</button>
+                        </div>
+                        <div class="calendar-days">
+                            <div class="day-name">Lun</div>
+                            <div class="day-name">Mar</div>
+                            <div class="day-name">Mer</div>
+                            <div class="day-name">Jeu</div>
+                            <div class="day-name">Ven</div>
+                            <div class="day-name">Sam</div>
+                            <div class="day-name">Dim</div>
+                            
+                            <div class="day disabled">31</div>
+                            <div class="day">1</div>
+                            <div class="day">2</div>
+                            <div class="day">3</div>
+                            <div class="day">4</div>
+                            <div class="day">5</div>
+                            <div class="day disabled">6</div>
+                            
+                            <div class="day">7</div>
+                            <div class="day">8</div>
+                            <div class="day">9</div>
+                            <div class="day today">10</div>
+                            <div class="day">11</div>
+                            <div class="day">12</div>
+                            <div class="day disabled">13</div>
+                            
+                            <div class="day">14</div>
+                            <div class="day selected">15</div>
+                            <div class="day">16</div>
+                            <div class="day">17</div>
+                            <div class="day">18</div>
+                            <div class="day">19</div>
+                            <div class="day disabled">20</div>
+                            
+                            <div class="day">21</div>
+                            <div class="day">22</div>
+                            <div class="day">23</div>
+                            <div class="day">24</div>
+                            <div class="day">25</div>
+                            <div class="day">26</div>
+                            <div class="day disabled">27</div>
+                            
+                            <div class="day">28</div>
+                            <div class="day">29</div>
+                            <div class="day">30</div>
+                            <div class="day disabled">1</div>
+                            <div class="day disabled">2</div>
+                            <div class="day disabled">3</div>
+                            <div class="day disabled">4</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Créneaux disponibles le 15 Avril 2025</label>
+                        <div class="time-slots">
+                            <div class="time-slot">8h00</div>
+                            <div class="time-slot">9h30</div>
+                            <div class="time-slot selected">11h00</div>
+                            <div class="time-slot">14h00</div>
+                            <div class="time-slot">15h30</div>
+                            <div class="time-slot disabled">17h00</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sheep-count">Nombre de brebis à tondre</label>
+                        <input type="number" id="sheep-count" class="form-control" min="1" value="10">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="name">Nom et Prénom</label>
+                        <input type="text" id="name" class="form-control" placeholder="Votre nom complet">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Adresse complète</label>
+                        <input type="text" id="address" class="form-control" placeholder="Adresse de l'exploitation">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Téléphone</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="Votre numéro de téléphone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="Votre adresse email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Informations complémentaires</label>
+                        <textarea id="message" class="form-control" placeholder="Précisions sur votre exploitation, accès, besoins spécifiques..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%;">Confirmer ma réservation</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="temoignages" class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Témoignages</h2>
+                <p>Ce que disent mes clients</p>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial-slide">
+                    <p>"Antonin est un professionnel hors pair. Sa technique de tonte est impeccable et ses conseils ont été précieux pour améliorer le bien-être de mon troupeau. Je le recommande vivement !"</p>
+                    <div class="client-info">
+                        <div class="client-img">
+                            <img src="/api/placeholder/60/60" alt="Client">
+                        </div>
+                        <div>
+                            <h4>Marie Dubois</h4>
+                            <p>Éleveuse à Cantal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Antonin Tondeur</h3>
+                    <p>Professionnel de la tonte de brebis depuis plus de 10 ans, je mets mon expertise au service des éleveurs dans toute la France.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Liens rapides</h3>
+                    <ul class="footer-links">
+                        <li><a href="#accueil">Accueil</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#tarifs">Tarifs</a></li>
+                        <li><a href="#reservation">Réservation</a></li>
+                        <li><a href="#temoignages">Témoignages</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <ul class="contact-info">
+                        <li><span class="contact-icon">📱</span> 06 XX XX XX XX</li>
+                        <li><span class="contact-icon">📧</span> antonin@tondeur-brebis.fr</li>
+                        <li><span class="contact-icon"><li><span class="contact-icon">📍</span> Basé en Auvergne, déplacements dans toute la France</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Antonin Tondeur de Brebis. Tous droits réservés.</p>
+                </div>
+            </div>
+        </footer>
+    
+        <script>
+            // JavaScript simple pour la démo
+            document.addEventListener('DOMContentLoaded', function() {
+                // Gestion du calendrier
+                const days = document.querySelectorAll('.day:not(.disabled)');
+                days.forEach(day => {
+                    day.addEventListener('click', function() {
+                        document.querySelector('.day.selected')?.classList.remove('selected');
+                        this.classList.add('selected');
+                        
+                        // Mise à jour de l'affichage des créneaux (simulation)
+                        document.querySelector('label[for="time-slots"]').textContent = 
+                            `Créneaux disponibles le ${this.textContent} Avril 2025`;
+                    });
+                });
+                
+                // Gestion des créneaux horaires
+                const timeSlots = document.querySelectorAll('.time-slot:not(.disabled)');
+                timeSlots.forEach(slot => {
+                    slot.addEventListener('click', function() {
+                        document.querySelector('.time-slot.selected')?.classList.remove('selected');
+                        this.classList.add('selected');
+                    });
+                });
+                
+                // Simulation de soumission du formulaire
+                const form = document.querySelector('.reservation-form');
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Votre demande de réservation a bien été envoyée ! Vous recevrez une confirmation dans les 24h.');
+                });
+            });
+        </script>
+    </body>
+    </html>
