@@ -25,441 +25,6 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-    // Calculateur d'écopâturage amélioré basé sur le document de référence
-    document.addEventListener('DOMContentLoaded', function() {
-        // Configuration du calculateur
-        const config = {
-            // Surface minimale requise en m²
-            minSurface: 2000,
-            
-            // Coefficients par type de terrain
-            coefficients: {
-                "prairie": 1.0,  // Herbe riche - valeur fourragère élevée
-                "jardin": 1.2,   // Herbe entretenue - valeur fourragère moyenne
-                "friche": 1.5    // Végétation dense - valeur fourragère basse
-            },
-            
-            // Capacité de pâturage par brebis Manex (m²/semaine)
-            sheepCapacityPerWeek: {
-                "prairie": 500,  // Une brebis peut entretenir 500m² par semaine en prairie
-                "jardin": 420,   // Environ 420m² par semaine en jardin entretenu
-                "friche": 330    // Environ 330m² par semaine en terrain difficile
-            },
-            
-            // Tarifs
-            tarifs: {
-                // Prix de base par brebis par semaine
-                sheepPricePerWeek: 15,
-                
-                // Distance à partir de laquelle des frais supplémentaires s'appliquent (en km)
-                distanceThreshold: 20,
-                
-                // Frais par km au-delà du seuil (€/km)
-                distanceFee: 2
-            }
-        };
-
-        // Fonction pour calculer la distance (simulée pour l'exemple)
-        function calculateDistance(address) {
-            return new Promise((resolve) => {
-                // Simulation d'un appel d'API de géocodage
-                setTimeout(() => {
-                    // Pour cet exemple, générer une distance aléatoire entre 5 et 35 km
-                    const distance = Math.floor(Math.random() * 30) + 5;
-                    resolve(distance);
-                }, 1500);
-            // Gestion des événements de réservation Cal.com
-    window.addEventListener('message', function(e) {
-        // Vérifier que le message provient de Cal.com
-        if (e.data && typeof e.data === 'object') {
-            // Traiter les différents types de messages de Cal.com
-            if (e.data.type === 'BOOKING_CREATED' || 
-                e.data.type === 'CAL:BOOKING_SUCCESSFUL' || 
-                e.data.type === 'BOOKING_COMPLETED') {
-                
-                try {
-                    console.log('Réservation Cal.com détectée:', e.data);
-                    
-                    // Extraction des données de réservation
-                    let bookingData = e.data.data || e.data.detail || {};
-                    
-                    // Afficher un message de confirmation
-                    showBookingConfirmation(bookingData);
-                } catch (error) {
-                    console.error('Erreur lors du traitement de la réservation:', error);
-                }
-            }
-        }
-    });
-    
-    // Fonction pour afficher la confirmation de réservation
-    function showBookingConfirmation(bookingData) {
-        // Créer l'élément de confirmation
-        const confirmationOverlay = document.createElement('div');
-        confirmationOverlay.className = 'fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70';
-        
-        // Extraire les données
-        const bookingDate = bookingData.date || 
-                          (bookingData.startTime && bookingData.startTime.split('T')[0]) || 
-                          new Date().toISOString().split('T')[0];
-        
-        const bookingTime = bookingData.startTime || '';
-        
-        // Formater la date
-        const formattedDate = new Date(bookingDate).toLocaleDateString('fr-FR', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-        
-        // Formater l'heure si disponible
-        const formattedTime = bookingTime.split('T')[1] ? 
-            bookingTime.split('T')[1].substring(0, 5).replace(':', 'h') : '';
-        
-        // Contenu HTML
-        confirmationOverlay.innerHTML = `
-            <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md mx-4 shadow-xl">
-                <div class="flex items-center justify-center text-basque-green mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold mb-2 text-center">Réservation confirmée !</h3>
-                <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
-                    <p><strong>Type de service :</strong> Location de brebis (1 semaine)</p>
-                    <p><strong>Date :</strong> ${formattedDate}</p>
-                    ${formattedTime ? `<p><strong>Heure :</strong> ${formattedTime}</p>` : ''}
-                </div>
-                <p class="text-center mb-4">Nous vous contacterons dans les plus brefs délais pour confirmer les détails de votre réservation et organiser la livraison des brebis.</p>
-                <button class="close-confirmation block w-full text-center bg-basque-green hover:bg-basque-green/80 text-white font-medium py-2 px-4 rounded transition duration-300">
-                    Fermer
-                </button>
-            </div>
-        `;
-        
-        // Ajouter à la page
-        document.body.appendChild(confirmationOverlay);
-        
-        // Gérer la fermeture
-        confirmationOverlay.querySelector('.close-confirmation').addEventListener('click', function() {
-            document.body.removeChild(confirmationOverlay);
-        });
-        
-        // Fermer en cliquant en dehors ou avec Échap
-        confirmationOverlay.addEventListener('click', function(e) {
-            if (e.target === confirmationOverlay) {
-                document.body.removeChild(confirmationOverlay);
-            }
-        });
-        
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && document.contains(confirmationOverlay)) {
-                document.body.removeChild(confirmationOverlay);
-            }
-        });
-    }
-    </script>
-</body>
-</html>
-        }
-
-        // Fonction pour calculer l'écopâturage
-        async function calculateEcoPasture() {
-            // Récupération des valeurs du formulaire
-            const landSize = parseFloat(document.getElementById('landSize').value);
-            const terrain = document.getElementById('terrain').value;
-            const address = document.getElementById('address').value;
-            
-            // Validation de la taille du terrain
-            if (landSize < config.minSurface) {
-                document.getElementById('sizeError').classList.remove('hidden');
-                return;
-            } else {
-                document.getElementById('sizeError').classList.add('hidden');
-            }
-            
-            // Affichage des résultats initiaux
-            document.getElementById('calculationResult').classList.remove('hidden');
-            document.getElementById('calculationResult').classList.add('calculation-fade-in');
-            document.getElementById('loadingDistance').classList.remove('hidden');
-            document.getElementById('areaSummary').textContent = landSize.toLocaleString('fr-FR');
-            
-            // Afficher le type de terrain
-            let terrainTypeName;
-            switch(terrain) {
-                case 'prairie':
-                    terrainTypeName = "Prairie (valeur fourragère élevée)";
-                    break;
-                case 'friche':
-                    terrainTypeName = "Friche/Forêt (valeur fourragère basse)";
-                    break;
-                default: // jardin (pelouse/jardin)
-                    terrainTypeName = "Pelouse/Jardin (valeur fourragère moyenne)";
-            }
-            document.getElementById('terrainTypeSummary').textContent = terrainTypeName;
-            
-            // Calcul du nombre de brebis nécessaires pour une semaine
-            // basé sur la surface et le coefficient du terrain
-            const sheepCapacity = config.sheepCapacityPerWeek[terrain];
-            // On divise la surface par la capacité pour obtenir le nombre de brebis nécessaires
-            const sheepCount = Math.max(5, Math.ceil(landSize / sheepCapacity));
-            document.getElementById('sheepCount').textContent = sheepCount;
-            
-            try {
-                let distance;
-                
-                if (address) {
-                    // Calcul de la distance (appel d'API simulé)
-                    distance = await calculateDistance(address);
-                    document.getElementById('distanceSummary').textContent = distance;
-                    document.getElementById('distanceWarning').classList.add('hidden');
-                } else {
-                    // Gestion sans adresse
-                    distance = "Non déterminée";
-                    document.getElementById('distanceSummary').textContent = distance;
-                    document.getElementById('distanceWarning').classList.remove('hidden');
-                }
-                
-                // Calcul du prix basé sur le nombre de brebis et la distance
-                let weeklyPrice;
-                
-                if (distance === "Non déterminée") {
-                    // Prix approximatif sans distance
-                    weeklyPrice = sheepCount * config.tarifs.sheepPricePerWeek;
-                    document.getElementById('totalPrice').textContent = `~${weeklyPrice.toLocaleString('fr-FR')} (estimation)`;
-                } else {
-                    // Calcul du prix avec la distance
-                    const basePricePerSheep = config.tarifs.sheepPricePerWeek;
-                    const distanceFee = Math.max(0, (distance - config.tarifs.distanceThreshold) * config.tarifs.distanceFee);
-                    
-                    // Prix hebdomadaire
-                    weeklyPrice = (sheepCount * basePricePerSheep) + distanceFee;
-                    document.getElementById('totalPrice').textContent = `${weeklyPrice.toLocaleString('fr-FR')}`;
-                }
-                
-                // Calculer impact écologique
-                document.getElementById('eco-impact').classList.remove('hidden');
-                
-                // Calculer les économies CO2 approximatives par rapport à une tondeuse
-                const hectares = landSize / 10000;
-                const co2SavingsPerHectare = 25; // kg de CO2 économisés par hectare
-                const co2Savings = Math.round(hectares * co2SavingsPerHectare);
-                document.getElementById('co2Savings').textContent = co2Savings;
-                
-                // Calculer économie d'eau
-                const waterSavingsPerHectare = 2000; // litres d'eau économisés par hectare
-                const waterSavings = Math.round(hectares * waterSavingsPerHectare);
-                document.getElementById('waterSavings').textContent = waterSavings;
-                
-                // Afficher bouton de réservation avec animation
-                const bookingContainer = document.getElementById('booking-btn-container');
-                bookingContainer.classList.remove('hidden');
-                bookingContainer.classList.add('calculation-fade-in');
-                
-                // Masquer le loader
-                document.getElementById('loadingDistance').classList.add('hidden');
-            } catch (error) {
-                console.error("Erreur lors du calcul:", error);
-                document.getElementById('distanceSummary').textContent = "Erreur";
-                document.getElementById('distanceWarning').classList.remove('hidden');
-                document.getElementById('loadingDistance').classList.add('hidden');
-                
-                // Message d'erreur plus convivial
-                const errorMessage = document.createElement('div');
-                errorMessage.className = 'p-3 bg-basque-red/10 text-basque-red rounded-lg mt-3';
-                errorMessage.innerHTML = `
-                    <p>Une erreur s'est produite lors du calcul. Veuillez réessayer ou nous contacter directement.</p>
-                `;
-                
-                // Ajouter au résultat
-                document.getElementById('calculationResult').appendChild(errorMessage);
-            }
-        }
-
-        // Attacher l'événement au bouton
-        const calculateBtn = document.getElementById('calculateBtn');
-        if (calculateBtn) {
-            calculateBtn.addEventListener('click', calculateEcoPasture);
-        }
-        
-        // Ajouter des événements aux champs du formulaire pour validation instantanée
-        const landSizeInput = document.getElementById('landSize');
-        if (landSizeInput) {
-            landSizeInput.addEventListener('input', function() {
-                if (parseFloat(this.value) < config.minSurface) {
-                    document.getElementById('sizeError').classList.remove('hidden');
-                } else {
-                    document.getElementById('sizeError').classList.add('hidden');
-                }
-            });
-            
-            // Validation sur la touche entrée
-            landSizeInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' && parseFloat(this.value) >= config.minSurface) {
-                    calculateBtn.click();
-                }
-            });
-            
-            // Vérifier la valeur initiale
-            if (parseFloat(landSizeInput.value) < config.minSurface) {
-                document.getElementById('sizeError').classList.remove('hidden');
-            }
-        }
-        
-        // Permettre l'appui sur Entrée dans le champ adresse
-        const addressInput = document.getElementById('address');
-        if (addressInput) {
-            addressInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    calculateBtn.click();
-                }
-            });
-        }
-        
-        // Gestion du bouton d'aide pour le calculateur
-        const helpCalculator = document.getElementById('helpCalculator');
-        const calculatorModal = document.getElementById('calculatorExplanationModal');
-        const closeHelpModal = document.getElementById('closeHelpModal');
-        
-        if (helpCalculator && calculatorModal && closeHelpModal) {
-            helpCalculator.addEventListener('click', function() {
-                calculatorModal.classList.remove('hidden');
-            });
-            
-            closeHelpModal.addEventListener('click', function() {
-                calculatorModal.classList.add('hidden');
-            });
-            
-            // Fermer en cliquant en dehors
-            calculatorModal.addEventListener('click', function(e) {
-                if (e.target === calculatorModal) {
-                    calculatorModal.classList.add('hidden');
-                }
-            });
-            
-            // Fermer avec Echap
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && !calculatorModal.classList.contains('hidden')) {
-                    calculatorModal.classList.add('hidden');
-                }
-            });
-        }
-        
-        // Gestion des FAQ
-        const faqToggles = document.querySelectorAll('.faq-toggle');
-        faqToggles.forEach(toggle => {
-            toggle.addEventListener('click', function() {
-                const content = this.nextElementSibling;
-                const icon = this.querySelector('svg');
-                
-                // Fermer toutes les autres FAQ
-                faqToggles.forEach(otherToggle => {
-                    if (otherToggle !== this) {
-                        const otherContent = otherToggle.nextElementSibling;
-                        const otherIcon = otherToggle.querySelector('svg');
-                        
-                        otherContent.classList.add('hidden');
-                        otherToggle.setAttribute('aria-expanded', 'false');
-                        otherIcon.classList.remove('rotate-180');
-                    }
-                });
-                
-                // Ouvrir/fermer celle-ci
-                const expanded = content.classList.toggle('hidden') ? 'false' : 'true';
-                this.setAttribute('aria-expanded', expanded);
-                
-                // Rotation de l'icône
-                icon.classList.toggle('rotate-180', expanded === 'true');
-                
-                // Attributs ARIA
-                this.setAttribute('aria-controls', content.id);
-            });
-        });
-        
-        // Masquer le loader du calendrier
-        window.hideLoading = function(loaderId) {
-            const loader = document.getElementById(loaderId);
-            if (loader) {
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 300);
-            }
-        };
-        
-        // Initialiser Cal.com avec le bon thème
-        if (typeof Cal !== 'undefined') {
-            Cal('ui', {
-                theme: 'dark',
-                styles: {
-                    branding: {
-                        brandColor: '#198754'
-                    }
-                },
-                hideEventTypeDetails: false,
-                layout: 'month_view'
-            });
-        } else {
-            console.warn("Cal.com n'est pas chargé correctement");
-            
-            // Charger Cal.com dynamiquement si nécessaire
-            const script = document.createElement('script');
-            script.src = "https://app.cal.com/embed/embed.js";
-            script.onload = function() {
-                console.log("Cal.com chargé dynamiquement");
-                if (typeof Cal !== 'undefined') {
-                    Cal('ui', {
-                        theme: 'dark',
-                        styles: {
-                            branding: {
-                                brandColor: '#198754'
-                            }
-                        },
-                        hideEventTypeDetails: false,
-                        layout: 'month_view'
-                    });
-                }
-            };
-            document.head.appendChild(script);
-        }
-        
-        // Gestion du menu mobile
-        const menuToggle = document.getElementById('menuToggle');
-        const mobileNav = document.getElementById('mobileNav');
-        
-        if (menuToggle && mobileNav) {
-            menuToggle.addEventListener('click', function() {
-                // Toggle du menu
-                mobileNav.classList.toggle('hidden');
-                
-                // Mettre à jour l'état aria-expanded
-                const isExpanded = !mobileNav.classList.contains('hidden');
-                menuToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
-            });
-        }
-        
-        // Amélioration de l'accessibilité
-        document.querySelectorAll('a, button').forEach(element => {
-            if (!element.getAttribute('aria-label') && !element.textContent.trim()) {
-                const purpose = element.querySelector('svg') ? 'Bouton' : 'Lien';
-                element.setAttribute('aria-label', `${purpose} ${element.getAttribute('href') || ''}`);
-            }
-        });
-        
-        // Vérification initiale pour scroll automatique si un hash est présent dans l'URL
-        if (window.location.hash) {
-            const targetElement = document.querySelector(window.location.hash);
-            if (targetElement) {
-                setTimeout(() => {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                }, 500);
-            }
-        }
-    });
         tailwind.config = {
             darkMode: 'class',
             theme: {
@@ -852,3 +417,482 @@
                     </div>
                     <p>&copy; 2023 Artzainak. Tous droits réservés.</p>
                 </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal pour l'explication du calculateur -->
+    <div id="calculatorExplanationModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 max-w-md mx-4">
+            <h4 class="text-lg font-bold mb-3">Comment fonctionne notre calculateur ?</h4>
+            <div class="space-y-3 text-sm">
+                <p>Notre calculateur se base sur ces principes :</p>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li><strong>Surface minimale :</strong> 2000m² pour assurer un service efficace.</li>
+                    <li><strong>Type de terrain :</strong> Influence la capacité de pâturage des brebis.</li>
+                    <li><strong>Brebis de race Manex :</strong> Adaptées à différents types de terrains.</li>
+                    <li><strong>Capacité de pâturage :</strong>
+                        <ul class="pl-4 mt-1 space-y-1">
+                            <li>Prairie : 500 m²/semaine par brebis</li>
+                            <li>Jardin : 420 m²/semaine par brebis</li>
+                            <li>Friche : 330 m²/semaine par brebis</li>
+                        </ul>
+                    </li>
+                    <li><strong>Prix hebdomadaire :</strong> Basé sur le nombre de brebis et la distance.</li>
+                </ul>
+                <p class="text-xs italic mt-2">Données basées sur notre expérience et des références du secteur de l'écopâturage.</p>
+            </div>
+            <button id="closeHelpModal" class="mt-4 bg-basque-green text-white py-2 px-4 rounded-lg w-full hover:bg-basque-green/80 transition-colors">
+                Compris
+            </button>
+        </div>
+    </div>
+    
+    <!-- Script Cal.com -->
+    <script src="https://app.cal.com/embed/embed.js"></script>
+    
+    <!-- Scripts personnalisés -->
+    <script src="js/script.js"></script>
+    <script src="js/mobile-optimizations.js"></script>
+    <script src="js/performance-optimizations.js"></script>
+    <script src="js/floating-cta.js"></script>
+    
+    <script>
+    // Calculateur d'écopâturage amélioré basé sur le document de référence
+    document.addEventListener('DOMContentLoaded', function() {
+        // Configuration du calculateur
+        const config = {
+            // Surface minimale requise en m²
+            minSurface: 2000,
+            
+            // Coefficients par type de terrain
+            coefficients: {
+                "prairie": 1.0,  // Herbe riche - valeur fourragère élevée
+                "jardin": 1.2,   // Herbe entretenue - valeur fourragère moyenne
+                "friche": 1.5    // Végétation dense - valeur fourragère basse
+            },
+            
+            // Capacité de pâturage par brebis Manex (m²/semaine)
+            sheepCapacityPerWeek: {
+                "prairie": 500,  // Une brebis peut entretenir 500m² par semaine en prairie
+                "jardin": 420,   // Environ 420m² par semaine en jardin entretenu
+                "friche": 330    // Environ 330m² par semaine en terrain difficile
+            },
+            
+            // Tarifs
+            tarifs: {
+                // Prix de base par brebis par semaine
+                sheepPricePerWeek: 15,
+                
+                // Distance à partir de laquelle des frais supplémentaires s'appliquent (en km)
+                distanceThreshold: 20,
+                
+                // Frais par km au-delà du seuil (€/km)
+                distanceFee: 2
+            }
+        };
+
+        // Fonction pour calculer la distance (simulée pour l'exemple)
+        function calculateDistance(address) {
+            return new Promise((resolve) => {
+                // Simulation d'un appel d'API de géocodage
+                setTimeout(() => {
+                    // Pour cet exemple, générer une distance aléatoire entre 5 et 35 km
+                    const distance = Math.floor(Math.random() * 30) + 5;
+                    resolve(distance);
+                }, 1500);
+            });
+        }
+
+        // Fonction pour calculer l'écopâturage
+        async function calculateEcoPasture() {
+            // Récupération des valeurs du formulaire
+            const landSize = parseFloat(document.getElementById('landSize').value);
+            const terrain = document.getElementById('terrain').value;
+            const address = document.getElementById('address').value;
+            
+            // Validation de la taille du terrain
+            if (landSize < config.minSurface) {
+                document.getElementById('sizeError').classList.remove('hidden');
+                return;
+            } else {
+                document.getElementById('sizeError').classList.add('hidden');
+            }
+            
+            // Affichage des résultats initiaux
+            document.getElementById('calculationResult').classList.remove('hidden');
+            document.getElementById('calculationResult').classList.add('calculation-fade-in');
+            document.getElementById('loadingDistance').classList.remove('hidden');
+            document.getElementById('areaSummary').textContent = landSize.toLocaleString('fr-FR');
+            
+            // Afficher le type de terrain
+            let terrainTypeName;
+            switch(terrain) {
+                case 'prairie':
+                    terrainTypeName = "Prairie (valeur fourragère élevée)";
+                    break;
+                case 'friche':
+                    terrainTypeName = "Friche/Forêt (valeur fourragère basse)";
+                    break;
+                default: // jardin (pelouse/jardin)
+                    terrainTypeName = "Pelouse/Jardin (valeur fourragère moyenne)";
+            }
+            document.getElementById('terrainTypeSummary').textContent = terrainTypeName;
+            
+            // Calcul du nombre de brebis nécessaires pour une semaine
+            // basé sur la surface et le coefficient du terrain
+            const sheepCapacity = config.sheepCapacityPerWeek[terrain];
+            // On divise la surface par la capacité pour obtenir le nombre de brebis nécessaires
+            const sheepCount = Math.max(5, Math.ceil(landSize / sheepCapacity));
+            document.getElementById('sheepCount').textContent = sheepCount;
+            
+            try {
+                let distance;
+                
+                if (address) {
+                    // Calcul de la distance (appel d'API simulé)
+                    distance = await calculateDistance(address);
+                    document.getElementById('distanceSummary').textContent = distance;
+                    document.getElementById('distanceWarning').classList.add('hidden');
+                } else {
+                    // Gestion sans adresse
+                    distance = "Non déterminée";
+                    document.getElementById('distanceSummary').textContent = distance;
+                    document.getElementById('distanceWarning').classList.remove('hidden');
+                }
+                
+                // Calcul du prix basé sur le nombre de brebis et la distance
+                let weeklyPrice;
+                
+                if (distance === "Non déterminée") {
+                    // Prix approximatif sans distance
+                    weeklyPrice = sheepCount * config.tarifs.sheepPricePerWeek;
+                    document.getElementById('totalPrice').textContent = `~${weeklyPrice.toLocaleString('fr-FR')} (estimation)`;
+                } else {
+                    // Calcul du prix avec la distance
+                    const basePricePerSheep = config.tarifs.sheepPricePerWeek;
+                    const distanceFee = Math.max(0, (distance - config.tarifs.distanceThreshold) * config.tarifs.distanceFee);
+                    
+                    // Prix hebdomadaire
+                    weeklyPrice = (sheepCount * basePricePerSheep) + distanceFee;
+                    document.getElementById('totalPrice').textContent = `${weeklyPrice.toLocaleString('fr-FR')}`;
+                }
+                
+                // Calculer impact écologique
+                document.getElementById('eco-impact').classList.remove('hidden');
+                
+                // Calculer les économies CO2 approximatives par rapport à une tondeuse
+                const hectares = landSize / 10000;
+                const co2SavingsPerHectare = 25; // kg de CO2 économisés par hectare
+                const co2Savings = Math.round(hectares * co2SavingsPerHectare);
+                document.getElementById('co2Savings').textContent = co2Savings;
+                
+                // Calculer économie d'eau
+                const waterSavingsPerHectare = 2000; // litres d'eau économisés par hectare
+                const waterSavings = Math.round(hectares * waterSavingsPerHectare);
+                document.getElementById('waterSavings').textContent = waterSavings;
+                
+                // Afficher bouton de réservation avec animation
+                const bookingContainer = document.getElementById('booking-btn-container');
+                bookingContainer.classList.remove('hidden');
+                bookingContainer.classList.add('calculation-fade-in');
+                
+                // Masquer le loader
+                document.getElementById('loadingDistance').classList.add('hidden');
+            } catch (error) {
+                console.error("Erreur lors du calcul:", error);
+                document.getElementById('distanceSummary').textContent = "Erreur";
+                document.getElementById('distanceWarning').classList.remove('hidden');
+                document.getElementById('loadingDistance').classList.add('hidden');
+                
+                // Message d'erreur plus convivial
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'p-3 bg-basque-red/10 text-basque-red rounded-lg mt-3';
+                errorMessage.innerHTML = `
+                    <p>Une erreur s'est produite lors du calcul. Veuillez réessayer ou nous contacter directement.</p>
+                `;
+                
+                // Ajouter au résultat
+                document.getElementById('calculationResult').appendChild(errorMessage);
+            }
+        }
+
+        // Attacher l'événement au bouton
+        const calculateBtn = document.getElementById('calculateBtn');
+        if (calculateBtn) {
+            calculateBtn.addEventListener('click', calculateEcoPasture);
+        }
+        
+        // Ajouter des événements aux champs du formulaire pour validation instantanée
+        const landSizeInput = document.getElementById('landSize');
+        if (landSizeInput) {
+            landSizeInput.addEventListener('input', function() {
+                if (parseFloat(this.value) < config.minSurface) {
+                    document.getElementById('sizeError').classList.remove('hidden');
+                } else {
+                    document.getElementById('sizeError').classList.add('hidden');
+                }
+            });
+            
+            // Validation sur la touche entrée
+            landSizeInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && parseFloat(this.value) >= config.minSurface) {
+                    calculateBtn.click();
+                }
+            });
+            
+            // Vérifier la valeur initiale
+            if (parseFloat(landSizeInput.value) < config.minSurface) {
+                document.getElementById('sizeError').classList.remove('hidden');
+            }
+        }
+        
+        // Permettre l'appui sur Entrée dans le champ adresse
+        const addressInput = document.getElementById('address');
+        if (addressInput) {
+            addressInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    calculateBtn.click();
+                }
+            });
+        }
+        
+        // Gestion du bouton d'aide pour le calculateur
+        const helpCalculator = document.getElementById('helpCalculator');
+        const calculatorModal = document.getElementById('calculatorExplanationModal');
+        const closeHelpModal = document.getElementById('closeHelpModal');
+        
+        if (helpCalculator && calculatorModal && closeHelpModal) {
+            helpCalculator.addEventListener('click', function() {
+                calculatorModal.classList.remove('hidden');
+            });
+            
+            closeHelpModal.addEventListener('click', function() {
+                calculatorModal.classList.add('hidden');
+            });
+            
+            // Fermer en cliquant en dehors
+            calculatorModal.addEventListener('click', function(e) {
+                if (e.target === calculatorModal) {
+                    calculatorModal.classList.add('hidden');
+                }
+            });
+            
+            // Fermer avec Echap
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !calculatorModal.classList.contains('hidden')) {
+                    calculatorModal.classList.add('hidden');
+                }
+            });
+        }
+        
+        // Gestion des FAQ
+        const faqToggles = document.querySelectorAll('.faq-toggle');
+        faqToggles.forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const icon = this.querySelector('svg');
+                
+                // Fermer toutes les autres FAQ
+                faqToggles.forEach(otherToggle => {
+                    if (otherToggle !== this) {
+                        const otherContent = otherToggle.nextElementSibling;
+                        const otherIcon = otherToggle.querySelector('svg');
+                        
+                        otherContent.classList.add('hidden');
+                        otherToggle.setAttribute('aria-expanded', 'false');
+                        otherIcon.classList.remove('rotate-180');
+                    }
+                });
+                
+                // Ouvrir/fermer celle-ci
+                const expanded = content.classList.toggle('hidden') ? 'false' : 'true';
+                this.setAttribute('aria-expanded', expanded);
+                
+                // Rotation de l'icône
+                icon.classList.toggle('rotate-180', expanded === 'true');
+                
+                // Attributs ARIA
+                this.setAttribute('aria-controls', content.id);
+            });
+        });
+        
+        // Masquer le loader du calendrier
+        window.hideLoading = function(loaderId) {
+            const loader = document.getElementById(loaderId);
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 300);
+            }
+        };
+        
+        // Initialiser Cal.com avec le bon thème
+        if (typeof Cal !== 'undefined') {
+            Cal('ui', {
+                theme: 'dark',
+                styles: {
+                    branding: {
+                        brandColor: '#198754'
+                    }
+                },
+                hideEventTypeDetails: false,
+                layout: 'month_view'
+            });
+        } else {
+            console.warn("Cal.com n'est pas chargé correctement");
+            
+            // Charger Cal.com dynamiquement si nécessaire
+            const script = document.createElement('script');
+            script.src = "https://app.cal.com/embed/embed.js";
+            script.onload = function() {
+                console.log("Cal.com chargé dynamiquement");
+                if (typeof Cal !== 'undefined') {
+                    Cal('ui', {
+                        theme: 'dark',
+                        styles: {
+                            branding: {
+                                brandColor: '#198754'
+                            }
+                        },
+                        hideEventTypeDetails: false,
+                        layout: 'month_view'
+                    });
+                }
+            };
+            document.head.appendChild(script);
+        }
+        
+        // Gestion du menu mobile
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileNav = document.getElementById('mobileNav');
+        
+        if (menuToggle && mobileNav) {
+            menuToggle.addEventListener('click', function() {
+                // Toggle du menu
+                mobileNav.classList.toggle('hidden');
+                
+                // Mettre à jour l'état aria-expanded
+                const isExpanded = !mobileNav.classList.contains('hidden');
+                menuToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+            });
+        }
+        
+        // Amélioration de l'accessibilité
+        document.querySelectorAll('a, button').forEach(element => {
+            if (!element.getAttribute('aria-label') && !element.textContent.trim()) {
+                const purpose = element.querySelector('svg') ? 'Bouton' : 'Lien';
+                element.setAttribute('aria-label', `${purpose} ${element.getAttribute('href') || ''}`);
+            }
+        });
+        
+        // Vérification initiale pour scroll automatique si un hash est présent dans l'URL
+        if (window.location.hash) {
+            const targetElement = document.querySelector(window.location.hash);
+            if (targetElement) {
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }, 500);
+            }
+        }
+        
+        // Gestion des événements de réservation Cal.com
+        window.addEventListener('message', function(e) {
+            // Vérifier que le message provient de Cal.com
+            if (e.data && typeof e.data === 'object') {
+                // Traiter les différents types de messages de Cal.com
+                if (e.data.type === 'BOOKING_CREATED' || 
+                    e.data.type === 'CAL:BOOKING_SUCCESSFUL' || 
+                    e.data.type === 'BOOKING_COMPLETED') {
+                    
+                    try {
+                        console.log('Réservation Cal.com détectée:', e.data);
+                        
+                        // Extraction des données de réservation
+                        let bookingData = e.data.data || e.data.detail || {};
+                        
+                        // Afficher un message de confirmation
+                        showBookingConfirmation(bookingData);
+                    } catch (error) {
+                        console.error('Erreur lors du traitement de la réservation:', error);
+                    }
+                }
+            }
+        });
+        
+        // Fonction pour afficher la confirmation de réservation
+        function showBookingConfirmation(bookingData) {
+            // Créer l'élément de confirmation
+            const confirmationOverlay = document.createElement('div');
+            confirmationOverlay.className = 'fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70';
+            
+            // Extraire les données
+            const bookingDate = bookingData.date || 
+                              (bookingData.startTime && bookingData.startTime.split('T')[0]) || 
+                              new Date().toISOString().split('T')[0];
+            
+            const bookingTime = bookingData.startTime || '';
+            
+            // Formater la date
+            const formattedDate = new Date(bookingDate).toLocaleDateString('fr-FR', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Formater l'heure si disponible
+            const formattedTime = bookingTime.split('T')[1] ? 
+                bookingTime.split('T')[1].substring(0, 5).replace(':', 'h') : '';
+            
+            // Contenu HTML
+            confirmationOverlay.innerHTML = `
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md mx-4 shadow-xl">
+                    <div class="flex items-center justify-center text-basque-green mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-center">Réservation confirmée !</h3>
+                    <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                        <p><strong>Type de service :</strong> Location de brebis (1 semaine)</p>
+                        <p><strong>Date :</strong> ${formattedDate}</p>
+                        ${formattedTime ? `<p><strong>Heure :</strong> ${formattedTime}</p>` : ''}
+                    </div>
+                    <p class="text-center mb-4">Nous vous contacterons dans les plus brefs délais pour confirmer les détails de votre réservation et organiser la livraison des brebis.</p>
+                    <button class="close-confirmation block w-full text-center bg-basque-green hover:bg-basque-green/80 text-white font-medium py-2 px-4 rounded transition duration-300">
+                        Fermer
+                    </button>
+                </div>
+            `;
+            
+            // Ajouter à la page
+            document.body.appendChild(confirmationOverlay);
+            
+            // Gérer la fermeture
+            confirmationOverlay.querySelector('.close-confirmation').addEventListener('click', function() {
+                document.body.removeChild(confirmationOverlay);
+            });
+            
+            // Fermer en cliquant en dehors ou avec Échap
+            confirmationOverlay.addEventListener('click', function(e) {
+                if (e.target === confirmationOverlay) {
+                    document.body.removeChild(confirmationOverlay);
+                }
+            });
+            
+            document.addEventListener('keydown', function handleEsc(e) {
+                if (e.key === 'Escape' && document.contains(confirmationOverlay)) {
+                    document.body.removeChild(confirmationOverlay);
+                    document.removeEventListener('keydown', handleEsc);
+                }
+            });
+        }
+    });
+    </script>
+</body>
+</html>
