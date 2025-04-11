@@ -198,72 +198,7 @@
         </div>
     </section>
 
-    <!-- Formulaire de demande de ressources -->
-    <section class="py-12">
-        <div class="container mx-auto px-4">
-            <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-                <h2 class="text-2xl font-bold mb-6 text-center">Vous ne trouvez pas ce que vous cherchez ?</h2>
-                <p class="text-gray-600 dark:text-gray-300 mb-6 text-center">
-                    Suggérez-nous une ressource ou posez-nous une question spécifique, nous ferons notre possible pour vous aider.
-                </p>
-                
-                <form id="resource-request-form" class="space-y-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="name" class="block mb-1 font-medium">Votre nom</label>
-                            <input type="text" id="name" name="name" required
-                                   class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600">
-                        </div>
-                        <div>
-                            <label for="email" class="block mb-1 font-medium">Votre email</label>
-                            <input type="email" id="email" name="email" required
-                                   class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label for="resource-type" class="block mb-1 font-medium">Type de ressource souhaité</label>
-                        <select id="resource-type" name="resource-type" required
-                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600">
-                            <option value="">Sélectionnez un type</option>
-                            <option value="guide">Guide pratique</option>
-                            <option value="video">Vidéo tutorielle</option>
-                            <option value="fiche">Fiche technique</option>
-                            <option value="autre">Autre (préciser)</option>
-                        </select>
-                    </div>
-                    
-                    <div>
-                        <label for="subject" class="block mb-1 font-medium">Sujet spécifique</label>
-                        <input type="text" id="subject" name="subject" required
-                               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600"
-                               placeholder="Ex: Dressage pour le rassemblement, Travail avec agneau...">
-                    </div>
-                    
-                    <div>
-                        <label for="details" class="block mb-1 font-medium">Détails de votre demande</label>
-                        <textarea id="details" name="details" rows="4" required
-                                  class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600"
-                                  placeholder="Précisez votre demande ou question..."></textarea>
-                    </div>
-                    
-                    <div class="flex justify-end">
-                        <button type="submit" class="px-6 py-3 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-colors">
-                            Envoyer ma demande
-                        </button>
-                    </div>
-                </form>
-                
-                <!-- Message de confirmation (caché par défaut) -->
-                <div id="request-confirmation" class="hidden bg-basque-green/20 text-basque-green dark:text-green-300 p-4 rounded-lg mt-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <p class="text-center">Merci pour votre demande ! Nous l'étudierons et vous répondrons dans les plus brefs délais.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Newsletter Section -->
     <section class="py-12 bg-primary/10 dark:bg-primary/5">
