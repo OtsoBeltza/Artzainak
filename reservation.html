@@ -45,78 +45,27 @@
     </script>
     <link rel="stylesheet" href="css/styles.css">
     
-    <!-- EmailJS -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function() {
-            emailjs.init("gXAUQo9QLLKuoIzGC");
-        })();
-    </script>
-    
-    <!-- Styles pour forcer le mode sombre et améliorer l'interface -->
     <style>
-        /* Force dark mode */
-        .force-dark {
-            background-color: #1a202c !important;
-            color: #e2e8f0 !important;
+        /* Styles supplémentaires pour l'iframe Cal.com */
+        .cal-iframe-container {
+            position: relative;
+            width: 100%;
+            height: 1200px;
+            min-height: 1200px;
+            margin: 20px 0;
+            border: 1px solid rgba(93, 92, 222, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
         }
         
-        /* Style pour les iframes Cal.com */
-        .cal-iframe-container {
+        .cal-iframe-container iframe {
             width: 100%;
-            min-height: 800px;
-            margin: 20px 0;
-            position: relative;
+            height: 100%;
+            min-height: 1200px;
+            border: none;
         }
-/* Styles améliorés pour les iframes Cal.com */
-.cal-iframe-container {
-    position: relative;
-    width: 100%;
-    min-height: 1200px; /* Hauteur minimale plus grande par défaut */
-    margin: 20px 0;
-    transition: height 0.3s ease;
-}
-
-/* Styles pour l'iframe lui-même */
-.cal-iframe-container iframe {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border: none;
-    border-radius: 8px;
-    min-height: 1200px; /* Hauteur minimale correspondante */
-    transition: height 0.3s ease;
-}
-
-/* Animation du chargement */
-.iframe-loading {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(26, 32, 44, 0.7);
-    z-index: 10;
-    border-radius: 8px;
-    transition: opacity 0.3s ease;
-}        
-        /* Animations de chargement */
-        .loading-spinner {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(93, 92, 222, 0.3);
-            border-radius: 50%;
-            border-top-color: #5D5CDE;
-            animation: spin 1s ease-in-out infinite;
-        }
-
+        
+        /* Style du loader */
         .iframe-loading {
             position: absolute;
             top: 0;
@@ -127,10 +76,26 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: rgba(26, 32, 44, 0.7);
+            background-color: rgba(26, 32, 44, 0.8);
             z-index: 10;
-            border-radius: 0.5rem;
+            border-radius: 8px;
             transition: opacity 0.3s ease;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(93, 92, 222, 0.3);
+            border-radius: 50%;
+            border-top-color: #5D5CDE;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        /* Force dark mode */
+        .force-dark {
+            background-color: #1a202c !important;
+            color: #e2e8f0 !important;
         }
         
         /* Style amélioré pour les onglets */
@@ -150,6 +115,7 @@
             font-weight: 600;
             border-radius: 0.375rem;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .session-tab.active {
@@ -167,42 +133,10 @@
             background-color: #4a5568;
             color: white;
         }
-
-        /* Notification de réservation */
-        .booking-notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #5D5CDE;
-            color: white;
-            padding: 16px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            transform: translateX(120%);
-            transition: transform 0.3s ease-out;
-            max-width: 350px;
-        }
         
-        .booking-notification.show {
-            transform: translateX(0);
-        }
-
         /* Amélioration de l'accessibilité et du contraste */
         .high-contrast {
             color: #ffffff !important;
-        }
-
-        .form-label {
-            font-weight: 500;
-            margin-bottom: 0.25rem;
-            display: block;
-        }
-
-        .form-required::after {
-            content: "*";
-            color: #DC3545;
-            margin-left: 4px;
         }
         
         @keyframes spin {
@@ -223,7 +157,12 @@
         /* Optimisation mobile */
         @media (max-width: 640px) {
             .cal-iframe-container {
-                min-height: 600px; /* Plus d'espace sur mobile */
+                height: 1400px; /* Encore plus d'espace sur mobile */
+                min-height: 1400px;
+            }
+            
+            .cal-iframe-container iframe {
+                min-height: 1400px;
             }
             
             .session-tab {
@@ -239,6 +178,9 @@
             }
         }
     </style>
+    
+    <!-- Script Cal.com -->
+    <script src="https://app.cal.com/embed/embed.js"></script>
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen force-dark">
     <!-- Google Tag Manager (noscript) -->
@@ -361,219 +303,58 @@
             
             <!-- Réservation de calendrier -->
             <div class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8" id="calendar-section">
-                <h2 class="text-xl font-semibold mb-4 text-center high-contrast">Étape 1 : Choisissez votre créneau</h2>
-                <p class="mb-4 text-center text-sm">Sélectionnez d'abord un créneau disponible puis remplissez le formulaire qui apparaîtra.</p>
+                <h2 class="text-xl font-semibold mb-4 text-center high-contrast">Choisissez votre type de séance</h2>
+                <p class="mb-4 text-center text-sm">Sélectionnez d'abord le type de séance puis un créneau disponible dans le calendrier. Le formulaire est à remplir directement dans le calendrier.</p>
                 
                 <div class="session-tabs" role="tablist" aria-label="Types de séances">
-    <button id="tab-individual" class="session-tab active" role="tab" aria-selected="true" aria-controls="content-individual" onclick="switchTab('individual')">
-        <span class="block text-lg">Séance individuelle</span>
-        <span class="text-xs opacity-80">1 heure - 40€</span>
-    </button>
-    <button id="tab-group" class="session-tab" role="tab" aria-selected="false" aria-controls="content-group" onclick="switchTab('group')">
-        <span class="block text-lg">Séance en groupe</span>
-        <span class="text-xs opacity-80">3 heures - 120€</span>
-    </button>
-</div>
+                    <button id="tab-individual" class="session-tab active" role="tab" aria-selected="true" aria-controls="content-individual" onclick="switchTab('individual')">
+                        <span class="block text-lg">Séance individuelle</span>
+                        <span class="text-xs opacity-80">1 heure - 40€</span>
+                    </button>
+                    <button id="tab-group" class="session-tab" role="tab" aria-selected="false" aria-controls="content-group" onclick="switchTab('group')">
+                        <span class="block text-lg">Séance en groupe</span>
+                        <span class="text-xs opacity-80">3 heures - 120€</span>
+                    </button>
+                </div>
 
-<!-- Calendriers Cal.com en français -->
-<div id="content-individual" class="py-4" role="tabpanel" aria-labelledby="tab-individual">
-    <div class="cal-iframe-container">
-        <div id="loading-individual" class="iframe-loading">
-            <div class="loading-spinner mb-4"></div>
-            <p>Chargement du calendrier...</p>
-        </div>
-        <iframe 
-    id="cal-iframe-individual"
-    src="https://cal.com/artzainak/seance-d-une-heure?embed=true&theme=dark&lang=fr&hideEventTypeDetails=false&embedType=responsive" 
-    frameborder="0"
-    allow="camera; microphone; autoplay; fullscreen"
-    loading="lazy">
-        </iframe>
-    </div>
-</div>
+                <!-- Calendriers Cal.com en français -->
+                <div id="content-individual" class="py-4" role="tabpanel" aria-labelledby="tab-individual">
+                    <div class="cal-iframe-container">
+                        <div id="loading-individual" class="iframe-loading">
+                            <div class="loading-spinner mb-4"></div>
+                            <p>Chargement du calendrier...</p>
+                        </div>
+                        <iframe 
+                            id="cal-iframe-individual"
+                            src="https://cal.com/artzainak/seance-d-une-heure?embed=true&theme=dark&lang=fr&hideEventTypeDetails=false&embedType=responsive" 
+                            width="100%" 
+                            height="100%"
+                            frameborder="0"
+                            allow="camera; microphone; autoplay; fullscreen"
+                            onload="hideLoading('loading-individual')">
+                        </iframe>
+                    </div>
+                </div>
 
-<div id="content-group" class="py-4 hidden" role="tabpanel" aria-labelledby="tab-group">
-    <div class="cal-iframe-container">
-        <div id="loading-group" class="iframe-loading">
-            <div class="loading-spinner mb-4"></div>
-            <p>Chargement du calendrier...</p>
-        </div>
-        <iframe 
-    id="cal-iframe-group"
-    src="https://cal.com/artzainak/seance-de-groupe-3h?embed=true&theme=dark&lang=fr&hideEventTypeDetails=false&embedType=responsive" 
-    frameborder="0"
-    allow="camera; microphone; autoplay; fullscreen"
-    loading="lazy">
-        </iframe>
-    </div>
-</div>
-            
-            <!-- Notification de réservation (initialement cachée) -->
-            <div id="booking-notification" class="booking-notification" role="alert" aria-live="assertive">
-                <div class="flex items-start">
-                    <div class="mr-3 bg-white bg-opacity-20 rounded-full p-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-sm">Créneau sélectionné!</h4>
-                        <p id="booking-details" class="text-xs mt-1">Veuillez remplir le formulaire ci-dessous pour compléter votre réservation.</p>
+                <div id="content-group" class="py-4 hidden" role="tabpanel" aria-labelledby="tab-group">
+                    <div class="cal-iframe-container">
+                        <div id="loading-group" class="iframe-loading">
+                            <div class="loading-spinner mb-4"></div>
+                            <p>Chargement du calendrier...</p>
+                        </div>
+                        <iframe 
+                            id="cal-iframe-group"
+                            src="https://cal.com/artzainak/seance-de-groupe-3h?embed=true&theme=dark&lang=fr&hideEventTypeDetails=false&embedType=responsive" 
+                            width="100%" 
+                            height="100%"
+                            frameborder="0"
+                            allow="camera; microphone; autoplay; fullscreen"
+                            onload="hideLoading('loading-group')">
+                        </iframe>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Questionnaire préalable avec Formspree (CACHÉ PAR DÉFAUT) -->
-            <div id="booking-form-section" class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8 hidden fade-in">
-                <h2 class="text-xl font-semibold mb-4 high-contrast">Étape 2 : Informations sur votre chien</h2>
-                <p class="mb-4">Pour mieux comprendre vos besoins et ceux de votre chien, merci de remplir ce formulaire pour compléter votre réservation.</p>
                 
-                <form id="bookingForm" action="https://formspree.io/f/manelkoo" method="POST" class="space-y-4">
-                    <!-- Champs cachés pour les informations de réservation -->
-                    <input type="hidden" id="booking_type" name="booking_type">
-                    <input type="hidden" id="booking_date" name="booking_date">
-                    <input type="hidden" id="booking_time" name="booking_time">
-                    <input type="hidden" id="booking_id" name="booking_id">
-                    
-                    <!-- Informations sur le propriétaire -->
-                    <div class="p-4 bg-gray-100 dark:bg-gray-700 rounded-lg mb-4">
-                        <h3 class="font-medium mb-3 text-primary">Vos coordonnées</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label for="ownerName" class="form-label form-required">Votre nom</label>
-                                <input type="text" id="ownerName" name="owner_name" required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                            </div>
-                            <div>
-                                <label for="ownerEmail" class="form-label form-required">Votre email</label>
-                                <input type="email" id="ownerEmail" name="owner_email" required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                            </div>
-                        </div>
-                        <div class="mt-3">
-                            <label for="ownerPhone" class="form-label form-required">Téléphone</label>
-                            <input type="tel" id="ownerPhone" name="owner_phone" required
-                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                        </div>
-                    </div>
-                    
-                    <!-- Récapitulatif réservation -->
-                    <div class="p-4 bg-primary/10 dark:bg-primary/20 rounded-lg">
-                        <h3 class="font-medium mb-3 text-primary">Récapitulatif de votre réservation</h3>
-                        <div class="space-y-2">
-                            <p><strong>Type de séance :</strong> <span id="summary_type"></span></p>
-                            <p><strong>Date :</strong> <span id="summary_date"></span></p>
-                            <p><strong>Heure :</strong> <span id="summary_time"></span></p>
-                        </div>
-                    </div>
-                    
-                    <!-- Informations sur le chien -->
-                    <div class="p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
-                        <h3 class="font-medium mb-3 text-primary">Informations sur votre chien</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label for="dogName" class="form-label form-required">Nom du chien</label>
-                                <input type="text" id="dogName" name="dog_name" required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                            </div>
-                            <div>
-                                <label for="dogBreed" class="form-label form-required">Race du chien</label>
-                                <input type="text" id="dogBreed" name="dog_breed" required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-                            <div>
-                                <label for="dogAge" class="form-label form-required">Âge du chien</label>
-                                <input type="number" id="dogAge" name="dog_age" min="1" required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                            </div>
-                            <div>
-                                <label for="experience" class="form-label form-required">Niveau d'expérience</label>
-                                <select id="experience" name="experience" required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                                    <option value="">Sélectionnez un niveau</option>
-                                    <option value="Débutant - aucune expérience">Débutant - aucune expérience</option>
-                                    <option value="Intermédiaire - quelques bases">Intermédiaire - quelques bases</option>
-                                    <option value="Avancé - perfectionnement">Avancé - perfectionnement</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label for="problems" class="form-label">Difficultés rencontrées</label>
-                        <textarea id="problems" name="problems" rows="2" placeholder="Décrivez les difficultés que vous rencontrez avec votre chien..."
-                            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white"></textarea>
-                    </div>
-                    
-                    <div>
-                        <label for="objectives" class="form-label">Objectifs</label>
-                        <textarea id="objectives" name="objectives" rows="2" placeholder="Quels sont vos objectifs pour cette formation ?"
-                            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-600 dark:border-gray-500 dark:text-white"></textarea>
-                    </div>
-                    
-                    <div class="pt-2">
-                        <button type="submit" id="submitFormBtn" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-3 px-4 rounded-lg transition duration-300">
-                            Confirmer ma réservation
-                        </button>
-                        <p class="text-xs text-center mt-2 text-gray-400">En soumettant ce formulaire, vous acceptez que les informations fournies soient utilisées dans le cadre de votre réservation. <a href="#" class="text-primary hover:underline" id="privacy-link">Consulter notre politique de confidentialité</a>.</p>
-                    </div>
-                </form>
-                
-                <!-- Message de confirmation caché - Sera géré par JavaScript -->
-                <div id="formConfirmation" class="hidden bg-green-100 dark:bg-green-900/30 p-4 rounded-lg mt-4 text-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-2 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <p class="font-medium">Merci ! Votre réservation est confirmée.</p>
-                    <p class="text-sm mt-1 mb-3">Nous avons envoyé une confirmation à votre adresse email.</p>
-                    <p class="text-sm font-medium">À bientôt pour votre séance d'éducation canine.</p>
-                </div>
-            </div>
-            
-            <!-- Modal pour politique de confidentialité -->
-            <div id="privacy-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
-                <div class="bg-white dark:bg-gray-800 rounded-lg max-w-2xl mx-4 p-6 max-h-[80vh] overflow-y-auto">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-lg font-bold">Politique de confidentialité</h3>
-                        <button id="close-privacy" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="prose dark:prose-invert prose-sm max-w-none">
-                        <p>Chez Artzainak, nous prenons votre vie privée au sérieux. Cette politique explique comment nous utilisons les données collectées via notre formulaire de réservation.</p>
-                        
-                        <h4>Informations collectées</h4>
-                        <p>Nous collectons les informations que vous nous fournissez volontairement, notamment :</p>
-                        <ul>
-                            <li>Vos coordonnées (nom, email, téléphone)</li>
-                            <li>Les informations sur votre chien</li>
-                            <li>Les détails de votre réservation</li>
-                        </ul>
-                        
-                        <h4>Utilisation des informations</h4>
-                        <p>Les informations que vous nous fournissez sont utilisées pour :</p>
-                        <ul>
-                            <li>Traiter votre réservation</li>
-                            <li>Vous contacter concernant votre séance</li>
-                            <li>Adapter notre service à vos besoins et ceux de votre chien</li>
-                            <li>Vous envoyer des informations relatives à votre réservation</li>
-                        </ul>
-                        
-                        <h4>Conservation des données</h4>
-                        <p>Nous conservons vos données aussi longtemps que nécessaire pour fournir nos services ou pour respecter nos obligations légales.</p>
-                        
-                        <h4>Tiers et partage de données</h4>
-                        <p>Nous utilisons Formspree pour traiter nos formulaires et Cal.com pour la gestion des réservations. Ces services peuvent avoir accès à certaines informations que vous fournissez.</p>
-                        
-                        <h4>Vos droits</h4>
-                        <p>Vous avez le droit d'accéder à vos données personnelles, de les rectifier ou de les supprimer. Pour exercer ces droits, contactez-nous à l'adresse pierocarlo@gmx.fr.</p>
-                    </div>
-                </div>
+                <p class="mt-4 text-sm text-center text-gray-500 dark:text-gray-400">Après votre réservation, vous recevrez une confirmation par email avec toutes les informations nécessaires.</p>
             </div>
             
             <!-- FAQ - Questions fréquentes (version réduite) -->
@@ -643,100 +424,42 @@
         </div>
     </footer>
 
-    <!-- Script Cal.com -->
-    <script src="https://app.cal.com/embed/embed.js"></script>
-
-    <script>
-// Fonction d'initialisation explicite du calendrier
-function initializeCalendar() {
-    // Vérifiez si Cal est disponible
-    if (typeof Cal !== 'undefined') {
-        // Configuration globale
-        Cal('ui', {
-            theme: 'dark',
-            styles: {
-                branding: {
-                    brandColor: '#5D5CDE'
-                }
-            },
-            hideEventTypeDetails: false,
-            layout: 'month_view',
-            autoResize: true
-        });
-        
-        // Configuration explicite pour chaque calendrier
-        if (document.getElementById('cal-iframe-individual')) {
-            Cal('inline', {
-                elementOrSelector: '#cal-iframe-individual',
-                calLink: 'artzainak/seance-d-une-heure',
-                config: {
-                    theme: 'dark',
-                    locale: 'fr',
-                    autoResize: true
-                }
-            });
-        }
-        
-        if (document.getElementById('cal-iframe-group')) {
-            Cal('inline', {
-                elementOrSelector: '#cal-iframe-group',
-                calLink: 'artzainak/seance-de-groupe-3h',
-                config: {
-                    theme: 'dark',
-                    locale: 'fr',
-                    autoResize: true
-                }
-            });
-        }
-        
-        console.log("Calendriers Cal.com initialisés avec succès");
-    } else {
-        console.error("Cal.com n'est pas chargé correctement");
-    }
-}
-
-// Initialiser les calendriers une fois que tout est chargé
-document.addEventListener('DOMContentLoaded', function() {
-    // Tentative d'initialisation après un court délai
-    setTimeout(initializeCalendar, 1000);
-});
-</script>
-
     <!-- Scripts personnalisés -->
     <script src="js/script.js"></script>
-    <script src="js/improved-cal.js"></script>
-    <script src="js/email-notifications.js"></script>
     <script src="js/mobile-optimizations.js"></script>
     <script src="js/performance-optimizations.js"></script>
     <script src="js/floating-cta.js"></script>
-    <script src="js/calendar-fix.js"></script>
-<script>
-// Fonction correcte pour changer d'onglet (définie globalement)
-function switchTab(tabId) {
-    console.log(`Changement d'onglet vers: ${tabId}`);
     
-    // Réinitialiser tous les onglets
-    document.getElementById('tab-individual').classList.remove('active');
-    document.getElementById('tab-group').classList.remove('active');
-    document.getElementById('tab-individual').setAttribute('aria-selected', 'false');
-    document.getElementById('tab-group').setAttribute('aria-selected', 'false');
-    document.getElementById('content-individual').classList.add('hidden');
-    document.getElementById('content-group').classList.add('hidden');
-    
-    // Activer l'onglet sélectionné
-    document.getElementById(`tab-${tabId}`).classList.add('active');
-    document.getElementById(`tab-${tabId}`).setAttribute('aria-selected', 'true');
-    document.getElementById(`content-${tabId}`).classList.remove('hidden');
-    
-    // Forcer le rafraîchissement de l'iframe
-    const iframe = document.getElementById(`cal-iframe-${tabId}`);
-    if (iframe) {
-        const currentSrc = iframe.src;
-        iframe.src = 'about:blank';
-        setTimeout(() => {
-            iframe.src = currentSrc;
+    <script>
+        // Fonction pour masquer le loader du calendrier
+        function hideLoading(loaderId) {
+            const loader = document.getElementById(loaderId);
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 300);
+            }
+        }
+        
+        // Fonction pour changer d'onglet
+        function switchTab(tabId) {
+            console.log(`Changement d'onglet vers: ${tabId}`);
             
-            // Réafficher le loader
+            // Réinitialiser tous les onglets
+            document.getElementById('tab-individual').classList.remove('active');
+            document.getElementById('tab-group').classList.remove('active');
+            document.getElementById('tab-individual').setAttribute('aria-selected', 'false');
+            document.getElementById('tab-group').setAttribute('aria-selected', 'false');
+            document.getElementById('content-individual').classList.add('hidden');
+            document.getElementById('content-group').classList.add('hidden');
+            
+            // Activer l'onglet sélectionné
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+            document.getElementById(`tab-${tabId}`).setAttribute('aria-selected', 'true');
+            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+            
+            // Réafficher le loader correspondant
             const loader = document.getElementById(`loading-${tabId}`);
             if (loader) {
                 loader.style.opacity = '1';
@@ -745,387 +468,43 @@ function switchTab(tabId) {
                 // Le masquer après quelques secondes
                 setTimeout(() => {
                     hideLoading(`loading-${tabId}`);
-                }, 4000);
+                }, 2000);
             }
-        }, 100);
-    }
-}
-
-// Assurez-vous que les onglets sont correctement initialisés au chargement
-document.addEventListener('DOMContentLoaded', function() {
-    // Vérifier si les onglets sont présents
-    const tabIndividual = document.getElementById('tab-individual');
-    const tabGroup = document.getElementById('tab-group');
-    
-    if (tabIndividual && tabGroup) {
-        console.log("Les onglets de réservation sont bien présents");
-        // L'onglet individuel doit être activé par défaut
-        switchTab('individual');
-    } else {
-        console.error("Impossible de trouver les onglets de réservation");
-    }
-});
-</script>
-<script src="js/cal-resize.js"></script>
-    <script>
-        /**
- * Script de débogage et correction pour EmailJS
- * Placez ce script juste avant la fermeture de la balise body dans reservation.html et location.html
- */
-
-// Fonction pour vérifier la configuration d'EmailJS
-function checkEmailJSConfig() {
-  console.log("Vérification de la configuration EmailJS...");
-  
-  // Vérifier si EmailJS est chargé
-  if (typeof emailjs === 'undefined') {
-    console.error("❌ EmailJS n'est pas chargé correctement!");
-    return false;
-  }
-  
-  console.log("✅ EmailJS est correctement chargé");
-  
-  // Vérifier l'initialisation
-  try {
-    // Réinitialiser pour s'assurer que la clé publique est correcte
-    emailjs.init("gXAUQo9QLLKuoIzGC");
-    console.log("✅ EmailJS a été initialisé avec succès");
-    return true;
-  } catch (error) {
-    console.error("❌ Erreur lors de l'initialisation d'EmailJS:", error);
-    return false;
-  }
-}
-
-// Fonction pour corriger les formulaires
-function fixEmailJSForms() {
-  console.log("Correction des formulaires EmailJS...");
-  
-  // Formulaire de réservation sur reservation.html
-  const bookingForm = document.getElementById('bookingForm');
-  if (bookingForm) {
-    console.log("Formulaire de réservation trouvé, mise en place du gestionnaire...");
-    
-    // Supprimer tous les écouteurs d'événements existants
-    const newForm = bookingForm.cloneNode(true);
-    bookingForm.parentNode.replaceChild(newForm, bookingForm);
-    
-    // Ajouter un nouvel écouteur d'événements avec debug logs
-    newForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      console.log("Formulaire de réservation soumis!");
-      
-      // Obtenir les données du formulaire
-      const formData = new FormData(this);
-      const templateParams = {};
-      
-      // Convertir FormData en objet
-      for (const [key, value] of formData.entries()) {
-        templateParams[key] = value;
-        console.log(`Champ formulaire: ${key} = ${value}`);
-      }
-      
-      // Ajouter des données supplémentaires
-      templateParams.to_email = 'takalowshin@gmail.com'; // Remplacez par votre email
-      templateParams.from_name = templateParams.owner_name || 'Client Artzainak';
-      templateParams.user_email = templateParams.owner_email || '';
-      
-      console.log("Envoi des données à EmailJS...");
-      console.log("Service ID:", 'service_ucp821f');
-      console.log("Template ID:", 'template_mfsiq3i');
-      
-      // Afficher un indicateur de chargement
-      const submitButton = document.querySelector('#bookingForm button[type="submit"]') || 
-                          document.getElementById('submitButton') ||
-                          document.getElementById('submitFormBtn');
-                          
-      if (submitButton) {
-        const originalText = submitButton.innerHTML;
-        submitButton.innerHTML = '<svg class="animate-spin h-5 w-5 mr-2 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Envoi en cours...';
-        submitButton.disabled = true;
-      }
-      
-      // Envoyer via EmailJS avec gestion explicite des erreurs
-      emailjs.send('service_ucp821f', 'template_mfsiq3i', templateParams)
-        .then(function(response) {
-          console.log('✅ Succès!', response.status, response.text);
-          
-          // Afficher un message de succès
-          const confirmationElement = document.getElementById('formConfirmation');
-          if (confirmationElement) {
-            // Cacher le formulaire
-            newForm.style.display = 'none';
-            // Montrer la confirmation
-            confirmationElement.classList.remove('hidden');
-          } else {
-            alert('Votre réservation a été envoyée avec succès!');
-          }
-          
-          // Enregistrer dans localStorage pour référence
-          localStorage.setItem('lastSuccessfulSubmission', JSON.stringify({
-            timestamp: new Date().toISOString(),
-            data: templateParams
-          }));
-        })
-        .catch(function(error) {
-          console.error('❌ Erreur EmailJS:', error);
-          
-          // Tenter une méthode alternative - mailto
-          try {
-            const mailtoURL = `mailto:takalowshin@gmail.com?subject=${encodeURIComponent('Nouvelle réservation')}&body=${encodeURIComponent(JSON.stringify(templateParams, null, 2))}`;
-            window.open(mailtoURL);
-            alert('Le formulaire n\'a pas pu être envoyé automatiquement. Un email a été préparé pour vous.');
-          } catch (mailtoError) {
-            console.error('Erreur avec mailto:', mailtoError);
-            alert('Le formulaire n\'a pas pu être envoyé. Veuillez nous contacter directement à takalowshin@gmail.com');
-          }
-        })
-        .finally(function() {
-          // Restaurer le bouton
-          if (submitButton) {
-            submitButton.disabled = false;
-            submitButton.innerHTML = 'Confirmer ma réservation';
-          }
-        });
-    });
-    
-    console.log("✅ Gestionnaire d'événements mis en place pour le formulaire de réservation");
-  }
-  
-  // Formulaire de location sur location.html
-  const rentalForm = document.getElementById('rentalForm');
-  if (rentalForm) {
-    console.log("Formulaire de location trouvé, mise en place du gestionnaire...");
-    
-    // Supprimer tous les écouteurs d'événements existants
-    const newRentalForm = rentalForm.cloneNode(true);
-    rentalForm.parentNode.replaceChild(newRentalForm, rentalForm);
-    
-    // Ajouter un nouvel écouteur d'événements avec debug logs
-    newRentalForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      console.log("Formulaire de location soumis!");
-      
-      // Obtenir les données du formulaire
-      const formData = new FormData(this);
-      const templateParams = {};
-      
-      // Convertir FormData en objet
-      for (const [key, value] of formData.entries()) {
-        templateParams[key] = value;
-        console.log(`Champ formulaire: ${key} = ${value}`);
-      }
-      
-      // Ajouter des données supplémentaires
-      templateParams.to_email = 'takalowshin@gmail.com'; // Remplacez par votre email
-      templateParams.from_name = `${formData.get('firstName')} ${formData.get('lastName')}` || 'Client Artzainak';
-      templateParams.user_email = formData.get('email') || '';
-      templateParams.user_phone = formData.get('phone') || '';
-      
-      console.log("Envoi des données à EmailJS...");
-      console.log("Service ID:", 'service_ucp821f');
-      console.log("Template ID:", 'template_mfsiq3i');
-      
-      // Afficher un indicateur de chargement
-      const submitButton = document.querySelector('#rentalForm button[type="submit"]') ||
-                           document.getElementById('submitButton');
-                           
-      if (submitButton) {
-        const originalText = submitButton.innerHTML;
-        submitButton.innerHTML = '<svg class="animate-spin h-5 w-5 mr-2 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Envoi en cours...';
-        submitButton.disabled = true;
-      }
-      
-      // Envoyer via EmailJS avec gestion explicite des erreurs
-      emailjs.send('service_ucp821f', 'template_mfsiq3i', templateParams)
-        .then(function(response) {
-          console.log('✅ Succès!', response.status, response.text);
-          
-          // Afficher un message de succès
-          const successNotification = document.getElementById('successNotification');
-          if (successNotification) {
-            successNotification.classList.remove('hidden');
-          } else {
-            alert('Votre demande a été envoyée avec succès!');
-          }
-          
-          // Réinitialiser le formulaire
-          newRentalForm.reset();
-          
-          // Enregistrer dans localStorage pour référence
-          localStorage.setItem('lastSuccessfulSubmission', JSON.stringify({
-            timestamp: new Date().toISOString(),
-            data: templateParams
-          }));
-        })
-        .catch(function(error) {
-          console.error('❌ Erreur EmailJS:', error);
-          
-          // Tenter une méthode alternative - mailto
-          try {
-            const mailtoURL = `mailto:takalowshin@gmail.com?subject=${encodeURIComponent('Nouvelle demande de location')}&body=${encodeURIComponent(JSON.stringify(templateParams, null, 2))}`;
-            window.open(mailtoURL);
-            alert('Le formulaire n\'a pas pu être envoyé automatiquement. Un email a été préparé pour vous.');
-          } catch (mailtoError) {
-            console.error('Erreur avec mailto:', mailtoError);
-            alert('Le formulaire n\'a pas pu être envoyé. Veuillez nous contacter directement à takalowshin@gmail.com');
-          }
-        })
-        .finally(function() {
-          // Restaurer le bouton
-          if (submitButton) {
-            submitButton.disabled = false;
-            submitButton.innerHTML = 'Envoyer ma demande d\'écopâturage';
-          }
-        });
-    });
-    
-    console.log("✅ Gestionnaire d'événements mis en place pour le formulaire de location");
-  }
-  
-  // Formulaire de contact sur contact.html
-  const contactForm = document.getElementById('contactForm');
-  if (contactForm) {
-    console.log("Formulaire de contact trouvé, mise en place du gestionnaire...");
-    
-    // Supprimer tous les écouteurs d'événements existants
-    const newContactForm = contactForm.cloneNode(true);
-    contactForm.parentNode.replaceChild(newContactForm, contactForm);
-    
-    // Ajouter un nouvel écouteur d'événements avec debug logs
-    newContactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      console.log("Formulaire de contact soumis!");
-      
-      // Obtenir les données du formulaire
-      const formData = new FormData(this);
-      const templateParams = {};
-      
-      // Convertir FormData en objet
-      for (const [key, value] of formData.entries()) {
-        if (key !== 'attachment') { // Ignorer les pièces jointes qui ne sont pas supportées par EmailJS
-          templateParams[key] = value;
-          console.log(`Champ formulaire: ${key} = ${value}`);
         }
-      }
-      
-      // Ajouter des données supplémentaires
-      templateParams.to_email = 'takalowshin@gmail.com'; // Remplacez par votre email
-      templateParams.from_name = templateParams.name || 'Visiteur Artzainak';
-      templateParams.user_email = templateParams.email || '';
-      
-      console.log("Envoi des données à EmailJS...");
-      console.log("Service ID:", 'service_ucp821f');
-      console.log("Template ID:", 'template_mfsiq3i');
-      
-      // Afficher un indicateur de chargement
-      const submitButton = document.querySelector('#contactForm button[type="submit"]') ||
-                           document.getElementById('submitButton');
-                           
-      if (submitButton) {
-        const originalText = submitButton.innerHTML;
-        submitButton.innerHTML = '<svg class="animate-spin h-5 w-5 mr-2 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Envoi en cours...';
-        submitButton.disabled = true;
-      }
-      
-      // Envoyer via EmailJS avec gestion explicite des erreurs
-      emailjs.send('service_ucp821f', 'template_mfsiq3i', templateParams)
-        .then(function(response) {
-          console.log('✅ Succès!', response.status, response.text);
-          
-          // Afficher un message de succès
-          const successNotification = document.getElementById('successNotification');
-          if (successNotification) {
-            successNotification.classList.remove('hidden');
-          } else {
-            alert('Votre message a été envoyé avec succès!');
-          }
-          
-          // Réinitialiser le formulaire
-          newContactForm.reset();
-          
-          // Enregistrer dans localStorage pour référence
-          localStorage.setItem('lastSuccessfulSubmission', JSON.stringify({
-            timestamp: new Date().toISOString(),
-            data: templateParams
-          }));
-        })
-        .catch(function(error) {
-          console.error('❌ Erreur EmailJS:', error);
-          
-          // Tenter une méthode alternative - mailto
-          try {
-            const mailtoURL = `mailto:takalowshin@gmail.com?subject=${encodeURIComponent(templateParams.subject || 'Message de contact')}&body=${encodeURIComponent(templateParams.message || '')}%0D%0A%0D%0ADe: ${encodeURIComponent(templateParams.name || '')}%0D%0AEmail: ${encodeURIComponent(templateParams.email || '')}`;
-            window.open(mailtoURL);
-            alert('Le formulaire n\'a pas pu être envoyé automatiquement. Un email a été préparé pour vous.');
-          } catch (mailtoError) {
-            console.error('Erreur avec mailto:', mailtoError);
-            alert('Le formulaire n\'a pas pu être envoyé. Veuillez nous contacter directement à takalowshin@gmail.com');
-          }
-        })
-        .finally(function() {
-          // Restaurer le bouton
-          if (submitButton) {
-            submitButton.disabled = false;
-            submitButton.innerHTML = 'Envoyer le message';
-          }
+        
+        // Initialisation de Cal.com
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configuration globale pour Cal.com
+            if (typeof Cal !== 'undefined') {
+                Cal('ui', {
+                    theme: 'dark',
+                    styles: {
+                        branding: {
+                            brandColor: '#5D5CDE'
+                        }
+                    },
+                    hideEventTypeDetails: false,
+                    layout: 'month_view'
+                });
+            }
+            
+            // Initialiser l'onglet par défaut
+            switchTab('individual');
+            
+            // Gérer les FAQ toggles
+            const faqToggles = document.querySelectorAll('.faq-toggle');
+            faqToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const icon = this.querySelector('svg');
+                    const expanded = content.classList.toggle('hidden') ? 'false' : 'true';
+                    this.setAttribute('aria-expanded', expanded);
+                    
+                    // Rotation de l'icône
+                    icon.classList.toggle('rotate-180', expanded === 'true');
+                });
+            });
         });
-    });
-    
-    console.log("✅ Gestionnaire d'événements mis en place pour le formulaire de contact");
-  }
-}
-
-// Exécuter ces fonctions lors du chargement
-document.addEventListener('DOMContentLoaded', function() {
-  console.log("=======================================");
-  console.log("DÉBOGAGE EMAILJS");
-  console.log("=======================================");
-  
-  // Vérifier si nous sommes sur une page de formulaire
-  const hasBookingForm = document.getElementById('bookingForm');
-  const hasRentalForm = document.getElementById('rentalForm');
-  const hasContactForm = document.getElementById('contactForm');
-  
-  if (hasBookingForm || hasRentalForm || hasContactForm) {
-    console.log("Page avec formulaire détectée");
-    
-    // Vérifier et corriger la configuration d'EmailJS
-    if (checkEmailJSConfig()) {
-      // Fixer les formulaires
-      fixEmailJSForms();
-    } else {
-      // Recharger EmailJS si nécessaire
-      console.log("Tentative de rechargement d'EmailJS...");
-      
-      const script = document.createElement('script');
-      script.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js";
-      script.async = true;
-      script.onload = function() {
-        console.log("EmailJS rechargé, initialisation...");
-        emailjs.init("gXAUQo9QLLKuoIzGC");
-        fixEmailJSForms();
-      };
-      document.head.appendChild(script);
-    }
-  } else {
-    console.log("Aucun formulaire détecté sur cette page");
-  }
-});
-
-// Vérifier s'il y a eu des soumissions réussies précédentes
-window.checkPreviousSubmissions = function() {
-  const lastSubmission = localStorage.getItem('lastSuccessfulSubmission');
-  if (lastSubmission) {
-    const submissionData = JSON.parse(lastSubmission);
-    console.log("Dernière soumission réussie:", submissionData);
-    return submissionData;
-  }
-  console.log("Aucune soumission réussie précédente");
-  return null;
-};
-
-console.log("Script de débogage EmailJS chargé avec succès");
     </script>
 </body>
 </html>
