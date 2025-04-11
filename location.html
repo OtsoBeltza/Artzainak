@@ -422,6 +422,21 @@
                 layout: 'month_view'
             });
         }
+        
+        // Gestion du menu mobile
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileNav = document.getElementById('mobileNav');
+        
+        if (menuToggle && mobileNav) {
+            menuToggle.addEventListener('click', function() {
+                // Toggle du menu
+                mobileNav.classList.toggle('hidden');
+                
+                // Mettre à jour l'état aria-expanded
+                const isExpanded = !mobileNav.classList.contains('hidden');
+                menuToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+            });
+        }
     });
     </script>
 </body>
