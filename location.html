@@ -20,9 +20,6 @@
     <link rel="alternate" hreflang="fr" href="https://artzainak.netlify.app/location.html">
     <link rel="canonical" href="https://artzainak.netlify.app/location.html">
     
-    <!-- Google Tag Manager -->
-    <script src="js/marketing-tracking.js"></script>
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -47,10 +44,6 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
 
     <!-- Header -->
     <header class="bg-primary p-4 text-white sticky top-0 z-10 shadow-md">
@@ -98,7 +91,7 @@
             <!-- Introduction -->
             <div class="mb-8">
                 <h2 class="text-xl font-semibold mb-4">Entretenez vos espaces verts naturellement</h2>
-                <p class="mb-4">L'écopâturage est une solution écologique et économique pour l'entretien de vos terrains. Nos brebis débroussaillent efficacement tout en fertilisant naturellement votre sol.</p>
+                <p class="mb-4">L'écopâturage est une solution écologique et économique pour l'entretien de vos terrains. Nos brebis de race Manex débroussaillent efficacement tout en fertilisant naturellement votre sol.</p>
                 
                 <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
                     <h3 class="font-semibold mb-2">Avantages de l'écopâturage :</h3>
@@ -116,7 +109,6 @@
             <div class="mb-8">
                 <h3 class="text-lg font-semibold mb-4">L'écopâturage en images</h3>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <!-- Exemple d'images - Remplacez par vos propres images -->
                     <div class="aspect-video rounded overflow-hidden">
                         <img src="images/sheep1.jpg" alt="Brebis en écopâturage" class="w-full h-full object-cover">
                     </div>
@@ -132,14 +124,14 @@
             <!-- Calculateur amélioré -->
             <div class="mb-8 p-4 bg-basque-green/5 dark:bg-basque-green/10 rounded-lg">
                 <h3 class="font-semibold mb-3">Calculateur d'écopâturage :</h3>
-                <p class="mb-4 text-sm">Estimez le nombre de brebis nécessaires et le coût pour votre terrain :</p>
+                <p class="mb-4 text-sm">Estimez le nombre de brebis nécessaires et le coût pour une semaine d'écopâturage sur votre terrain :</p>
                 
                 <div class="space-y-4">
                     <div>
                         <label for="landSize" class="block mb-1 font-medium text-sm">Surface de votre terrain (m²)</label>
-                        <input type="number" id="landSize" min="1000" value="1000" 
+                        <input type="number" id="landSize" min="2000" value="2000" 
                             class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-basque-green dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                        <p id="sizeError" class="text-basque-red text-xs mt-1 hidden">La surface minimum est de 1000m²</p>
+                        <p id="sizeError" class="text-basque-red text-xs mt-1 hidden">La surface minimum est de 2000m²</p>
                     </div>
                     
                     <div>
@@ -153,7 +145,7 @@
                         <label for="terrain" class="block mb-1 font-medium text-sm">Type de terrain</label>
                         <select id="terrain" class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-basque-green dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                             <option value="friche">Friche/Forêt (Valeur fourragère basse)</option>
-                            <option value="normal" selected>Pelouse/Jardin (Valeur fourragère moyenne)</option>
+                            <option value="jardin" selected>Pelouse/Jardin (Valeur fourragère moyenne)</option>
                             <option value="prairie">Prairie (Valeur fourragère élevée)</option>
                         </select>
                     </div>
@@ -174,7 +166,7 @@
                     <p class="mb-1">Surface à entretenir: <span id="areaSummary" class="font-medium">0</span> m²</p>
                     <p class="mb-1">Type de terrain: <span id="terrainTypeSummary" class="font-medium">Pelouse/Jardin</span></p>
                     <p class="mb-1">Nombre de brebis recommandé: <span id="sheepCount" class="font-medium">0</span></p>
-                    <p class="mb-1">Temps estimé pour une tonte complète: <span id="estimatedDays" class="font-medium">0</span> jours</p>
+                    <p class="mb-1">Durée de la prestation: <span class="font-medium">1 semaine</span></p>
                     <p class="mb-1">Distance depuis Arbonne: <span id="distanceSummary" class="font-medium">0</span> km</p>
                     <p id="distanceWarning" class="text-xs text-yellow-600 dark:text-yellow-400 mt-1 hidden">Distance non déterminée. Le prix peut varier en fonction de la localisation exacte.</p>
                     <p class="font-bold mt-2 text-base">Estimation du tarif: <span id="totalPrice">0</span> € / semaine</p>
@@ -237,6 +229,61 @@
                 </div>
                 <p class="mt-4 text-sm text-center text-gray-500 dark:text-gray-400">Vous serez contacté après votre réservation pour confirmer les détails et organiser l'installation des brebis.</p>
             </div>
+            
+            <!-- FAQ Section -->
+            <div class="mb-8 p-6 bg-gray-50 dark:bg-gray-700 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-4 text-center">Questions fréquentes</h3>
+                
+                <div class="space-y-4">
+                    <div class="border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden">
+                        <button class="faq-toggle w-full flex justify-between items-center p-3 text-left font-medium" aria-expanded="false">
+                            <span>Quelle surface minimale est nécessaire pour l'écopâturage ?</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="faq-content hidden p-3 pt-0">
+                            <p>Pour un service d'écopâturage efficace avec nos brebis Manex, nous recommandons une surface minimale de 2000 m². Cette surface permet d'avoir suffisamment d'espace pour que les brebis puissent se déplacer et s'alimenter correctement.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden">
+                        <button class="faq-toggle w-full flex justify-between items-center p-3 text-left font-medium" aria-expanded="false">
+                            <span>Comment se déroule l'installation des brebis ?</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="faq-content hidden p-3 pt-0">
+                            <p>Notre service comprend l'installation complète : nous livrons les brebis, mettons en place les clôtures électriques temporaires si nécessaire, installons un abri et un abreuvoir. Nous effectuons également un suivi régulier pour vérifier le bien-être des animaux et l'avancement du travail d'entretien.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden">
+                        <button class="faq-toggle w-full flex justify-between items-center p-3 text-left font-medium" aria-expanded="false">
+                            <span>Quelle est l'efficacité des brebis selon le type de terrain ?</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="faq-content hidden p-3 pt-0">
+                            <p>L'efficacité varie selon le type de terrain : sur une prairie, une brebis entretient environ 500 m² par semaine. Sur un jardin ou un terrain entretenu régulièrement, cette surface est réduite à environ 420 m² par semaine. Sur une friche ou en forêt, l'efficacité est moindre, avec environ 330 m² par semaine. Nous adaptons le nombre de brebis en fonction de ces paramètres pour garantir un entretien optimal.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden">
+                        <button class="faq-toggle w-full flex justify-between items-center p-3 text-left font-medium" aria-expanded="false">
+                            <span>Faut-il des autorisations particulières ?</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="faq-content hidden p-3 pt-0">
+                            <p>Pour un service de courte durée comme une semaine, aucune autorisation particulière n'est généralement nécessaire pour les terrains privés. Pour les terrains situés en zone urbaine ou dans certaines communes, nous vous conseillons de vérifier auprès de votre mairie. Nous nous occupons de toutes les formalités sanitaires et administratives liées aux animaux.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -272,31 +319,61 @@
     <script src="js/floating-cta.js"></script>
     
     <script>
-    // Calculateur d'écopâturage simplifié
+    // Calculateur d'écopâturage amélioré basé sur le document de référence
     document.addEventListener('DOMContentLoaded', function() {
-        // Fonction pour calculer la distance
-        function calculateDistance(lat1, lon1, lat2, lon2) {
-            const R = 6371; // Rayon de la Terre en km
-            const dLat = (lat2 - lat1) * Math.PI / 180;
-            const dLon = (lon2 - lon1) * Math.PI / 180;
-            const a = 
-                Math.sin(dLat/2) * Math.sin(dLat/2) +
-                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-                Math.sin(dLon/2) * Math.sin(dLon/2);
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-            const distance = R * c; // Distance en km
-            return Math.round(distance);
+        // Configuration du calculateur
+        const config = {
+            // Surface minimale requise en m²
+            minSurface: 2000,
+            
+            // Coefficients par type de terrain
+            coefficients: {
+                "prairie": 1.0,  // Herbe riche - valeur fourragère élevée
+                "jardin": 1.2,   // Herbe entretenue - valeur fourragère moyenne
+                "friche": 1.5    // Végétation dense - valeur fourragère basse
+            },
+            
+            // Capacité de pâturage par brebis Manex (m²/semaine)
+            sheepCapacityPerWeek: {
+                "prairie": 500,  // Une brebis peut entretenir 500m² par semaine en prairie
+                "jardin": 420,   // Environ 420m² par semaine en jardin entretenu
+                "friche": 330    // Environ 330m² par semaine en terrain difficile
+            },
+            
+            // Tarifs
+            tarifs: {
+                // Prix de base par brebis par semaine
+                sheepPricePerWeek: 15,
+                
+                // Distance à partir de laquelle des frais supplémentaires s'appliquent (en km)
+                distanceThreshold: 20,
+                
+                // Frais par km au-delà du seuil (€/km)
+                distanceFee: 2
+            }
+        };
+
+        // Fonction pour calculer la distance (simulée pour l'exemple)
+        function calculateDistance(address) {
+            return new Promise((resolve) => {
+                // Simulation d'un appel d'API de géocodage
+                setTimeout(() => {
+                    // Pour cet exemple, générer une distance aléatoire entre 5 et 35 km
+                    const distance = Math.floor(Math.random() * 30) + 5;
+                    resolve(distance);
+                }, 1500);
+            });
         }
 
         // Fonction pour calculer l'écopâturage
-        function calculateEcoPasture() {
+        async function calculateEcoPasture() {
             // Récupération des valeurs du formulaire
             const landSize = parseFloat(document.getElementById('landSize').value);
             const terrain = document.getElementById('terrain').value;
             const address = document.getElementById('address').value;
             
             // Validation de la taille du terrain
-            if (landSize < 1000) {
+            if (landSize < config.minSurface) {
                 document.getElementById('sizeError').classList.remove('hidden');
                 return;
             } else {
@@ -308,136 +385,82 @@
             document.getElementById('loadingDistance').classList.remove('hidden');
             document.getElementById('areaSummary').textContent = landSize.toLocaleString('fr-FR');
             
-            // Calcul du nombre de brebis en fonction du type de terrain
-            let sheepPerHectare;
+            // Afficher le type de terrain
             let terrainTypeName;
-            let terrainEfficiency;
-            
             switch(terrain) {
                 case 'prairie':
-                    sheepPerHectare = 15;
                     terrainTypeName = "Prairie (valeur fourragère élevée)";
-                    terrainEfficiency = 1.2;
                     break;
                 case 'friche':
-                    sheepPerHectare = 5;
                     terrainTypeName = "Friche/Forêt (valeur fourragère basse)";
-                    terrainEfficiency = 0.6;
                     break;
-                default: // normal (pelouse/jardin)
-                    sheepPerHectare = 10;
+                default: // jardin (pelouse/jardin)
                     terrainTypeName = "Pelouse/Jardin (valeur fourragère moyenne)";
-                    terrainEfficiency = 1.0;
             }
-            
             document.getElementById('terrainTypeSummary').textContent = terrainTypeName;
             
-            // Calcul du nombre de brebis (conversion m² en hectares)
-            const hectares = landSize / 10000;
-            const sheepCount = Math.max(5, Math.round(hectares * sheepPerHectare));
+            // Calcul du nombre de brebis nécessaires pour une semaine
+            // basé sur la surface et le coefficient du terrain
+            const sheepCapacity = config.sheepCapacityPerWeek[terrain];
+            // On divise la surface par la capacité pour obtenir le nombre de brebis nécessaires
+            const sheepCount = Math.max(5, Math.ceil(landSize / sheepCapacity));
             document.getElementById('sheepCount').textContent = sheepCount;
             
-            // Estimation du temps nécessaire pour une tonte complète
-            const estimatedDays = Math.ceil((landSize / 100) / (sheepCount * terrainEfficiency));
-            document.getElementById('estimatedDays').textContent = estimatedDays;
-            
-            // Géocodage et calcul de distance
-            if (address) {
-                // Simuler un géocodage (remplacer par une API réelle)
-                setTimeout(() => {
-                    const distance = Math.floor(Math.random() * 30) + 5; // Distance simulée entre 5 et 35 km
+            // Calcul de la distance et du prix
+            try {
+                let distance;
+                
+                if (address) {
+                    // Calcul de la distance (appel d'API simulé)
+                    distance = await calculateDistance(address);
                     document.getElementById('distanceSummary').textContent = distance;
+                    document.getElementById('distanceWarning').classList.add('hidden');
+                } else {
+                    // Gestion sans adresse
+                    distance = "Non déterminée";
+                    document.getElementById('distanceSummary').textContent = distance;
+                    document.getElementById('distanceWarning').classList.remove('hidden');
+                }
+                
+                // Calcul du prix basé sur le nombre de brebis et la distance
+                let weeklyPrice;
+                
+                if (distance === "Non déterminée") {
+                    // Prix approximatif sans distance
+                    weeklyPrice = sheepCount * config.tarifs.sheepPricePerWeek;
+                    document.getElementById('totalPrice').textContent = `~${weeklyPrice.toLocaleString('fr-FR')} (estimation)`;
+                } else {
+                    // Calcul du prix avec la distance
+                    const basePricePerSheep = config.tarifs.sheepPricePerWeek;
+                    const distanceFee = Math.max(0, (distance - config.tarifs.distanceThreshold) * config.tarifs.distanceFee);
                     
-                    // Calcul du prix basé sur nombre de brebis et distance
-                    const basePricePerSheep = 15; // Prix de base par brebis par semaine
-                    const distanceFee = Math.max(0, (distance - 20) * 2); // Frais de distance au-delà de 20km
-                    
-                    // Calcul du prix hebdomadaire
-                    const weeklyPrice = (sheepCount * basePricePerSheep) + distanceFee;
-                    
-                    // Affichage du prix
+                    // Prix hebdomadaire
+                    weeklyPrice = (sheepCount * basePricePerSheep) + distanceFee;
                     document.getElementById('totalPrice').textContent = `${weeklyPrice.toLocaleString('fr-FR')}`;
-                    
-                    // Calculer impact écologique
-                    document.getElementById('eco-impact').classList.remove('hidden');
-                    
-                    // Calculer les économies CO2 approximatives par rapport à une tondeuse
-                    const co2SavingsPerHectare = 25; // kg de CO2 économisés par hectare
-                    const co2Savings = Math.round(hectares * co2SavingsPerHectare);
-                    document.getElementById('co2Savings').textContent = co2Savings;
-                    
-                    // Calculer économie d'eau
-                    const waterSavingsPerHectare = 2000; // litres d'eau économisés par hectare
-                    const waterSavings = Math.round(hectares * waterSavingsPerHectare);
-                    document.getElementById('waterSavings').textContent = waterSavings;
-                    
-                    // Afficher bouton de réservation
-                    document.getElementById('booking-btn-container').classList.remove('hidden');
-                    
-                    document.getElementById('loadingDistance').classList.add('hidden');
-                }, 1500);
-            } else {
-                // Gestion sans adresse
-                document.getElementById('distanceSummary').textContent = "Non déterminée";
-                document.getElementById('distanceWarning').classList.remove('hidden');
+                }
                 
-                // Prix approximatif sans distance
-                const approximatePrice = sheepCount * 15;
-                document.getElementById('totalPrice').textContent = `~${approximatePrice.toLocaleString('fr-FR')} (estimation)`;
+                // Calculer impact écologique
+                document.getElementById('eco-impact').classList.remove('hidden');
                 
-                // Afficher bouton de réservation quand même
+                // Calculer les économies CO2 approximatives par rapport à une tondeuse
+                const hectares = landSize / 10000;
+                const co2SavingsPerHectare = 25; // kg de CO2 économisés par hectare
+                const co2Savings = Math.round(hectares * co2SavingsPerHectare);
+                document.getElementById('co2Savings').textContent = co2Savings;
+                
+                // Calculer économie d'eau
+                const waterSavingsPerHectare = 2000; // litres d'eau économisés par hectare
+                const waterSavings = Math.round(hectares * waterSavingsPerHectare);
+                document.getElementById('waterSavings').textContent = waterSavings;
+                
+                // Afficher bouton de réservation
                 document.getElementById('booking-btn-container').classList.remove('hidden');
                 
+                // Masquer le loader
+                document.getElementById('loadingDistance').classList.add('hidden');
+            } catch (error) {
+                console.error("Erreur lors du calcul:", error);
+                document.getElementById('distanceSummary').textContent = "Erreur";
+                document.getElementById('distanceWarning').classList.remove('hidden');
                 document.getElementById('loadingDistance').classList.add('hidden');
             }
-        }
-
-        // Attacher l'événement au bouton
-        const calculateBtn = document.getElementById('calculateBtn');
-        if (calculateBtn) {
-            calculateBtn.addEventListener('click', calculateEcoPasture);
-        }
-        
-        // Masquer le loader du calendrier
-        window.hideLoading = function(loaderId) {
-            const loader = document.getElementById(loaderId);
-            if (loader) {
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 300);
-            }
-        };
-        
-        // Initialiser Cal.com avec le bon thème
-        if (typeof Cal !== 'undefined') {
-            Cal('ui', {
-                theme: 'dark',
-                styles: {
-                    branding: {
-                        brandColor: '#198754'
-                    }
-                },
-                hideEventTypeDetails: false,
-                layout: 'month_view'
-            });
-        }
-        
-        // Gestion du menu mobile
-        const menuToggle = document.getElementById('menuToggle');
-        const mobileNav = document.getElementById('mobileNav');
-        
-        if (menuToggle && mobileNav) {
-            menuToggle.addEventListener('click', function() {
-                // Toggle du menu
-                mobileNav.classList.toggle('hidden');
-                
-                // Mettre à jour l'état aria-expanded
-                const isExpanded = !mobileNav.classList.contains('hidden');
-                menuToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
-            });
-        }
-    });
-    </script>
-</body>
-</html>
