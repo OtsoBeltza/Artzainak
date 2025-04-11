@@ -235,61 +235,7 @@ function initLeadScoring() {
             highlightCTA();
         }
     }
-    
-    // Afficher une popup pour les leads chauds
-    function showHotLeadPopup() {
-        // Ne pas montrer immédiatement, attendre un peu
-        setTimeout(() => {
-            // Vérifier que l'élément n'existe pas déjà
-            if (document.getElementById('hot-lead-popup')) return;
-            
-            // Créer la popup
-            const popup = document.createElement('div');
-            popup.id = 'hot-lead-popup';
-            popup.className = 'fixed bottom-24 right-6 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 z-40 max-w-sm transform transition-all duration-300 translate-y-4 opacity-0';
-            
-            // Contenu de la popup
-            popup.innerHTML = `
-                <div class="flex justify-between items-start mb-3">
-                    <h3 class="font-bold text-lg">Réservez votre séance</h3>
-                    <button id="close-hot-lead-popup" class="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                </div>
-                <p class="mb-4 text-sm">Vous semblez intéressé par nos services. Bénéficiez de 10% de réduction sur votre première réservation avec le code <strong>BIENVENUE10</strong>.</p>
-                <div class="flex space-x-2">
-                    <a href="reservation.html" class="flex-1 px-4 py-2 bg-primary hover:bg-primary-dark text-white text-center rounded-lg transition-colors">
-                        Réserver
-                    </a>
-                    <a href="contact.html" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-center rounded-lg transition-colors">
-                        Contact
-                    </a>
-                </div>
-            `;
-            
-            // Ajouter la popup au document
-            document.body.appendChild(popup);
-            
-            // Afficher la popup avec une animation
-            setTimeout(() => {
-                popup.classList.remove('translate-y-4', 'opacity-0');
-            }, 100);
-            
-            // Ajouter l'écouteur d'événement pour fermer
-            document.getElementById('close-hot-lead-popup').addEventListener('click', () => {
-                popup.classList.add('translate-y-4', 'opacity-0');
-                setTimeout(() => {
-                    popup.remove();
-                }, 300);
-            });
-            
-            // Enregistrer que la popup a été montrée
-            addPoints(5, 'hot_lead_popup');
-        }, 5000);
-    }
-    
+        
     // Mettre en évidence les CTA pour les leads intéressés
     function highlightCTA() {
         // Mettre en évidence les boutons principaux
