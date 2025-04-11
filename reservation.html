@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="fr" class="dark">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Réserver un cours - Artzainak</title>
+    <title>Louer des brebis - Artzainak</title>
     
     <!-- Métadonnées SEO -->
-    <meta name="description" content="Réservez votre cours d'éducation canine pour chien de troupeau au Pays Basque. Formations professionnelles, cours individuels ou en groupe avec un éducateur spécialisé.">
+    <meta name="description" content="Service d'écopâturage au Pays Basque. Location de brebis pour entretien écologique de vos terrains. Devis personnalisé et service clé en main.">
     
     <!-- Balises Open Graph pour les réseaux sociaux -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Réservation de cours - Artzainak">
-    <meta property="og:description" content="Réservez votre cours d'éducation canine pour chien de troupeau au Pays Basque. Formations professionnelles adaptées à tous les niveaux.">
-    <meta property="og:image" content="https://artzainak.netlify.app/images/og-image.jpg">
-    <meta property="og:url" content="https://artzainak.netlify.app/reservation.html">
+    <meta property="og:title" content="Écopâturage par location de brebis - Artzainak">
+    <meta property="og:description" content="Entretenez vos espaces verts de façon naturelle et écologique avec nos brebis. Service d'écopâturage professionnel au Pays Basque.">
+    <meta property="og:image" content="https://artzainak.netlify.app/images/og-image-ecopaturage.jpg">
+    <meta property="og:url" content="https://artzainak.netlify.app/location.html">
     <meta property="og:site_name" content="Artzainak">
     
     <!-- Balises de langue et canonical -->
-    <link rel="alternate" hreflang="fr" href="https://artzainak.netlify.app/reservation.html">
-    <link rel="canonical" href="https://artzainak.netlify.app/reservation.html">
+    <link rel="alternate" hreflang="fr" href="https://artzainak.netlify.app/location.html">
+    <link rel="canonical" href="https://artzainak.netlify.app/location.html">
     
     <!-- Google Tag Manager -->
     <script src="js/marketing-tracking.js"></script>
@@ -43,146 +43,10 @@
             }
         }
     </script>
+    
     <link rel="stylesheet" href="css/styles.css">
-    
-    <style>
-        /* Styles supplémentaires pour l'iframe Cal.com */
-        .cal-iframe-container {
-            position: relative;
-            width: 100%;
-            height: 1200px;
-            min-height: 1200px;
-            margin: 20px 0;
-            border: 1px solid rgba(93, 92, 222, 0.3);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .cal-iframe-container iframe {
-            width: 100%;
-            height: 100%;
-            min-height: 1200px;
-            border: none;
-        }
-        
-        /* Style du loader */
-        .iframe-loading {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(26, 32, 44, 0.8);
-            z-index: 10;
-            border-radius: 8px;
-            transition: opacity 0.3s ease;
-        }
-        
-        .loading-spinner {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(93, 92, 222, 0.3);
-            border-radius: 50%;
-            border-top-color: #5D5CDE;
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        /* Force dark mode */
-        .force-dark {
-            background-color: #1a202c !important;
-            color: #e2e8f0 !important;
-        }
-        
-        /* Style amélioré pour les onglets */
-        .session-tabs {
-            display: flex;
-            margin-bottom: 1.5rem;
-            background-color: #2d3748;
-            border-radius: 0.5rem;
-            padding: 0.25rem;
-            border: 1px solid #4a5568;
-        }
-        
-        .session-tab {
-            flex: 1;
-            padding: 0.75rem 1rem;
-            text-align: center;
-            font-weight: 600;
-            border-radius: 0.375rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .session-tab.active {
-            background-color: #5D5CDE;
-            color: white;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        
-        .session-tab:not(.active) {
-            background-color: transparent;
-            color: #a0aec0;
-        }
-        
-        .session-tab:not(.active):hover {
-            background-color: #4a5568;
-            color: white;
-        }
-        
-        /* Amélioration de l'accessibilité et du contraste */
-        .high-contrast {
-            color: #ffffff !important;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Animation d'apparition */
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Optimisation mobile */
-        @media (max-width: 640px) {
-            .cal-iframe-container {
-                height: 1400px; /* Encore plus d'espace sur mobile */
-                min-height: 1400px;
-            }
-            
-            .cal-iframe-container iframe {
-                min-height: 1400px;
-            }
-            
-            .session-tab {
-                padding: 0.5rem 0.25rem;
-            }
-            
-            .session-tab span {
-                font-size: 0.875rem;
-            }
-            
-            .session-tab span.text-xs {
-                font-size: 0.75rem;
-            }
-        }
-    </style>
-    
-    <!-- Script Cal.com -->
-    <script src="https://app.cal.com/embed/embed.js"></script>
 </head>
-<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen force-dark">
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -193,7 +57,7 @@
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html" class="text-xl font-bold">ARTZAINAK</a>
             <p class="text-sm hidden sm:block">Éducation de chiens de troupeau au Pays Basque</p>
-            <button id="menuToggle" class="md:hidden focus:outline-none" aria-label="Menu principal" aria-expanded="false" aria-controls="mobileNav">
+            <button id="menuToggle" class="md:hidden focus:outline-none">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
@@ -202,8 +66,8 @@
                 <ul class="flex space-x-4">
                     <li><a href="index.html" class="hover:underline">Accueil</a></li>
                     <li><a href="index.html#services" class="hover:underline">Services</a></li>
-                    <li><a href="reservation.html" class="hover:underline font-bold">Réserver</a></li>
-                    <li><a href="location.html" class="hover:underline">Louer</a></li>
+                    <li><a href="reservation.html" class="hover:underline">Réserver</a></li>
+                    <li><a href="location.html" class="hover:underline font-bold">Louer</a></li>
                     <li><a href="ressources.html" class="hover:underline">Ressources</a></li>
                     <li><a href="contact.html" class="hover:underline">Contact</a></li>
                 </ul>
@@ -213,8 +77,8 @@
             <ul class="space-y-2">
                 <li><a href="index.html" class="block hover:underline">Accueil</a></li>
                 <li><a href="index.html#services" class="block hover:underline">Services</a></li>
-                <li><a href="reservation.html" class="block hover:underline font-bold">Réserver</a></li>
-                <li><a href="location.html" class="block hover:underline">Louer</a></li>
+                <li><a href="reservation.html" class="block hover:underline">Réserver</a></li>
+                <li><a href="location.html" class="block hover:underline font-bold">Louer</a></li>
                 <li><a href="ressources.html" class="block hover:underline">Ressources</a></li>
                 <li><a href="contact.html" class="block hover:underline">Contact</a></li>
             </ul>
@@ -222,188 +86,162 @@
     </header>
 
     <!-- Page Title -->
-    <div class="bg-primary/10 dark:bg-primary/20 py-6">
+    <div class="bg-basque-green/10 dark:bg-basque-green/20 py-6">
         <div class="container mx-auto px-4">
-            <h1 class="text-3xl font-bold text-center high-contrast">Réservation de cours d'éducation canine</h1>
+            <h1 class="text-3xl font-bold text-center">Location de brebis pour écopâturage</h1>
         </div>
     </div>
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
-        <div class="max-w-3xl mx-auto">
-            <!-- Introduction synthétisée -->
-            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
-                <div class="flex items-center space-x-4 mb-4">
-                    <img src="images/profile.jpg" alt="Charles Pierot" class="w-16 h-16 rounded-full object-cover" onerror="this.src='https://via.placeholder.com/64?text=CP'">
+        <div class="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+            <!-- Introduction -->
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-4">Entretenez vos espaces verts naturellement</h2>
+                <p class="mb-4">L'écopâturage est une solution écologique et économique pour l'entretien de vos terrains. Nos brebis débroussaillent efficacement tout en fertilisant naturellement votre sol.</p>
+                
+                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                    <h3 class="font-semibold mb-2">Avantages de l'écopâturage :</h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Solution 100% écologique sans produits chimiques</li>
+                        <li>Entretien régulier et fertilisation naturelle du sol</li>
+                        <li>Préservation de la biodiversité locale</li>
+                        <li>Débroussaillage efficace même sur terrains difficiles</li>
+                        <li>Alternative économique aux méthodes mécaniques</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Photo Gallery -->
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold mb-4">L'écopâturage en images</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <!-- Exemple d'images - Remplacez par vos propres images -->
+                    <div class="aspect-video rounded overflow-hidden">
+                        <img src="images/sheep1.jpg" alt="Brebis en écopâturage" class="w-full h-full object-cover">
+                    </div>
+                    <div class="aspect-video rounded overflow-hidden">
+                        <img src="images/sheep2.jpg" alt="Tonte naturelle" class="w-full h-full object-cover">
+                    </div>
+                    <div class="aspect-video rounded overflow-hidden">
+                        <img src="images/sheep3.jpg" alt="Entretien écologique" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Calculateur amélioré -->
+            <div class="mb-8 p-4 bg-basque-green/5 dark:bg-basque-green/10 rounded-lg">
+                <h3 class="font-semibold mb-3">Calculateur d'écopâturage :</h3>
+                <p class="mb-4 text-sm">Estimez le nombre de brebis nécessaires et le coût pour votre terrain :</p>
+                
+                <div class="space-y-4">
                     <div>
-                        <h4 class="font-medium high-contrast">Charles Pierot</h4>
-                        <p class="text-sm">Berger et éducateur canin spécialisé en chiens de troupeau au Pays Basque</p>
-                    </div>
-                </div>
-                
-                <p class="mb-4">Bienvenue chez Artzainak ! Nos cours d'éducation canine sont basés sur une approche bienveillante et respectueuse, adaptée aux besoins spécifiques de votre chien.</p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div class="bg-primary/10 dark:bg-primary/20 p-3 rounded-lg text-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <p class="text-sm">Méthodes positives et respectueuses</p>
-                    </div>
-                    <div class="bg-primary/10 dark:bg-primary/20 p-3 rounded-lg text-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                        </svg>
-                        <p class="text-sm">Séances individuelles ou en groupe</p>
-                    </div>
-                    <div class="bg-primary/10 dark:bg-primary/20 p-3 rounded-lg text-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                        </svg>
-                        <p class="text-sm">Tous niveaux acceptés</p>
-                    </div>
-                </div>
-                
-                <!-- Photo Gallery version réduite -->
-                <div class="grid grid-cols-3 gap-2">
-                    <img src="images/training1.jpg" alt="Chien en formation" class="w-full h-20 object-cover rounded">
-                    <img src="images/training2.jpg" alt="Session d'entraînement" class="w-full h-20 object-cover rounded">
-                    <img src="images/training3.jpg" alt="Travail avec les brebis" class="w-full h-20 object-cover rounded">
-                </div>
-            </div>
-            
-            <!-- Choix des types de séances avec descriptions -->
-            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
-                <h2 class="text-xl font-semibold mb-4 text-center high-contrast">Nos formules</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-primary/5 dark:bg-primary/10 p-4 rounded-lg border border-primary/20">
-                        <h3 class="font-medium text-lg mb-2 text-primary">Séance individuelle (1h)</h3>
-                        <p class="mb-3">Idéale pour travailler sur des besoins spécifiques de votre chien avec une attention personnalisée.</p>
-                        <ul class="list-disc pl-5 text-sm space-y-1 mb-3">
-                            <li>Travail ciblé sur les difficultés de votre chien</li>
-                            <li>Progression plus rapide</li>
-                            <li>Adaptée aux débutants</li>
-                        </ul>
-                        <p class="text-sm text-gray-600 dark:text-gray-300 font-medium">Prix : 40€ / séance</p>
+                        <label for="landSize" class="block mb-1 font-medium text-sm">Surface de votre terrain (m²)</label>
+                        <input type="number" id="landSize" min="1000" value="1000" 
+                            class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-basque-green dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <p id="sizeError" class="text-basque-red text-xs mt-1 hidden">La surface minimum est de 1000m²</p>
                     </div>
                     
-                    <div class="bg-primary/5 dark:bg-primary/10 p-4 rounded-lg border border-primary/20">
-                        <h3 class="font-medium text-lg mb-2 text-primary">Séance en groupe (3h)</h3>
-                        <p class="mb-3">Permet à votre chien de travailler dans un environnement social avec d'autres chiens.</p>
-                        <ul class="list-disc pl-5 text-sm space-y-1 mb-3">
-                            <li>Travail en environnement distrayant</li>
-                            <li>Apprentissage par observation</li>
-                            <li>Socialisation avec d'autres chiens</li>
-                        </ul>
-                        <p class="text-sm text-gray-600 dark:text-gray-300 font-medium">Prix : 120€ / séance</p>
+                    <div>
+                        <label for="address" class="block mb-1 font-medium text-sm">Adresse du terrain</label>
+                        <input type="text" id="address" placeholder="Ex: 10 rue des Fleurs, 64200 Biarritz"
+                            class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-basque-green dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <p id="distanceMessage" class="text-xs mt-1 italic">Nous calculerons automatiquement la distance depuis Arbonne.</p>
                     </div>
-                </div>
-            </div>
-            
-            <!-- Réservation de calendrier -->
-            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8" id="calendar-section">
-                <h2 class="text-xl font-semibold mb-4 text-center high-contrast">Choisissez votre type de séance</h2>
-                <p class="mb-4 text-center text-sm">Sélectionnez d'abord le type de séance puis un créneau disponible dans le calendrier. Le formulaire est à remplir directement dans le calendrier.</p>
-                
-                <div class="session-tabs" role="tablist" aria-label="Types de séances">
-                    <button id="tab-individual" class="session-tab active" role="tab" aria-selected="true" aria-controls="content-individual" onclick="switchTab('individual')">
-                        <span class="block text-lg">Séance individuelle</span>
-                        <span class="text-xs opacity-80">1 heure - 40€</span>
-                    </button>
-                    <button id="tab-group" class="session-tab" role="tab" aria-selected="false" aria-controls="content-group" onclick="switchTab('group')">
-                        <span class="block text-lg">Séance en groupe</span>
-                        <span class="text-xs opacity-80">3 heures - 120€</span>
+                    
+                    <div>
+                        <label for="terrain" class="block mb-1 font-medium text-sm">Type de terrain</label>
+                        <select id="terrain" class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-basque-green dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <option value="friche">Friche/Forêt (Valeur fourragère basse)</option>
+                            <option value="normal" selected>Pelouse/Jardin (Valeur fourragère moyenne)</option>
+                            <option value="prairie">Prairie (Valeur fourragère élevée)</option>
+                        </select>
+                    </div>
+                    
+                    <button id="calculateBtn" class="bg-basque-green hover:bg-basque-green/80 text-white font-medium py-2 px-4 rounded transition duration-300 text-sm">
+                        Calculer
                     </button>
                 </div>
-
-                <!-- Calendriers Cal.com en français -->
-                <div id="content-individual" class="py-4" role="tabpanel" aria-labelledby="tab-individual">
-                    <div class="cal-iframe-container">
-                        <div id="loading-individual" class="iframe-loading">
-                            <div class="loading-spinner mb-4"></div>
-                            <p>Chargement du calendrier...</p>
-                        </div>
-                        <iframe 
-                            id="cal-iframe-individual"
-                            src="https://cal.com/artzainak/seance-d-une-heure?embed=true&theme=dark&lang=fr&hideEventTypeDetails=false&embedType=responsive" 
-                            width="100%" 
-                            height="100%"
-                            frameborder="0"
-                            allow="camera; microphone; autoplay; fullscreen"
-                            onload="hideLoading('loading-individual')">
-                        </iframe>
+                
+                <div id="calculationResult" class="hidden mt-4 p-4 bg-gray-100 dark:bg-gray-600 rounded-lg text-sm">
+                    <div id="loadingDistance" class="mb-2 text-xs flex items-center">
+                        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-basque-green" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Calcul de la distance en cours...
                     </div>
-                </div>
-
-                <div id="content-group" class="py-4 hidden" role="tabpanel" aria-labelledby="tab-group">
-                    <div class="cal-iframe-container">
-                        <div id="loading-group" class="iframe-loading">
-                            <div class="loading-spinner mb-4"></div>
-                            <p>Chargement du calendrier...</p>
+                    <p class="mb-1">Surface à entretenir: <span id="areaSummary" class="font-medium">0</span> m²</p>
+                    <p class="mb-1">Type de terrain: <span id="terrainTypeSummary" class="font-medium">Pelouse/Jardin</span></p>
+                    <p class="mb-1">Nombre de brebis recommandé: <span id="sheepCount" class="font-medium">0</span></p>
+                    <p class="mb-1">Temps estimé pour une tonte complète: <span id="estimatedDays" class="font-medium">0</span> jours</p>
+                    <p class="mb-1">Distance depuis Arbonne: <span id="distanceSummary" class="font-medium">0</span> km</p>
+                    <p id="distanceWarning" class="text-xs text-yellow-600 dark:text-yellow-400 mt-1 hidden">Distance non déterminée. Le prix peut varier en fonction de la localisation exacte.</p>
+                    <p class="font-bold mt-2 text-base">Estimation du tarif: <span id="totalPrice">0</span> € / semaine</p>
+                    <p class="mt-1 text-xs italic">Forfait hebdomadaire incluant livraison, installation et suivi des animaux</p>
+                    
+                    <!-- Impact écologique -->
+                    <div id="eco-impact" class="mt-4 p-3 bg-basque-green/10 rounded-lg text-sm hidden">
+                        <h4 class="font-semibold mb-2">Impact écologique estimé :</h4>
+                        <div class="space-y-1">
+                            <p class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-basque-green mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Économie de ~<span id="co2Savings">0</span> kg de CO2 vs. tonte mécanique</span>
+                            </p>
+                            <p class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-basque-green mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Économie de ~<span id="waterSavings">0</span> litres d'eau</span>
+                            </p>
+                            <p class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-basque-green mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Favorise la biodiversité locale</span>
+                            </p>
                         </div>
-                        <iframe 
-                            id="cal-iframe-group"
-                            src="https://cal.com/artzainak/seance-de-groupe-3h?embed=true&theme=dark&lang=fr&hideEventTypeDetails=false&embedType=responsive" 
-                            width="100%" 
-                            height="100%"
-                            frameborder="0"
-                            allow="camera; microphone; autoplay; fullscreen"
-                            onload="hideLoading('loading-group')">
-                        </iframe>
                     </div>
                 </div>
                 
-                <p class="mt-4 text-sm text-center text-gray-500 dark:text-gray-400">Après votre réservation, vous recevrez une confirmation par email avec toutes les informations nécessaires.</p>
+                <!-- Bouton de réservation après calcul -->
+                <div id="booking-btn-container" class="mt-4 hidden">
+                    <a href="#calendar-section" class="block text-center bg-basque-green hover:bg-basque-green/80 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                        Réserver pour une semaine
+                    </a>
+                </div>
             </div>
             
-            <!-- FAQ - Questions fréquentes (version réduite) -->
-            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6">
-                <h4 class="font-medium mb-4 high-contrast">Questions fréquentes</h4>
+            <!-- Section calendrier pour réservation -->
+            <div id="calendar-section" class="mb-8 p-6 bg-gray-50 dark:bg-gray-700 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-4 text-center">Réserver des brebis à la semaine</h3>
+                <p class="mb-6 text-center">Sélectionnez une date de début pour votre location hebdomadaire. Le formulaire est à remplir directement dans le calendrier.</p>
                 
-                <div class="space-y-3">
-                    <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-                        <button class="faq-toggle w-full flex justify-between items-center p-3 text-left font-medium" aria-expanded="false" aria-controls="faq-content-1">
-                            <span>Que faut-il prévoir pour la première séance ?</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                        <div id="faq-content-1" class="faq-content hidden p-3 pt-0">
-                            <p>Pour votre première séance apportez une laisse solide, de l'eau pour votre chien, quelques friandises ou jouets préférés et des vêtements adaptés à l'extérieur.</p>
-                        </div>
+                <div class="cal-iframe-container" style="height: 1200px; min-height: 1200px;">
+                    <div id="loading-calendar" class="iframe-loading">
+                        <div class="loading-spinner mb-4"></div>
+                        <p>Chargement du calendrier...</p>
                     </div>
-                    
-                    <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-                        <button class="faq-toggle w-full flex justify-between items-center p-3 text-left font-medium" aria-expanded="false" aria-controls="faq-content-2">
-                            <span>À partir de quel âge peut-on commencer la formation ?</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                        <div id="faq-content-2" class="faq-content hidden p-3 pt-0">
-                            <p>Nous acceptons les chiens à partir de 6 mois pour l'initiation. Pour un travail plus intensif, l'idéal est d'avoir un chien d'au moins 12 mois.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-                        <button class="faq-toggle w-full flex justify-between items-center p-3 text-left font-medium" aria-expanded="false" aria-controls="faq-content-3">
-                            <span>Toutes les races de chiens sont-elles acceptées ?</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                        <div id="faq-content-3" class="faq-content hidden p-3 pt-0">
-                            <p>Bien que les races de berger (Border Collie, Berger Australien, etc.) aient un instinct naturel pour le troupeau, nous accueillons toutes les races qui montrent un intérêt pour cette activité.</p>
-                        </div>
-                    </div>
+                    <iframe 
+                        id="cal-iframe-ecopaturage"
+                        src="https://cal.com/artzainak/sheep-week?embed=true&theme=dark&lang=fr&hideEventTypeDetails=false&embedType=responsive" 
+                        width="100%" 
+                        height="100%" 
+                        style="min-height: 1200px;"
+                        frameborder="0"
+                        allow="camera; microphone; autoplay; fullscreen"
+                        onload="hideLoading('loading-calendar')">
+                    </iframe>
                 </div>
+                <p class="mt-4 text-sm text-center text-gray-500 dark:text-gray-400">Vous serez contacté après votre réservation pour confirmer les détails et organiser l'installation des brebis.</p>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="py-6 px-4 bg-gray-800 text-white mt-8">
+    <footer class="py-6 px-4 bg-gray-800 text-white">
         <div class="container mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
@@ -424,6 +262,9 @@
         </div>
     </footer>
 
+    <!-- Script Cal.com -->
+    <script src="https://app.cal.com/embed/embed.js"></script>
+    
     <!-- Scripts personnalisés -->
     <script src="js/script.js"></script>
     <script src="js/mobile-optimizations.js"></script>
@@ -431,8 +272,134 @@
     <script src="js/floating-cta.js"></script>
     
     <script>
-        // Fonction pour masquer le loader du calendrier
-        function hideLoading(loaderId) {
+    // Calculateur d'écopâturage simplifié
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fonction pour calculer la distance
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Rayon de la Terre en km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            const distance = R * c; // Distance en km
+            return Math.round(distance);
+        }
+
+        // Fonction pour calculer l'écopâturage
+        function calculateEcoPasture() {
+            // Récupération des valeurs du formulaire
+            const landSize = parseFloat(document.getElementById('landSize').value);
+            const terrain = document.getElementById('terrain').value;
+            const address = document.getElementById('address').value;
+            
+            // Validation de la taille du terrain
+            if (landSize < 1000) {
+                document.getElementById('sizeError').classList.remove('hidden');
+                return;
+            } else {
+                document.getElementById('sizeError').classList.add('hidden');
+            }
+            
+            // Affichage des résultats initiaux
+            document.getElementById('calculationResult').classList.remove('hidden');
+            document.getElementById('loadingDistance').classList.remove('hidden');
+            document.getElementById('areaSummary').textContent = landSize.toLocaleString('fr-FR');
+            
+            // Calcul du nombre de brebis en fonction du type de terrain
+            let sheepPerHectare;
+            let terrainTypeName;
+            let terrainEfficiency;
+            
+            switch(terrain) {
+                case 'prairie':
+                    sheepPerHectare = 15;
+                    terrainTypeName = "Prairie (valeur fourragère élevée)";
+                    terrainEfficiency = 1.2;
+                    break;
+                case 'friche':
+                    sheepPerHectare = 5;
+                    terrainTypeName = "Friche/Forêt (valeur fourragère basse)";
+                    terrainEfficiency = 0.6;
+                    break;
+                default: // normal (pelouse/jardin)
+                    sheepPerHectare = 10;
+                    terrainTypeName = "Pelouse/Jardin (valeur fourragère moyenne)";
+                    terrainEfficiency = 1.0;
+            }
+            
+            document.getElementById('terrainTypeSummary').textContent = terrainTypeName;
+            
+            // Calcul du nombre de brebis (conversion m² en hectares)
+            const hectares = landSize / 10000;
+            const sheepCount = Math.max(5, Math.round(hectares * sheepPerHectare));
+            document.getElementById('sheepCount').textContent = sheepCount;
+            
+            // Estimation du temps nécessaire pour une tonte complète
+            const estimatedDays = Math.ceil((landSize / 100) / (sheepCount * terrainEfficiency));
+            document.getElementById('estimatedDays').textContent = estimatedDays;
+            
+            // Géocodage et calcul de distance
+            if (address) {
+                // Simuler un géocodage (remplacer par une API réelle)
+                setTimeout(() => {
+                    const distance = Math.floor(Math.random() * 30) + 5; // Distance simulée entre 5 et 35 km
+                    document.getElementById('distanceSummary').textContent = distance;
+                    
+                    // Calcul du prix basé sur nombre de brebis et distance
+                    const basePricePerSheep = 15; // Prix de base par brebis par semaine
+                    const distanceFee = Math.max(0, (distance - 20) * 2); // Frais de distance au-delà de 20km
+                    
+                    // Calcul du prix hebdomadaire
+                    const weeklyPrice = (sheepCount * basePricePerSheep) + distanceFee;
+                    
+                    // Affichage du prix
+                    document.getElementById('totalPrice').textContent = `${weeklyPrice.toLocaleString('fr-FR')}`;
+                    
+                    // Calculer impact écologique
+                    document.getElementById('eco-impact').classList.remove('hidden');
+                    
+                    // Calculer les économies CO2 approximatives par rapport à une tondeuse
+                    const co2SavingsPerHectare = 25; // kg de CO2 économisés par hectare
+                    const co2Savings = Math.round(hectares * co2SavingsPerHectare);
+                    document.getElementById('co2Savings').textContent = co2Savings;
+                    
+                    // Calculer économie d'eau
+                    const waterSavingsPerHectare = 2000; // litres d'eau économisés par hectare
+                    const waterSavings = Math.round(hectares * waterSavingsPerHectare);
+                    document.getElementById('waterSavings').textContent = waterSavings;
+                    
+                    // Afficher bouton de réservation
+                    document.getElementById('booking-btn-container').classList.remove('hidden');
+                    
+                    document.getElementById('loadingDistance').classList.add('hidden');
+                }, 1500);
+            } else {
+                // Gestion sans adresse
+                document.getElementById('distanceSummary').textContent = "Non déterminée";
+                document.getElementById('distanceWarning').classList.remove('hidden');
+                
+                // Prix approximatif sans distance
+                const approximatePrice = sheepCount * 15;
+                document.getElementById('totalPrice').textContent = `~${approximatePrice.toLocaleString('fr-FR')} (estimation)`;
+                
+                // Afficher bouton de réservation quand même
+                document.getElementById('booking-btn-container').classList.remove('hidden');
+                
+                document.getElementById('loadingDistance').classList.add('hidden');
+            }
+        }
+
+        // Attacher l'événement au bouton
+        const calculateBtn = document.getElementById('calculateBtn');
+        if (calculateBtn) {
+            calculateBtn.addEventListener('click', calculateEcoPasture);
+        }
+        
+        // Masquer le loader du calendrier
+        window.hideLoading = function(loaderId) {
             const loader = document.getElementById(loaderId);
             if (loader) {
                 loader.style.opacity = '0';
@@ -440,71 +407,37 @@
                     loader.style.display = 'none';
                 }, 300);
             }
-        }
+        };
         
-        // Fonction pour changer d'onglet
-        function switchTab(tabId) {
-            console.log(`Changement d'onglet vers: ${tabId}`);
-            
-            // Réinitialiser tous les onglets
-            document.getElementById('tab-individual').classList.remove('active');
-            document.getElementById('tab-group').classList.remove('active');
-            document.getElementById('tab-individual').setAttribute('aria-selected', 'false');
-            document.getElementById('tab-group').setAttribute('aria-selected', 'false');
-            document.getElementById('content-individual').classList.add('hidden');
-            document.getElementById('content-group').classList.add('hidden');
-            
-            // Activer l'onglet sélectionné
-            document.getElementById(`tab-${tabId}`).classList.add('active');
-            document.getElementById(`tab-${tabId}`).setAttribute('aria-selected', 'true');
-            document.getElementById(`content-${tabId}`).classList.remove('hidden');
-            
-            // Réafficher le loader correspondant
-            const loader = document.getElementById(`loading-${tabId}`);
-            if (loader) {
-                loader.style.opacity = '1';
-                loader.style.display = 'flex';
-                
-                // Le masquer après quelques secondes
-                setTimeout(() => {
-                    hideLoading(`loading-${tabId}`);
-                }, 2000);
-            }
-        }
-        
-        // Initialisation de Cal.com
-        document.addEventListener('DOMContentLoaded', function() {
-            // Configuration globale pour Cal.com
-            if (typeof Cal !== 'undefined') {
-                Cal('ui', {
-                    theme: 'dark',
-                    styles: {
-                        branding: {
-                            brandColor: '#5D5CDE'
-                        }
-                    },
-                    hideEventTypeDetails: false,
-                    layout: 'month_view'
-                });
-            }
-            
-            // Initialiser l'onglet par défaut
-            switchTab('individual');
-            
-            // Gérer les FAQ toggles
-            const faqToggles = document.querySelectorAll('.faq-toggle');
-            faqToggles.forEach(toggle => {
-                toggle.addEventListener('click', function() {
-                    const content = this.nextElementSibling;
-                    const icon = this.querySelector('svg');
-                    const expanded = content.classList.toggle('hidden') ? 'false' : 'true';
-                    this.setAttribute('aria-expanded', expanded);
-                    
-                    // Rotation de l'icône
-                    icon.classList.toggle('rotate-180', expanded === 'true');
-                });
+        // Initialiser Cal.com avec le bon thème
+        if (typeof Cal !== 'undefined') {
+            Cal('ui', {
+                theme: 'dark',
+                styles: {
+                    branding: {
+                        brandColor: '#198754'
+                    }
+                },
+                hideEventTypeDetails: false,
+                layout: 'month_view'
             });
-        });
+        }
+        
+        // Gestion du menu mobile
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileNav = document.getElementById('mobileNav');
+        
+        if (menuToggle && mobileNav) {
+            menuToggle.addEventListener('click', function() {
+                // Toggle du menu
+                mobileNav.classList.toggle('hidden');
+                
+                // Mettre à jour l'état aria-expanded
+                const isExpanded = !mobileNav.classList.contains('hidden');
+                menuToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+            });
+        }
+    });
     </script>
 </body>
 </html>
