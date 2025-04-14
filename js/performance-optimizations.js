@@ -175,7 +175,6 @@
             style.textContent = `
                 /* Propriétés critiques pour éviter les changements de mise en page */
                 img, iframe, .gallery-item, .service-card {
-                    aspect-ratio: attr(width) / attr(height);
                     width: 100%;
                     height: auto;
                 }
