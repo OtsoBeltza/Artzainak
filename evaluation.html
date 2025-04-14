@@ -518,38 +518,10 @@
 <script src="js/floating-cta.js"></script>
 
 <script>
-// Gestion des FAQ toggles - avec code modifié pour éviter les conflits
-window.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-        // On exécute le code FAQ après un court délai pour s'assurer que fix-mobile-menu.js a déjà fait son travail
-        const faqToggles = document.querySelectorAll('.faq-toggle');
-        
-        faqToggles.forEach(toggle => {
-            // On supprime et recrée l'élément pour éviter tout conflit avec d'autres gestionnaires d'événements
-            const newToggle = toggle.cloneNode(true);
-            toggle.parentNode.replaceChild(newToggle, toggle);
-            
-            newToggle.addEventListener('click', function() {
-                const content = this.nextElementSibling;
-                const icon = this.querySelector('svg');
-                
-                // Toggle du contenu
-                content.classList.toggle('hidden');
-                
-                // Update aria-expanded
-                const expanded = !content.classList.contains('hidden');
-                this.setAttribute('aria-expanded', expanded);
-                
-                // Rotation de l'icône
-                icon.style.transform = expanded ? 'rotate(180deg)' : 'rotate(0)';
-            });
-        });
-    }, 100); // Un délai de 100ms devrait être suffisant
-});
-</script>
 <script>
-// Gestion du menu mobile
+// Script unifié pour le menu mobile et les FAQ toggles
 document.addEventListener('DOMContentLoaded', function() {
+    // 1. Gestion du menu mobile
     const menuToggle = document.getElementById('menuToggle');
     const mobileNav = document.getElementById('mobileNav');
     
@@ -573,6 +545,26 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    // 2. Gestion des FAQ toggles
+    const faqToggles = document.querySelectorAll('.faq-toggle');
+    
+    faqToggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            const icon = this.querySelector('svg');
+            
+            // Toggle du contenu
+            content.classList.toggle('hidden');
+            
+            // Update aria-expanded
+            const expanded = !content.classList.contains('hidden');
+            this.setAttribute('aria-expanded', expanded);
+            
+            // Rotation de l'icône
+            icon.style.transform = expanded ? 'rotate(180deg)' : 'rotate(0)';
+        });
+    });
 });
 </script>
 </body>
