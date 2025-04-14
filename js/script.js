@@ -19,9 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileNav = document.getElementById('mobileNav');
     
     if (menuToggle && mobileNav) {
-        menuToggle.addEventListener('click', () => {
-            mobileNav.classList.toggle('hidden');
-        });
+    menuToggle.addEventListener('click', function() {
+      mobileNav.classList.toggle('hidden');
     }
     
     // Add fade-in animation to page elements
