@@ -475,10 +475,37 @@
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js" defer></script>
     <script src="js/script.js"></script>
-    <script src="js/fix-mobile-menu.js"></script>
     <script src="js/mobile-optimizations.js"></script>
     <script src="js/performance-optimizations.js"></script>
     <script src="js/floating-cta.js"></script>
     <script src="js/marketing-tracking.js"></script>
+    <script>
+// Gestion du menu mobile
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    
+    if (menuToggle && mobileNav) {
+        menuToggle.addEventListener('click', function() {
+            // Toggle du menu
+            mobileNav.classList.toggle('hidden');
+            
+            // Mettre à jour l'état aria-expanded
+            const isExpanded = !mobileNav.classList.contains('hidden');
+            menuToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+        });
+        
+        // Fermer le menu si on clique en dehors
+        document.addEventListener('click', function(e) {
+            if (!mobileNav.classList.contains('hidden') && 
+                !mobileNav.contains(e.target) && 
+                !menuToggle.contains(e.target)) {
+                mobileNav.classList.add('hidden');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+});
+</script>
 </body>
 </html>
