@@ -78,10 +78,10 @@ if (filterButtons.length > 0 && galleryItems.length > 0) {
             // Activer le bouton cliqué et désactiver les autres
             filterButtons.forEach(btn => {
                 btn.classList.remove('active', 'bg-primary', 'text-white');
-                btn.classList.add('bg-gray-200', 'dark:bg-gray-700');
+                btn.classList.add('bg-secondary', 'text-primary');
             });
             this.classList.add('active', 'bg-primary', 'text-white');
-            this.classList.remove('bg-gray-200', 'dark:bg-gray-700');
+            this.classList.remove('bg-secondary', 'text-primary');
             
             const filter = this.getAttribute('data-filter');
             
