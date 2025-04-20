@@ -103,7 +103,7 @@
             display: block;
             width: 80px;
             height: 3px;
-            background-color: #284533;
+            background-color: #fff1d2;
             margin: 1rem auto 2rem;
         }
         
@@ -124,7 +124,7 @@
         }
         
         .dark .text-forest {
-            color: #284533; /* Correction: toujours utiliser le vert foncé même en mode sombre */
+            color: #a3c9b0;
         }
         
         .border-forest {
@@ -136,13 +136,15 @@
         }
         
         .about-section {
-            background-color: #e8f4f8;
+            background-color: #fff1d2;
         }
         
         .dark .about-section {
             background-color: #b5cedc;
         }
-        
+        .about-section, .resources-section {
+            background-color: #fff1d2;
+        } 
         .gallery-item-enhanced {
             transition: all 0.3s ease-in-out;
             overflow: hidden;
@@ -184,7 +186,7 @@
         
         .service-card-enhanced:hover {
             transform: translateY(-5px);
-            border-left: 4px solid #284533;
+            border-left: 4px solid #fff1d2;
         }
         
         .dark .service-card-enhanced:hover {
@@ -199,22 +201,25 @@
         }
         
         .btn-secondary {
-            background-color: #e8f4f8;
+            background-color: #fff1d2;
             color: #284533;
             transition: all 0.3s ease;
         }
         
         .btn-secondary:hover {
-            background-color: #c7e1ea;
+            background-color: #f5e7c8;
             transform: translateY(-2px);
         }
+        .section-title::after {
+    background-color: #fff1d2;
+}
         
         .footer-enhanced {
             background-color: #1a2e20;
         }
         
         .service-icon-container {
-            transition: all 0.3s ease;
+            background-color: #fff1d2;
         }
         
         .service-card-enhanced:hover .service-icon-container {
@@ -224,9 +229,7 @@
         /* Éclaircir les icônes dans la section ressources */
         .resource-icon {
             color: #284533;
-            opacity: 1; /* Augmenter l'opacité à 1 pour meilleure visibilité */
-            stroke-width: 2.5; /* Augmenter l'épaisseur du trait */
-            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1)); /* Ajouter une ombre légère */
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -305,7 +308,7 @@
             <h2 class="text-3xl font-bold text-center text-forest mb-4 section-title" style="color: #284533;">Notre passion pour les chiens de troupeau</h2>  
             <div class="flex flex-col md:flex-row items-center gap-8">
                 <div class="w-full md:w-1/2 mb-6 md:mb-0">
-                    <img src="images/training1.jpg" alt="Chien de troupeau en action" class="w-full h-auto mx-auto rounded-lg shadow-lg" onerror="this.src='https://via.placeholder.com/600x400?text=Chien+de+troupeau'">
+                    <img src="images/training1.jpg" alt="Chien de troupeau en action" class="w-full mx-auto rounded-lg shadow-lg" onerror="this.src='https://via.placeholder.com/600x400?text=Chien+de+troupeau'">
                 </div>
                 <div class="w-full md:w-1/2">
                     <p class="mb-4 text-forest" style="color: #284533;">Artzainak est né d'une passion pour les chiens de berger et leur capacité exceptionnelle à travailler avec le troupeau. Basés au Pays Basque, nous proposons des services professionnels d'éducation canine spécialisée et d'écopâturage.</p>
@@ -324,7 +327,7 @@
         <div class="container mx-auto">
             <h2 class="text-3xl font-bold text-center text-forest mb-4 section-title">Notre Travail en Images</h2>
             
-            <!-- Filtres de catégories corrigés -->
+            <!-- Filtres de catégories -->
             <div class="flex flex-wrap justify-center gap-2 mb-8">
                 <button class="filter-btn active px-4 py-2 rounded-full bg-primary text-white transition-all" data-filter="all">
                     Tous
@@ -467,375 +470,337 @@
                 </div>
                 
                 <!-- Écopâturage -->
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 service-card service-card-enhanced">
-                    <div class="flex items-center mb-6">
-                        <div class="service-icon-container bg-primary/10 dark:bg-primary/30 p-4 rounded-full mr-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-semibold">Écopâturage</h3>
-                    </div>
-                    
-                    <p class="mb-4">Entretenez vos espaces verts de façon écologique avec nos brebis. Solution naturelle et économique pour vos terrains.</p>
-                    
-                    <div class="mb-6 p-4 bg-secondary dark:bg-gray-700 rounded-lg">
-                        <h4 class="font-semibold mb-2">Avantages :</h4>
-                        <ul class="space-y-2">
-                            <li class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span><strong>Entretien écologique</strong> sans produits chimiques</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span><strong>Fertilisation naturelle</strong> du sol</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span><strong>Brebis adaptées</strong> à votre surface</span>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <a href="location.html" class="block text-center bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                        </svg>
-                        Louer des brebis
-                    </a>
-                </div>
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 service-card service-card-enhanced">
+    <div class="flex items-center mb-6">
+        <div class="service-icon-container bg-primary/10 dark:bg-primary/30 p-4 rounded-full mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+            </svg>
+        </div>
+        <h3 class="text-xl font-semibold">Écopâturage</h3>
+    </div>
+    
+    <p class="mb-4">Entretenez vos espaces verts de façon écologique avec nos brebis. Solution naturelle et économique pour vos terrains.</p>
+    
+    <div class="mb-6 p-4 bg-secondary dark:bg-gray-700 rounded-lg">
+        <h4 class="font-semibold mb-2">Avantages :</h4>
+        <ul class="space-y-2">
+            <li class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span><strong>Entretien écologique</strong> sans produits chimiques</span>
+            </li>
+            <li class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span><strong>Fertilisation naturelle</strong> du sol</span>
+            </li>
+            <li class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span><strong>Brebis adaptées</strong> à votre surface</span>
+            </li>
+        </ul>
+    </div>
+    
+    <a href="location.html" class="block text-center bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+        </svg>
+        Louer des brebis
+    </a>
+</div>
 
-                <!-- Section Service d'Évaluation -->
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 service-card service-card-enhanced">
-                    <div class="flex items-center mb-6">
-                        <div class="service-icon-container bg-primary/10 dark:bg-primary/30 p-4 rounded-full mr-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-semibold">Évaluation de chiens</h3>
-                    </div>
-                    
-                    <p class="mb-4">Faites évaluer les capacités de votre chien de troupeau par un expert. En partenariat avec Berger Connect, nous proposons une évaluation complète et professionnelle.</p>
-                    
-                    <div class="mb-6 p-4 bg-secondary dark:bg-gray-700 rounded-lg">
-                        <h4 class="font-semibold mb-2">Notre service comprend :</h4>
-                        <ul class="space-y-2">
-                            <li class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span><strong>Évaluation comportementale</strong> complète</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span><strong>Tests pratiques</strong> avec le troupeau</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span><strong>Rapport détaillé</strong> avec recommandations</span>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <a href="evaluation.html" class="block text-center bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                        </svg>
-                        Demander une évaluation
-                    </a>
+<!-- Section Service d'Évaluation -->
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 service-card service-card-enhanced">
+    <div class="flex items-center mb-6">
+        <div class="service-icon-container bg-primary/10 dark:bg-primary/30 p-4 rounded-full mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+            </svg>
+        </div>
+        <h3 class="text-xl font-semibold">Évaluation de chiens</h3>
+    </div>
+    
+    <p class="mb-4">Faites évaluer les capacités de votre chien de troupeau par un expert. En partenariat avec Berger Connect, nous proposons une évaluation complète et professionnelle.</p>
+    
+    <div class="mb-6 p-4 bg-secondary dark:bg-gray-700 rounded-lg">
+        <h4 class="font-semibold mb-2">Notre service comprend :</h4>
+        <ul class="space-y-2">
+            <li class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span><strong>Évaluation comportementale</strong> complète</span>
+            </li>
+            <li class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span><strong>Tests pratiques</strong> avec le troupeau</span>
+            </li>
+            <li class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span><strong>Rapport détaillé</strong> avec recommandations</span>
+            </li>
+        </ul>
+    </div>
+    
+    <a href="evaluation.html" class="block text-center bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+        </svg>
+        Demander une évaluation
+    </a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Section CTA -->
+<section class="cta-section">
+    <div class="container mx-auto">
+        <h2 class="text-3xl font-bold mb-4">Prêt à développer les capacités de votre chien ?</h2>
+        <p class="text-xl max-w-2xl mx-auto mb-8">Réservez dès maintenant votre première séance et découvrez le potentiel de votre chien de troupeau</p>
+        <a href="reservation.html" class="btn-secondary font-bold py-3 px-8 rounded-lg transition duration-300 inline-flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+            </svg>
+            Réserver une séance
+        </a>
+    </div>
+</section>
+
+<!-- Ressources Section améliorée -->
+<section class="py-16 px-4 bg-secondary dark:bg-gray-800">
+    <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center text-forest mb-4 section-title">Ressources pour propriétaires de chiens</h2>
+        <div class="text-center mb-8">
+            <p class="max-w-2xl mx-auto text-forest">Découvrez nos guides, vidéos et fiches techniques pour vous aider à former votre chien et comprendre son comportement de troupeau.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-10">
+            <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 transform hover:-translate-y-2 transition-all">
+                <div class="text-primary mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto resource-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
                 </div>
+                <h3 class="text-xl font-semibold text-center mb-2">Guides pratiques</h3>
+                <p class="text-center text-gray-600 dark:text-gray-300 mb-4">Consultez nos guides détaillés sur l'éducation des chiens de troupeau.</p>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 transform hover:-translate-y-2 transition-all">
+                <div class="text-primary mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto resource-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-center mb-2">Vidéos tutorielles</h3>
+                <p class="text-center text-gray-600 dark:text-gray-300 mb-4">Apprenez par l'exemple avec nos vidéos d'entraînement.</p>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 transform hover:-translate-y-2 transition-all">
+                <div class="text-primary mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto resource-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-center mb-2">Fiches techniques</h3>
+                <p class="text-center text-gray-600 dark:text-gray-300 mb-4">Téléchargez nos fiches sur les races, comportements et techniques.</p>
             </div>
         </div>
-    </section>
-
-    <!-- Section CTA -->
-    <section class="cta-section">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold mb-4">Prêt à développer les capacités de votre chien ?</h2>
-            <p class="text-xl max-w-2xl mx-auto mb-8">Réservez dès maintenant votre première séance et découvrez le potentiel de votre chien de troupeau</p>
-            <a href="reservation.html" class="btn-secondary font-bold py-3 px-8 rounded-lg transition duration-300 inline-flex items-center">
+        
+        <div class="flex justify-center">
+            <a href="ressources.html" class="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-lg transition duration-300 inline-flex items-center shadow-md hover:shadow-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                    <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
                 </svg>
-                Réserver une séance
+                Découvrir toutes nos ressources
             </a>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Ressources Section améliorée avec des icônes plus claires -->
-    <section class="py-16 px-4 bg-secondary dark:bg-gray-800">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold text-center text-forest mb-4 section-title">Ressources pour propriétaires de chiens</h2>
-            <div class="text-center mb-8">
-                <p class="max-w-2xl mx-auto text-forest">Découvrez nos guides, vidéos et fiches techniques pour vous aider à former votre chien et comprendre son comportement de troupeau.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-10">
-                <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 transform hover:-translate-y-2 transition-all">
-                    <div class="text-primary mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 mx-auto resource-icon" fill="none" viewBox="0 0 24 24" stroke="#284533" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                        </svg>
+<!-- Footer amélioré -->
+<footer class="py-10 px-4 bg-primary footer-enhanced text-white">
+    <div class="container mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div>
+                <div class="flex items-center mb-4">
+                    <img src="images/logo.png" alt="Artzainak Logo" class="h-16 w-auto mr-3 object-contain">
+                    <div>
+                        <h2 class="text-xl font-bold">ARTZAINAK</h2>
+                        <p class="text-sm">Éducation de chiens de troupeau</p>
                     </div>
-                    <h3 class="text-xl font-semibold text-center mb-2">Guides pratiques</h3>
-                    <p class="text-center text-gray-600 dark:text-gray-300 mb-4">Consultez nos guides détaillés sur l'éducation des chiens de troupeau.</p>
                 </div>
-                
-                <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 transform hover:-translate-y-2 transition-all">
-                    <div class="text-primary mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 mx-auto resource-icon" fill="none" viewBox="0 0 24 24" stroke="#284533" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                <p class="text-gray-300 mb-4">Spécialiste de la formation des chiens de berger et des services d'écopâturage au Pays Basque. Notre approche respecte l'instinct naturel du chien tout en développant une relation de confiance avec son maître.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-white hover:text-secondary transition-colors">
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
                         </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-center mb-2">Vidéos tutorielles</h3>
-                    <p class="text-center text-gray-600 dark:text-gray-300 mb-4">Apprenez par l'exemple avec nos vidéos d'entraînement.</p>
-                </div>
-                
-                <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 transform hover:-translate-y-2 transition-all">
-                    <div class="text-primary mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 mx-auto resource-icon" fill="none" viewBox="0 0 24 24" stroke="#284533" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </a>
+                    <a href="#" class="text-white hover:text-secondary transition-colors">
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
                         </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-center mb-2">Fiches techniques</h3>
-                    <p class="text-center text-gray-600 dark:text-gray-300 mb-4">Téléchargez nos fiches sur les races, comportements et techniques.</p>
+                    </a>
                 </div>
             </div>
             
-            <div class="flex justify-center">
-                <a href="ressources.html" class="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-lg transition duration-300 inline-flex items-center shadow-md hover:shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
-                    </svg>
-                    Découvrir toutes nos ressources
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer amélioré -->
-    <footer class="py-10 px-4 bg-primary footer-enhanced text-white">
-        <div class="container mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center mb-4">
-                        <img src="images/logo.png" alt="Artzainak Logo" class="h-16 w-auto mr-3 object-contain">
-                        <div>
-                            <h2 class="text-xl font-bold">ARTZAINAK</h2>
-                            <p class="text-sm">Éducation de chiens de troupeau</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-300 mb-4">Spécialiste de la formation des chiens de berger et des services d'écopâturage au Pays Basque. Notre approche respecte l'instinct naturel du chien tout en développant une relation de confiance avec son maître.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-white hover:text-secondary transition-colors">
-                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
-                        <a href="#" class="text-white hover:text-secondary transition-colors">
-                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Liens utiles</h3>
-                    <ul class="space-y-2">
-                        <li><a href="index.html" class="text-gray-300 hover:text-white transition-colors">Accueil</a></li>
-                        <li><a href="#services" class="text-gray-300 hover:text-white transition-colors">Services</a></li>
-                        <li><a href="reservation.html" class="text-gray-300 hover:text-white transition-colors">Réserver un cours</a></li>
-                        <li><a href="location.html" class="text-gray-300 hover:text-white transition-colors">Louer des brebis</a></li>
-                        <li><a href="evaluation.html" class="text-gray-300 hover:text-white transition-colors">Évaluation</a></li>
-                        <li><a href="ressources.html" class="text-gray-300 hover:text-white transition-colors">Ressources</a></li>
-                        <li><a href="contact.html" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Contactez-nous</h3>
-                    <div class="space-y-3">
-                        <p class="flex items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-0.5 text-secondary" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                            </svg>
-                            <span>Arbonne, Pays Basque</span>
-                        </p>
-                        <p class="flex items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-0.5 text-secondary" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                            </svg>
-                            <span>+33 (0) 608 919 431</span>
-                        </p>
-                        <p class="flex items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-0.5 text-secondary" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                            </svg>
-                            <span>takalowshin@gmail.com</span>
-                        </p>
-                    </div>
-                </div>
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Liens utiles</h3>
+                <ul class="space-y-2">
+                    <li><a href="index.html" class="text-gray-300 hover:text-white transition-colors">Accueil</a></li>
+                    <li><a href="#services" class="text-gray-300 hover:text-white transition-colors">Services</a></li>
+                    <li><a href="reservation.html" class="text-gray-300 hover:text-white transition-colors">Réserver un cours</a></li>
+                    <li><a href="location.html" class="text-gray-300 hover:text-white transition-colors">Louer des brebis</a></li>
+                    <li><a href="evaluation.html" class="text-gray-300 hover:text-white transition-colors">Évaluation</a></li>
+                    <li><a href="ressources.html" class="text-gray-300 hover:text-white transition-colors">Ressources</a></li>
+                    <li><a href="contact.html" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+                </ul>
             </div>
             
-            <div class="border-t border-gray-700 pt-6">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <p class="text-sm text-gray-400">&copy; 2025 Artzainak. Tous droits réservés.</p>
-                    <div class="flex gap-4 mt-4 md:mt-0">
-                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Mentions légales</a>
-                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Politique de confidentialité</a>
-                    </div>
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Contactez-nous</h3>
+                <div class="space-y-3">
+                    <p class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-0.5 text-secondary" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Arbonne, Pays Basque</span>
+                    </p>
+                    <p class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-0.5 text-secondary" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                        </svg>
+                        <span>+33 (0) 608 919 431</span>
+                    </p>
+                    <p class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-0.5 text-secondary" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                        </svg>
+                        <span>takalowshin@gmail.com</span>
+                    </p>
                 </div>
             </div>
         </div>
-    </footer>
+        
+        <div class="border-t border-gray-700 pt-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-400">&copy; 2025 Artzainak. Tous droits réservés.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Mentions légales</a>
+                    <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Politique de confidentialité</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 
-    <!-- Métadonnées structurées Schema.org -->
-    <script type="application/ld+json">
+<!-- Métadonnées structurées Schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Artzainak",
+  "image": "https://artzainak.netlify.app/images/logo.jpg",
+  "url": "https://artzainak.netlify.app/",
+  "telephone": "+33608919431",
+  "email": "takalowshin@gmail.com",
+  "description": "Services professionnels d'éducation de chiens de troupeau et d'écopâturage au Pays Basque.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Arbonne",
+    "addressLocality": "Pays Basque",
+    "postalCode": "64210",
+    "addressCountry": "FR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 43.4373,
+    "longitude": -1.5477
+  },
+  "openingHoursSpecification": [
     {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Artzainak",
-      "image": "https://artzainak.netlify.app/images/logo.jpg",
-      "url": "https://artzainak.netlify.app/",
-      "telephone": "+33608919431",
-      "email": "takalowshin@gmail.com",
-      "description": "Services professionnels d'éducation de chiens de troupeau et d'écopâturage au Pays Basque.",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Arbonne",
-        "addressLocality": "Pays Basque",
-        "postalCode": "64210",
-        "addressCountry": "FR"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 43.4373,
-        "longitude": -1.5477
-      },
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          "opens": "09:00",
-          "closes": "18:00"
-        }
-      ],
-      "priceRange": "€€"
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "09:00",
+      "closes": "18:00"
     }
-    </script>
+  ],
+  "priceRange": "€€"
+}
+</script>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js" defer></script>
-    <script src="js/script.js"></script>
-    <script src="js/mobile-optimizations.js"></script>
-    <script src="js/performance-optimizations.js"></script>
-    <script src="js/floating-cta.js"></script>
-    <script src="js/marketing-tracking.js"></script>
-    <script>
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js" defer></script>
+<script src="js/script.js"></script>
+<script src="js/mobile-optimizations.js"></script>
+<script src="js/performance-optimizations.js"></script>
+<script src="js/floating-cta.js"></script>
+<script src="js/marketing-tracking.js"></script>
+<script>
+
     // Gestion du menu mobile
-    document.addEventListener('DOMContentLoaded', function() {
-        const menuToggle = document.getElementById('menuToggle');
-        const mobileNav = document.getElementById('mobileNav');
-        
-        if (menuToggle && mobileNav) {
-            menuToggle.addEventListener('click', function() {
-// Toggle du menu
-                mobileNav.classList.toggle('hidden');
-                
-                // Mettre à jour l'état aria-expanded
-                const isExpanded = !mobileNav.classList.contains('hidden');
-                menuToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
-            });
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    
+    if (menuToggle && mobileNav) {
+        menuToggle.addEventListener('click', function() {
+            // Toggle du menu
+            mobileNav.classList.toggle('hidden');
             
-            // Fermer le menu si on clique en dehors
-            document.addEventListener('click', function(e) {
-                if (!mobileNav.classList.contains('hidden') && 
-                    !mobileNav.contains(e.target) && 
-                    !menuToggle.contains(e.target)) {
-                    mobileNav.classList.add('hidden');
-                    menuToggle.setAttribute('aria-expanded', 'false');
-                }
-            });
-        }
-        
-        // Initialisation de lightbox
-        lightbox.option({
-            'resizeDuration': 200,
-            'wrapAround': true,
-            'albumLabel': "Image %1 sur %2"
+            // Mettre à jour l'état aria-expanded
+            const isExpanded = !mobileNav.classList.contains('hidden');
+            menuToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
         });
         
-        // Animation des éléments au défilement
-        const animateOnScroll = function() {
-            const elements = document.querySelectorAll('.service-card-enhanced, .gallery-item-enhanced');
-            
-            elements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementBottom = element.getBoundingClientRect().bottom;
-                const isVisible = (elementTop < window.innerHeight) && (elementBottom > 0);
-                
-                if (isVisible) {
-                    element.classList.add('fade-in');
-                }
-            });
-        };
-        
-        // Déclenchement initial et au défilement
-        animateOnScroll();
-        window.addEventListener('scroll', animateOnScroll);
-        
-        // Gestion du filtrage de la galerie
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const galleryItems = document.querySelectorAll('.gallery-item');
-
-        if (filterButtons.length > 0 && galleryItems.length > 0) {
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Activer le bouton cliqué et désactiver les autres
-                    filterButtons.forEach(btn => {
-                        btn.classList.remove('active', 'bg-primary', 'text-white');
-                        btn.classList.add('bg-secondary', 'text-primary');
-                    });
-                    
-                    this.classList.remove('bg-secondary', 'text-primary');
-                    this.classList.add('active', 'bg-primary', 'text-white');
-                    
-                    const filter = this.getAttribute('data-filter');
-                    
-                    // Filtrer les éléments
-                    galleryItems.forEach(item => {
-                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                            item.style.display = 'block';
-                            // Animation d'apparition
-                            setTimeout(() => {
-                                item.style.opacity = '1';
-                                item.style.transform = 'scale(1)';
-                            }, 50);
-                        } else {
-                            item.style.opacity = '0';
-                            item.style.transform = 'scale(0.8)';
-                            setTimeout(() => {
-                                item.style.display = 'none';
-                            }, 300);
-                        }
-                    });
-                });
-            });
-        }
+        // Fermer le menu si on clique en dehors
+        document.addEventListener('click', function(e) {
+            if (!mobileNav.classList.contains('hidden') && 
+                !mobileNav.contains(e.target) && 
+                !menuToggle.contains(e.target)) {
+                mobileNav.classList.add('hidden');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+    
+    // Initialisation de lightbox
+    lightbox.option({
+        'resizeDuration': 200,
+        'wrapAround': true,
+        'albumLabel': "Image %1 sur %2"
     });
-    </script>
+    
+    // Animation des éléments au défilement
+    const animateOnScroll = function() {
+        const elements = document.querySelectorAll('.service-card-enhanced, .gallery-item-enhanced');
+        
+        elements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementBottom = element.getBoundingClientRect().bottom;
+            const isVisible = (elementTop < window.innerHeight) && (elementBottom > 0);
+            
+            if (isVisible) {
+                element.classList.add('fade-in');
+            }
+        });
+    };
+    
+    // Déclenchement initial et au défilement
+    animateOnScroll();
+    window.addEventListener('scroll', animateOnScroll);
+});
+</script>
 </body>
 </html>
