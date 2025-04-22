@@ -534,3 +534,55 @@
                 }, 2000);
             }
         }
+        
+        // Initialisation de Cal.com
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configuration globale pour Cal.com
+            if (typeof Cal !== 'undefined') {
+                Cal('ui', {
+                    theme: 'dark',
+                    styles: {
+                        branding: {
+                            brandColor: '#5D5CDE'
+                        }
+                    },
+                    hideEventTypeDetails: false,
+                    layout: 'month_view'
+                });
+            }
+            
+            // Initialiser l'onglet par défaut
+            switchTab('individual');
+            
+            // Gérer les FAQ toggles
+            const faqToggles = document.querySelectorAll('.faq-toggle');
+            faqToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const icon = this.querySelector('svg');
+                    const expanded = content.classList.toggle('hidden') ? 'false' : 'true';
+                    this.setAttribute('aria-expanded', expanded);
+                    
+                    // Rotation de l'icône
+                    icon.classList.toggle('rotate-180', expanded === 'true');
+                });
+            });
+            
+            // Gestion du menu mobile
+            const menuToggle = document.getElementById('menuToggle');
+            const mobileNav = document.getElementById('mobileNav');
+            
+            if (menuToggle && mobileNav) {
+                menuToggle.addEventListener('click', function() {
+                    // Toggle du menu
+                    mobileNav.classList.toggle('hidden');
+                    
+                    // Mettre à jour l'état aria-expanded
+                    const isExpanded = !mobileNav.classList.contains('hidden');
+                    menuToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
