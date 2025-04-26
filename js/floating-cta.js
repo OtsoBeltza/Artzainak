@@ -92,19 +92,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Afficher le menu flottant après 5 secondes sur la page
-        const currentPath = window.location.pathname;
-        if (!currentPath.includes('reservation.html') && !currentPath.includes('location.html') && !currentPath.includes('contact.html')) {
-            setTimeout(() => {
-                toggleFloatingMenu();
-                
-                // Le fermer automatiquement après 5 secondes
-                setTimeout(() => {
-                    if (isOpen) {
-                        toggleFloatingMenu();
-                    }
-                }, 5000);
-            }, 5000);
-        }
+        // Comportement COHÉRENT sur toutes les pages
+        // Afficher le bouton principal, sans déplier automatiquement le menu
+        // Cela correspond au comportement sur location.html
     }
 });
