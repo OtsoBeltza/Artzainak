@@ -105,7 +105,27 @@
         .footer-enhanced {
             background-color: #1a2e20;
         }
-        
+        /* Réseaux sociaux dans l'header */
+.social-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.social-links a {
+    padding: 0.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-links a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
         /* Styles pour les éléments de l'iframe Cal.com */
         .cal-iframe-container {
             position: relative;
@@ -250,11 +270,31 @@
                 <span class="text-xl font-bold">ARTZAINAK</span>
             </a>
             <p class="text-sm hidden sm:block">Éducation de chiens de troupeau au Pays Basque</p>
+            <!-- Réseaux sociaux dans l'header pour desktop -->
+<div class="hidden lg:flex social-links">
+    <a href="VOTRE_URL_YOUTUBE" aria-label="Notre chaîne YouTube" class="hover:scale-110 transition-transform">
+        <!-- SVG YouTube -->
+    </a>
+    <a href="VOTRE_URL_FACEBOOK" aria-label="Notre page Facebook" class="hover:scale-110 transition-transform">
+        <!-- SVG Facebook -->
+    </a>
+</div>
             <button id="menuToggle" class="md:hidden focus:outline-none" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu principal">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
+            <!-- Réseaux sociaux pour mobile -->
+<li class="pt-4 border-t border-gray-600">
+    <div class="flex gap-4">
+        <a href="VOTRE_URL_YOUTUBE" class="text-white hover:text-secondary transition-colors">
+            <!-- SVG YouTube -->
+        </a>
+        <a href="VOTRE_URL_FACEBOOK" class="text-white hover:text-secondary transition-colors">
+            <!-- SVG Facebook -->
+        </a>
+    </div>
+</li>
             <nav id="mainNav" class="hidden md:block">
                 <ul class="flex space-x-4">
                     <li><a href="index.html" class="hover:underline">Accueil</a></li>
