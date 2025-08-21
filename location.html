@@ -126,7 +126,27 @@
             min-height: 1200px;
             border: none;
         }
-        
+        /* Réseaux sociaux dans l'header */
+.social-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.social-links a {
+    padding: 0.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-links a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
         /* Style du loader */
         .iframe-loading {
             position: absolute;
@@ -205,28 +225,6 @@
                 width: 40px;
                 height: 40px;
             }
-            
-/* Réseaux sociaux dans l'header */
-.social-links {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.social-links a {
-    padding: 0.5rem;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.social-links a:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-}
         }
     </style>
 </head>
