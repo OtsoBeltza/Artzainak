@@ -1,887 +1,826 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artzainak - Éducation de chiens de troupeau</title>
-    
-    <!-- Meta description pour le SEO -->
-    <meta name="description" content="Artzainak - Services professionnels d'éducation de chiens de troupeau et d'écopâturage au Pays Basque. Découvrez nos formations pour chiens de berger et nos solutions écologiques d'entretien de terrains par écopâturage.">
-    
-    <!-- Balises Open Graph pour les réseaux sociaux -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Artzainak - Éducation canine et écopâturage au Pays Basque">
-    <meta property="og:description" content="Spécialiste de l'éducation des chiens de troupeau et de l'écopâturage au Pays Basque. Formation professionnelle pour Border Collie et autres races de berger.">
-    <meta property="og:image" content="https://artzainak.netlify.app/images/og-image.jpg">
-    <meta property="og:url" content="https://artzainak.netlify.app/">
-    <meta property="og:site_name" content="Artzainak">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABPA – Bergers des Pyrénées Atlantiques</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --vert: #1E4D2B;
+    --vert-m: #2E7D45;
+    --vert-c: #4CAF70;
+    --ocre: #A0622A;
+    --ocre-c: #C8831F;
+    --creme: #F8F3E8;
+    --creme-d: #EDE6D4;
+    --bleu: #4A7FA5;
+    --bleu-c: #6FA3C7;
+    --texte: #1A1610;
+    --texte-m: #4A4338;
+    --blanc: #FFFDF8;
+    --border: #D4C9B0;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--creme); color: var(--texte); min-height: 100vh; }
 
-    <!-- Balises Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Artzainak - Éducation canine et écopâturage au Pays Basque">
-    <meta name="twitter:description" content="Spécialiste de l'éducation des chiens de troupeau et de l'écopâturage au Pays Basque. Formation professionnelle pour Border Collie et autres races de berger.">
-    <meta name="twitter:image" content="https://artzainak.netlify.app/images/og-image.jpg">
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--vert); padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px; box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo-icon {
+    width: 40px; height: 40px; background: var(--ocre-c);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .nav-logo-text { font-family: 'Playfair Display', serif; color: var(--creme); font-size: 1.1rem; font-weight: 700; line-height: 1.2; }
+  .nav-logo-text span { font-size: 0.7rem; font-weight: 400; font-family: 'Nunito', sans-serif; opacity: 0.75; display: block; }
+  .nav-links { display: flex; gap: 0; }
+  .nav-links a {
+    color: rgba(248,243,232,0.8); text-decoration: none; padding: 0 1rem; height: 64px;
+    display: flex; align-items: center; font-size: 0.875rem; font-weight: 600;
+    letter-spacing: 0.03em; transition: all 0.2s; border-bottom: 3px solid transparent;
+    text-transform: uppercase;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--creme); border-bottom-color: var(--ocre-c); background: rgba(255,255,255,0.06); }
+  .nav-adhesion {
+    background: var(--ocre-c); color: var(--texte) !important; border-radius: 6px;
+    margin-left: 1rem; padding: 0 1.2rem !important; border-bottom: none !important;
+  }
+  .nav-adhesion:hover { background: var(--ocre) !important; }
+  .hamburger { display: none; }
 
-    <!-- Métadonnées géographiques -->
-    <meta name="geo.region" content="FR-64">
-    <meta name="geo.placename" content="Arbonne, Pays Basque">
-    <meta name="geo.position" content="43.4373;-1.5477">
-    <meta name="ICBM" content="43.4373, -1.5477">
+  /* PAGES */
+  .page { display: none; padding-top: 64px; min-height: 100vh; }
+  .page.active { display: block; }
 
-    <!-- Balises de langue -->
-    <link rel="alternate" hreflang="fr" href="https://artzainak.netlify.app/">
-    <link rel="canonical" href="https://artzainak.netlify.app/">
-    
-    <!-- Préchargement des ressources externes -->
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
-    <!-- End Google Tag Manager -->
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            DEFAULT: '#284533',
-                            dark: '#1a2e20'
-                        },
-                        secondary: {
-                            DEFAULT: '#e8f4f8',
-                            dark: '#c7e1ea'
-                        },
-                        basque: {
-                            red: '#DC3545',
-                            green: '#198754'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <style>
-        /* Styles principaux */
-        .hero-section {
-            position: relative;
-            background-image: url('images/hero-background.jpg');
-            background-size: cover;
-            background-position: center;
-            min-height: 400px;
-            color: white;
-        }
-        
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(40, 69, 51, 0.7);
-            z-index: 1;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            padding: 3rem 1rem;
-        }
-        
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 3px;
-            background-color: #fff1d2;
-            margin: 1rem auto 2rem;
-        }
-        
-        .bg-secondary {
-            background-color: #e8f4f8;
-        }
-        
-        .text-forest {
-            color: #284533;
-        }
-        
-        .about-section, .resources-section {
-            background-color: #fff1d2;
-        }
-        
-        /* Améliorations galerie */
-        .gallery-item-enhanced {
-            transition: all 0.3s ease-in-out;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .gallery-item-enhanced:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
-        }
-        
-        .gallery-item-enhanced img {
-            transition: transform 0.5s ease;
-        }
-        
-        .gallery-item-enhanced:hover img {
-            transform: scale(1.1);
-        }
-        
-        .gallery-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(40, 69, 51, 0.9), transparent);
-            padding: 1rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .gallery-item-enhanced:hover .gallery-caption {
-            transform: translateY(0);
-        }
-        
-        /* Cartes services */
-        .service-card-enhanced {
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-        }
-        
-        .service-card-enhanced:hover {
-            transform: translateY(-5px);
-            border-left: 4px solid #fff1d2;
-        }
-        
-        .service-icon-container {
-            background-color: #fff1d2;
-            transition: transform 0.3s ease;
-        }
-        
-        .service-card-enhanced:hover .service-icon-container {
-            transform: rotate(10deg);
-        }
-        
-        /* CTA Section */
-        .cta-section {
-            background-color: #284533;
-            color: white;
-            padding: 4rem 1rem;
-            text-align: center;
-        }
-        
-        .btn-secondary {
-            background-color: #fff1d2;
-            color: #284533;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-secondary:hover {
-            background-color: #f5e7c8;
-            transform: translateY(-2px);
-        }
-        
-        /* Réseaux sociaux dans l'header */
-        .social-links {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .social-links a {
-            padding: 0.5rem;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .social-links a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        /* Footer simplifié */
-        .footer-enhanced {
-            background-color: #1a2e20;
-        }
-        
-        .footer-social-highlight {
-            background: rgba(255, 241, 210, 0.1);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        
-        .footer-social-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 1rem;
-        }
-        
-        .footer-social-buttons a {
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .footer-social-buttons .youtube {
-            background: #FF0000;
-            color: white;
-        }
-        
-        .footer-social-buttons .youtube:hover {
-            background: #CC0000;
-            transform: translateY(-2px);
-        }
-        
-        .footer-social-buttons .facebook {
-            background: #1877F2;
-            color: white;
-        }
-        
-        .footer-social-buttons .facebook:hover {
-            background: #166FE5;
-            transform: translateY(-2px);
-        }
-        
-        /* Icônes ressources */
-        .resource-icon {
-            color: #fff1d2;
-            opacity: 0.9;
-        }
-    </style>
+  /* HERO */
+  .hero {
+    background: linear-gradient(160deg, var(--vert) 0%, #2A6035 50%, #1B3D28 100%);
+    color: var(--creme); padding: 6rem 2rem 5rem;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; opacity: 0.08;
+    background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%);
+    background-size: 20px 20px;
+  }
+  .hero-mountains {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 120px; opacity: 0.15;
+  }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 700; line-height: 1.15; margin-bottom: 1.2rem; position: relative; }
+  .hero h1 em { color: var(--ocre-c); font-style: normal; }
+  .hero p { font-size: 1.15rem; opacity: 0.85; max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.7; position: relative; }
+  .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 0.8rem 1.8rem; border-radius: 8px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; text-decoration: none; }
+  .btn-primary { background: var(--ocre-c); color: var(--texte); }
+  .btn-primary:hover { background: var(--ocre); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--creme); border-color: rgba(248,243,232,0.5); }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: var(--creme); }
+
+  /* HOME CARDS */
+  .section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--vert); margin-bottom: 0.5rem; }
+  .section-sub { color: var(--texte-m); margin-bottom: 2.5rem; font-size: 1rem; }
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+  .card {
+    background: var(--blanc); border-radius: 12px; padding: 1.8rem 1.5rem;
+    border: 1px solid var(--border); cursor: pointer; transition: all 0.25s;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(30,77,43,0.12); border-color: var(--vert-c); }
+  .card-icon { font-size: 2.2rem; margin-bottom: 1rem; display: block; }
+  .card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--vert); margin-bottom: 0.5rem; }
+  .card p { font-size: 0.9rem; color: var(--texte-m); line-height: 1.6; }
+  .card-arrow { color: var(--ocre-c); font-weight: 700; margin-top: 1rem; display: inline-block; }
+
+  .banner {
+    background: var(--vert); color: var(--creme); padding: 3rem 2rem; text-align: center;
+    margin: 2rem 0 0;
+  }
+  .banner h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.75rem; }
+  .banner p { opacity: 0.8; margin-bottom: 1.5rem; }
+
+  /* EVENTS */
+  .page-header { background: var(--vert); color: var(--creme); padding: 3rem 2rem 2rem; }
+  .page-header h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 0.5rem; }
+  .page-header p { opacity: 0.8; font-size: 1rem; }
+  .events-list { display: flex; flex-direction: column; gap: 1.2rem; }
+  .event-card {
+    background: var(--blanc); border-radius: 12px; border: 1px solid var(--border);
+    display: flex; gap: 0; overflow: hidden;
+  }
+  .event-date {
+    background: var(--vert); color: var(--creme); width: 90px; flex-shrink: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 1rem; text-align: center;
+  }
+  .event-date .day { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; line-height: 1; }
+  .event-date .month { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; }
+  .event-body { padding: 1.2rem 1.5rem; flex: 1; }
+  .event-body h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--vert); margin-bottom: 0.3rem; }
+  .event-meta { font-size: 0.82rem; color: var(--texte-m); margin-bottom: 0.6rem; display: flex; gap: 1rem; }
+  .event-meta span { display: flex; align-items: center; gap: 4px; }
+  .event-tag { background: var(--creme-d); color: var(--vert); font-size: 0.75rem; font-weight: 700; padding: 2px 10px; border-radius: 20px; border: 1px solid var(--border); }
+
+  /* FORMATIONS */
+  .formations-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .formation-card { background: var(--blanc); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
+  .formation-header { background: var(--vert); padding: 1.5rem; color: var(--creme); }
+  .formation-header h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-bottom: 0.4rem; }
+  .formation-header .niveau { font-size: 0.8rem; opacity: 0.75; }
+  .formation-body { padding: 1.4rem; }
+  .formation-body p { font-size: 0.9rem; color: var(--texte-m); line-height: 1.6; margin-bottom: 1rem; }
+  .formation-info { display: flex; gap: 1rem; margin-bottom: 1rem; }
+  .info-badge { background: var(--creme-d); border-radius: 6px; padding: 6px 12px; font-size: 0.82rem; color: var(--texte-m); display: flex; align-items: center; gap: 5px; border: 1px solid var(--border); }
+  .formation-btn { background: var(--vert); color: var(--creme); border: none; border-radius: 8px; padding: 0.6rem 1.2rem; font-weight: 700; cursor: pointer; font-family: 'Nunito', sans-serif; font-size: 0.88rem; width: 100%; transition: background 0.2s; }
+  .formation-btn:hover { background: var(--vert-m); }
+
+  /* FORUM */
+  .forum-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: gap; }
+  .forum-cats { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .forum-cat { background: var(--creme-d); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; font-size: 0.82rem; font-weight: 600; color: var(--texte-m); cursor: pointer; transition: all 0.2s; }
+  .forum-cat.active, .forum-cat:hover { background: var(--vert); color: var(--creme); border-color: var(--vert); }
+  .topic-list { display: flex; flex-direction: column; gap: 0.8rem; }
+  .topic-item {
+    background: var(--blanc); border-radius: 10px; border: 1px solid var(--border);
+    padding: 1rem 1.2rem; display: flex; gap: 1rem; align-items: flex-start; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .topic-item:hover { border-color: var(--vert-c); box-shadow: 0 3px 10px rgba(30,77,43,0.08); }
+  .topic-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--vert-m); color: var(--creme); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+  .topic-content { flex: 1; }
+  .topic-content h4 { font-size: 0.95rem; font-weight: 700; color: var(--vert); margin-bottom: 0.2rem; }
+  .topic-content p { font-size: 0.83rem; color: var(--texte-m); line-height: 1.5; }
+  .topic-meta { font-size: 0.75rem; color: var(--texte-m); margin-top: 0.4rem; display: flex; gap: 1rem; }
+  .topic-stats { text-align: right; font-size: 0.78rem; color: var(--texte-m); flex-shrink: 0; }
+  .new-topic-form { background: var(--blanc); border-radius: 12px; border: 1px solid var(--border); padding: 1.5rem; margin-top: 2rem; }
+  .new-topic-form h4 { font-family: 'Playfair Display', serif; color: var(--vert); margin-bottom: 1rem; }
+  .form-row { margin-bottom: 1rem; }
+  .form-row label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--texte-m); margin-bottom: 0.3rem; }
+  .form-row input, .form-row textarea, .form-row select {
+    width: 100%; padding: 0.65rem 0.9rem; border: 1px solid var(--border); border-radius: 8px;
+    font-family: 'Nunito', sans-serif; font-size: 0.9rem; color: var(--texte); background: var(--creme);
+    outline: none; transition: border 0.2s;
+  }
+  .form-row input:focus, .form-row textarea:focus, .form-row select:focus { border-color: var(--vert-m); }
+  .form-row textarea { resize: vertical; min-height: 90px; }
+
+  /* ADHESION */
+  .adhesion-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  @media (max-width: 700px) { .adhesion-layout { grid-template-columns: 1fr; } }
+  .adhesion-info h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--vert); margin-bottom: 1rem; }
+  .avantage-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin: 1.5rem 0; }
+  .avantage-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--texte-m); }
+  .avantage-list li::before { content: "✓"; width: 22px; height: 22px; background: var(--vert-c); border-radius: 50%; color: white; font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .prix-badge {
+    background: var(--ocre-c); border-radius: 12px; padding: 1.5rem; text-align: center; margin: 1.5rem 0;
+    color: var(--texte);
+  }
+  .prix-badge .montant { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--vert); }
+  .prix-badge .detail { font-size: 0.85rem; color: var(--texte-m); }
+  .adhesion-form { background: var(--blanc); border-radius: 12px; border: 1px solid var(--border); padding: 2rem; }
+  .adhesion-form h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--vert); margin-bottom: 1.5rem; }
+  .form-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 500px) { .form-2col { grid-template-columns: 1fr; } }
+  .btn-submit { background: var(--vert); color: var(--creme); border: none; border-radius: 8px; padding: 0.85rem 2rem; font-weight: 700; cursor: pointer; font-family: 'Nunito', sans-serif; font-size: 1rem; width: 100%; transition: background 0.2s; margin-top: 0.5rem; }
+  .btn-submit:hover { background: var(--vert-m); }
+
+  /* BOUTIQUE */
+  .boutique-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
+  .produit-card { background: var(--blanc); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; transition: all 0.25s; }
+  .produit-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(30,77,43,0.12); border-color: var(--vert-c); }
+  .produit-img {
+    height: 180px; display: flex; align-items: center; justify-content: center;
+    font-size: 4rem; background: var(--creme-d);
+  }
+  .produit-body { padding: 1.2rem; }
+  .produit-body h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--vert); margin-bottom: 0.3rem; }
+  .produit-body p { font-size: 0.82rem; color: var(--texte-m); margin-bottom: 0.8rem; }
+  .produit-footer { display: flex; align-items: center; justify-content: space-between; }
+  .produit-prix { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--ocre); }
+  .btn-panier { background: var(--vert); color: var(--creme); border: none; border-radius: 6px; padding: 0.45rem 1rem; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.82rem; cursor: pointer; transition: background 0.2s; }
+  .btn-panier:hover { background: var(--vert-m); }
+  .cart-badge { background: var(--ocre-c); color: var(--texte); border-radius: 20px; font-size: 0.8rem; font-weight: 700; padding: 4px 12px; }
+
+  /* FOOTER */
+  footer { background: var(--vert); color: rgba(248,243,232,0.75); padding: 3rem 2rem; margin-top: 4rem; }
+  .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+  .footer-col h4 { font-family: 'Playfair Display', serif; color: var(--creme); margin-bottom: 1rem; font-size: 1rem; }
+  .footer-col p, .footer-col a { font-size: 0.85rem; line-height: 1.9; color: rgba(248,243,232,0.7); display: block; text-decoration: none; }
+  .footer-col a:hover { color: var(--ocre-c); }
+  .footer-bottom { max-width: 1100px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; text-align: center; }
+
+  /* PANIER TOAST */
+  .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--vert); color: var(--creme); padding: 1rem 1.5rem; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); font-weight: 600; z-index: 200; transform: translateY(100px); opacity: 0; transition: all 0.3s; }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; color: var(--creme); font-size: 1.5rem; }
+    .adhesion-layout { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
-<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    
-    <!-- Header avec réseaux sociaux -->
-    <header class="bg-primary p-4 text-white sticky top-0 z-10 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="index.html" class="flex items-center">
-                <img src="images/logo.png" alt="Artzainak Logo" class="h-24 mr-2">
-                <span class="text-xl font-bold">ARTZAINAK</span>
-            </a>
-            <p class="text-lg hidden sm:block font-medium">Éducation de chiens de troupeau au Pays Basque</p>
-            
-            <!-- Réseaux sociaux dans l'header pour desktop -->
-            <div class="hidden lg:flex social-links">
-                <a href="https://youtube.com/@lesdraillesauxloups?si=byronwbqN9pqV_Mg" aria-label="Notre chaîne YouTube" class="hover:scale-110 transition-transform">
-                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M23.498 6.186a2.977 2.977 0 0 0-2.096-2.108C19.548 3.75 12 3.75 12 3.75s-7.548 0-9.402.328A2.977 2.977 0 0 0 .502 6.186C.25 8.072.25 12 .25 12s0 3.928.252 5.814a2.977 2.977 0 0 0 2.096 2.108C4.452 20.25 12 20.25 12 20.25s7.548 0 9.402-.328a2.977 2.977 0 0 0 2.096-2.108C23.75 15.928 23.75 12 23.75 12s0-3.928-.252-5.814zM9.75 15.568V8.432L15.5 12l-5.75 3.568z"/>
-                    </svg>
-                </a>
-                <a href="https://www.facebook.com/artzainak.education.des.chiens.de.trou/" aria-label="Notre page Facebook" class="hover:scale-110 transition-transform">
-                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                    </svg>
-                </a>
-            </div>
-            
-            <button id="menuToggle" class="md:hidden focus:outline-none" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu principal">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
-            
-            <nav id="mainNav" class="hidden md:block">
-                <ul class="flex space-x-4">
-                    <li><a href="index.html" class="block hover:underline font-bold">Accueil</a></li>
-                    <li><a href="#services" class="hover:underline">Services</a></li>
-                    <li><a href="reservation.html" class="hover:underline">Formation</a></li>
-                    <li><a href="location.html" class="hover:underline">Ecopâturage</a></li>
-                    <li><a href="evaluation.html" class="hover:underline">Évaluation</a></li>
-                    <li><a href="ressources.html" class="hover:underline">Ressources</a></li>
-                    <li><a href="contact.html" class="hover:underline">Contact</a></li>
-                </ul>
-            </nav>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#" onclick="showPage('accueil')">
+    <div class="nav-logo-icon">🐑</div>
+    <div class="nav-logo-text">ABPA<span>Bergers des Pyrénées Atlantiques</span></div>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#" onclick="showPage('accueil')" class="active" data-page="accueil">Accueil</a>
+    <a href="#" onclick="showPage('evenements')" data-page="evenements">Événements</a>
+    <a href="#" onclick="showPage('formations')" data-page="formations">Formations</a>
+    <a href="#" onclick="showPage('echanges')" data-page="echanges">Échanges</a>
+    <a href="#" onclick="showPage('boutique')" data-page="boutique">Boutique</a>
+    <a href="#" onclick="showPage('adhesion')" data-page="adhesion" class="nav-adhesion">Adhérer — 20 €</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()">☰</button>
+</nav>
+
+<!-- ACCUEIL -->
+<div class="page active" id="page-accueil">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <svg class="hero-mountains" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <polygon points="0,120 200,30 400,80 600,10 800,60 1000,20 1200,70 1200,120" fill="white"/>
+    </svg>
+    <h1>Association des Bergers<br>des <em>Pyrénées Atlantiques</em></h1>
+    <p>Promouvoir et transmettre les savoir-faire du pastoralisme pyrénéen, former les futurs éleveurs et valoriser nos races et pratiques traditionnelles.</p>
+    <div class="hero-cta">
+      <button class="btn btn-primary" onclick="showPage('adhesion')">🤝 Rejoindre l'ABPA</button>
+      <button class="btn btn-outline" onclick="showPage('evenements')">📅 Voir les événements</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-sub" style="font-size:0.85rem; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; color:var(--ocre);">Ce que nous proposons</p>
+    <h2 class="section-title">Tout pour les passionnés de pastoralisme</h2>
+    <div class="cards-grid">
+      <div class="card" onclick="showPage('evenements')">
+        <span class="card-icon">📅</span>
+        <h3>Événements</h3>
+        <p>Concours de conduite, rassemblements, transhumances et rencontres professionnelles dans tout le département.</p>
+        <span class="card-arrow">Voir les dates →</span>
+      </div>
+      <div class="card" onclick="showPage('formations')">
+        <span class="card-icon">🎓</span>
+        <h3>Formations</h3>
+        <p>Stages UCARE, conduite de troupeau, premiers secours vétérinaires, gestion des pâturages et bien plus.</p>
+        <span class="card-arrow">Découvrir →</span>
+      </div>
+      <div class="card" onclick="showPage('echanges')">
+        <span class="card-icon">💬</span>
+        <h3>Espace d'échanges</h3>
+        <p>Forum communautaire pour poser vos questions, partager vos expériences et trouver des conseils entre membres.</p>
+        <span class="card-arrow">Rejoindre →</span>
+      </div>
+      <div class="card" onclick="showPage('boutique')">
+        <span class="card-icon">🛍️</span>
+        <h3>Boutique</h3>
+        <p>T-shirts, sifflets professionnels, sacs et tasses aux couleurs de l'ABPA pour afficher vos couleurs.</p>
+        <span class="card-arrow">Acheter →</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="background: var(--creme-d); padding: 3rem 2rem;">
+    <div class="section" style="padding: 0 0;">
+      <p class="section-sub" style="font-size:0.85rem; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; color:var(--ocre);">Prochains événements</p>
+      <h2 class="section-title" style="margin-bottom:1.5rem;">Agenda du moment</h2>
+      <div class="events-list">
+        <div class="event-card">
+          <div class="event-date"><span class="day">14</span><span class="month">Juin</span></div>
+          <div class="event-body">
+            <h3>Concours régional de conduite de troupeau</h3>
+            <div class="event-meta"><span>📍 Mauléon-Licharre</span><span>🕙 9h00 – 17h00</span></div>
+            <span class="event-tag">Concours</span>
+          </div>
         </div>
-        <nav id="mobileNav" class="hidden bg-primary-dark py-2 px-4">
-            <ul class="space-y-2">
-                <li><a href="index.html" class="block hover:underline font-bold">Accueil</a></li>
-                <li><a href="#services" class="block hover:underline">Services</a></li>
-                <li><a href="reservation.html" class="hover:underline">Formation</a></li>
-                <li><a href="location.html" class="hover:underline">Ecopâturage</a></li>
-                <li><a href="evaluation.html" class="hover:underline">Évaluation</a></li>
-                <li><a href="ressources.html" class="block hover:underline">Ressources</a></li>
-                <li><a href="contact.html" class="block hover:underline">Contact</a></li>
-                <!-- Réseaux sociaux pour mobile -->
-                <li class="pt-4 border-t border-gray-600">
-                    <div class="flex gap-4">
-                        <a href="https://youtube.com/@lesdraillesauxloups?si=byronwbqN9pqV_Mg" class="text-white hover:text-secondary transition-colors">
-                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M23.498 6.186a2.977 2.977 0 0 0-2.096-2.108C19.548 3.75 12 3.75 12 3.75s-7.548 0-9.402.328A2.977 2.977 0 0 0 .502 6.186C.25 8.072.25 12 .25 12s0 3.928.252 5.814a2.977 2.977 0 0 0 2.096 2.108C4.452 20.25 12 20.25 12 20.25s7.548 0 9.402-.328a2.977 2.977 0 0 0 2.096-2.108C23.75 15.928 23.75 12 23.75 12s0-3.928-.252-5.814zM9.75 15.568V8.432L15.5 12l-5.75 3.568z"/>
-                            </svg>
-                        </a>
-                        <a href="https://www.facebook.com/artzainak.education.des.chiens.de.trou/" class="text-white hover:text-secondary transition-colors">
-                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                            </svg>
-                        </a>
-                    </div>
-                </li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="hero-overlay"></div>
-        <div class="container mx-auto">
-            <div class="hero-content max-w-3xl mx-auto text-center">
-                <h1 class="text-4xl font-bold mb-4">Éducation professionnelle de chiens de troupeau</h1>
-                <p class="text-xl mb-8">Formation spécialisée et services d'écopâturage pour valoriser les compétences naturelles de votre chien</p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="reservation.html" class="btn-secondary font-bold py-3 px-8 rounded-lg transition duration-300 text-center flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
-                        </svg>
-                        Réserver un cours
-                    </a>
-                    <a href="#services" class="bg-transparent border-2 border-white hover:bg-white/20 text-white font-bold py-3 px-8 rounded-lg transition duration-300 text-center flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                        </svg>
-                        Découvrir nos services
-                    </a>
-                </div>
-            </div>
+        <div class="event-card">
+          <div class="event-date"><span class="day">28</span><span class="month">Juin</span></div>
+          <div class="event-body">
+            <h3>Stage initiation conduite avec chien de berger</h3>
+            <div class="event-meta"><span>📍 Oloron-Sainte-Marie</span><span>🕙 8h30 – 16h30</span></div>
+            <span class="event-tag">Formation</span>
+          </div>
         </div>
-    </section>
+      </div>
+      <button class="btn btn-primary" style="margin-top:1.5rem;" onclick="showPage('evenements')">Voir tous les événements</button>
+    </div>
+  </div>
 
-    <!-- Section À propos -->
-    <section class="about-section py-16 px-4">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold text-center text-forest mb-4 section-title" style="color: #3A614A;">Notre passion pour les chiens de troupeau</h2>  
-            <div class="flex flex-col md:flex-row items-center gap-8">
-                <div class="w-full md:w-1/2 mb-6 md:mb-0">
-                    <img src="images/training1.jpg" alt="Chien de troupeau en action" class="w-full mx-auto rounded-lg shadow-lg" onerror="this.src='https://via.placeholder.com/600x400?text=Chien+de+troupeau'">
-                </div>
-                <div class="w-full md:w-1/2">
-                    <p class="mb-4 text-forest" style="color: #3A614A;">Artzainak est né d'une passion pour les chiens de berger et leur capacité exceptionnelle à travailler avec le troupeau. Basés au Pays Basque, nous proposons des services professionnels d'éducation canine spécialisée et d'écopâturage.</p>
-                    <p class="mb-4 text-forest" style="color: #3A614A;">Notre approche respecte l'instinct naturel du chien tout en développant une relation de confiance et de complicité avec son maître. Que vous soyez éleveur professionnel ou propriétaire amateur, nous adaptons nos méthodes à vos besoins.</p>
-                    <p class="mb-6 text-forest" style="color: #3A614A;">Grâce à notre partenariat avec Berger Connect, nous pouvons également évaluer les aptitudes de votre chien et faciliter les placements auprès d'éleveurs.</p>
-                    <a href="contact.html" class="inline-block bg-primary text-white hover:bg-primary-dark py-2 px-6 rounded-lg transition duration-300">
-                        Nous contacter
-                    </a>
-                </div>
-            </div>
+  <div class="banner">
+    <h2>Adhérez à l'ABPA dès aujourd'hui</h2>
+    <p>Accédez à toutes nos formations, événements et à la communauté pour seulement <strong>20 € / an</strong>.</p>
+    <button class="btn btn-primary" onclick="showPage('adhesion')">🤝 Je deviens membre</button>
+  </div>
+</div>
+
+<!-- ÉVÉNEMENTS -->
+<div class="page" id="page-evenements">
+  <div class="page-header">
+    <h2>📅 Événements</h2>
+    <p>Retrouvez-nous sur le terrain : concours, foires, transhumances et rencontres.</p>
+  </div>
+  <div class="section">
+    <div class="events-list">
+      <div class="event-card">
+        <div class="event-date"><span class="day">14</span><span class="month">Juin</span></div>
+        <div class="event-body">
+          <h3>Concours régional de conduite de troupeau</h3>
+          <div class="event-meta"><span>📍 Mauléon-Licharre</span><span>🕙 9h00 – 17h00</span></div>
+          <p style="font-size:0.88rem;color:var(--texte-m);line-height:1.5;margin-bottom:0.5rem;">Épreuves de conduite individuelle et en binôme. Ouvert aux membres et au public. Restauration sur place.</p>
+          <span class="event-tag">Concours</span>
         </div>
-    </section>
-
-    <!-- Galerie photos -->
-    <section class="py-16 px-4 bg-white dark:bg-gray-800">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold text-center text-forest mb-4 section-title">Notre Travail en Images</h2>
-            
-            <!-- Filtres de catégories -->
-            <div class="flex flex-wrap justify-center gap-2 mb-8">
-                <button class="filter-btn active px-4 py-2 rounded-full bg-primary text-white transition-all" data-filter="all">
-                    Tous
-                </button>
-                <button class="filter-btn px-4 py-2 rounded-full bg-secondary text-primary hover:bg-primary hover:text-white transition-all" data-filter="dogs">
-                    Chiens de troupeau
-                </button>
-                <button class="filter-btn px-4 py-2 rounded-full bg-secondary text-primary hover:bg-primary hover:text-white transition-all" data-filter="sheep">
-                    Écopâturage
-                </button>
-                <button class="filter-btn px-4 py-2 rounded-full bg-secondary text-primary hover:bg-primary hover:text-white transition-all" data-filter="landscape">
-                    Paysages
-                </button>
-            </div>
-            
-            <!-- Grille de photos -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 gallery-container">
-                <!-- Chiens de troupeau -->
-                <div class="gallery-item gallery-item-enhanced rounded-lg overflow-hidden shadow-md" data-category="dogs">
-                    <a href="images/dogs1.jpg" data-lightbox="gallery" data-title="Border Collie en plein travail">
-                        <div class="aspect-square overflow-hidden relative">
-                            <img src="images/dogs1.jpg" data-src="images/dogs1.jpg" alt="Border Collie" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400?text=Border+Collie'">
-                            <div class="gallery-caption">
-                                <h4 class="text-white font-medium">Border Collie</h4>
-                                <p class="text-white/80 text-sm">Un chien précoce</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <div class="gallery-item gallery-item-enhanced rounded-lg overflow-hidden shadow-md" data-category="dogs">
-                    <a href="images/dogs2.jpg" data-lightbox="gallery" data-title="Entrainement sur le terrain">
-                        <div class="aspect-square overflow-hidden relative">
-                            <img src="images/dogs2.jpg" data-src="images/dogs2.jpg" alt="Entrainement" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400?text=Entrainement'">
-                            <div class="gallery-caption">
-                                <h4 class="text-white font-medium">Entrainement</h4>
-                                <p class="text-white/80 text-sm">On apprend à faire face, le "pousse"</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <!-- Écopâturage -->
-                <div class="gallery-item gallery-item-enhanced rounded-lg overflow-hidden shadow-md" data-category="sheep">
-                    <a href="images/sheep1.jpg" data-lightbox="gallery" data-title="Troupeau en écopâturage">
-                        <div class="aspect-square overflow-hidden relative">
-                            <img src="images/sheep1.jpg" data-src="images/sheep1.jpg" alt="Écopâturage" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400?text=Écopâturage'">
-                            <div class="gallery-caption">
-                                <h4 class="text-white font-medium">Troupeau</h4>
-                                <p class="text-white/80 text-sm">La meneuse connaît les bons coins</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <div class="gallery-item gallery-item-enhanced rounded-lg overflow-hidden shadow-md" data-category="sheep">
-                    <a href="images/sheep2.jpg" data-lightbox="gallery" data-title="Entretien écologique des terrains">
-                        <div class="aspect-square overflow-hidden relative">
-                            <img src="images/sheep2.jpg" data-src="images/sheep2.jpg" alt="Entretien écologique" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400?text=Entretien+écologique'">
-                            <div class="gallery-caption">
-                                <h4 class="text-white font-medium">Entretien écologique</h4>
-                                <p class="text-white/80 text-sm">Ecopâturage le long des vignes</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <!-- Paysages -->
-                <div class="gallery-item gallery-item-enhanced rounded-lg overflow-hidden shadow-md" data-category="landscape">
-                    <a href="images/landscape1.jpg" data-lightbox="gallery" data-title="Paysages du Pays Basque">
-                        <div class="aspect-square overflow-hidden relative">
-                            <img src="images/landscape1.jpg" data-src="images/landscape1.jpg" alt="Paysage" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400?text=Paysage+Pays+Basque'">
-                            <div class="gallery-caption">
-                                <h4 class="text-white font-medium">Pays Basque</h4>
-                                <p class="text-white/80 text-sm">Le berger avec ses Manex à tête noire</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Bouton "Voir plus" -->
-            <div class="text-center mt-10">
-                <button id="load-more" class="px-8 py-3 bg-primary hover:bg-primary-dark text-white rounded-lg transition duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1">
-                    Voir plus de photos
-                </button>
-            </div>
+      </div>
+      <div class="event-card">
+        <div class="event-date"><span class="day">28</span><span class="month">Juin</span></div>
+        <div class="event-body">
+          <h3>Stage initiation conduite avec chien de berger</h3>
+          <div class="event-meta"><span>📍 Oloron-Sainte-Marie</span><span>🕙 8h30 – 16h30</span></div>
+          <p style="font-size:0.88rem;color:var(--texte-m);line-height:1.5;margin-bottom:0.5rem;">Pour les adhérents débutants. Inscription obligatoire. Places limitées à 12 participants.</p>
+          <span class="event-tag">Formation</span>
         </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="py-16 px-4 bg-secondary dark:bg-gray-900">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold text-center text-forest mb-4 section-title">Nos Services</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                <!-- Cours d'éducation -->
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 service-card service-card-enhanced">
-                    <div class="flex items-center mb-6">
-                        <div class="service-icon-container bg-primary/10 dark:bg-primary/30 p-4 rounded-full mr-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-semibold">Formation canine</h3>
-                    </div>
-                    
-                    <p class="mb-4">Formation professionnelle pour chiens de troupeau. Apprenez à votre chien les techniques de conduite et de rassemblement de troupeau.</p>
-                    
-                    <div class="mb-6 p-4 bg-secondary dark:bg-gray-700 rounded-lg">
-                        <h4 class="font-semibold mb-2">Nos formules :</h4>
-                        <ul class="space-y-2">
-                            <li class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span><strong>Initiation</strong> : Découverte des bases du travail au troupeau</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span><strong>Perfectionnement</strong> : Amélioration des techniques</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span><strong>Cours flexibles</strong> : À l'heure ou journée complète</span>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <a href="reservation.html" class="block text-center bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
-                        </svg>
-                        Réserver un cours
-                    </a>
-                </div>
-                
-                <!-- Écopâturage -->
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 service-card service-card-enhanced">
-                    <div class="flex items-center mb-6">
-                        <div class="service-icon-container bg-primary/10 dark:bg-primary/30 p-4 rounded-full mr-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-semibold">Écopâturage</h3>
-                    </div>
-                    
-                    <p class="mb-4">Entretenez vos espaces verts de façon écologique avec nos brebis. Solution naturelle et économique pour vos terrains.</p>
-                    
-                    <div class="mb-6 p-4 bg-secondary dark:bg-gray-700 rounded-lg">
-                        <h4 class="font-semibold mb-2">Avantages :</h4>
-                        <ul class="space-y-2">
-                            <li class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span><strong>Entretien écologique</strong> sans produits chimiques</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span><strong>Fertilisation naturelle</strong> du sol</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span><strong>Brebis adaptées</strong> à votre surface</span>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <a href="location.html" class="block text-center bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                        </svg>
-                        Louer des brebis
-                    </a>
-                </div>
-
-                <!-- Service d'Évaluation -->
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 service-card service-card-enhanced">
-                    <div class="flex items-center mb-6">
-                        <div class="service-icon-container bg-primary/10 dark:bg-primary/30 p-4 rounded-full mr-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-semibold">Évaluation de chiens</h3>
-                    </div>
-                    
-                    <p class="mb-4">Faites évaluer les capacités de votre chien de troupeau par un expert. En partenariat avec Berger Connect, nous proposons une évaluation complète et professionnelle.</p>
-                    
-                    <div class="mb-6 p-4 bg-secondary dark:bg-gray-700 rounded-lg">
-                        <h4 class="font-semibold mb-2">Notre service comprend :</h4>
-                        <ul class="space-y-2">
-                            <li class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span><strong>Évaluation comportementale</strong> complète</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span><strong>Tests pratiques</strong> avec le troupeau</span>
-                            </li>
-                            <li class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                <span><strong>Rapport détaillé</strong> avec recommandations</span>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <a href="evaluation.html" class="block text-center bg-primary hover:bg-primary-dark text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                        </svg>
-                        Demander une évaluation
-                    </a>
-                </div>
-            </div>
+      </div>
+      <div class="event-card">
+        <div class="event-date" style="background:var(--ocre);"><span class="day">12</span><span class="month">Juil.</span></div>
+        <div class="event-body">
+          <h3>Transhumance estivale – Col d'Aubisque</h3>
+          <div class="event-meta"><span>📍 Gourette</span><span>🕙 Journée entière</span></div>
+          <p style="font-size:0.88rem;color:var(--texte-m);line-height:1.5;margin-bottom:0.5rem;">Montée traditionnelle des troupeaux. Ouverte au public. Repas partagé en altitude.</p>
+          <span class="event-tag" style="background:var(--ocre-c);color:#fff;border-color:var(--ocre);">Tradition</span>
         </div>
-    </section>
-
-    <!-- Section CTA -->
-    <section class="cta-section">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold mb-4">Prêt à développer les capacités de votre chien ?</h2>
-            <p class="text-xl max-w-2xl mx-auto mb-8">Réservez dès maintenant votre première séance et découvrez le potentiel de votre chien de troupeau</p>
-            <a href="reservation.html" class="btn-secondary font-bold py-3 px-8 rounded-lg transition duration-300 inline-flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
-                </svg>
-                Réserver une séance
-            </a>
+      </div>
+      <div class="event-card">
+        <div class="event-date"><span class="day">05</span><span class="month">Sept.</span></div>
+        <div class="event-body">
+          <h3>Foire agricole de Pau – Stand ABPA</h3>
+          <div class="event-meta"><span>📍 Pau – Parc des Expositions</span><span>🕙 10h00 – 18h00</span></div>
+          <p style="font-size:0.88rem;color:var(--texte-m);line-height:1.5;margin-bottom:0.5rem;">Venez nous retrouver sur notre stand : démonstrations, présentation de l'association et vente boutique.</p>
+          <span class="event-tag">Foire</span>
         </div>
-    </section>
-
-    <!-- Ressources Section -->
-    <section class="py-16 px-4 bg-secondary dark:bg-gray-800">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold text-center text-forest mb-4 section-title">Ressources pour propriétaires de chiens</h2>
-            <div class="text-center mb-8">
-                <p class="max-w-2xl mx-auto text-forest">Découvrez nos guides, vidéos et fiches techniques pour vous aider à former votre chien et comprendre son comportement de troupeau.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-10">
-                <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 transform hover:-translate-y-2 transition-all">
-                    <div class="text-primary mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto resource-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-center mb-2">Guides pratiques</h3>
-                    <p class="text-center text-gray-600 dark:text-gray-300 mb-4">Consultez nos guides détaillés sur l'éducation des chiens de troupeau.</p>
-                </div>
-                
-                <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 transform hover:-translate-y-2 transition-all">
-                    <div class="text-primary mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto resource-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-center mb-2">Vidéos tutorielles</h3>
-                    <p class="text-center text-gray-600 dark:text-gray-300 mb-4">Apprenez par l'exemple avec nos vidéos d'entraînement.</p>
-                </div>
-                
-                <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 transform hover:-translate-y-2 transition-all">
-                    <div class="text-primary mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto resource-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-center mb-2">Fiches techniques</h3>
-                    <p class="text-center text-gray-600 dark:text-gray-300 mb-4">Téléchargez nos fiches sur les races, comportements et techniques.</p>
-                </div>
-            </div>
-            
-            <div class="flex justify-center">
-                <a href="ressources.html" class="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-lg transition duration-300 inline-flex items-center shadow-md hover:shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
-                    </svg>
-                    Découvrir toutes nos ressources
-                </a>
-            </div>
+      </div>
+      <div class="event-card">
+        <div class="event-date"><span class="day">18</span><span class="month">Oct.</span></div>
+        <div class="event-body">
+          <h3>Assemblée générale annuelle</h3>
+          <div class="event-meta"><span>📍 Siège ABPA, Pau</span><span>🕙 14h00 – 17h00</span></div>
+          <p style="font-size:0.88rem;color:var(--texte-m);line-height:1.5;margin-bottom:0.5rem;">Bilan de l'année, élection du bureau, projets 2026. Réservée aux membres adhérents à jour de cotisation.</p>
+          <span class="event-tag">Assemblée</span>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <!-- Footer réorganisé -->
-    <footer class="py-12 px-4 bg-primary footer-enhanced text-white">
-        <div class="container mx-auto">
-            
-            <!-- Section réseaux sociaux mise en avant -->
-            <div class="footer-social-highlight">
-                <h3 class="text-xl font-bold mb-2">Suivez-nous sur nos réseaux sociaux</h3>
-                <p class="text-gray-200 mb-4">Découvrez nos vidéos d'entraînement et restez connectés avec la communauté Artzainak</p>
-                <div class="footer-social-buttons">
-                    <a href="https://youtube.com/@lesdraillesauxloups?si=byronwbqN9pqV_Mg" class="youtube">
-                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M23.498 6.186a2.977 2.977 0 0 0-2.096-2.108C19.548 3.75 12 3.75 12 3.75s-7.548 0-9.402.328A2.977 2.977 0 0 0 .502 6.186C.25 8.072.25 12 .25 12s0 3.928.252 5.814a2.977 2.977 0 0 0 2.096 2.108C4.452 20.25 12 20.25 12 20.25s7.548 0 9.402-.328a2.977 2.977 0 0 0 2.096-2.108C23.75 15.928 23.75 12 23.75 12s0-3.928-.252-5.814zM9.75 15.568V8.432L15.5 12l-5.75 3.568z"/>
-                        </svg>
-                        Notre chaîne YouTube
-                    </a>
-                    <a href="https://www.facebook.com/artzainak.education.des.chiens.de.trou/" class="facebook">
-                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                        </svg>
-                        Page Facebook
-                    </a>
-                </div>
-            </div>
-
-            <!-- Contenu principal du footer simplifié -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-8">
-                
-                <!-- À propos -->
-                <div>
-                    <div class="flex items-center mb-4">
-                        <img src="images/logo.png" alt="Artzainak Logo" class="h-16 w-auto mr-3 object-contain">
-                        <div>
-                            <h2 class="text-xl font-bold">ARTZAINAK</h2>
-                            <p class="text-sm text-gray-300">Éducation de chiens de troupeau</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed">Spécialiste de la formation des chiens de berger et des services d'écopâturage au Pays Basque. Notre approche respecte l'instinct naturel du chien tout en développant une relation de confiance avec son maître.</p>
-                </div>
-                
-                <!-- Contact -->
-                <div>
-                    <h3 class="text-lg font-semibold mb-6">Contactez-nous</h3>
-                    <div class="space-y-4">
-                        <p class="flex items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-secondary flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                            </svg>
-                            <span>Arbonne, Pays Basque</span>
-                        </p>
-                        <p class="flex items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-secondary flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                            </svg>
-                            <span>+33 (0) 608 919 431</span>
-                        </p>
-                        <p class="flex items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-secondary flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                            </svg>
-                            <span>takalowshin@gmail.com</span>
-                        </p>
-                    </div>
-                    
-                    <!-- Navigation rapide -->
-                    <div class="mt-8">
-                        <h4 class="font-semibold mb-4">Navigation rapide</h4>
-                        <div class="grid grid-cols-2 gap-2">
-                            <a href="reservation.html" class="text-gray-300 hover:text-white transition-colors">Réserver un cours</a>
-                            <a href="location.html" class="text-gray-300 hover:text-white transition-colors">Louer des brebis</a>
-                            <a href="evaluation.html" class="text-gray-300 hover:text-white transition-colors">Évaluation</a>
-                            <a href="ressources.html" class="text-gray-300 hover:text-white transition-colors">Ressources</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Pied de page simplifié -->
-            <div class="border-t border-gray-700 pt-8">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <p class="text-sm text-gray-400 mb-4 md:mb-0">&copy; 2025 Artzainak. Tous droits réservés.</p>
-                    <div class="flex gap-6">
-                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Mentions légales</a>
-                        <a href="#" class="text-sm text-gray-400 hover:text-white transition-colors">Politique de confidentialité</a>
-                    </div>
-                </div>
-            </div>
+<!-- FORMATIONS -->
+<div class="page" id="page-formations">
+  <div class="page-header">
+    <h2>🎓 Formations & Activités</h2>
+    <p>Des stages pratiques animés par des professionnels du pastoralisme pyrénéen.</p>
+  </div>
+  <div class="section">
+    <div style="background:var(--creme-d);border-radius:12px;border:1px solid var(--border);padding:1.2rem 1.5rem;margin-bottom:2rem;display:flex;align-items:center;gap:1rem;">
+      <span style="font-size:1.5rem;">ℹ️</span>
+      <p style="font-size:0.9rem;color:var(--texte-m);">Les formations sont accessibles aux membres adhérents. <button onclick="showPage('adhesion')" style="background:none;border:none;color:var(--vert);font-weight:700;cursor:pointer;text-decoration:underline;">Adhérez pour 20 €</button> et profitez de tarifs préférentiels.</p>
+    </div>
+    <div class="formations-grid">
+      <div class="formation-card">
+        <div class="formation-header">
+          <h3>UCARE – Niveau 1 : Initiation</h3>
+          <div class="niveau">🐾 Débutant</div>
         </div>
-    </footer>
+        <div class="formation-body">
+          <p>Introduction au travail avec un chien de conduite. Postures, commandes de base, premiers exercices en troupeau. Aucun prérequis.</p>
+          <div class="formation-info">
+            <div class="info-badge">📅 2 jours</div>
+            <div class="info-badge">👥 10 max</div>
+          </div>
+          <div class="formation-info">
+            <div class="info-badge">💶 Gratuit membres</div>
+            <div class="info-badge">💶 80 € non-membres</div>
+          </div>
+          <button class="formation-btn" onclick="showPage('adhesion')">S'inscrire</button>
+        </div>
+      </div>
+      <div class="formation-card">
+        <div class="formation-header" style="background:var(--vert-m);">
+          <h3>UCARE – Niveau 2 : Conduite avancée</h3>
+          <div class="niveau">🐾🐾 Intermédiaire</div>
+        </div>
+        <div class="formation-body">
+          <p>Approfondissement des techniques de conduite, gestion de troupeaux complexes, préparation aux épreuves de concours régionaux.</p>
+          <div class="formation-info">
+            <div class="info-badge">📅 3 jours</div>
+            <div class="info-badge">👥 8 max</div>
+          </div>
+          <div class="formation-info">
+            <div class="info-badge">💶 Gratuit membres</div>
+            <div class="info-badge">💶 120 € non-membres</div>
+          </div>
+          <button class="formation-btn" onclick="showPage('adhesion')">S'inscrire</button>
+        </div>
+      </div>
+      <div class="formation-card">
+        <div class="formation-header" style="background:var(--ocre);">
+          <h3>Gestion des pâturages d'estive</h3>
+          <div class="niveau">🌿 Éleveurs</div>
+        </div>
+        <div class="formation-body">
+          <p>Rotations de parcelles, chargement animal, suivi botanique, entretien des estives pyrénéennes. Journée terrain incluse.</p>
+          <div class="formation-info">
+            <div class="info-badge">📅 1 journée</div>
+            <div class="info-badge">👥 15 max</div>
+          </div>
+          <div class="formation-info">
+            <div class="info-badge">💶 Gratuit membres</div>
+            <div class="info-badge">💶 50 € non-membres</div>
+          </div>
+          <button class="formation-btn" style="background:var(--ocre);" onclick="showPage('adhesion')">S'inscrire</button>
+        </div>
+      </div>
+      <div class="formation-card">
+        <div class="formation-header" style="background:var(--bleu);">
+          <h3>Premiers secours vétérinaires ovins</h3>
+          <div class="niveau">🩺 Tous niveaux</div>
+        </div>
+        <div class="formation-body">
+          <p>Identifier les urgences, les gestes de premiers secours, suivi sanitaire du troupeau. Animé par un vétérinaire partenaire de l'ABPA.</p>
+          <div class="formation-info">
+            <div class="info-badge">📅 1 journée</div>
+            <div class="info-badge">👥 20 max</div>
+          </div>
+          <div class="formation-info">
+            <div class="info-badge">💶 Gratuit membres</div>
+            <div class="info-badge">💶 60 € non-membres</div>
+          </div>
+          <button class="formation-btn" style="background:var(--bleu);" onclick="showPage('adhesion')">S'inscrire</button>
+        </div>
+      </div>
+      <div class="formation-card">
+        <div class="formation-header">
+          <h3>Éthologie du chien de travail</h3>
+          <div class="niveau">🧠 Avancé</div>
+        </div>
+        <div class="formation-body">
+          <p>Comprendre les comportements instinctifs, l'apprentissage associatif, la gestion du stress et l'optimisation de la relation homme-chien.</p>
+          <div class="formation-info">
+            <div class="info-badge">📅 2 jours</div>
+            <div class="info-badge">👥 12 max</div>
+          </div>
+          <div class="formation-info">
+            <div class="info-badge">💶 Gratuit membres</div>
+            <div class="info-badge">💶 100 € non-membres</div>
+          </div>
+          <button class="formation-btn" onclick="showPage('adhesion')">S'inscrire</button>
+        </div>
+      </div>
+      <div class="formation-card">
+        <div class="formation-header" style="background:var(--vert-m);">
+          <h3>Activité découverte – Journée troupeau</h3>
+          <div class="niveau">🌄 Grand public</div>
+        </div>
+        <div class="formation-body">
+          <p>Découvrez la vie de berger le temps d'une journée : conduite de brebis, travail du chien, repas en estive. Idéal pour familles et groupes.</p>
+          <div class="formation-info">
+            <div class="info-badge">📅 1 journée</div>
+            <div class="info-badge">👥 20 max</div>
+          </div>
+          <div class="formation-info">
+            <div class="info-badge">💶 10 € membres</div>
+            <div class="info-badge">💶 25 € non-membres</div>
+          </div>
+          <button class="formation-btn" onclick="showPage('adhesion')">S'inscrire</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <!-- Métadonnées structurées Schema.org -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Artzainak",
-      "image": "https://artzainak.netlify.app/images/logo.jpg",
-      "url": "https://artzainak.netlify.app/",
-      "telephone": "+33608919431",
-      "email": "takalowshin@gmail.com",
-      "description": "Services professionnels d'éducation de chiens de troupeau et d'écopâturage au Pays Basque.",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Arbonne",
-        "addressLocality": "Pays Basque",
-        "postalCode": "64210",
-        "addressCountry": "FR"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 43.4373,
-        "longitude": -1.5477
-      },
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          "opens": "09:00",
-          "closes": "18:00"
-        }
-      ],
-      "priceRange": "€€"
-    }
-    </script>
+<!-- ÉCHANGES -->
+<div class="page" id="page-echanges">
+  <div class="page-header">
+    <h2>💬 Espace d'échanges</h2>
+    <p>Forum communautaire – partagez, posez vos questions, apprenez ensemble.</p>
+  </div>
+  <div class="section">
+    <div class="forum-cats">
+      <div class="forum-cat active">Tous</div>
+      <div class="forum-cat">🐑 Troupeaux</div>
+      <div class="forum-cat">🐕 Chiens de travail</div>
+      <div class="forum-cat">🌿 Pâturages</div>
+      <div class="forum-cat">🩺 Santé animale</div>
+      <div class="forum-cat">📋 Administratif</div>
+      <div class="forum-cat">🏔️ Estives</div>
+    </div>
+    <div class="topic-list">
+      <div class="topic-item">
+        <div class="topic-avatar">JB</div>
+        <div class="topic-content">
+          <h4>🐕 Mon border collie perd le contact en fin de conduite – conseils ?</h4>
+          <p>Il travaille bien en début d'exercice mais après 20 min il commence à ignorer les commandes de rappel…</p>
+          <div class="topic-meta"><span>Jean-Baptiste R.</span><span>🏷️ Chiens de travail</span><span>Il y a 2h</span></div>
+        </div>
+        <div class="topic-stats">💬 8 réponses</div>
+      </div>
+      <div class="topic-item">
+        <div class="topic-avatar">ML</div>
+        <div class="topic-content">
+          <h4>🩺 Paratuberculose – quel protocole de dépistage adoptez-vous ?</h4>
+          <p>Suite à un cas dans le troupeau voisin je cherche des retours d'expérience sur la gestion préventive.</p>
+          <div class="topic-meta"><span>Marie-Laure D.</span><span>🏷️ Santé animale</span><span>Hier</span></div>
+        </div>
+        <div class="topic-stats">💬 14 réponses</div>
+      </div>
+      <div class="topic-item">
+        <div class="topic-avatar">PH</div>
+        <div class="topic-content">
+          <h4>🌿 Pression de pâturage sur parcelles humides – retours en plaine</h4>
+          <p>Je cherche à valoriser des zones hydromorphes sans trop dégrader la végétation. Quelqu'un a testé le pâturage tournant rapide ?</p>
+          <div class="topic-meta"><span>Pierre-Henri M.</span><span>🏷️ Pâturages</span><span>Il y a 3 jours</span></div>
+        </div>
+        <div class="topic-stats">💬 6 réponses</div>
+      </div>
+      <div class="topic-item">
+        <div class="topic-avatar">AC</div>
+        <div class="topic-content">
+          <h4>📋 Obtention du numéro EDE – délais actuels à la Chambre d'agriculture ?</h4>
+          <p>Je commence les démarches pour m'installer en 64. Quelqu'un sait combien de temps ça prend en ce moment ?</p>
+          <div class="topic-meta"><span>Amandine C.</span><span>🏷️ Administratif</span><span>Il y a 5 jours</span></div>
+        </div>
+        <div class="topic-stats">💬 11 réponses</div>
+      </div>
+      <div class="topic-item">
+        <div class="topic-avatar">RT</div>
+        <div class="topic-content">
+          <h4>🏔️ Alpage du col de la Pierre Saint-Martin – conditions d'accès 2025</h4>
+          <p>Est-ce que quelqu'un monte là-haut cet été ? Je cherche des infos sur l'état de la piste et la disponibilité de l'eau.</p>
+          <div class="topic-meta"><span>Rémi T.</span><span>🏷️ Estives</span><span>Il y a 1 semaine</span></div>
+        </div>
+        <div class="topic-stats">💬 4 réponses</div>
+      </div>
+    </div>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js" defer></script>
-    <script src="js/script.js"></script>
-    <script src="js/mobile-optimizations.js"></script>
-    <script src="js/performance-optimizations.js"></script>
-    <script src="js/floating-cta.js"></script>
-    <script src="js/marketing-tracking.js"></script>
-    <script>
-        // Gestion du menu mobile
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.getElementById('menuToggle');
-            const mobileNav = document.getElementById('mobileNav');
-            
-            if (menuToggle && mobileNav) {
-                menuToggle.addEventListener('click', function() {
-                    // Toggle du menu
-                    mobileNav.classList.toggle('hidden');
-                    
-                    // Mettre à jour l'état aria-expanded
-                    const isExpanded = !mobileNav.classList.contains('hidden');
-                    menuToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
-                });
-                
-                // Fermer le menu si on clique en dehors
-                document.addEventListener('click', function(e) {
-                    if (!mobileNav.classList.contains('hidden') && 
-                        !mobileNav.contains(e.target) && 
-                        !menuToggle.contains(e.target)) {
-                        mobileNav.classList.add('hidden');
-                        menuToggle.setAttribute('aria-expanded', 'false');
-                    }
-                });
-            }
-            
-            // Initialisation de lightbox
-            lightbox.option({
-                'resizeDuration': 200,
-                'wrapAround': true,
-                'albumLabel': "Image %1 sur %2"
-            });
-            
-            // Animation des éléments au défilement
-            const animateOnScroll = function() {
-                const elements = document.querySelectorAll('.service-card-enhanced, .gallery-item-enhanced');
-                
-                elements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const elementBottom = element.getBoundingClientRect().bottom;
-                    const isVisible = (elementTop < window.innerHeight) && (elementBottom > 0);
-                    
-                    if (isVisible) {
-                        element.classList.add('fade-in');
-                    }
-                });
-            };
-            
-            // Déclenchement initial et au défilement
-            animateOnScroll();
-            window.addEventListener('scroll', animateOnScroll);
-        });
-    </script>
+    <div class="new-topic-form">
+      <h4>✏️ Poster un nouveau sujet</h4>
+      <div class="form-row">
+        <label>Titre de votre sujet</label>
+        <input type="text" placeholder="Quel est votre question ou sujet ?">
+      </div>
+      <div class="form-row">
+        <label>Catégorie</label>
+        <select>
+          <option>Chiens de travail</option>
+          <option>Troupeaux</option>
+          <option>Pâturages</option>
+          <option>Santé animale</option>
+          <option>Administratif</option>
+          <option>Estives</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Message</label>
+        <textarea placeholder="Décrivez votre situation, question ou expérience..."></textarea>
+      </div>
+      <button class="btn-submit" onclick="alert('Fonctionnalité disponible pour les membres adhérents.')">Publier le sujet</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADHÉSION -->
+<div class="page" id="page-adhesion">
+  <div class="page-header">
+    <h2>🤝 Adhérer à l'ABPA</h2>
+    <p>Rejoignez la communauté des bergers des Pyrénées Atlantiques.</p>
+  </div>
+  <div class="section">
+    <div class="adhesion-layout">
+      <div class="adhesion-info">
+        <h3>Pourquoi devenir membre ?</h3>
+        <p style="color:var(--texte-m);font-size:0.95rem;line-height:1.7;">En rejoignant l'ABPA, vous intégrez un réseau actif de bergers, éleveurs et passionnés du pastoralisme pyrénéen. Votre cotisation finance nos actions de terrain et nos formations.</p>
+        <ul class="avantage-list">
+          <li>Accès gratuit à toutes les formations UCARE et stages</li>
+          <li>Tarif préférentiel sur les événements et concours</li>
+          <li>Accès complet à l'espace d'échanges communautaire</li>
+          <li>Newsletter mensuelle et veille réglementaire</li>
+          <li>Annuaire des membres et mise en réseau</li>
+          <li>Réductions boutique ABPA (–15 %)</li>
+          <li>Droit de vote en assemblée générale</li>
+        </ul>
+        <div class="prix-badge">
+          <div class="montant">20 €</div>
+          <div class="detail" style="font-size:1rem;font-weight:700;color:var(--vert);">par an</div>
+          <div class="detail">Renouvellement chaque 1er janvier</div>
+        </div>
+      </div>
+      <div class="adhesion-form">
+        <h3>Formulaire d'adhésion</h3>
+        <div class="form-2col">
+          <div class="form-row"><label>Prénom</label><input type="text" placeholder="Jean"></div>
+          <div class="form-row"><label>Nom</label><input type="text" placeholder="Dupont"></div>
+        </div>
+        <div class="form-row"><label>E-mail</label><input type="email" placeholder="votre@email.fr"></div>
+        <div class="form-row"><label>Téléphone</label><input type="tel" placeholder="06 00 00 00 00"></div>
+        <div class="form-row"><label>Code postal</label><input type="text" placeholder="64000"></div>
+        <div class="form-row">
+          <label>Profil</label>
+          <select>
+            <option>Éleveur ovin</option>
+            <option>Berger salarié</option>
+            <option>Étudiant / Futur éleveur</option>
+            <option>Passionné / Grand public</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Message (optionnel)</label>
+          <textarea placeholder="Parlez-nous de vous, de votre activité..."></textarea>
+        </div>
+        <button class="btn-submit" onclick="alert('Merci ! Vous allez être redirigé vers le paiement sécurisé de 20 €.')">💳 Valider et payer 20 €</button>
+        <p style="font-size:0.75rem;color:var(--texte-m);margin-top:0.75rem;text-align:center;">Paiement sécurisé via Stripe · Données protégées RGPD</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOUTIQUE -->
+<div class="page" id="page-boutique">
+  <div class="page-header" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+    <div>
+      <h2>🛍️ Boutique ABPA</h2>
+      <p>Des goodies aux couleurs des bergers pyrénéens. Livraison partout en France.</p>
+    </div>
+    <div class="cart-badge" id="cartBadge" style="display:none;">🛒 0 article</div>
+  </div>
+  <div class="section">
+    <p style="font-size:0.85rem;color:var(--vert);font-weight:700;margin-bottom:1.5rem;">🎉 –15 % sur toute la boutique pour les membres adhérents !</p>
+    <div class="boutique-grid">
+      <div class="produit-card">
+        <div class="produit-img">👕</div>
+        <div class="produit-body">
+          <h4>T-shirt ABPA – Vert forêt</h4>
+          <p>100 % coton bio, sérigraphie logo ABPA. Tailles S à XXL.</p>
+          <div class="produit-footer">
+            <span class="produit-prix">22 €</span>
+            <button class="btn-panier" onclick="addToCart('T-shirt ABPA')">+ Panier</button>
+          </div>
+        </div>
+      </div>
+      <div class="produit-card">
+        <div class="produit-img">🎽</div>
+        <div class="produit-body">
+          <h4>Hoodie ABPA – Ocre montagne</h4>
+          <p>Sweat à capuche chaud pour les longues journées en estive.</p>
+          <div class="produit-footer">
+            <span class="produit-prix">38 €</span>
+            <button class="btn-panier" onclick="addToCart('Hoodie ABPA')">+ Panier</button>
+          </div>
+        </div>
+      </div>
+      <div class="produit-card">
+        <div class="produit-img">🎵</div>
+        <div class="produit-body">
+          <h4>Sifflet professionnel – Acier inox</h4>
+          <p>Sifflet ACME Thunderer sélectionné par nos formateurs UCARE.</p>
+          <div class="produit-footer">
+            <span class="produit-prix">8 €</span>
+            <button class="btn-panier" onclick="addToCart('Sifflet inox')">+ Panier</button>
+          </div>
+        </div>
+      </div>
+      <div class="produit-card">
+        <div class="produit-img">🎵</div>
+        <div class="produit-body">
+          <h4>Sifflet à lamelle – Plastique</h4>
+          <p>Lot de 3 sifflets colorés, idéal pour l'entraînement et les débutants.</p>
+          <div class="produit-footer">
+            <span class="produit-prix">12 €</span>
+            <button class="btn-panier" onclick="addToCart('Sifflet lamelle x3')">+ Panier</button>
+          </div>
+        </div>
+      </div>
+      <div class="produit-card">
+        <div class="produit-img">🎒</div>
+        <div class="produit-body">
+          <h4>Sac à dos ABPA – Toile robuste</h4>
+          <p>30 L, sangles rembourrées, compartiments multiples. Logo brodé.</p>
+          <div class="produit-footer">
+            <span class="produit-prix">45 €</span>
+            <button class="btn-panier" onclick="addToCart('Sac à dos ABPA')">+ Panier</button>
+          </div>
+        </div>
+      </div>
+      <div class="produit-card">
+        <div class="produit-img">☕</div>
+        <div class="produit-body">
+          <h4>Tasse ABPA – Porcelaine</h4>
+          <p>35 cl, illustration troupeau pyrénéen. Passe au lave-vaisselle.</p>
+          <div class="produit-footer">
+            <span class="produit-prix">14 €</span>
+            <button class="btn-panier" onclick="addToCart('Tasse porcelaine')">+ Panier</button>
+          </div>
+        </div>
+      </div>
+      <div class="produit-card">
+        <div class="produit-img">🧢</div>
+        <div class="produit-body">
+          <h4>Casquette ABPA – Twill kaki</h4>
+          <p>Réglable, taille universelle. Logo brodé sur la façade avant.</p>
+          <div class="produit-footer">
+            <span class="produit-prix">18 €</span>
+            <button class="btn-panier" onclick="addToCart('Casquette ABPA')">+ Panier</button>
+          </div>
+        </div>
+      </div>
+      <div class="produit-card">
+        <div class="produit-img">📓</div>
+        <div class="produit-body">
+          <h4>Carnet de berger – A5 ligné</h4>
+          <p>Couverture rigide, 120 pages. Idéal pour le suivi de troupeau quotidien.</p>
+          <div class="produit-footer">
+            <span class="produit-prix">10 €</span>
+            <button class="btn-panier" onclick="addToCart('Carnet de berger')">+ Panier</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>🐑 ABPA</h4>
+      <p>Association des Bergers<br>des Pyrénées Atlantiques</p>
+      <p style="margin-top:0.5rem;">Promouvoir, former, fédérer.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <a href="#" onclick="showPage('evenements')">Événements</a>
+      <a href="#" onclick="showPage('formations')">Formations</a>
+      <a href="#" onclick="showPage('echanges')">Espace d'échanges</a>
+      <a href="#" onclick="showPage('boutique')">Boutique</a>
+      <a href="#" onclick="showPage('adhesion')">Adhésion – 20 €</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>📧 contact@abpa64.fr</p>
+      <p>📞 05 59 00 00 00</p>
+      <p>📍 Pau, Pyrénées-Atlantiques (64)</p>
+    </div>
+    <div class="footer-col">
+      <h4>Suivez-nous</h4>
+      <a href="#">Facebook</a>
+      <a href="#">Instagram</a>
+      <a href="#">YouTube</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 Association des Bergers des Pyrénées Atlantiques · <a href="#" style="color:var(--ocre-c);">Mentions légales</a> · <a href="#" style="color:var(--ocre-c);">RGPD</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast">✅ Ajouté au panier !</div>
+
+<script>
+let cartCount = 0;
+
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const link = document.querySelector('[data-page="' + page + '"]');
+  if (link) link.classList.add('active');
+  window.scrollTo(0, 0);
+  return false;
+}
+
+function toggleMenu() {
+  const nl = document.getElementById('navLinks');
+  nl.style.display = nl.style.display === 'flex' ? 'none' : 'flex';
+  nl.style.flexDirection = 'column';
+  nl.style.position = 'fixed';
+  nl.style.top = '64px'; nl.style.left = 0; nl.style.right = 0;
+  nl.style.background = 'var(--vert)'; nl.style.padding = '1rem';
+}
+
+function addToCart(name) {
+  cartCount++;
+  const badge = document.getElementById('cartBadge');
+  badge.style.display = 'inline-block';
+  badge.textContent = '🛒 ' + cartCount + ' article' + (cartCount > 1 ? 's' : '');
+  const toast = document.getElementById('toast');
+  toast.textContent = '✅ ' + name + ' ajouté au panier';
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+</script>
 </body>
 </html>
