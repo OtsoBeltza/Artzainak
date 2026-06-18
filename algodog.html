@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diagnostic comportemental du chiot · ABPA</title>
+<title>Diagnostic comportemental du chiot</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -59,25 +59,55 @@ body {
 /* ===== HEADER ===== */
 .brand {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  justify-content: flex-end;
   padding-bottom: 18px;
   border-bottom: 1px solid var(--border);
   margin-bottom: 48px;
 }
 
-.brand-name {
-  font-family: 'Source Serif 4', serif;
-  font-weight: 500;
-  font-size: 16px;
-  letter-spacing: 0.01em;
+/* ===== PHASE NAV ===== */
+.phase-nav {
+  display: flex;
+  gap: 28px;
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
 }
 
-.brand-meta {
-  font-size: 12px;
+.phase-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  text-decoration: none;
   color: var(--text-light);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+
+.phase-link:hover {
+  color: var(--text);
+}
+
+.phase-link.active {
+  color: var(--accent);
+  font-weight: 500;
+  cursor: default;
+}
+
+.phase-num {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 500;
+  font-size: 13.5px;
+  color: var(--text-light);
+  transition: color 0.15s;
+}
+
+.phase-link:hover .phase-num { color: var(--text-muted); }
+.phase-link.active .phase-num { color: var(--accent); }
+
+.phase-arrow {
+  font-size: 11px;
+  margin-left: 2px;
+  opacity: 0.6;
 }
 
 /* ===== TITLE ===== */
@@ -499,6 +529,19 @@ h1 {
   gap: 10px;
 }
 
+.foot-link {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.foot-link:hover {
+  border-bottom-color: var(--accent);
+  color: var(--accent-strong);
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 720px) {
   .page { padding: 24px 20px 60px; }
@@ -509,6 +552,16 @@ h1 {
   .profile-card { padding: 22px 24px; }
   .profile-name { font-size: 28px; }
   .legend { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .brand { justify-content: flex-start; }
+  .phase-nav {
+    width: 100%;
+    justify-content: space-between;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .phase-link { font-size: 11.5px; gap: 4px; }
+  .phase-num { font-size: 12.5px; }
+  .foot { flex-direction: column; align-items: flex-start; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -525,13 +578,21 @@ h1 {
 
   <!-- ===== HEADER ===== -->
   <header class="brand">
-    <div class="brand-name">Association des Bergers des Pyrénées Atlantiques</div>
-    <div class="brand-meta">Phase 2 · v.1</div>
+    <nav class="phase-nav" aria-label="Phases">
+      <a class="phase-link" href="lecture_comportementale_chiot_border_collie.pdf" target="_blank" rel="noopener">
+        <span class="phase-num">01</span><span>Lecture comportementale</span><span class="phase-arrow" aria-hidden="true">↗</span>
+      </a>
+      <span class="phase-link active" aria-current="page">
+        <span class="phase-num">02</span><span>Diagnostic</span>
+      </span>
+      <a class="phase-link" href="trois_cadres_pedagogiques_chien.pdf" target="_blank" rel="noopener">
+        <span class="phase-num">03</span><span>Cadres pédagogiques</span><span class="phase-arrow" aria-hidden="true">↗</span>
+      </a>
+    </nav>
   </header>
 
   <!-- ===== TITLE ===== -->
   <div class="title-block">
-    <div class="eyebrow">Formation UCARE · Chiens de troupeau</div>
     <h1>Diagnostic comportemental du chiot</h1>
     <p class="subtitle">Première mise au troupeau — lecture des huit motor patterns</p>
     <p class="intro">Cet outil identifie le profil-type d'un chiot border collie à partir de l'intensité de ses huit motor patterns lors d'une rencontre avec le troupeau. Notez chaque comportement de 0 (absent) à 5 (très marqué) ; les correspondances avec les cinq profils-types et les axes de travail s'affichent en temps réel.</p>
@@ -682,8 +743,8 @@ h1 {
 
   <!-- ===== FOOTER ===== -->
   <footer class="foot">
-    <span>ABPA · Formation UCARE Chiens de troupeau</span>
-    <span>Phase 2 — outil de diagnostic</span>
+    <span>Phase 2 — diagnostic comportemental</span>
+    <a class="foot-link" href="diagnostic_profil_chiot_border_collie.pdf" target="_blank" rel="noopener">Version papier (PDF)</a>
   </footer>
 
 </div>
