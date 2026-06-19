@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Résoudre une dérive comportementale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F1ECDE;
+  --surface: #F8F4E8;
+  --surface-hi: #FCFAF3;
+  --text: #1F2D1F;
+  --text-muted: #5A5F4E;
+  --text-light: #837E6E;
+  --border: #C9C0A3;
+  --border-soft: #DCD3B8;
+  --accent: #8B6F2A;
+  --accent-strong: #6B5320;
+  --zone-vert: #4A7C1F;
+  --zone-amber: #B5832D;
+  --zone-rouge: #9C3F2E;
+  --p-equilibre: #4A6741;
+  --p-equilibre-bg: #E4EAD7;
+  --p-mordeur: #9C3F2E;
+  --p-mordeur-bg: #ECCEC4;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 32px 32px 80px;
+}
+
+/* ===== HEADER ===== */
+.brand {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+
+.phase-nav {
+  display: flex;
+  gap: 24px;
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+}
+
+.phase-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--text-light);
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+
+.phase-link:hover { color: var(--text); }
+.phase-link.active { color: var(--accent); font-weight: 500; cursor: default; }
+
+.phase-num {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 500;
+  font-size: 13.5px;
+  color: var(--text-light);
+  transition: color 0.15s;
+}
+
+.phase-link:hover .phase-num { color: var(--text-muted); }
+.phase-link.active .phase-num { color: var(--accent); }
+
+/* ===== TITLE ===== */
+.title-block { margin-bottom: 48px; }
+
+h1 {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 400;
+  font-size: 18px;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.intro {
+  font-size: 15.5px;
+  color: var(--text-muted);
+  max-width: 640px;
+  line-height: 1.65;
+}
+
+/* ===== TOOL ===== */
+.tool { margin-bottom: 48px; }
+
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 16px;
+  padding: 0 4px;
+}
+
+.step-count { font-weight: 500; color: var(--accent); }
+
+.breadcrumb {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 18px;
+  padding: 10px 18px;
+  background: var(--surface);
+  border-left: 2px solid var(--border-soft);
+  font-style: italic;
+}
+
+.breadcrumb-step::after { content: '  ›  '; color: var(--text-light); font-style: normal; }
+.breadcrumb-step:last-child::after { content: ''; }
+
+/* Question card */
+.question-card {
+  background: var(--surface);
+  padding: 32px 36px;
+  border: 1px solid var(--border-soft);
+}
+
+.question-text {
+  font-family: 'Source Serif 4', serif;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.35;
+  margin-bottom: 24px;
+  letter-spacing: -0.005em;
+  color: var(--text);
+}
+
+.options { display: flex; flex-direction: column; gap: 10px; }
+
+.option-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 22px;
+  background: var(--surface-hi);
+  border: 1px solid var(--border-soft);
+  text-align: left;
+  font-family: inherit;
+  font-size: 14.5px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.18s;
+  line-height: 1.45;
+  width: 100%;
+}
+
+.option-btn:hover {
+  border-color: var(--accent);
+  background: var(--bg);
+  transform: translateX(2px);
+}
+
+.option-btn:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.option-letter {
+  font-family: 'Source Serif 4', serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent);
+  flex-shrink: 0;
+  min-width: 18px;
+}
+
+.option-text { flex: 1; }
+
+/* Controls */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 0 4px;
+  gap: 12px;
+}
+
+.control-btn {
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  padding: 8px 0;
+  cursor: pointer;
+  transition: color 0.15s;
+  letter-spacing: 0.02em;
+}
+
+.control-btn:hover:not(:disabled) { color: var(--accent); }
+.control-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* ===== DIAGNOSIS ===== */
+.diagnosis-card {
+  background: var(--surface);
+  padding: 36px 40px 32px;
+  border-left: 4px solid var(--accent);
+  margin-bottom: 28px;
+}
+
+.diag-tag {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.diag-name {
+  font-family: 'Source Serif 4', serif;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 20px;
+}
+
+.diag-explication {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.diag-explication p { margin-bottom: 12px; }
+.diag-explication p:last-child { margin-bottom: 0; }
+
+.objectif-card {
+  background: var(--p-equilibre-bg);
+  border-left: 3px solid var(--p-equilibre);
+  padding: 22px 26px;
+  margin-bottom: 28px;
+}
+
+.objectif-tag {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--p-equilibre);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.objectif-text {
+  font-family: 'Source Serif 4', serif;
+  font-size: 16.5px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* Exercises grid */
+.exercises-head {
+  font-family: 'Source Serif 4', serif;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 14px;
+  letter-spacing: -0.005em;
+}
+
+.exercises {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.exercise {
+  background: var(--surface-hi);
+  border: 1px solid var(--border-soft);
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ex-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.ex-num {
+  font-family: 'Source Serif 4', serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+
+.ex-title {
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.ex-body { font-size: 13.5px; line-height: 1.6; color: var(--text); }
+
+/* Resources */
+.ressources {
+  border-top: 1px solid var(--border-soft);
+  padding-top: 24px;
+  margin-bottom: 32px;
+}
+
+.ressources-tag {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.ressources-list {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ressource-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13px;
+  transition: all 0.15s;
+}
+
+.ressource-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.ressource-link-tag {
+  font-family: 'Source Serif 4', serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-light);
+  letter-spacing: 0.04em;
+}
+
+/* Safety alert variant */
+.safety-alert {
+  background: var(--p-mordeur-bg);
+  border-left: 3px solid var(--p-mordeur);
+  padding: 16px 22px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.safety-icon {
+  font-family: 'Source Serif 4', serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--p-mordeur);
+  line-height: 1;
+  text-align: center;
+}
+
+.safety-title {
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--p-mordeur);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.safety-body { font-size: 13.5px; color: var(--text); line-height: 1.55; }
+
+/* ===== TRANSITION ===== */
+.transition {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  padding: 20px 24px;
+  margin-top: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.transition-text { flex: 1; min-width: 200px; font-size: 14px; line-height: 1.55; color: var(--text-muted); }
+.transition-text strong { color: var(--text); font-weight: 500; }
+
+.transition-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Source Serif 4', serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 8px 18px;
+  border: 1px solid var(--accent);
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.transition-link:hover { background: var(--accent); color: white; }
+
+/* ===== FOOTER ===== */
+.foot {
+  margin-top: 56px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-light);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.foot-link {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.foot-link:hover { border-bottom-color: var(--accent); color: var(--accent-strong); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 720px) {
+  .page { padding: 24px 20px 60px; }
+  h1 { font-size: 32px; }
+  .question-card { padding: 24px 22px; }
+  .question-text { font-size: 19px; }
+  .diagnosis-card { padding: 26px 24px 22px; }
+  .diag-name { font-size: 26px; }
+  .exercises { grid-template-columns: 1fr; }
+  .brand { justify-content: flex-start; }
+  .phase-nav { width: 100%; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
+  .phase-link { font-size: 11.5px; gap: 4px; }
+  .phase-num { font-size: 12.5px; }
+  .foot { flex-direction: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ===== HEADER ===== -->
+  <header class="brand">
+    <nav class="phase-nav" aria-label="Phases">
+      <a class="phase-link" href="phase-1-lecture.html">
+        <span class="phase-num">01</span><span>Lecture</span>
+      </a>
+      <a class="phase-link" href="phase-2-diagnostic.html">
+        <span class="phase-num">02</span><span>Diagnostic</span>
+      </a>
+      <a class="phase-link" href="phase-3-cadres.html">
+        <span class="phase-num">03</span><span>Cadres</span>
+      </a>
+      <span class="phase-link active" aria-current="page">
+        <span class="phase-num">04</span><span>Dérives</span>
+      </span>
+    </nav>
+  </header>
+
+  <!-- ===== TITLE ===== -->
+  <div class="title-block">
+    <h1>Résoudre une dérive comportementale</h1>
+    <p class="subtitle">De la question au plan d'action — un parcours guidé</p>
+    <p class="intro">Quand un chien adulte présente une dérive — au troupeau, au quotidien, ou en séance d'éducation — l'enjeu est d'abord d'<strong>identifier précisément ce qui se joue</strong>, puis de proposer un objectif clair et des exercices adaptés aux trois contextes. Cet outil pose une suite de questions pour cibler la dérive et termine sur une explication, un objectif et un plan en trois exercices.</p>
+  </div>
+
+  <!-- ===== TOOL ===== -->
+  <div class="tool">
+    <div class="step-indicator">
+      <span>Diagnostic guidé</span>
+      <span class="step-count" id="step-count">Étape 1</span>
+    </div>
+    <div class="breadcrumb" id="breadcrumb" style="display: none;"></div>
+    <div id="main-area"></div>
+    <div class="controls">
+      <button class="control-btn" id="back-btn" disabled>← Retour</button>
+      <button class="control-btn" id="restart-btn">Recommencer ↻</button>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="foot">
+    <span>Phase 4 — résolution des dérives</span>
+    <a class="foot-link" href="phase-2-diagnostic.html">← Revenir au diagnostic du chiot</a>
+  </footer>
+
+</div>
+
+<script>
+/* ====================================================================
+   ARBRE DE DÉCISION
+   Chaque nœud est :
+   - type: 'question' avec options menant à d'autres nœuds
+   - type: 'diagnosis' avec contenu final (explication, objectif, exercices)
+   ==================================================================== */
+
+const TREE = {
+
+  start: {
+    type: 'question',
+    question: "Dans quel contexte la dérive comportementale apparaît-elle principalement ?",
+    options: [
+      { label: "Pendant le travail au troupeau", next: "trav_q1" },
+      { label: "Au quotidien — à la maison, en promenade, en sociabilité", next: "quot_q1" },
+      { label: "Pendant les séances d'éducation hors troupeau", next: "edu_q1" }
+    ]
+  },
+
+  // ========== TROUPEAU ==========
+  trav_q1: {
+    type: 'question',
+    question: "Au troupeau, comment se manifeste la dérive ?",
+    options: [
+      { label: "Le chien est trop excité, court trop, perd le contrôle", next: "trav_course_q1" },
+      { label: "Le chien attaque, pince ou mord les brebis", next: "trav_saisie_q1" },
+      { label: "Le chien est bloqué, n'avance pas, refuse d'engager", next: "trav_bloque_q1" },
+      { label: "Le chien se désengage, s'éloigne, abandonne la séance", next: "diag_signaux_apaisement" },
+      { label: "Le chien ignore les ordres alors qu'il les connaît", next: "diag_sur_arousal_travail" },
+      { label: "Le chien aboie en permanence pendant le travail", next: "diag_aboi_frustration" }
+    ]
+  },
+
+  trav_course_q1: {
+    type: 'question',
+    question: "Le chien revient-il sur appel ou ordre d'arrêt pendant le travail ?",
+    options: [
+      { label: "Non, jamais ou très rarement", next: "diag_course_incontrolee" },
+      { label: "Oui, mais avec délai et résistance", next: "diag_course_recuperable" },
+      { label: "Au début de séance oui, puis ça se dégrade", next: "diag_saturation" }
+    ]
+  },
+
+  trav_saisie_q1: {
+    type: 'question',
+    question: "Dans quelle situation la saisie apparaît-elle le plus souvent ?",
+    options: [
+      { label: "Systématiquement, dès qu'il peut atteindre une brebis", next: "diag_saisie_desinhibee" },
+      { label: "Quand une brebis lui tient tête, refuse de bouger", next: "diag_grip_defensif" }
+    ]
+  },
+
+  trav_bloque_q1: {
+    type: 'question',
+    question: "Comment se manifeste le blocage ?",
+    options: [
+      { label: "Il fixe intensément le troupeau mais ne bouge plus", next: "diag_oeil_excessif" },
+      { label: "Il s'approche puis s'arrête net, semble freiné par quelque chose", next: "diag_evitement_pression" }
+    ]
+  },
+
+  // ========== QUOTIDIEN ==========
+  quot_q1: {
+    type: 'question',
+    question: "Au quotidien, quelle est la nature dominante du problème ?",
+    options: [
+      { label: "Hyperactivité chronique, le chien ne se calme jamais", next: "diag_hyperactivite" },
+      { label: "Réactivité face aux autres chiens (aboiements, charge, agressivité)", next: "diag_reactivite_chiens" },
+      { label: "Anxiété quand seul — destruction, vocalises, malpropreté", next: "diag_anxiete_separation" },
+      { label: "Comportements répétitifs : poursuivre lumière, ombre, queue, tourner en rond", next: "diag_compulsion" }
+    ]
+  },
+
+  // ========== ÉDUCATION ==========
+  edu_q1: {
+    type: 'question',
+    question: "En séance d'éducation, quel est le problème principal ?",
+    options: [
+      { label: "Le chien apprend lentement, n'enregistre pas malgré la répétition", next: "diag_apprentissage_lent" },
+      { label: "Le chien est trop excité en séance, ne se canalise pas", next: "diag_sur_arousal_seance" },
+      { label: "Le chien démissionne, s'éteint, refuse de participer", next: "diag_demission" }
+    ]
+  },
+
+  // ====================================================================
+  // DIAGNOSTICS — TRAVAIL AU TROUPEAU
+  // ====================================================================
+
+  diag_course_incontrolee: {
+    type: 'diagnosis',
+    label: "Course incontrôlée",
+    explication: "<p>Le chien est entré dans une dynamique de poursuite pure, déconnectée du cadrage du berger. Le drive prédateur prend le dessus sur l'audition des ordres et sur la séquence appétitive (orienter, œil, approche). C'est la signature du profil <strong>poursuivant</strong> de la Phase 1, mais aussi de chiots correctement nés qui ont été exposés trop tôt à des brebis légères et fuyantes : la fuite répétée a renforcé la course comme finalité en soi, indépendamment de la conduite.</p><p>Sans intervention, le comportement se consolide à chaque séance. Le chien apprend que courir derrière les brebis est gratifiant en soi, parce que la conséquence (le mouvement du troupeau) suit toujours.</p>",
+    objectif: "Reconstruire l'œil et la régulation de la course en supprimant temporairement le déclencheur (la fuite des brebis), puis en ré-introduisant le mouvement progressivement et sous contrôle.",
+    exercices: {
+      seance: "Travail du rappel et du stop hors troupeau, 5 à 10 minutes par jour, dans un environnement progressivement plus stimulant. Le chien ne doit pas revenir au troupeau tant que le rappel n'est pas fiable à 90 % minimum dans un champ.",
+      quotidien: "Augmenter la dépense mentale (jeu de nez, recherche d'objets, mastication) et baisser la dépense purement physique. Toute promenade en longe avec consignes d'arrêt régulières pour renforcer la connexion regard-berger.",
+      travail: "Reprendre au troupeau avec des brebis lourdes et confiantes qui ne fuient pas — idéalement avec un chien adulte présent qui les tient. Récompenser chaud chaque arrêt avec fixation. Pas de course autorisée sans ordre. Séance de 5 minutes maximum, terminée en haut."
+    },
+    ressources: { phase1: "Profil Poursuivant", phase3: "Cadre Donaldson (conditionnement opérant)" }
+  },
+
+  diag_course_recuperable: {
+    type: 'diagnosis',
+    label: "Course folle récupérable",
+    explication: "<p>Le chien est sur-excité au troupeau mais conserve un fil avec le berger : il finit par revenir, par stopper sur ordre, même avec délai. C'est souvent un profil <strong>poursuivant</strong> qui a déjà un bon socle éducatif de base, ou un <strong>équilibré</strong> placé dans des conditions de travail trop stimulantes pour son niveau actuel.</p><p>Le problème est moins grave que la course incontrôlée — il s'agit d'affiner la régulation et de raccourcir le délai d'arrêt, pas de tout reconstruire.</p>",
+    objectif: "Raccourcir le délai entre l'ordre d'arrêt et l'arrêt effectif. Faire de l'arrêt un événement positif, pas une frustration ni une sanction.",
+    exercices: {
+      seance: "Travail du « stop à distance » : couché demandé à 5 m, 10 m, 15 m, avec récompense systématique. Augmenter progressivement les distances et les distractions. Le chien doit comprendre que stopper rapporte plus que continuer.",
+      quotidien: "En promenade en longe, demander des arrêts pendant les phases d'excitation (jeu, course). Récompenser. L'arrêt doit devenir un réflexe associé à une bonne chose, pas à une interruption frustrante.",
+      travail: "Au troupeau, ne demander un arrêt que dans les moments où on est sûr de l'obtenir — pas dans le pire moment. Récompenser à chaud. Séances courtes (5-7 minutes), arrêtées avant la saturation, jamais en surrégime."
+    },
+    ressources: { phase1: "Profil Poursuivant", phase3: "Cadre Donaldson (conditionnement opérant)" }
+  },
+
+  diag_saturation: {
+    type: 'diagnosis',
+    label: "Saturation au travail",
+    explication: "<p>Le chien démarre la séance avec un bon niveau d'écoute et de contrôle, puis se dégrade au fil du temps : ordres ignorés, course qui s'emballe, comportements plus brutaux. C'est un cas classique de <strong>saturation cognitive et physiologique</strong> — le chien dépasse sa fenêtre d'attention et bascule en mode purement réactif.</p><p>Souvent associé à des séances trop longues, à un manque de pauses, ou à un chien qui n'a pas encore l'endurance mentale pour soutenir un travail prolongé. Insister à ce moment-là consolide les mauvais comportements, parce que le chien apprend dans un état où il ne peut plus apprendre correctement.</p>",
+    objectif: "Identifier le point de bascule et arrêter la séance avant, pour ne récompenser que des comportements de qualité.",
+    exercices: {
+      seance: "Observer attentivement les signaux précoces de saturation (haletement, raideur, baisse d'écoute) sur plusieurs séances pour identifier le seuil personnel du chien. Noter à quelle minute il bascule.",
+      quotidien: "Multiplier les courtes phases d'apprentissage dans la journée (3 minutes, plusieurs fois) plutôt qu'une longue séance. Habituer le chien à apprendre par micro-blocs.",
+      travail: "Raccourcir drastiquement les séances : 5 minutes pour commencer, terminer en haut (sur une réussite). Pauses fréquentes. Ne jamais finir sur un échec ou sur un comportement dégradé."
+    },
+    ressources: { phase1: null, phase3: "Cadre Rugaas (signaux d'apaisement)" }
+  },
+
+  diag_saisie_desinhibee: {
+    type: 'diagnosis',
+    label: "Saisie désinhibée",
+    explication: "<p>Le chien cherche activement à saisir les brebis dès qu'il en a l'occasion. Le seuil d'inhibition entre poursuite et capture est franchi de façon systématique — c'est la signature du profil <strong>mordeur</strong> de la Phase 1.</p><p>La sécurité du troupeau est immédiatement en jeu. Cette dérive ne se traite pas seul : elle nécessite un encadrement professionnel permanent et un travail de reconstruction de l'inhibition qui peut prendre plusieurs mois. Le pronostic dépend de l'âge, de la précocité de la prise en charge, et de l'environnement de vie du chien.</p>",
+    objectif: "Sécuriser le troupeau et reconstruire l'inhibition de saisie par paliers, avec encadrement professionnel obligatoire.",
+    exercices: {
+      seance: "Travail intensif de l'auto-contrôle hors troupeau : « pas bouger » avec friandise au sol, jeux structurés avec règles strictes (arrêt sur ordre), renforcement positif systématique de tout temps de retenue.",
+      quotidien: "Pas d'accès libre à des situations prédatrices (gibier, lapins, etc.). Travail régulier de la frustration positive (attendre devant la gamelle, ne pas franchir une porte). Le chien doit apprendre à différer l'action.",
+      travail: "Travail uniquement avec encadrement professionnel et troupeau protégé (laisse, longe, clôture). Reconstruction de la séquence en commençant par l'orienter et l'œil, à distance, sans aucune possibilité de saisir. Pas de présentation au troupeau libre tant que l'inhibition n'est pas reconstruite."
+    },
+    ressources: { phase1: "Profil Mordeur", phase3: "Cadre Donaldson (conditionnement opérant)" },
+    safety: "Cette dérive représente un danger réel pour le troupeau et engage la responsabilité du propriétaire. Encadrement professionnel obligatoire avant toute reprise au troupeau."
+  },
+
+  diag_grip_defensif: {
+    type: 'diagnosis',
+    label: "Grip défensif face à brebis résistante",
+    explication: "<p>Le chien ne mord pas en course, ni de façon désinhibée. Il pince — souvent au nez ou à l'épaule — uniquement quand une brebis lui tient tête, refuse de bouger, ou le confronte. C'est une réponse pragmatique face à une résistance qu'il ne sait pas autrement gérer.</p><p>Chez un chien adulte expérimenté, ce comportement peut être acceptable et même recherché (en bouverie notamment). Chez un chiot en formation, il indique surtout qu'on l'a placé dans une situation qu'il ne maîtrise pas encore — face à des brebis trop confrontantes pour son niveau d'expérience.</p>",
+    objectif: "Donner au chien d'autres outils que la pince pour gérer la résistance — la posture, l'œil, la pression maîtrisée.",
+    exercices: {
+      seance: "Travail de la posture corporelle hors troupeau (face-à-face avec une personne qui ne bouge pas, attente, récompense de la fixation calme sans escalade).",
+      quotidien: "Multiplier les situations où le chien doit attendre sans agir (devant une porte, devant un autre chien, devant une distraction). Renforcer toute attente calme.",
+      travail: "Travailler avec des brebis plus confiantes mais non confrontantes — qui bougent suffisamment pour ne pas pousser au grip. Augmenter progressivement la résistance des brebis à mesure que le chien gagne en outils. Avec un berger, intervenir physiquement à la place du chien si une brebis résiste, pour montrer que la pince n'est pas la seule réponse."
+    },
+    ressources: { phase1: null, phase3: "Cadre Rugaas (signaux d'apaisement)" }
+  },
+
+  diag_oeil_excessif: {
+    type: 'diagnosis',
+    label: "Œil bloqué — scotché au travail",
+    explication: "<p>Le chien fixe intensément le troupeau et reste figé. La phase d'œil sature et bloque la transition vers l'approche. Signature du profil <strong>scotché</strong> de la Phase 1. C'est un profil souvent prometteur (l'œil est marqué, base solide pour un futur chien de regard) mais où l'engagement physique manque.</p><p>Insister frontalement ou gronder aggrave systématiquement la situation — le chien augmente sa fixation au lieu de bouger. La clé est dans le mouvement du berger, pas dans la pression sur le chien.</p>",
+    objectif: "Débloquer la transition œil → approche par le mouvement du berger et par des stimulations latérales, plutôt que par la pression frontale.",
+    exercices: {
+      seance: "Travail de marche au pied à côté d'éléments fixes qui captent l'attention (objet posé au sol, autre chien à distance). Récompenser chaque pas fait pendant que le regard est encore fixé sur la distraction. L'idée : on peut regarder ET avancer.",
+      quotidien: "Promenades actives où le berger varie souvent de direction et de rythme. Le chien doit garder un œil sur lui tout en bougeant. Renforcer la connexion regard-mouvement.",
+      travail: "Au troupeau, le berger se déplace latéralement par rapport au chien plutôt que de pousser frontalement. Récompenser chaud chaque pas en avant, même minime. Séances courtes pour ne pas saturer la fixation."
+    },
+    ressources: { phase1: "Profil Scotché", phase3: "Cadre Donaldson (conditionnement opérant)" }
+  },
+
+  diag_evitement_pression: {
+    type: 'diagnosis',
+    label: "Évitement par pression — frein à distance",
+    explication: "<p>Le chien s'oriente vers le troupeau, peut amorcer une approche, mais s'arrête net à une distance qui semble être son seuil de confort. Comme s'il y avait un mur invisible. Ce n'est pas un blocage par œil excessif (la fixation n'est pas saturée), c'est un évitement émotionnel : la proximité du troupeau le met mal à l'aise.</p><p>Cause fréquente : une expérience antérieure désagréable (un coup de corne, un berger qui pousse trop fort, un troupeau intimidant), ou un chien qui n'a pas eu la maturation comportementale suffisante pour gérer cette proximité.</p>",
+    objectif: "Reconstruire la confiance du chien dans la proximité du troupeau, à son rythme, sans franchir le seuil qui le bloque.",
+    exercices: {
+      seance: "Travailler à des distances confortables pour le chien autour d'objets stimulants (cônes, peluches) avec récompense de l'approche progressive.",
+      quotidien: "Désensibiliser à des éléments du contexte agricole hors travail : odeurs de bergerie, sons de brebis enregistrés, présence calme près des bâtiments. Tout doit être associé à du positif (jeu, friandise).",
+      travail: "Reprendre au troupeau avec des brebis à très grande distance, dans un espace confortable pour le chien. Récompenser tout pas vers le troupeau. Ne jamais pousser le chien au-delà de son seuil — laisser le mouvement venir de lui."
+    },
+    ressources: { phase1: "Profil Scotché", phase3: "Cadre Dehasse (besoins primaires)" }
+  },
+
+  diag_signaux_apaisement: {
+    type: 'diagnosis',
+    label: "Désengagement par signaux d'apaisement",
+    explication: "<p>Le chien interrompt le travail pour renifler le sol, se lécher, bâiller, faire autre chose. Pour un observateur non averti, cela ressemble à de la désobéissance. Pour <strong>Turid Rugaas</strong>, ce sont des <em>signaux d'apaisement</em> : le chien vous dit qu'il sature, qu'il a besoin de défuser une tension, qu'il vous demande gentiment d'arrêter ou de baisser la pression.</p><p>La dérive n'est pas du côté du chien — elle est dans la conduite. Insister maintenant transforme un chiot saturé en chiot qui apprend que ses signaux ne sont pas entendus. À terme, il arrêtera de les émettre et passera directement aux signaux plus durs (grognement, fuite, blocage).</p>",
+    objectif: "Apprendre à lire les signaux d'apaisement et adapter l'intensité de travail en conséquence. Le bon formateur n'est pas celui qui pousse, c'est celui qui sait s'arrêter au bon moment.",
+    exercices: {
+      seance: "Vidéo de ses propres séances pour repérer après coup les signaux qui ont été ignorés. Travail de l'observation : lister les signaux émis pendant une séance et compter le décalage avec sa propre réaction.",
+      quotidien: "Apprendre à voir les signaux dans tous les contextes (visite à la maison, chez le vétérinaire, en promenade). Le chien parle constamment — il faut juste apprendre à entendre.",
+      travail: "Séances courtes (5 minutes) avec arrêt dès qu'un premier signal apparaît. Récompenser le chien d'avoir signalé. À terme, le seuil de saturation recule parce que le chien sait qu'on l'écoute."
+    },
+    ressources: { phase1: null, phase3: "Cadre Rugaas (signaux d'apaisement)" }
+  },
+
+  diag_sur_arousal_travail: {
+    type: 'diagnosis',
+    label: "Désobéissance par sur-arousal",
+    explication: "<p>Le chien connaît parfaitement les ordres en dehors du troupeau — couché, rappel, stop. Mais au troupeau, c'est comme s'il devenait sourd. Ce n'est pas de la désobéissance volontaire : c'est un état physiologique appelé <strong>sur-arousal</strong>. À un certain niveau d'excitation, le cerveau du chien bascule en mode prédateur pur et la capacité d'écoute s'effondre.</p><p>Sermonner ne sert à rien — il n'enregistre pas. Augmenter le ton et la pression aggrave le sur-arousal. La solution est de travailler en amont, sur la régulation émotionnelle, pour que le chien ne dépasse pas son seuil d'arousal pendant le travail.</p>",
+    objectif: "Baisser le niveau d'arousal pendant le travail pour ramener le chien dans une fenêtre d'écoute. Travailler le contrôle dans la durée, pas seulement au repos.",
+    exercices: {
+      seance: "Travail des ordres dans des contextes progressivement plus excitants : maison calme → cour avec distractions → terrain avec autres chiens → terrain proche du troupeau. Ne jamais travailler dans un contexte au-delà de la fenêtre d'écoute.",
+      quotidien: "Exercices de régulation émotionnelle : protocole de retour au calme après excitation (5 minutes de jeu actif, puis demande de couché tenu). Le chien apprend à descendre du sur-régime sur demande.",
+      travail: "Présentations brèves au troupeau avec demande immédiate d'arrêt avant que l'arousal monte trop. Récompenser chaque retour au calme. Sortir du troupeau avant le point de bascule. La séance reprend après une pause."
+    },
+    ressources: { phase1: "Profil Poursuivant", phase3: "Cadre Donaldson (conditionnement opérant)" }
+  },
+
+  diag_aboi_frustration: {
+    type: 'diagnosis',
+    label: "Aboiements de frustration au travail",
+    explication: "<p>Le chien aboie en travaillant — souvent quand il ne sait pas quoi faire, quand le troupeau s'arrête, ou quand il rencontre une résistance. L'aboiement est ici une <strong>réponse de frustration</strong> : le chien a une attente (un mouvement, une réussite) qui ne se produit pas, et il décharge cette tension par la voix.</p><p>Chez certaines races de troupeau (chiens de bouverie, beaucerons, Cardigan), l'aboiement est même utilisé pour déplacer les bêtes. Chez le border collie, ce n'est pas du tout l'outil attendu : un BC qui aboie au travail est un BC qui n'a pas trouvé son mode de communication avec le troupeau.</p>",
+    objectif: "Donner au chien des outils plus efficaces que l'aboiement pour gérer les situations qui le frustrent — la posture, le déplacement maîtrisé, l'attente patiente.",
+    exercices: {
+      seance: "Renforcer le silence : récompenser systématiquement le chien quand il fait une demande sans aboyer (regarder, se positionner). Apprendre un signal de « stop bruit » associé à un comportement alternatif.",
+      quotidien: "Travailler la gestion de la frustration : exercices d'attente devant la porte, devant la gamelle, devant un jouet. Le chien apprend que l'attente calme est plus efficace que l'agitation.",
+      travail: "Quand l'aboiement démarre, sortir du travail pendant 30 secondes. Le chien associe son aboiement à une perte de l'accès au troupeau. Reprendre calmement. Récompenser chaque temps de travail silencieux."
+    },
+    ressources: { phase1: null, phase3: "Cadre Donaldson (conditionnement opérant)" }
+  },
+
+  // ====================================================================
+  // DIAGNOSTICS — QUOTIDIEN
+  // ====================================================================
+
+  diag_hyperactivite: {
+    type: 'diagnosis',
+    label: "Hyperactivité chronique",
+    explication: "<p>Le chien ne se calme jamais : il bouge, sollicite, mendie une activité, ne sait pas se poser. À première vue on conclut « il manque d'exercice ». En réalité, augmenter la dépense physique ne règle souvent rien — le chien gagne en endurance et continue à demander plus.</p><p>Pour <strong>Joël Dehasse</strong>, l'hyperactivité chronique signe presque toujours un <em>déséquilibre des besoins primaires</em>. Pas un manque de dépense physique, mais un manque de stimulation cognitive, olfactive, ou sociale — ou simplement de sommeil de qualité. Un chien hyperactif est souvent un chien qui ne sait pas se reposer parce qu'on lui a appris à être en demande permanente.</p>",
+    objectif: "Restaurer un équilibre dans les besoins primaires du chien — pas augmenter la dépense, mais varier les stimulations et apprendre le repos actif.",
+    exercices: {
+      seance: "Apprendre le « tapis de calme » : un endroit dédié où le chien apprend à se poser, sur demande, avec récompense différée. 5 minutes par jour, augmenté progressivement à 15-20 minutes.",
+      quotidien: "Faire l'audit de la roue des besoins (voir Phase 3, Dehasse) : combien d'heures de sommeil ? Combien de minutes de reniflage en promenade ? D'interaction avec d'autres chiens ? De mastication ? Combler le besoin manquant en priorité.",
+      travail: "Si le travail au troupeau est la principale soupape, c'est probablement insuffisant. Compléter par du nez (recherche d'odeurs), de la mastication (os naturels, racines), et des interactions chien-chien régulières et structurées."
+    },
+    ressources: { phase1: null, phase3: "Cadre Dehasse (besoins primaires)" }
+  },
+
+  diag_reactivite_chiens: {
+    type: 'diagnosis',
+    label: "Réactivité face aux autres chiens",
+    explication: "<p>Le chien aboie, charge, tire sur la laisse, voire mord à l'approche d'autres chiens. La réactivité interspécifique peut avoir plusieurs origines : socialisation déficitaire en période sensible (3-12 semaines), expériences négatives répétées, frustration de ne pas pouvoir interagir librement, ou anxiété généralisée.</p><p>C'est une dérive complexe parce qu'elle peut sembler agressive alors qu'elle est souvent défensive ou frustrée. Identifier la vraie nature (peur ? frustration ? prédation ?) est la première étape.</p>",
+    objectif: "Désensibiliser le chien à la présence d'autres chiens en travaillant sous son seuil de déclenchement, et lui apprendre une réponse alternative à la charge ou à l'aboiement.",
+    exercices: {
+      seance: "Travail de désensibilisation systématique : repérer la distance à laquelle le chien voit un autre chien sans réagir, puis travailler à cette distance avec récompense forte. Réduire la distance graduellement sur plusieurs semaines.",
+      quotidien: "Éviter les rencontres mal préparées (rues étroites, situations de surprise). Choisir des promenades avec visibilité. Pas de contact forcé avec d'autres chiens.",
+      travail: "Au troupeau, si la présence d'autres chiens (chiens de garde, chiens de famille du berger) déclenche la réactivité, travailler en présence du chien à distance graduellement réduite, avec récompense forte de l'ignorance."
+    },
+    ressources: { phase1: null, phase3: "Cadre Donaldson (conditionnement opérant)" }
+  },
+
+  diag_anxiete_separation: {
+    type: 'diagnosis',
+    label: "Anxiété de séparation",
+    explication: "<p>Le chien laissé seul détruit, vocalise, devient malpropre, refuse de manger. L'anxiété de séparation est une dérive émotionnelle profonde — le chien vit le départ de son humain comme une catastrophe imminente. Ce n'est pas de la mauvaise éducation, c'est une vraie souffrance.</p><p>Pour <strong>Joël Dehasse</strong>, c'est souvent lié à un attachement insuffisamment travaillé en jeunesse : le chien n'a pas appris à gérer l'absence comme une situation normale et temporaire. Le sevrage relationnel est aussi important que le sevrage alimentaire.</p>",
+    objectif: "Reconstruire une autonomie émotionnelle du chien face à l'absence — apprendre que les départs sont normaux, prédictibles, et toujours suivis d'un retour.",
+    exercices: {
+      seance: "Protocole de désensibilisation aux départs : sortir de la pièce pendant 5 secondes, revenir, ignorer, recommencer. Augmenter progressivement la durée. Le chien doit cesser de marquer le départ comme un événement.",
+      quotidien: "Ne plus marquer les départs et les retours par de grandes effusions — les rendre triviaux. Le chien doit apprendre que ces moments sont sans importance émotionnelle.",
+      travail: "Au troupeau, pas d'impact direct, mais un chien anxieux apporte sa charge émotionnelle au travail : moins de disponibilité psychique, plus de risque de saturation. Traiter l'anxiété en parallèle du travail."
+    },
+    ressources: { phase1: null, phase3: "Cadre Dehasse (besoins primaires)" }
+  },
+
+  diag_compulsion: {
+    type: 'diagnosis',
+    label: "Comportement compulsif",
+    explication: "<p>Le chien poursuit la lumière, sa queue, son ombre, ou répète un comportement de façon stéréotypée et incontrôlable. Les comportements compulsifs sont une dérive sérieuse — ils signent souvent un état d'anxiété chronique ou une privation longue de besoins essentiels.</p><p>Ils sont aussi auto-renforçants : le comportement répétitif libère des endorphines qui apaisent momentanément le chien, ce qui renforce le besoin de le répéter. Une vraie addiction comportementale.</p>",
+    objectif: "Identifier et traiter la cause sous-jacente (anxiété, besoins non comblés), puis interrompre la boucle de répétition avec un comportement alternatif.",
+    exercices: {
+      seance: "Travail d'enrichissement cognitif : jouets distributeurs, tapis de fouille, recherche d'odeurs. Donner au cerveau du chien quelque chose à faire qui n'est pas le comportement compulsif.",
+      quotidien: "Audit complet des besoins : exercice ? Stimulations ? Sommeil ? Interactions ? Souvent un déficit dans plusieurs domaines. Possibilité d'un accompagnement vétérinaire comportementaliste si la compulsion est installée.",
+      travail: "Si la compulsion apparaît au travail (poursuite d'ombre dans la cour, fixation d'un point), considérer que le chien n'est pas en état de travailler ce jour-là. Sortir du contexte, revenir quand il est disponible."
+    },
+    ressources: { phase1: null, phase3: "Cadre Dehasse (besoins primaires)" },
+    safety: "Si les comportements compulsifs sont installés depuis longtemps, consulter un vétérinaire comportementaliste — il s'agit d'une dérive qui peut nécessiter un accompagnement médical."
+  },
+
+  // ====================================================================
+  // DIAGNOSTICS — DRESSAGE
+  // ====================================================================
+
+  diag_apprentissage_lent: {
+    type: 'diagnosis',
+    label: "Apprentissage lent — le chien n'enregistre pas",
+    explication: "<p>Le chien semble ne pas comprendre ce qu'on lui demande malgré la répétition. Avant de conclure à une limite cognitive, il faut interroger la <strong>mécanique du conditionnement</strong> : la récompense est-elle suffisamment motivante ? Le timing est-il bon (récompense dans la seconde après le comportement) ? Le critère est-il clair (le chien sait-il précisément ce qu'on récompense) ?</p><p>Pour <strong>Jean Donaldson</strong>, neuf échecs sur dix viennent du dressage, pas du chien. Si l'apprentissage ne se fait pas, c'est presque toujours qu'un de ces paramètres n'est pas calibré.</p>",
+    objectif: "Auditer et recaler les trois piliers de l'apprentissage : valeur de la récompense, précision du timing, clarté du critère.",
+    exercices: {
+      seance: "Tester la valeur de la récompense : si le chien refuse une friandise dans le contexte de travail, c'est qu'elle n'est pas assez attractive. Monter en valeur (saucisson, fromage, jouet). Le chien doit vouloir la récompense plus que tout le reste.",
+      quotidien: "Travailler le timing : exercice de marquer un comportement très précis (par exemple : assis dès que les fesses touchent le sol) avec un clicker ou un marqueur verbal sec. 30 répétitions par jour, en 2-3 sessions courtes.",
+      travail: "Au troupeau, attendre que les bases hors troupeau soient solides avant de demander des comportements complexes. Un chien qui n'enregistre pas en contexte calme n'enregistrera certainement pas dans un contexte stimulant."
+    },
+    ressources: { phase1: null, phase3: "Cadre Donaldson (conditionnement opérant)" }
+  },
+
+  diag_sur_arousal_seance: {
+    type: 'diagnosis',
+    label: "Sur-arousal en séance d'éducation",
+    explication: "<p>Le chien est tellement excité en séance qu'il ne peut pas réfléchir ni écouter. Il anticipe, tourne, vocalise, propose tous les comportements possibles en même temps. C'est typique des chiens à fort drive (border collie en particulier) chez qui la séance d'éducation devient un événement à haute valeur.</p><p>L'erreur classique est de penser que c'est de l'enthousiasme et donc une bonne chose. En réalité, à ce niveau d'arousal, le chien n'apprend rien — il déclenche par habitude, pas par compréhension.</p>",
+    objectif: "Baisser le niveau d'arousal en séance pour ramener le chien dans une zone d'apprentissage.",
+    exercices: {
+      seance: "Démarrer chaque séance par 1-2 minutes de calme actif : couché, attente, friandise délivrée lentement. Le chien apprend que la séance commence en mode calme, pas en mode survolté.",
+      quotidien: "Travailler la frustration positive : attendre devant la gamelle, devant une porte, devant un jouet. Le chien apprend à différer la satisfaction et à rester réfléchi en présence de stimulations.",
+      travail: "Si même hors troupeau le sur-arousal est problématique, le travail au troupeau le sera encore plus. Régler les bases d'auto-contrôle avant de chercher la performance au troupeau."
+    },
+    ressources: { phase1: "Profil Poursuivant", phase3: "Cadre Donaldson (conditionnement opérant)" }
+  },
+
+  diag_demission: {
+    type: 'diagnosis',
+    label: "Démission — le chien s'éteint en séance",
+    explication: "<p>Le chien se désengage de la séance : il bâille, s'éloigne, refuse les propositions, finit par se coucher passivement. C'est un signal fort de saturation ou de désespoir appris — le chien a essayé, n'a pas obtenu de retour clair, et finit par renoncer.</p><p>Souvent associé à des séances trop longues, à un critère trop élevé pour le niveau du chien, ou à un usage du « non » et de la correction qui décourage les tentatives. Pour <strong>Jean Donaldson</strong>, c'est l'antithèse de l'apprentissage positif : le chien apprend qu'il vaut mieux ne rien faire que d'essayer.</p>",
+    objectif: "Restaurer l'envie d'essayer chez le chien en baissant fortement le critère et en renforçant chaque tentative, même imparfaite.",
+    exercices: {
+      seance: "Séances très courtes (2-3 minutes) avec critère très bas et récompense massive de toute tentative. Faire de l'apprentissage un jeu où le chien gagne presque tout le temps. Arrêter avant que le chien ne sature.",
+      quotidien: "Pas de correction verbale ou physique dans les contextes d'apprentissage. Le « non » est temporairement banni — on ignore les erreurs et on récompense les bonnes propositions.",
+      travail: "Si la démission apparaît au troupeau, c'est probablement le signe d'un travail trop pousseur ou d'un troupeau trop intimidant. Reprendre dans des conditions très favorables (brebis calmes, séance courte, récompense facile)."
+    },
+    ressources: { phase1: "Profil Peu d'intérêt", phase3: "Cadre Rugaas (signaux d'apaisement)" }
+  }
+
+};
+
+/* ====================================================================
+   ÉTAT ET RENDU
+   ==================================================================== */
+
+let history = [{ node: 'start', via: null }];
+
+function currentNode() {
+  return TREE[history[history.length - 1].node];
+}
+
+function go(nodeId, optionLabel) {
+  history.push({ node: nodeId, via: optionLabel });
+  render();
+  window.scrollTo({ top: document.querySelector('.tool').offsetTop - 32, behavior: 'smooth' });
+}
+
+function back() {
+  if (history.length > 1) {
+    history.pop();
+    render();
+  }
+}
+
+function reset() {
+  history = [{ node: 'start', via: null }];
+  render();
+}
+
+function render() {
+  const node = currentNode();
+  const stepNum = history.length;
+
+  // Step counter
+  document.getElementById('step-count').textContent =
+    node.type === 'diagnosis' ? 'Diagnostic' : 'Étape ' + stepNum;
+
+  // Breadcrumb
+  const breadcrumbEl = document.getElementById('breadcrumb');
+  if (history.length > 1) {
+    const trail = history
+      .filter(h => h.via)
+      .map(h => '<span class="breadcrumb-step">' + h.via + '</span>')
+      .join('');
+    breadcrumbEl.innerHTML = trail;
+    breadcrumbEl.style.display = 'block';
+  } else {
+    breadcrumbEl.style.display = 'none';
+  }
+
+  // Main area
+  if (node.type === 'question') {
+    renderQuestion(node);
+  } else {
+    renderDiagnosis(node);
+  }
+
+  // Controls
+  document.getElementById('back-btn').disabled = history.length <= 1;
+}
+
+function renderQuestion(node) {
+  const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+  const optionsHtml = node.options.map((opt, i) =>
+    '<button class="option-btn" onclick="go(\'' + opt.next + '\', \'' + escapeAttr(opt.label) + '\')">'
+      + '<span class="option-letter">' + letters[i] + '</span>'
+      + '<span class="option-text">' + opt.label + '</span>'
+    + '</button>'
+  ).join('');
+
+  document.getElementById('main-area').innerHTML =
+    '<div class="question-card">'
+      + '<div class="question-text">' + node.question + '</div>'
+      + '<div class="options">' + optionsHtml + '</div>'
+    + '</div>';
+}
+
+function renderDiagnosis(node) {
+  const safetyHtml = node.safety
+    ? '<div class="safety-alert">'
+      + '<div class="safety-icon">!</div>'
+      + '<div>'
+        + '<div class="safety-title">Point de vigilance</div>'
+        + '<div class="safety-body">' + node.safety + '</div>'
+      + '</div>'
+    + '</div>'
+    : '';
+
+  const ressourcesItems = [];
+  if (node.ressources && node.ressources.phase1) {
+    ressourcesItems.push(
+      '<a class="ressource-link" href="phase-1-lecture.html">'
+        + '<span class="ressource-link-tag">Phase 1</span>'
+        + '<span>' + node.ressources.phase1 + '</span>'
+      + '</a>'
+    );
+  }
+  if (node.ressources && node.ressources.phase3) {
+    ressourcesItems.push(
+      '<a class="ressource-link" href="phase-3-cadres.html">'
+        + '<span class="ressource-link-tag">Phase 3</span>'
+        + '<span>' + node.ressources.phase3 + '</span>'
+      + '</a>'
+    );
+  }
+  const ressourcesHtml = ressourcesItems.length
+    ? '<div class="ressources">'
+      + '<div class="ressources-tag">Pour approfondir</div>'
+      + '<div class="ressources-list">' + ressourcesItems.join('') + '</div>'
+    + '</div>'
+    : '';
+
+  document.getElementById('main-area').innerHTML =
+    safetyHtml
+    + '<div class="diagnosis-card">'
+      + '<div class="diag-tag">Diagnostic</div>'
+      + '<div class="diag-name">' + node.label + '</div>'
+      + '<div class="diag-explication">' + node.explication + '</div>'
+    + '</div>'
+    + '<div class="objectif-card">'
+      + '<div class="objectif-tag">Objectif</div>'
+      + '<div class="objectif-text">' + node.objectif + '</div>'
+    + '</div>'
+    + '<div class="exercises-head">Plan en trois exercices</div>'
+    + '<div class="exercises">'
+      + exerciseCard('I', "En séance", node.exercices.seance)
+      + exerciseCard('II', "Au quotidien", node.exercices.quotidien)
+      + exerciseCard('III', "Au troupeau", node.exercices.travail)
+    + '</div>'
+    + ressourcesHtml;
+}
+
+function exerciseCard(num, title, body) {
+  return '<div class="exercise">'
+    + '<div class="ex-head">'
+      + '<span class="ex-num">' + num + '</span>'
+      + '<span class="ex-title">' + title + '</span>'
+    + '</div>'
+    + '<div class="ex-body">' + body + '</div>'
+  + '</div>';
+}
+
+function escapeAttr(s) {
+  return s.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+}
+
+document.getElementById('back-btn').addEventListener('click', back);
+document.getElementById('restart-btn').addEventListener('click', reset);
+
+render();
+</script>
+
+</body>
+</html>
