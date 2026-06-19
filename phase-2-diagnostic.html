@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnostic comportemental du chiot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ====================================================================
+   Design system — cadres pédagogiques chien de troupeau
+   Charte commune aux trois phases (lecture, diagnostic, cadres)
+   ==================================================================== */
+
+:root {
+  --bg: #F1ECDE;
+  --surface: #F8F4E8;
+  --surface-hi: #FCFAF3;
+  --text: #1F2D1F;
+  --text-muted: #5A5F4E;
+  --text-light: #837E6E;
+  --border: #C9C0A3;
+  --border-soft: #DCD3B8;
+  --accent: #8B6F2A;
+  --accent-strong: #6B5320;
+
+  --zone-vert: #4A7C1F;
+  --zone-amber: #B5832D;
+  --zone-rouge: #9C3F2E;
+
+  --p-equilibre: #4A6741;
+  --p-equilibre-bg: #E4EAD7;
+  --p-scotche: #4F5C73;
+  --p-scotche-bg: #DDE2EA;
+  --p-poursuivant: #B5832D;
+  --p-poursuivant-bg: #F2E5C9;
+  --p-mordeur: #9C3F2E;
+  --p-mordeur-bg: #ECCEC4;
+  --p-peuint: #6E6555;
+  --p-peuint-bg: #E2DCC9;
+
+  --r-rugaas: #3D7374;
+  --r-rugaas-bg: #DEE9EA;
+  --r-donaldson: #A0612F;
+  --r-donaldson-bg: #F2E1CC;
+  --r-dehasse: #5E7E32;
+  --r-dehasse-bg: #E2EBD0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 32px 32px 80px;
+}
+
+/* ===== HEADER ===== */
+.brand {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+
+.phase-nav {
+  display: flex;
+  gap: 28px;
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+}
+
+.phase-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--text-light);
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+
+.phase-link:hover { color: var(--text); }
+.phase-link.active { color: var(--accent); font-weight: 500; cursor: default; }
+
+.phase-num {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 500;
+  font-size: 13.5px;
+  color: var(--text-light);
+  transition: color 0.15s;
+}
+
+.phase-link:hover .phase-num { color: var(--text-muted); }
+.phase-link.active .phase-num { color: var(--accent); }
+
+.phase-arrow {
+  font-size: 11px;
+  margin-left: 2px;
+  opacity: 0.6;
+}
+
+/* ===== TITLE ===== */
+.title-block { margin-bottom: 56px; }
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+h1 {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 400;
+  font-size: 18px;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.intro {
+  font-size: 15.5px;
+  color: var(--text-muted);
+  max-width: 620px;
+  line-height: 1.65;
+}
+
+.intro + .intro { margin-top: 12px; }
+
+/* ===== SECTIONS ===== */
+.section { margin-bottom: 56px; }
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.section-num {
+  font-family: 'Source Serif 4', serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.section-title {
+  font-family: 'Source Serif 4', serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+.section-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.lede {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text);
+  margin-bottom: 24px;
+  max-width: 720px;
+}
+
+.lede + .lede { margin-top: 0; }
+
+/* ===== OBSERVATION (Phase 2 — rulers) ===== */
+.observation-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 32px;
+}
+
+.obs {
+  display: grid;
+  grid-template-columns: 96px 1fr 24px;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 0 11px 14px;
+  border-left: 3px solid;
+}
+
+.obs.zv { border-left-color: var(--zone-vert); }
+.obs.za { border-left-color: var(--zone-amber); }
+.obs.zr { border-left-color: var(--zone-rouge); }
+
+.obs-name { font-size: 14px; font-weight: 500; line-height: 1.2; }
+.obs-hint { font-size: 11.5px; color: var(--text-light); line-height: 1.3; margin-top: 2px; }
+
+.ruler { position: relative; height: 28px; }
+
+.ruler input[type="range"] {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 28px;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  cursor: pointer;
+}
+
+.ruler input[type="range"]:focus { outline: none; }
+
+.ruler input[type="range"]::-webkit-slider-runnable-track {
+  height: 1.5px;
+  background: var(--border);
+}
+
+.ruler input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 3px;
+  height: 22px;
+  background: var(--accent-strong);
+  border-radius: 0;
+  margin-top: -10.5px;
+  transition: background 0.15s;
+}
+
+.ruler input[type="range"]:hover::-webkit-slider-thumb,
+.ruler input[type="range"]:focus::-webkit-slider-thumb { background: var(--accent); }
+
+.ruler input[type="range"]::-moz-range-track { height: 1.5px; background: var(--border); }
+.ruler input[type="range"]::-moz-range-thumb { width: 3px; height: 22px; background: var(--accent-strong); border: none; border-radius: 0; cursor: pointer; }
+
+.ticks {
+  position: absolute;
+  top: 9px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.tick { width: 1px; height: 7px; background: var(--border); }
+.tick.major { background: var(--text-light); height: 9px; }
+
+.obs-value {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-strong);
+}
+
+/* ===== ZONE LEGEND ===== */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.legend-item { display: flex; align-items: center; gap: 8px; }
+.legend-swatch { width: 18px; height: 3px; }
+
+/* ===== CORRESPONDANCES (Phase 2) ===== */
+.bars { display: flex; flex-direction: column; gap: 14px; }
+
+.bar {
+  display: grid;
+  grid-template-columns: 130px 1fr 48px;
+  align-items: center;
+  gap: 16px;
+}
+
+.bar-name { font-size: 14px; color: var(--text-muted); transition: all 0.15s; }
+.bar.dominant .bar-name { color: var(--text); font-weight: 500; }
+
+.bar-track {
+  height: 3px;
+  background: var(--border-soft);
+  overflow: hidden;
+}
+
+.bar-fill { height: 100%; transition: width 0.25s ease-out; }
+
+.bar-pct {
+  font-size: 14px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.bar.dominant .bar-pct { color: var(--text); font-weight: 500; }
+
+/* ===== ALERT ===== */
+.alert {
+  background: var(--p-mordeur-bg);
+  border-left: 3px solid var(--p-mordeur);
+  padding: 18px 22px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.alert-icon {
+  font-family: 'Source Serif 4', serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--p-mordeur);
+  line-height: 1;
+  margin-top: 1px;
+  text-align: center;
+}
+
+.alert-title {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--p-mordeur);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.alert-body { font-size: 14px; color: var(--text); line-height: 1.55; }
+
+/* ===== PROFILE CARD ===== */
+.profile-card {
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  border-left: 4px solid;
+}
+
+.profile-tag {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.profile-name {
+  font-family: 'Source Serif 4', serif;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin-bottom: 8px;
+}
+
+.profile-accroche {
+  font-family: 'Source Serif 4', serif;
+  font-size: 17px;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* ===== SOLUTIONS GRID ===== */
+.solutions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.solution {
+  background: var(--surface-hi);
+  border: 1px solid var(--border-soft);
+  padding: 18px 20px;
+}
+
+.solution-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.solution-num {
+  font-family: 'Source Serif 4', serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+
+.solution-title {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.solution-body { font-size: 13.5px; line-height: 1.55; color: var(--text); }
+
+/* ===== ALGO PANEL ===== */
+.algo {
+  margin-top: 56px;
+  padding: 22px 26px;
+  background: var(--surface);
+  border-left: 3px solid var(--border);
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.algo summary {
+  cursor: pointer;
+  font-family: 'Source Serif 4', serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  list-style: none;
+}
+
+.algo summary::-webkit-details-marker { display: none; }
+.algo summary::before { content: '+'; display: inline-block; margin-right: 10px; color: var(--accent); font-weight: 500; }
+.algo[open] summary::before { content: '−'; }
+.algo[open] summary { margin-bottom: 14px; }
+
+.algo p { margin-bottom: 10px; }
+.algo p:last-child { margin-bottom: 0; }
+
+.algo code {
+  font-family: 'Source Serif 4', serif;
+  font-style: italic;
+  color: var(--text);
+}
+
+/* ===== FOOTER ===== */
+.foot {
+  margin-top: 64px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-light);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.foot-link {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.foot-link:hover { border-bottom-color: var(--accent); color: var(--accent-strong); }
+
+/* ====================================================================
+   PHASE 1 — Séquence prédatrice interactive
+   ==================================================================== */
+
+.profile-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  background: var(--surface);
+  padding: 6px;
+  margin-bottom: 28px;
+  border: 1px solid var(--border-soft);
+}
+
+.profile-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 11px 14px;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  letter-spacing: 0.01em;
+  position: relative;
+}
+
+.profile-btn:hover { color: var(--text); background: var(--surface-hi); }
+
+.profile-btn.active {
+  color: var(--text);
+  background: var(--bg);
+  box-shadow: 0 1px 0 var(--accent) inset, 0 -1px 0 var(--border) inset;
+}
+
+.profile-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: currentColor;
+}
+
+/* Sequence visualization */
+.sequence-viz {
+  background: var(--surface);
+  padding: 32px 28px 22px;
+  margin-bottom: 36px;
+  border: 1px solid var(--border-soft);
+}
+
+.viz-zones {
+  display: grid;
+  grid-template-columns: 3fr 1fr 4fr;
+  gap: 0;
+  margin-bottom: 8px;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.viz-zone { text-align: center; padding: 4px 0; position: relative; }
+.viz-zone.zv { color: var(--zone-vert); border-bottom: 2px solid var(--zone-vert); }
+.viz-zone.za { color: var(--zone-amber); border-bottom: 2px solid var(--zone-amber); }
+.viz-zone.zr { color: var(--zone-rouge); border-bottom: 2px solid var(--zone-rouge); }
+
+.viz-stations {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0;
+  align-items: end;
+  height: 180px;
+  padding-top: 12px;
+  position: relative;
+}
+
+.viz-baseline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 36px;
+  height: 1px;
+  background: var(--border);
+  z-index: 1;
+}
+
+.station {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  height: 100%;
+}
+
+.station-bar {
+  width: 22px;
+  background: var(--zone-vert);
+  margin-bottom: 36px;
+  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s;
+  position: relative;
+  z-index: 2;
+  min-height: 2px;
+}
+
+.station.za .station-bar { background: var(--zone-amber); }
+.station.zr .station-bar { background: var(--zone-rouge); }
+
+.station-value {
+  position: absolute;
+  bottom: 40px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.station:hover .station-value { opacity: 1; }
+.station.has-value .station-value { opacity: 1; }
+
+.station-label {
+  position: absolute;
+  bottom: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1.1;
+}
+
+.station-hint {
+  position: absolute;
+  bottom: 0;
+  font-size: 9.5px;
+  color: var(--text-light);
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.viz-threshold {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 36px;
+  width: 1px;
+  background: var(--border);
+  border-left: 1px dashed var(--zone-rouge);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.viz-threshold-label {
+  position: absolute;
+  left: 50%;
+  top: -4px;
+  transform: translateX(-50%);
+  background: var(--surface);
+  padding: 0 8px;
+  font-size: 9.5px;
+  font-style: italic;
+  color: var(--zone-rouge);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+/* Constat block (Phase 1 profile) */
+.constat {
+  background: var(--surface-hi);
+  border-left: 3px solid var(--accent);
+  padding: 18px 24px;
+  margin-bottom: 24px;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+.constat-tag {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+/* Five-rubrique grid for Phase 1 */
+.rubriques {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.rubrique {
+  background: var(--surface-hi);
+  border: 1px solid var(--border-soft);
+  padding: 16px 18px;
+}
+
+.rubrique-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.rubrique-num {
+  font-family: 'Source Serif 4', serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+
+.rubrique-title {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.rubrique-body { font-size: 13.5px; line-height: 1.55; }
+
+/* ====================================================================
+   PHASE 3 — Cadres pédagogiques
+   ==================================================================== */
+
+.approach-nav {
+  display: flex;
+  gap: 0;
+  margin-bottom: 36px;
+  border-bottom: 1px solid var(--border);
+}
+
+.approach-tab {
+  flex: 1;
+  padding: 18px 22px 16px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.18s;
+  color: var(--text-muted);
+}
+
+.approach-tab:hover { color: var(--text); background: var(--surface); }
+
+.approach-tab .tab-name {
+  display: block;
+  font-family: 'Source Serif 4', serif;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.approach-tab .tab-sub {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  font-style: italic;
+}
+
+.approach-tab.active {
+  color: var(--text);
+  border-bottom-color: currentColor;
+}
+
+.approach-tab.t-rugaas.active { color: var(--r-rugaas); }
+.approach-tab.t-donaldson.active { color: var(--r-donaldson); }
+.approach-tab.t-dehasse.active { color: var(--r-dehasse); }
+
+.approach-content {
+  display: none;
+}
+
+.approach-content.active {
+  display: block;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.approach-intro p {
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 14px;
+  color: var(--text);
+}
+
+.approach-intro p:last-child { margin-bottom: 0; }
+
+.example-card {
+  padding: 22px 26px;
+  margin: 28px 0;
+  border-left: 4px solid;
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+
+.example-tag {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.tr .example-card { background: var(--r-rugaas-bg); border-left-color: var(--r-rugaas); }
+.tr .example-tag { color: var(--r-rugaas); }
+.td .example-card { background: var(--r-donaldson-bg); border-left-color: var(--r-donaldson); }
+.td .example-tag { color: var(--r-donaldson); }
+.tde .example-card { background: var(--r-dehasse-bg); border-left-color: var(--r-dehasse); }
+.tde .example-tag { color: var(--r-dehasse); }
+
+/* Rugaas — signals grid */
+.signals-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 28px 0;
+}
+
+.signal {
+  background: var(--r-rugaas-bg);
+  border-left: 3px solid var(--r-rugaas);
+  padding: 14px 16px 14px 18px;
+  position: relative;
+}
+
+.signal-num {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  width: 22px;
+  height: 22px;
+  background: var(--r-rugaas);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.signal-name {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--r-rugaas);
+  margin-bottom: 4px;
+  padding-right: 30px;
+}
+
+.signal-desc { font-size: 12.5px; line-height: 1.45; color: var(--text); }
+
+/* Donaldson — ABC chain */
+.abc-chain {
+  margin: 32px 0;
+}
+
+.abc-row {
+  display: grid;
+  grid-template-columns: 1fr 36px 1fr 36px 1fr;
+  gap: 0;
+  align-items: stretch;
+}
+
+.abc-box {
+  background: var(--r-donaldson-bg);
+  border: 2px solid var(--r-donaldson);
+  padding: 14px 16px;
+  text-align: center;
+}
+
+.abc-letter {
+  font-family: 'Source Serif 4', serif;
+  font-size: 30px;
+  font-weight: 500;
+  color: var(--r-donaldson);
+  line-height: 1;
+}
+
+.abc-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--r-donaldson);
+  margin-top: 4px;
+}
+
+.abc-sub {
+  font-size: 11px;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.abc-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--r-donaldson);
+  font-size: 18px;
+}
+
+.abc-example {
+  display: grid;
+  grid-template-columns: 1fr 36px 1fr 36px 1fr;
+  gap: 0;
+  align-items: stretch;
+  margin-top: 14px;
+}
+
+.abc-ex-box {
+  background: var(--surface-hi);
+  border: 1px dashed var(--r-donaldson);
+  padding: 14px 12px;
+  text-align: center;
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.abc-conclusion {
+  background: var(--r-donaldson-bg);
+  border-left: 3px solid var(--r-donaldson);
+  padding: 16px 20px;
+  margin-top: 16px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.abc-conclusion strong { color: var(--r-donaldson); }
+
+/* Dehasse — needs wheel (SVG-based) */
+.wheel-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 28px 0;
+}
+
+.wheel-caption {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 12px;
+  line-height: 1.5;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Approach application + limits */
+.approach-applic {
+  margin-top: 28px;
+}
+
+.applic-block {
+  margin-bottom: 16px;
+}
+
+.applic-title {
+  font-family: 'Source Serif 4', serif;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.applic-body { font-size: 14.5px; line-height: 1.7; color: var(--text); }
+
+/* Synthesis section (Phase 3 bottom) */
+.synthesis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin: 28px 0 12px;
+}
+
+.syn-col {
+  padding: 18px 20px;
+  border-top: 4px solid;
+}
+
+.syn-col.r { background: var(--r-rugaas-bg); border-top-color: var(--r-rugaas); }
+.syn-col.d { background: var(--r-donaldson-bg); border-top-color: var(--r-donaldson); }
+.syn-col.de { background: var(--r-dehasse-bg); border-top-color: var(--r-dehasse); }
+
+.syn-name {
+  font-family: 'Source Serif 4', serif;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.syn-col.r .syn-name { color: var(--r-rugaas); }
+.syn-col.d .syn-name { color: var(--r-donaldson); }
+.syn-col.de .syn-name { color: var(--r-dehasse); }
+
+.syn-tag {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.syn-block { margin-bottom: 12px; }
+.syn-block:last-child { margin-bottom: 0; }
+
+.syn-label {
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.syn-text { font-size: 12.5px; line-height: 1.5; }
+
+/* ===== TRANSITION CARDS (cross-phase links inline) ===== */
+.transition {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  padding: 20px 24px;
+  margin-top: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.transition-text { flex: 1; min-width: 200px; font-size: 14px; line-height: 1.55; color: var(--text-muted); }
+.transition-text strong { color: var(--text); font-weight: 500; }
+
+.transition-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Source Serif 4', serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 8px 18px;
+  border: 1px solid var(--accent);
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.transition-link:hover { background: var(--accent); color: white; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 720px) {
+  .page { padding: 24px 20px 60px; }
+  h1 { font-size: 32px; }
+  .observation-grid { grid-template-columns: 1fr; gap: 0; }
+  .solutions { grid-template-columns: 1fr; }
+  .rubriques { grid-template-columns: 1fr; }
+  .synthesis-grid { grid-template-columns: 1fr; }
+  .signals-grid { grid-template-columns: 1fr; }
+  .bar { grid-template-columns: 100px 1fr 42px; }
+  .profile-card { padding: 22px 24px; }
+  .profile-name { font-size: 28px; }
+  .legend { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .brand { justify-content: flex-start; }
+  .phase-nav { width: 100%; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
+  .phase-link { font-size: 11.5px; gap: 4px; }
+  .phase-num { font-size: 12.5px; }
+  .foot { flex-direction: column; align-items: flex-start; }
+  .viz-stations { height: 140px; }
+  .station-bar { width: 14px; }
+  .station-label { font-size: 10px; }
+  .station-hint { display: none; }
+  .approach-nav { flex-direction: column; }
+  .approach-tab { border-bottom: 1px solid var(--border); border-left: 3px solid transparent; margin-bottom: 0; padding: 12px 16px; }
+  .approach-tab.active { border-bottom-color: var(--border); border-left-color: currentColor; }
+  .abc-row, .abc-example { grid-template-columns: 1fr; gap: 8px; }
+  .abc-arrow { transform: rotate(90deg); padding: 4px 0; }
+  .profile-selector { flex-direction: column; }
+  .profile-btn { min-width: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ===== HEADER ===== -->
+  <header class="brand">
+    <nav class="phase-nav" aria-label="Phases">
+      <a class="phase-link" href="phase-1-lecture.html">
+        <span class="phase-num">01</span><span>Lecture</span>
+      </a>
+      <span class="phase-link active" aria-current="page">
+        <span class="phase-num">02</span><span>Diagnostic</span>
+      </span>
+      <a class="phase-link" href="phase-3-cadres.html">
+        <span class="phase-num">03</span><span>Cadres</span>
+      </a>
+      <a class="phase-link" href="phase-4-derives.html">
+        <span class="phase-num">04</span><span>Dérives</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- ===== TITLE ===== -->
+  <div class="title-block">
+    <h1>Diagnostic comportemental du chiot</h1>
+    <p class="subtitle">Première mise au troupeau — lecture des huit motor patterns</p>
+    <p class="intro">Cet outil identifie le profil-type d'un chiot border collie à partir de l'intensité de ses huit motor patterns lors d'une rencontre avec le troupeau. Notez chaque comportement de 0 (absent) à 5 (très marqué) ; les correspondances avec les cinq profils-types et les axes de travail s'affichent en temps réel.</p>
+  </div>
+
+  <!-- ===== 1 · OBSERVATION ===== -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Observation</h2>
+      <span class="section-rule"></span>
+    </div>
+
+    <div class="observation-grid">
+
+      <div class="obs zv">
+        <div>
+          <div class="obs-name">orienter</div>
+          <div class="obs-hint">repère le troupeau</div>
+        </div>
+        <div class="ruler">
+          <div class="ticks"><span class="tick major"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick major"></span></div>
+          <input type="range" min="0" max="5" step="1" value="4" data-p="orienter" aria-label="orienter">
+        </div>
+        <span class="obs-value" data-v="orienter">4</span>
+      </div>
+
+      <div class="obs zr">
+        <div>
+          <div class="obs-name">saisir</div>
+          <div class="obs-hint">tente une morsure</div>
+        </div>
+        <div class="ruler">
+          <div class="ticks"><span class="tick major"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick major"></span></div>
+          <input type="range" min="0" max="5" step="1" value="0" data-p="saisir" aria-label="saisir">
+        </div>
+        <span class="obs-value" data-v="saisir">0</span>
+      </div>
+
+      <div class="obs zv">
+        <div>
+          <div class="obs-name">œil</div>
+          <div class="obs-hint">fixation, posture basse</div>
+        </div>
+        <div class="ruler">
+          <div class="ticks"><span class="tick major"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick major"></span></div>
+          <input type="range" min="0" max="5" step="1" value="4" data-p="oeil" aria-label="œil">
+        </div>
+        <span class="obs-value" data-v="oeil">4</span>
+      </div>
+
+      <div class="obs zr">
+        <div>
+          <div class="obs-name">tuer</div>
+          <div class="obs-hint">morsure profonde, secousse</div>
+        </div>
+        <div class="ruler">
+          <div class="ticks"><span class="tick major"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick major"></span></div>
+          <input type="range" min="0" max="5" step="1" value="0" data-p="tuer" aria-label="tuer">
+        </div>
+        <span class="obs-value" data-v="tuer">0</span>
+      </div>
+
+      <div class="obs zv">
+        <div>
+          <div class="obs-name">approche</div>
+          <div class="obs-hint">avance contrôlée</div>
+        </div>
+        <div class="ruler">
+          <div class="ticks"><span class="tick major"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick major"></span></div>
+          <input type="range" min="0" max="5" step="1" value="4" data-p="approche" aria-label="approche">
+        </div>
+        <span class="obs-value" data-v="approche">4</span>
+      </div>
+
+      <div class="obs zr">
+        <div>
+          <div class="obs-name">déchirer</div>
+          <div class="obs-hint">arrache, déchiquette</div>
+        </div>
+        <div class="ruler">
+          <div class="ticks"><span class="tick major"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick major"></span></div>
+          <input type="range" min="0" max="5" step="1" value="0" data-p="dechirer" aria-label="déchirer">
+        </div>
+        <span class="obs-value" data-v="dechirer">0</span>
+      </div>
+
+      <div class="obs za">
+        <div>
+          <div class="obs-name">poursuite</div>
+          <div class="obs-hint">course active</div>
+        </div>
+        <div class="ruler">
+          <div class="ticks"><span class="tick major"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick major"></span></div>
+          <input type="range" min="0" max="5" step="1" value="3" data-p="poursuite" aria-label="poursuite">
+        </div>
+        <span class="obs-value" data-v="poursuite">3</span>
+      </div>
+
+      <div class="obs zr">
+        <div>
+          <div class="obs-name">manger</div>
+          <div class="obs-hint">consomme</div>
+        </div>
+        <div class="ruler">
+          <div class="ticks"><span class="tick major"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick"></span><span class="tick major"></span></div>
+          <input type="range" min="0" max="5" step="1" value="0" data-p="manger" aria-label="manger">
+        </div>
+        <span class="obs-value" data-v="manger">0</span>
+      </div>
+
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="legend-swatch" style="background: var(--zone-vert);"></span>à laisser émerger</div>
+      <div class="legend-item"><span class="legend-swatch" style="background: var(--zone-amber);"></span>à canaliser</div>
+      <div class="legend-item"><span class="legend-swatch" style="background: var(--zone-rouge);"></span>à inhiber</div>
+    </div>
+  </section>
+
+  <!-- ===== 2 · CORRESPONDANCES ===== -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Correspondances</h2>
+      <span class="section-rule"></span>
+    </div>
+    <div class="bars" id="bars"></div>
+  </section>
+
+  <!-- ===== 3 · PROFIL & SOLUTIONS ===== -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Profil et axes de travail</h2>
+      <span class="section-rule"></span>
+    </div>
+    <div id="panel"></div>
+  </section>
+
+  <!-- ===== ALGORITHME ===== -->
+  <details class="algo">
+    <summary>Comment le profil est-il calculé ?</summary>
+    <p>Chaque profil-type a une <em>signature</em> : un score attendu pour chacun des huit motor patterns. L'équilibré, par exemple, attend orienter <code>4</code>, œil <code>4</code>, approche <code>4</code>, poursuite <code>3</code>, et zéro pour la phase de capture.</p>
+    <p>L'algorithme calcule la distance entre les scores observés et chaque signature en additionnant les écarts absolus. Une distance courte signifie une forte ressemblance ; elle est convertie en pourcentage de correspondance. Le profil le mieux noté devient le dominant.</p>
+    <p>L'alerte sécurité est indépendante : elle se déclenche dès qu'une saisie est observée à <code>3</code> ou plus, ou qu'un comportement de tuer ou déchirer est noté à <code>1</code> ou plus, quel que soit le profil dominant.</p>
+  </details>
+
+  <!-- ===== TRANSITION ===== -->
+  <div class="transition">
+    <div class="transition-text">
+      Vous accompagnez un chien adulte qui présente déjà une <strong>dérive comportementale</strong> au troupeau, au quotidien ou en séance ? Le parcours guidé de la Phase 4 cible le problème et propose explication, objectif et exercices adaptés.
+    </div>
+    <a href="phase-4-derives.html" class="transition-link">Résoudre une dérive →</a>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="foot">
+    <span>Phase 2 — diagnostic comportemental</span>
+    <a class="foot-link" href="diagnostic_profil_chiot_border_collie.pdf" target="_blank" rel="noopener">Version papier (PDF)</a>
+  </footer>
+
+</div>
+
+<script>
+const SIG = {
+  equilibre:   { orienter: 4, oeil: 4, approche: 4, poursuite: 3, saisir: 0, tuer: 0, dechirer: 0, manger: 0 },
+  scotche:     { orienter: 4, oeil: 5, approche: 1, poursuite: 1, saisir: 0, tuer: 0, dechirer: 0, manger: 0 },
+  poursuivant: { orienter: 4, oeil: 0, approche: 1, poursuite: 5, saisir: 1, tuer: 0, dechirer: 0, manger: 0 },
+  mordeur:     { orienter: 4, oeil: 2, approche: 3, poursuite: 4, saisir: 4, tuer: 1, dechirer: 0, manger: 0 },
+  peu_interet: { orienter: 1, oeil: 0, approche: 0, poursuite: 0, saisir: 0, tuer: 0, dechirer: 0, manger: 0 }
+};
+
+const PROF = {
+  equilibre: {
+    name: 'Équilibré', accroche: 'séquence harmonieuse, profil cible',
+    forces: "Engagement spontané. L'œil émerge naturellement. Transitions fluides entre motor patterns. Disponibilité au cadrage du berger.",
+    axes: 'Consolider en variant les situations. Préserver la qualité plutôt que la quantité. Maintenir le plaisir de travail.',
+    pieges: 'Surcharger les séances en pensant que tout va bien. Pousser à des situations trop complexes trop tôt.',
+    criteres: "Maintient son œil sous légère pression. Reste disponible après l'effort. Cherche la suite spontanément."
+  },
+  scotche: {
+    name: 'Scotché', accroche: "trop d'œil, transition bloquée",
+    forces: "L'œil est très marqué : base solide pour un futur chien de regard. Posture basse spontanée.",
+    axes: "Débloquer la transition œil → approche par le mouvement du berger. Stimuler par déplacement latéral. Récompenser tout pas en avant.",
+    pieges: "Pousser frontalement, gronder, allonger les séances. Confondre l'œil intense avec un engagement complet.",
+    criteres: "Décroche l'œil pour faire un pas. Suit le berger en gardant la fixation. Approche avec posture maintenue."
+  },
+  poursuivant: {
+    name: 'Poursuivant', accroche: "manque d'œil, saute en poursuite",
+    forces: 'Engagement fort, énergie disponible, drive prédateur présent. Pas de blocage.',
+    axes: "Faire émerger l'œil par travail au troupeau immobile (brebis confiantes, présence physique du berger). Ralentir les déplacements. Récompenser tout temps d'arrêt avec fixation.",
+    pieges: 'Laisser courir : la fuite des brebis renforce la poursuite. Brebis légères trop tôt. Confondre vitesse et talent.',
+    criteres: "Arrêt spontané avec regard maintenu. Posture qui se baisse à l'arrêt. Diminution progressive de la course folle."
+  },
+  mordeur: {
+    name: 'Mordeur', accroche: 'saisie désinhibée — sécurité prioritaire',
+    forces: 'Drive prédateur très présent. Engagement total. Peut évoluer favorablement avec encadrement strict.',
+    axes: "Travail uniquement en sécurité (laisse, longe, troupeau protégé). Reconstruction de l'inhibition de saisie. Encadrement professionnel requis.",
+    pieges: 'Sous-estimer le risque pour les brebis. Présenter au troupeau libre. Renvoyer le propriétaire sans accompagnement.',
+    criteres: "Pas de mouvement de saisie au déclenchement. Retour à l'orienter sur commande. Régulation en présence du troupeau."
+  },
+  peu_interet: {
+    name: "Peu d'intérêt", accroche: 'séquence atrophiée, faible engagement',
+    forces: "Chiot calme, sans danger pour le troupeau. Profil parfois lié à un manque d'éveil plutôt qu'à un manque de potentiel.",
+    axes: 'Tester en conditions favorables : chien expérimenté présent, troupeau actif maîtrisé. Éveil progressif. Réévaluer après quelques mois.',
+    pieges: "Conclure trop vite à l'inaptitude. Forcer l'engagement par pression. Confondre profil et état du jour.",
+    criteres: "Orientation soutenue vers le troupeau. Premiers signes d'œil ou d'approche. Augmentation progressive de l'attention sur plusieurs séances."
+  }
+};
+
+const COL = {
+  equilibre:   { c: 'var(--p-equilibre)',   bg: 'var(--p-equilibre-bg)' },
+  scotche:     { c: 'var(--p-scotche)',     bg: 'var(--p-scotche-bg)' },
+  poursuivant: { c: 'var(--p-poursuivant)', bg: 'var(--p-poursuivant-bg)' },
+  mordeur:     { c: 'var(--p-mordeur)',     bg: 'var(--p-mordeur-bg)' },
+  peu_interet: { c: 'var(--p-peuint)',      bg: 'var(--p-peuint-bg)' }
+};
+
+const ORDER = ['orienter', 'oeil', 'approche', 'poursuite', 'saisir', 'tuer', 'dechirer', 'manger'];
+
+function diagnose() {
+  const s = {};
+  document.querySelectorAll('input[type="range"]').forEach(i => {
+    s[i.dataset.p] = parseInt(i.value, 10);
+  });
+  const m = {};
+  for (const [pr, sg] of Object.entries(SIG)) {
+    let d = 0;
+    for (const k of ORDER) d += Math.abs(s[k] - sg[k]);
+    m[pr] = Math.max(0, Math.round(100 * (1 - d / 40)));
+  }
+  const dom = Object.entries(m).sort((a, b) => b[1] - a[1])[0][0];
+  const al = s.saisir >= 3 || s.tuer >= 1 || s.dechirer >= 1;
+  return { s, m, dom, al };
+}
+
+function render() {
+  const { s, m, dom, al } = diagnose();
+
+  for (const k in s) {
+    const el = document.querySelector('[data-v="' + k + '"]');
+    if (el) el.textContent = s[k];
+  }
+
+  const sorted = Object.entries(m).sort((a, b) => b[1] - a[1]);
+  document.getElementById('bars').innerHTML = sorted.map(([pr, pct]) => {
+    const isDom = pr === dom;
+    return '<div class="bar' + (isDom ? ' dominant' : '') + '">'
+      + '<div class="bar-name">' + PROF[pr].name + '</div>'
+      + '<div class="bar-track"><div class="bar-fill" style="background: ' + COL[pr].c + '; width: ' + pct + '%;"></div></div>'
+      + '<div class="bar-pct">' + pct + '\u202F%</div>'
+      + '</div>';
+  }).join('');
+
+  const p = PROF[dom];
+  const c = COL[dom];
+
+  const alertHtml = al
+    ? '<div class="alert">'
+      + '<div class="alert-icon">!</div>'
+      + '<div>'
+        + '<div class="alert-title">Alerte sécurité</div>'
+        + '<div class="alert-body">Tentative de saisie observée. Travail uniquement avec encadrement professionnel et troupeau protégé. Pas de présentation au troupeau libre.</div>'
+      + '</div>'
+    + '</div>'
+    : '';
+
+  document.getElementById('panel').innerHTML = alertHtml
+    + '<div class="profile-card" style="background: ' + c.bg + '; border-left-color: ' + c.c + ';">'
+      + '<div class="profile-tag">Profil dominant</div>'
+      + '<div class="profile-name" style="color: ' + c.c + ';">' + p.name + '</div>'
+      + '<div class="profile-accroche">' + p.accroche + '</div>'
+    + '</div>'
+    + '<div class="solutions">'
+      + solCard('I', 'Forces', p.forces)
+      + solCard('II', 'Axes de travail', p.axes)
+      + solCard('III', 'Pièges à éviter', p.pieges)
+      + solCard('IV', 'Critères de réussite', p.criteres)
+    + '</div>';
+}
+
+function solCard(num, title, body) {
+  return '<div class="solution">'
+    + '<div class="solution-head">'
+      + '<span class="solution-num">' + num + '</span>'
+      + '<span class="solution-title">' + title + '</span>'
+    + '</div>'
+    + '<div class="solution-body">' + body + '</div>'
+  + '</div>';
+}
+
+document.querySelectorAll('input[type="range"]').forEach(i => {
+  i.addEventListener('input', render);
+});
+
+render();
+</script>
+
+</body>
+</html>
