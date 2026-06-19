@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecture comportementale du chiot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ====================================================================
+   Design system — cadres pédagogiques chien de troupeau
+   Charte commune aux trois phases (lecture, diagnostic, cadres)
+   ==================================================================== */
+
+:root {
+  --bg: #F1ECDE;
+  --surface: #F8F4E8;
+  --surface-hi: #FCFAF3;
+  --text: #1F2D1F;
+  --text-muted: #5A5F4E;
+  --text-light: #837E6E;
+  --border: #C9C0A3;
+  --border-soft: #DCD3B8;
+  --accent: #8B6F2A;
+  --accent-strong: #6B5320;
+
+  --zone-vert: #4A7C1F;
+  --zone-amber: #B5832D;
+  --zone-rouge: #9C3F2E;
+
+  --p-equilibre: #4A6741;
+  --p-equilibre-bg: #E4EAD7;
+  --p-scotche: #4F5C73;
+  --p-scotche-bg: #DDE2EA;
+  --p-poursuivant: #B5832D;
+  --p-poursuivant-bg: #F2E5C9;
+  --p-mordeur: #9C3F2E;
+  --p-mordeur-bg: #ECCEC4;
+  --p-peuint: #6E6555;
+  --p-peuint-bg: #E2DCC9;
+
+  --r-rugaas: #3D7374;
+  --r-rugaas-bg: #DEE9EA;
+  --r-donaldson: #A0612F;
+  --r-donaldson-bg: #F2E1CC;
+  --r-dehasse: #5E7E32;
+  --r-dehasse-bg: #E2EBD0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 32px 32px 80px;
+}
+
+/* ===== HEADER ===== */
+.brand {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+
+.phase-nav {
+  display: flex;
+  gap: 28px;
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+}
+
+.phase-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--text-light);
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+
+.phase-link:hover { color: var(--text); }
+.phase-link.active { color: var(--accent); font-weight: 500; cursor: default; }
+
+.phase-num {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 500;
+  font-size: 13.5px;
+  color: var(--text-light);
+  transition: color 0.15s;
+}
+
+.phase-link:hover .phase-num { color: var(--text-muted); }
+.phase-link.active .phase-num { color: var(--accent); }
+
+.phase-arrow {
+  font-size: 11px;
+  margin-left: 2px;
+  opacity: 0.6;
+}
+
+/* ===== TITLE ===== */
+.title-block { margin-bottom: 56px; }
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+h1 {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 400;
+  font-size: 18px;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.intro {
+  font-size: 15.5px;
+  color: var(--text-muted);
+  max-width: 620px;
+  line-height: 1.65;
+}
+
+.intro + .intro { margin-top: 12px; }
+
+/* ===== SECTIONS ===== */
+.section { margin-bottom: 56px; }
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.section-num {
+  font-family: 'Source Serif 4', serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.section-title {
+  font-family: 'Source Serif 4', serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+.section-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.lede {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text);
+  margin-bottom: 24px;
+  max-width: 720px;
+}
+
+.lede + .lede { margin-top: 0; }
+
+/* ===== OBSERVATION (Phase 2 — rulers) ===== */
+.observation-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 32px;
+}
+
+.obs {
+  display: grid;
+  grid-template-columns: 96px 1fr 24px;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 0 11px 14px;
+  border-left: 3px solid;
+}
+
+.obs.zv { border-left-color: var(--zone-vert); }
+.obs.za { border-left-color: var(--zone-amber); }
+.obs.zr { border-left-color: var(--zone-rouge); }
+
+.obs-name { font-size: 14px; font-weight: 500; line-height: 1.2; }
+.obs-hint { font-size: 11.5px; color: var(--text-light); line-height: 1.3; margin-top: 2px; }
+
+.ruler { position: relative; height: 28px; }
+
+.ruler input[type="range"] {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 28px;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  cursor: pointer;
+}
+
+.ruler input[type="range"]:focus { outline: none; }
+
+.ruler input[type="range"]::-webkit-slider-runnable-track {
+  height: 1.5px;
+  background: var(--border);
+}
+
+.ruler input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 3px;
+  height: 22px;
+  background: var(--accent-strong);
+  border-radius: 0;
+  margin-top: -10.5px;
+  transition: background 0.15s;
+}
+
+.ruler input[type="range"]:hover::-webkit-slider-thumb,
+.ruler input[type="range"]:focus::-webkit-slider-thumb { background: var(--accent); }
+
+.ruler input[type="range"]::-moz-range-track { height: 1.5px; background: var(--border); }
+.ruler input[type="range"]::-moz-range-thumb { width: 3px; height: 22px; background: var(--accent-strong); border: none; border-radius: 0; cursor: pointer; }
+
+.ticks {
+  position: absolute;
+  top: 9px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.tick { width: 1px; height: 7px; background: var(--border); }
+.tick.major { background: var(--text-light); height: 9px; }
+
+.obs-value {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-strong);
+}
+
+/* ===== ZONE LEGEND ===== */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.legend-item { display: flex; align-items: center; gap: 8px; }
+.legend-swatch { width: 18px; height: 3px; }
+
+/* ===== CORRESPONDANCES (Phase 2) ===== */
+.bars { display: flex; flex-direction: column; gap: 14px; }
+
+.bar {
+  display: grid;
+  grid-template-columns: 130px 1fr 48px;
+  align-items: center;
+  gap: 16px;
+}
+
+.bar-name { font-size: 14px; color: var(--text-muted); transition: all 0.15s; }
+.bar.dominant .bar-name { color: var(--text); font-weight: 500; }
+
+.bar-track {
+  height: 3px;
+  background: var(--border-soft);
+  overflow: hidden;
+}
+
+.bar-fill { height: 100%; transition: width 0.25s ease-out; }
+
+.bar-pct {
+  font-size: 14px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.bar.dominant .bar-pct { color: var(--text); font-weight: 500; }
+
+/* ===== ALERT ===== */
+.alert {
+  background: var(--p-mordeur-bg);
+  border-left: 3px solid var(--p-mordeur);
+  padding: 18px 22px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.alert-icon {
+  font-family: 'Source Serif 4', serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--p-mordeur);
+  line-height: 1;
+  margin-top: 1px;
+  text-align: center;
+}
+
+.alert-title {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--p-mordeur);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.alert-body { font-size: 14px; color: var(--text); line-height: 1.55; }
+
+/* ===== PROFILE CARD ===== */
+.profile-card {
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  border-left: 4px solid;
+}
+
+.profile-tag {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.profile-name {
+  font-family: 'Source Serif 4', serif;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin-bottom: 8px;
+}
+
+.profile-accroche {
+  font-family: 'Source Serif 4', serif;
+  font-size: 17px;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* ===== SOLUTIONS GRID ===== */
+.solutions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.solution {
+  background: var(--surface-hi);
+  border: 1px solid var(--border-soft);
+  padding: 18px 20px;
+}
+
+.solution-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.solution-num {
+  font-family: 'Source Serif 4', serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+
+.solution-title {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.solution-body { font-size: 13.5px; line-height: 1.55; color: var(--text); }
+
+/* ===== ALGO PANEL ===== */
+.algo {
+  margin-top: 56px;
+  padding: 22px 26px;
+  background: var(--surface);
+  border-left: 3px solid var(--border);
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.algo summary {
+  cursor: pointer;
+  font-family: 'Source Serif 4', serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  list-style: none;
+}
+
+.algo summary::-webkit-details-marker { display: none; }
+.algo summary::before { content: '+'; display: inline-block; margin-right: 10px; color: var(--accent); font-weight: 500; }
+.algo[open] summary::before { content: '−'; }
+.algo[open] summary { margin-bottom: 14px; }
+
+.algo p { margin-bottom: 10px; }
+.algo p:last-child { margin-bottom: 0; }
+
+.algo code {
+  font-family: 'Source Serif 4', serif;
+  font-style: italic;
+  color: var(--text);
+}
+
+/* ===== FOOTER ===== */
+.foot {
+  margin-top: 64px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-light);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.foot-link {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.foot-link:hover { border-bottom-color: var(--accent); color: var(--accent-strong); }
+
+/* ====================================================================
+   PHASE 1 — Séquence prédatrice interactive
+   ==================================================================== */
+
+.profile-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  background: var(--surface);
+  padding: 6px;
+  margin-bottom: 28px;
+  border: 1px solid var(--border-soft);
+}
+
+.profile-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 11px 14px;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  letter-spacing: 0.01em;
+  position: relative;
+}
+
+.profile-btn:hover { color: var(--text); background: var(--surface-hi); }
+
+.profile-btn.active {
+  color: var(--text);
+  background: var(--bg);
+  box-shadow: 0 1px 0 var(--accent) inset, 0 -1px 0 var(--border) inset;
+}
+
+.profile-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: currentColor;
+}
+
+/* Sequence visualization */
+.sequence-viz {
+  background: var(--surface);
+  padding: 32px 28px 22px;
+  margin-bottom: 36px;
+  border: 1px solid var(--border-soft);
+}
+
+.viz-zones {
+  display: grid;
+  grid-template-columns: 3fr 1fr 4fr;
+  gap: 0;
+  margin-bottom: 8px;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.viz-zone { text-align: center; padding: 4px 0; position: relative; }
+.viz-zone.zv { color: var(--zone-vert); border-bottom: 2px solid var(--zone-vert); }
+.viz-zone.za { color: var(--zone-amber); border-bottom: 2px solid var(--zone-amber); }
+.viz-zone.zr { color: var(--zone-rouge); border-bottom: 2px solid var(--zone-rouge); }
+
+.viz-stations {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0;
+  align-items: end;
+  height: 180px;
+  padding-top: 12px;
+  position: relative;
+}
+
+.viz-baseline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 36px;
+  height: 1px;
+  background: var(--border);
+  z-index: 1;
+}
+
+.station {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  height: 100%;
+}
+
+.station-bar {
+  width: 22px;
+  background: var(--zone-vert);
+  margin-bottom: 36px;
+  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s;
+  position: relative;
+  z-index: 2;
+  min-height: 2px;
+}
+
+.station.za .station-bar { background: var(--zone-amber); }
+.station.zr .station-bar { background: var(--zone-rouge); }
+
+.station-value {
+  position: absolute;
+  bottom: 40px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.station:hover .station-value { opacity: 1; }
+.station.has-value .station-value { opacity: 1; }
+
+.station-label {
+  position: absolute;
+  bottom: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1.1;
+}
+
+.station-hint {
+  position: absolute;
+  bottom: 0;
+  font-size: 9.5px;
+  color: var(--text-light);
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.viz-threshold {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 36px;
+  width: 1px;
+  background: var(--border);
+  border-left: 1px dashed var(--zone-rouge);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.viz-threshold-label {
+  position: absolute;
+  left: 50%;
+  top: -4px;
+  transform: translateX(-50%);
+  background: var(--surface);
+  padding: 0 8px;
+  font-size: 9.5px;
+  font-style: italic;
+  color: var(--zone-rouge);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+/* Constat block (Phase 1 profile) */
+.constat {
+  background: var(--surface-hi);
+  border-left: 3px solid var(--accent);
+  padding: 18px 24px;
+  margin-bottom: 24px;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+.constat-tag {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+/* Five-rubrique grid for Phase 1 */
+.rubriques {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.rubrique {
+  background: var(--surface-hi);
+  border: 1px solid var(--border-soft);
+  padding: 16px 18px;
+}
+
+.rubrique-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.rubrique-num {
+  font-family: 'Source Serif 4', serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+
+.rubrique-title {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.rubrique-body { font-size: 13.5px; line-height: 1.55; }
+
+/* ====================================================================
+   PHASE 3 — Cadres pédagogiques
+   ==================================================================== */
+
+.approach-nav {
+  display: flex;
+  gap: 0;
+  margin-bottom: 36px;
+  border-bottom: 1px solid var(--border);
+}
+
+.approach-tab {
+  flex: 1;
+  padding: 18px 22px 16px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.18s;
+  color: var(--text-muted);
+}
+
+.approach-tab:hover { color: var(--text); background: var(--surface); }
+
+.approach-tab .tab-name {
+  display: block;
+  font-family: 'Source Serif 4', serif;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.approach-tab .tab-sub {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  font-style: italic;
+}
+
+.approach-tab.active {
+  color: var(--text);
+  border-bottom-color: currentColor;
+}
+
+.approach-tab.t-rugaas.active { color: var(--r-rugaas); }
+.approach-tab.t-donaldson.active { color: var(--r-donaldson); }
+.approach-tab.t-dehasse.active { color: var(--r-dehasse); }
+
+.approach-content {
+  display: none;
+}
+
+.approach-content.active {
+  display: block;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.approach-intro p {
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 14px;
+  color: var(--text);
+}
+
+.approach-intro p:last-child { margin-bottom: 0; }
+
+.example-card {
+  padding: 22px 26px;
+  margin: 28px 0;
+  border-left: 4px solid;
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+
+.example-tag {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.tr .example-card { background: var(--r-rugaas-bg); border-left-color: var(--r-rugaas); }
+.tr .example-tag { color: var(--r-rugaas); }
+.td .example-card { background: var(--r-donaldson-bg); border-left-color: var(--r-donaldson); }
+.td .example-tag { color: var(--r-donaldson); }
+.tde .example-card { background: var(--r-dehasse-bg); border-left-color: var(--r-dehasse); }
+.tde .example-tag { color: var(--r-dehasse); }
+
+/* Rugaas — signals grid */
+.signals-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 28px 0;
+}
+
+.signal {
+  background: var(--r-rugaas-bg);
+  border-left: 3px solid var(--r-rugaas);
+  padding: 14px 16px 14px 18px;
+  position: relative;
+}
+
+.signal-num {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  width: 22px;
+  height: 22px;
+  background: var(--r-rugaas);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.signal-name {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--r-rugaas);
+  margin-bottom: 4px;
+  padding-right: 30px;
+}
+
+.signal-desc { font-size: 12.5px; line-height: 1.45; color: var(--text); }
+
+/* Donaldson — ABC chain */
+.abc-chain {
+  margin: 32px 0;
+}
+
+.abc-row {
+  display: grid;
+  grid-template-columns: 1fr 36px 1fr 36px 1fr;
+  gap: 0;
+  align-items: stretch;
+}
+
+.abc-box {
+  background: var(--r-donaldson-bg);
+  border: 2px solid var(--r-donaldson);
+  padding: 14px 16px;
+  text-align: center;
+}
+
+.abc-letter {
+  font-family: 'Source Serif 4', serif;
+  font-size: 30px;
+  font-weight: 500;
+  color: var(--r-donaldson);
+  line-height: 1;
+}
+
+.abc-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--r-donaldson);
+  margin-top: 4px;
+}
+
+.abc-sub {
+  font-size: 11px;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.abc-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--r-donaldson);
+  font-size: 18px;
+}
+
+.abc-example {
+  display: grid;
+  grid-template-columns: 1fr 36px 1fr 36px 1fr;
+  gap: 0;
+  align-items: stretch;
+  margin-top: 14px;
+}
+
+.abc-ex-box {
+  background: var(--surface-hi);
+  border: 1px dashed var(--r-donaldson);
+  padding: 14px 12px;
+  text-align: center;
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.abc-conclusion {
+  background: var(--r-donaldson-bg);
+  border-left: 3px solid var(--r-donaldson);
+  padding: 16px 20px;
+  margin-top: 16px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.abc-conclusion strong { color: var(--r-donaldson); }
+
+/* Dehasse — needs wheel (SVG-based) */
+.wheel-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 28px 0;
+}
+
+.wheel-caption {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 12px;
+  line-height: 1.5;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Approach application + limits */
+.approach-applic {
+  margin-top: 28px;
+}
+
+.applic-block {
+  margin-bottom: 16px;
+}
+
+.applic-title {
+  font-family: 'Source Serif 4', serif;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.applic-body { font-size: 14.5px; line-height: 1.7; color: var(--text); }
+
+/* Synthesis section (Phase 3 bottom) */
+.synthesis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin: 28px 0 12px;
+}
+
+.syn-col {
+  padding: 18px 20px;
+  border-top: 4px solid;
+}
+
+.syn-col.r { background: var(--r-rugaas-bg); border-top-color: var(--r-rugaas); }
+.syn-col.d { background: var(--r-donaldson-bg); border-top-color: var(--r-donaldson); }
+.syn-col.de { background: var(--r-dehasse-bg); border-top-color: var(--r-dehasse); }
+
+.syn-name {
+  font-family: 'Source Serif 4', serif;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.syn-col.r .syn-name { color: var(--r-rugaas); }
+.syn-col.d .syn-name { color: var(--r-donaldson); }
+.syn-col.de .syn-name { color: var(--r-dehasse); }
+
+.syn-tag {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.syn-block { margin-bottom: 12px; }
+.syn-block:last-child { margin-bottom: 0; }
+
+.syn-label {
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.syn-text { font-size: 12.5px; line-height: 1.5; }
+
+/* ===== TRANSITION CARDS (cross-phase links inline) ===== */
+.transition {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  padding: 20px 24px;
+  margin-top: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.transition-text { flex: 1; min-width: 200px; font-size: 14px; line-height: 1.55; color: var(--text-muted); }
+.transition-text strong { color: var(--text); font-weight: 500; }
+
+.transition-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Source Serif 4', serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 8px 18px;
+  border: 1px solid var(--accent);
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.transition-link:hover { background: var(--accent); color: white; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 720px) {
+  .page { padding: 24px 20px 60px; }
+  h1 { font-size: 32px; }
+  .observation-grid { grid-template-columns: 1fr; gap: 0; }
+  .solutions { grid-template-columns: 1fr; }
+  .rubriques { grid-template-columns: 1fr; }
+  .synthesis-grid { grid-template-columns: 1fr; }
+  .signals-grid { grid-template-columns: 1fr; }
+  .bar { grid-template-columns: 100px 1fr 42px; }
+  .profile-card { padding: 22px 24px; }
+  .profile-name { font-size: 28px; }
+  .legend { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .brand { justify-content: flex-start; }
+  .phase-nav { width: 100%; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
+  .phase-link { font-size: 11.5px; gap: 4px; }
+  .phase-num { font-size: 12.5px; }
+  .foot { flex-direction: column; align-items: flex-start; }
+  .viz-stations { height: 140px; }
+  .station-bar { width: 14px; }
+  .station-label { font-size: 10px; }
+  .station-hint { display: none; }
+  .approach-nav { flex-direction: column; }
+  .approach-tab { border-bottom: 1px solid var(--border); border-left: 3px solid transparent; margin-bottom: 0; padding: 12px 16px; }
+  .approach-tab.active { border-bottom-color: var(--border); border-left-color: currentColor; }
+  .abc-row, .abc-example { grid-template-columns: 1fr; gap: 8px; }
+  .abc-arrow { transform: rotate(90deg); padding: 4px 0; }
+  .profile-selector { flex-direction: column; }
+  .profile-btn { min-width: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ===== HEADER ===== -->
+  <header class="brand">
+    <nav class="phase-nav" aria-label="Phases">
+      <span class="phase-link active" aria-current="page">
+        <span class="phase-num">01</span><span>Lecture</span>
+      </span>
+      <a class="phase-link" href="phase-2-diagnostic.html">
+        <span class="phase-num">02</span><span>Diagnostic</span>
+      </a>
+      <a class="phase-link" href="phase-3-cadres.html">
+        <span class="phase-num">03</span><span>Cadres</span>
+      </a>
+      <a class="phase-link" href="phase-4-derives.html">
+        <span class="phase-num">04</span><span>Dérives</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- ===== TITLE ===== -->
+  <div class="title-block">
+    <h1>Lecture comportementale du chiot</h1>
+    <p class="subtitle">Border collie · cadre éthologique de la séquence prédatrice</p>
+    <p class="intro">Cette première phase pose le cadre théorique qui permet d'observer un chiot face au troupeau de façon structurée. Elle décrit la séquence prédatrice du canidé, sa déformation chez le border collie, et les cinq signatures comportementales les plus fréquentes lors d'une première mise au troupeau.</p>
+  </div>
+
+  <!-- ===== 01 · CADRE ÉTHOLOGIQUE ===== -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2 class="section-title">La séquence prédatrice du canidé</h2>
+      <span class="section-rule"></span>
+    </div>
+
+    <p class="lede">La séquence prédatrice est le déroulement comportemental complet d'un canidé qui chasse une proie. Huit motor patterns s'enchaînent dans un ordre canonique : <em>orienter</em> (repérer la cible) → <em>œil</em> (fixer, prendre la mesure) → <em>approche</em> (se déplacer vers elle) → <em>poursuite</em> (la suivre en course) → <em>saisir</em> (la prendre en gueule) → <em>tuer</em> (mordre profond, secousse) → <em>déchirer</em> (arracher la chair) → <em>manger</em>. Chez le loup, cette séquence est complète. Chez le chien domestique, elle a été tronquée par la sélection à des degrés divers selon les races.</p>
+
+    <p class="lede">Chez le border collie, la sélection humaine sur plusieurs siècles a sculpté une signature très particulière. Les trois premières étapes (orienter, œil, approche) ont été <strong>hypertrophiées</strong> : elles sont fortes, marquées, immédiatement reconnaissables. La quatrième (poursuite) est <strong>régulée</strong> : présente, mais sous contrôle. Et les quatre dernières (saisir, tuer, déchirer, manger) sont <strong>inhibées</strong> : un border collie sain ne doit pas chercher à mordre, à blesser, ou à consommer ses brebis.</p>
+
+    <p class="lede">Cette signature est ce qui fait du border collie un chien de troupeau d'élite. Mais elle reste un <em>objectif sélectif</em>, pas une garantie individuelle. Chez un chiot donné, la séquence peut se déformer : une étape peut être trop forte, trop faible, ou mal enchaîner sur la suivante. Identifier ces déformations dès la première mise au troupeau, c'est la base de toute conduite éducative.</p>
+  </section>
+
+  <!-- ===== 02 · ALGORITHME INTERACTIF ===== -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Cinq signatures comportementales</h2>
+      <span class="section-rule"></span>
+    </div>
+
+    <p class="lede">À la première mise au troupeau, les chiots ne se présentent pas selon une distribution continue : on observe régulièrement <strong>cinq profils-types</strong>, qui correspondent à des déformations caractéristiques de la séquence prédatrice. Sélectionnez un profil ci-dessous pour voir sa signature s'afficher sur les huit motor patterns.</p>
+
+    <!-- Profile selector -->
+    <div class="profile-selector" role="tablist" aria-label="Profils comportementaux">
+      <button class="profile-btn active" data-profile="equilibre" role="tab" aria-selected="true">Équilibré</button>
+      <button class="profile-btn" data-profile="scotche" role="tab" aria-selected="false">Scotché</button>
+      <button class="profile-btn" data-profile="poursuivant" role="tab" aria-selected="false">Poursuivant</button>
+      <button class="profile-btn" data-profile="mordeur" role="tab" aria-selected="false">Mordeur</button>
+      <button class="profile-btn" data-profile="peu_interet" role="tab" aria-selected="false">Peu d'intérêt</button>
+    </div>
+
+    <!-- Sequence visualization -->
+    <div class="sequence-viz" aria-live="polite">
+      <div class="viz-zones">
+        <div class="viz-zone zv">à laisser émerger</div>
+        <div class="viz-zone za">à canaliser</div>
+        <div class="viz-zone zr">à inhiber</div>
+      </div>
+
+      <div class="viz-stations">
+        <div class="viz-baseline"></div>
+        <div class="viz-threshold">
+          <span class="viz-threshold-label">seuil d'inhibition</span>
+        </div>
+
+        <div class="station zv" data-p="orienter">
+          <div class="station-value" data-v="orienter">4</div>
+          <div class="station-bar" style="height: 80%;"></div>
+          <div class="station-label">orienter</div>
+          <div class="station-hint">repère</div>
+        </div>
+        <div class="station zv" data-p="oeil">
+          <div class="station-value" data-v="oeil">4</div>
+          <div class="station-bar" style="height: 80%;"></div>
+          <div class="station-label">œil</div>
+          <div class="station-hint">fixe</div>
+        </div>
+        <div class="station zv" data-p="approche">
+          <div class="station-value" data-v="approche">4</div>
+          <div class="station-bar" style="height: 80%;"></div>
+          <div class="station-label">approche</div>
+          <div class="station-hint">avance</div>
+        </div>
+        <div class="station za" data-p="poursuite">
+          <div class="station-value" data-v="poursuite">3</div>
+          <div class="station-bar" style="height: 60%;"></div>
+          <div class="station-label">poursuite</div>
+          <div class="station-hint">course</div>
+        </div>
+        <div class="station zr" data-p="saisir">
+          <div class="station-value" data-v="saisir">0</div>
+          <div class="station-bar" style="height: 2%;"></div>
+          <div class="station-label">saisir</div>
+          <div class="station-hint">mord</div>
+        </div>
+        <div class="station zr" data-p="tuer">
+          <div class="station-value" data-v="tuer">0</div>
+          <div class="station-bar" style="height: 2%;"></div>
+          <div class="station-label">tuer</div>
+          <div class="station-hint">secoue</div>
+        </div>
+        <div class="station zr" data-p="dechirer">
+          <div class="station-value" data-v="dechirer">0</div>
+          <div class="station-bar" style="height: 2%;"></div>
+          <div class="station-label">déchirer</div>
+          <div class="station-hint">arrache</div>
+        </div>
+        <div class="station zr" data-p="manger">
+          <div class="station-value" data-v="manger">0</div>
+          <div class="station-bar" style="height: 2%;"></div>
+          <div class="station-label">manger</div>
+          <div class="station-hint">consomme</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile details panel -->
+    <div id="panel" aria-live="polite"></div>
+  </section>
+
+  <!-- ===== TRANSITION TO PHASE 2 ===== -->
+  <div class="transition">
+    <div class="transition-text">
+      Vous avez identifié un profil-type à l'œil ? <strong>Le diagnostic interactif</strong> permet de noter chaque motor pattern précisément et d'obtenir les axes de travail adaptés.
+    </div>
+    <a href="phase-2-diagnostic.html" class="transition-link">Diagnostiquer →</a>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="foot">
+    <span>Phase 1 — lecture comportementale</span>
+    <a class="foot-link" href="lecture_comportementale_chiot_border_collie.pdf" target="_blank" rel="noopener">Version PDF complète</a>
+  </footer>
+
+</div>
+
+<script>
+const PROFILES = {
+  equilibre: {
+    name: 'Équilibré',
+    accroche: 'séquence harmonieuse, profil cible',
+    scores: { orienter: 4, oeil: 4, approche: 4, poursuite: 3, saisir: 0, tuer: 0, dechirer: 0, manger: 0 },
+    constat: "Le chiot s'oriente vite, marque son œil, avance posément, peut suivre une poursuite contrôlée et s'arrête sans déclencher de saisie. La séquence se déroule dans l'ordre et sans saturer une étape.",
+    forces: "Engagement spontané. L'œil émerge naturellement. Transitions fluides entre motor patterns. Disponibilité au cadrage du berger.",
+    limites: "Profil rare en pratique. Le risque principal est la sur-utilisation du chiot par enthousiasme.",
+    aspirations: "Tendance naturelle à chercher l'équilibre entre observation et engagement. Le travail le motive sans le déborder.",
+    axes: "Consolider en variant les situations. Préserver la qualité plutôt que la quantité. Maintenir le plaisir de travail.",
+    pieges: "Surcharger les séances en pensant que tout va bien. Pousser à des situations trop complexes trop tôt.",
+    criteres: "Maintient son œil sous légère pression. Reste disponible après l'effort. Cherche la suite spontanément."
+  },
+  scotche: {
+    name: 'Scotché',
+    accroche: "trop d'œil, transition bloquée",
+    scores: { orienter: 4, oeil: 5, approche: 1, poursuite: 1, saisir: 0, tuer: 0, dechirer: 0, manger: 0 },
+    constat: "Le chiot fixe le troupeau avec une intensité forte mais reste figé. La transition vers l'approche ne se fait pas, ou très partiellement. L'œil sature et bloque la suite.",
+    forces: "L'œil est très marqué : base solide pour un futur chien de regard. Posture basse spontanée. Concentration intense.",
+    limites: "Manque de mobilité, peut sembler ne pas s'engager. Risque de blocage durable si on insiste frontalement.",
+    aspirations: "Voir, contrôler du regard. Tendance vers le travail de stalking ou de regard fixe à distance.",
+    axes: "Débloquer la transition œil → approche par le mouvement du berger. Stimuler par déplacement latéral. Récompenser tout pas en avant.",
+    pieges: "Pousser frontalement, gronder, allonger les séances. Confondre l'œil intense avec un engagement complet.",
+    criteres: "Décroche l'œil pour faire un pas. Suit le berger en gardant la fixation. Approche avec posture maintenue."
+  },
+  poursuivant: {
+    name: 'Poursuivant',
+    accroche: "manque d'œil, saute en poursuite",
+    scores: { orienter: 4, oeil: 0, approche: 1, poursuite: 5, saisir: 1, tuer: 0, dechirer: 0, manger: 0 },
+    constat: "Le chiot s'oriente vite mais saute la phase d'œil et d'approche pour entrer directement en course derrière les brebis. Course rapide, queue souvent haute, peu de pause.",
+    forces: "Engagement fort, énergie disponible, drive prédateur présent. Pas de blocage. Réactivité immédiate.",
+    limites: "Manque d'observation préalable. Risque d'éparpiller le troupeau. Course qui se consolide vite si conséquences favorables.",
+    aspirations: "Mettre les brebis en mouvement. Le chiot aime voir bouger le troupeau, en partie pour la suite, en partie pour la sensation.",
+    axes: "Faire émerger l'œil par travail au troupeau immobile (brebis confiantes, présence physique du berger). Ralentir les déplacements. Récompenser tout temps d'arrêt avec fixation.",
+    pieges: "Laisser courir : la fuite des brebis renforce la poursuite. Brebis légères trop tôt. Confondre vitesse et talent.",
+    criteres: "Arrêt spontané avec regard maintenu. Posture qui se baisse à l'arrêt. Diminution progressive de la course folle."
+  },
+  mordeur: {
+    name: 'Mordeur',
+    accroche: 'saisie désinhibée — sécurité prioritaire',
+    scores: { orienter: 4, oeil: 2, approche: 3, poursuite: 4, saisir: 4, tuer: 1, dechirer: 0, manger: 0 },
+    constat: "Le chiot tente une saisie sur la brebis. Le seuil d'inhibition entre poursuite et capture est franchi. La sécurité du troupeau est immédiatement en jeu et conditionne la suite du travail.",
+    forces: "Drive prédateur très présent. Engagement total. Peut évoluer favorablement avec un encadrement strict et précoce.",
+    limites: "Danger réel pour les brebis. Évolution incertaine. Nécessite un encadrement permanent et professionnel — pas un chiot à laisser chez un propriétaire seul.",
+    aspirations: "Saisir, contrôler par la mâchoire. Tendance à la capture comme finalité du déclenchement prédateur.",
+    axes: "Travail uniquement en sécurité (laisse, longe, troupeau protégé). Reconstruction de l'inhibition de saisie. Encadrement professionnel requis.",
+    pieges: "Sous-estimer le risque pour les brebis. Présenter au troupeau libre. Renvoyer le propriétaire sans accompagnement.",
+    criteres: "Pas de mouvement de saisie au déclenchement. Retour à l'orienter sur commande. Régulation en présence du troupeau."
+  },
+  peu_interet: {
+    name: "Peu d'intérêt",
+    accroche: 'séquence atrophiée, faible engagement',
+    scores: { orienter: 1, oeil: 0, approche: 0, poursuite: 0, saisir: 0, tuer: 0, dechirer: 0, manger: 0 },
+    constat: "Le chiot s'oriente peu ou pas, ne fixe pas, n'avance pas. La séquence prédatrice ne se déclenche pas en présence du troupeau, ou seulement à très bas régime.",
+    forces: "Chiot calme, sans danger pour le troupeau. Profil parfois lié à un manque d'éveil plutôt qu'à un manque de potentiel — c'est moins définitif qu'il n'y paraît.",
+    limites: "Pas d'engagement spontané. Difficile à évaluer en une seule séance. Peut révéler une vraie inaptitude ou simplement un état du jour.",
+    aspirations: "Tendance à l'évitement ou à l'indifférence. Pas de motivation prédatrice visible — à vérifier en variant les conditions.",
+    axes: "Tester en conditions favorables : chien expérimenté présent, troupeau actif maîtrisé. Éveil progressif par jeu de proximité. Réévaluer après quelques mois si nécessaire.",
+    pieges: "Conclure trop vite à l'inaptitude. Forcer l'engagement par pression. Confondre profil et état du jour (fatigue, peur, journée tendue).",
+    criteres: "Orientation soutenue vers le troupeau. Premiers signes d'œil ou d'approche. Augmentation progressive de l'attention sur plusieurs séances."
+  }
+};
+
+const COLORS = {
+  equilibre:   { c: 'var(--p-equilibre)',   bg: 'var(--p-equilibre-bg)' },
+  scotche:     { c: 'var(--p-scotche)',     bg: 'var(--p-scotche-bg)' },
+  poursuivant: { c: 'var(--p-poursuivant)', bg: 'var(--p-poursuivant-bg)' },
+  mordeur:     { c: 'var(--p-mordeur)',     bg: 'var(--p-mordeur-bg)' },
+  peu_interet: { c: 'var(--p-peuint)',      bg: 'var(--p-peuint-bg)' }
+};
+
+function renderViz(profileKey) {
+  const p = PROFILES[profileKey];
+  const scores = p.scores;
+  document.querySelectorAll('.station').forEach(st => {
+    const k = st.dataset.p;
+    const v = scores[k];
+    const bar = st.querySelector('.station-bar');
+    const val = st.querySelector('.station-value');
+    // Bar height: 0 = ~2%, 5 = 90%
+    const pct = Math.max(2, (v / 5) * 90);
+    bar.style.height = pct + '%';
+    val.textContent = v;
+    if (v > 0) st.classList.add('has-value'); else st.classList.remove('has-value');
+  });
+}
+
+function renderPanel(profileKey) {
+  const p = PROFILES[profileKey];
+  const c = COLORS[profileKey];
+  const html =
+    '<div class="profile-card" style="background: ' + c.bg + '; border-left-color: ' + c.c + ';">'
+      + '<div class="profile-tag">Profil sélectionné</div>'
+      + '<div class="profile-name" style="color: ' + c.c + ';">' + p.name + '</div>'
+      + '<div class="profile-accroche">' + p.accroche + '</div>'
+    + '</div>'
+    + '<div class="constat">'
+      + '<div class="constat-tag">Ce que vous observez</div>'
+      + p.constat
+    + '</div>'
+    + '<div class="rubriques">'
+      + rubrique('I', 'Forces', p.forces)
+      + rubrique('II', 'Limites', p.limites)
+      + rubrique('III', 'Aspirations naturelles', p.aspirations)
+      + rubrique('IV', 'Axes de travail', p.axes)
+      + rubrique('V', 'Pièges à éviter', p.pieges)
+      + rubrique('VI', 'Critères de réussite', p.criteres)
+    + '</div>';
+  document.getElementById('panel').innerHTML = html;
+}
+
+function rubrique(num, title, body) {
+  return '<div class="rubrique">'
+    + '<div class="rubrique-head">'
+      + '<span class="rubrique-num">' + num + '</span>'
+      + '<span class="rubrique-title">' + title + '</span>'
+    + '</div>'
+    + '<div class="rubrique-body">' + body + '</div>'
+  + '</div>';
+}
+
+function select(profileKey) {
+  document.querySelectorAll('.profile-btn').forEach(b => {
+    const active = b.dataset.profile === profileKey;
+    b.classList.toggle('active', active);
+    b.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+  renderViz(profileKey);
+  renderPanel(profileKey);
+}
+
+document.querySelectorAll('.profile-btn').forEach(b => {
+  b.addEventListener('click', () => select(b.dataset.profile));
+});
+
+select('equilibre');
+</script>
+
+</body>
+</html>
