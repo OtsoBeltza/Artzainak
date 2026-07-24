@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#20241F">
+<title>Bergerie CDEO — plan interactif</title>
+<style>
+  :root{
+    --ink:#1B201B; --paper:#F5F4EE; --line:#C9C7BD; --white:#fff;
+    --head:#20241F; --straw:#D9A441; --muted:#6B6B60;
+    --J:#D9A441; --Jsoft:#F6ECD6; --Jdark:#8A6A20;
+    --V:#1E7A46; --Vsoft:#DFEEE4;
+    --R:#BC2B2A; --Rsoft:#F3DEDD;
+    --B:#2C5F8A; --Bsoft:#DDE8F1;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--paper);color:var(--ink)}
+  header{background:var(--head);padding:14px 16px}
+  header .eyebrow{color:var(--straw);letter-spacing:.18em;font-size:11px;font-weight:700;text-transform:uppercase;margin:0}
+  header h1{color:#fff;font-size:20px;font-weight:800;margin:2px 0 8px}
+  .headrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .total{color:#fff;font-weight:800;font-size:22px;line-height:1}
+  .total small{display:block;color:#A8ACA3;font-weight:400;font-size:11px;margin-top:2px}
+  .btn{border:1px solid #565B54;background:transparent;color:#fff;border-radius:6px;padding:6px 10px;font-size:12px;font-weight:600;cursor:pointer}
+  .btn.solid{background:var(--straw);color:var(--ink);border-color:var(--straw);font-weight:700}
+  .msg{color:#D8DCD3;font-size:12px;margin:8px 0 0}
+  .warn{color:#F2B8B5;font-size:12px;margin:8px 0 0}
+  .planwrap{overflow-x:auto;padding:14px 8px}
+  svg{display:block}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;padding:0 16px 10px;font-size:12px;color:var(--muted);align-items:center}
+  .sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-2px}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ink);margin-right:5px}
+  .panel{background:#fff;border-radius:10px;margin:0 8px 20px;padding:14px;box-shadow:0 1px 4px #0002}
+  .panel h2{font-size:17px;font-weight:800;margin:0}
+  .zbadge{display:inline-block;border-radius:5px;padding:2px 8px;color:#fff;font-size:13px;margin-right:8px;vertical-align:middle}
+  .sub{font-size:12px;color:var(--muted);margin:3px 0 0}
+  .close{float:right;background:none;border:none;color:var(--muted);font-size:14px;font-weight:600;cursor:pointer;padding:4px}
+  .box{border-radius:8px;padding:10px;margin-top:12px}
+  .boxtitle{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin:0 0 8px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px;padding:0;list-style:none}
+  .chip{background:#fff;border:1.5px solid;border-radius:999px;padding:5px 10px;font-size:13px;font-weight:600;font-family:ui-monospace,monospace;display:flex;align-items:center;gap:7px}
+  .chip button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:11px;padding:0}
+  .row{display:flex;flex-wrap:wrap;gap:6px}
+  input[type=text],input[type=date],select{border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-size:14px;background:#fff}
+  input[type=text]{flex:1;min-width:0;font-family:ui-monospace,monospace}
+  input[type=number]{border:1px solid var(--line);border-radius:6px;padding:5px;width:60px;text-align:center;font-weight:700}
+  .act{border:none;border-radius:6px;padding:8px 14px;font-size:13px;font-weight:700;color:#fff;cursor:pointer}
+  .hist{list-style:none;margin:10px 0 0;padding:0}
+  .hist li{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line);align-items:flex-start}
+  .tag{border-radius:5px;padding:2px 7px;font-size:11px;font-weight:700;color:#fff;white-space:nowrap}
+  .hist .del{background:none;border:none;color:#9A9A8C;font-size:11px;cursor:pointer}
+  .hist .when{font-size:11px;color:var(--muted);margin-top:2px}
+  .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+  @media(min-width:640px){.grid{grid-template-columns:repeat(10,1fr)}}
+  .cellbtn{border:1.5px solid var(--J);border-radius:6px;background:#fff;padding:6px 2px;text-align:center;cursor:pointer}
+  .cellbtn.sel{border-color:var(--ink);border-width:2.5px}
+  .cellbtn .id{display:block;font-size:11px;font-weight:700;font-family:ui-monospace,monospace}
+  .cellbtn .n{display:block;font-size:14px;font-weight:800}
+  .hint{padding:0 16px 24px;font-size:13px;color:var(--muted)}
+  #searchinput{width:100%;font-family:inherit}
+  .sr-group{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:12px 0 6px}
+  .sr-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line);cursor:pointer}
+  .sr-item:active{background:var(--paper)}
+  .sr-ram{font-family:ui-monospace,monospace;font-weight:700;font-size:14px}
+  .sr-where{font-size:12px;color:var(--muted);flex:1;min-width:0}
+  .sr-zone{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .sr-open{font-size:12px;font-weight:700;color:var(--ink);white-space:nowrap}
+  .sr-empty{font-size:13px;color:var(--muted);padding:8px 0 0}
+  .cfg label{font-size:13px;margin-right:12px}
+  .mono{font-family:ui-monospace,monospace}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<input type="file" id="csvfile" accept=".csv,.txt" style="display:none">
+
+<script>
+"use strict";
+// ————————————————————————————————————————————
+// Bergerie CDEO — version autonome hors-ligne
+// Fonctionne sans internet : ouvrez ce fichier dans le
+// navigateur du téléphone. Les données sont enregistrées
+// dans la mémoire locale de l'appareil.
+// ————————————————————————————————————————————
+
+var STORAGE_KEY = "bergerie_cdeo_v1";
+var state = { config: { west: 18, east: 17, indiv: 20 }, pens: {}, events: {}, moves: [] };
+var ui = { selected: null, indOpen: false, showConfig: false, ioMessage: "", storageOk: true,
+           formType: "soin", formRam: "", formDate: todayISO(), search: "", ramView: null };
+
+var ZONES = {
+  J: { id:"J", label:"Zone jaune", color:"#D9A441", soft:"#F6ECD6", dark:"#8A6A20" },
+  V: { id:"V", label:"Zone verte", color:"#1E7A46", soft:"#DFEEE4", dark:"#1E7A46" },
+  R: { id:"R", label:"Zone rouge", color:"#BC2B2A", soft:"#F3DEDD", dark:"#BC2B2A" },
+  B: { id:"B", label:"Zone bleue", color:"#2C5F8A", soft:"#DDE8F1", dark:"#2C5F8A" }
+};
+var SAUT_ZONE = {1:"J",2:"R",3:"V",4:"B"};
+var SAUT_TOKEN = {1:"saut_jaune",2:"saut_rouge",3:"saut_verte",4:"saut_bleue"};
+var EVENT_TYPES = [
+  { id:"soin", label:"Soin", color:"#8A4A9E" },
+  { id:"collecte", label:"Collecte / récolte", color:"#1E7A46" },
+  { id:"saut", label:"Saut / saillie", color:"#B03A6B" },
+  { id:"alimentation", label:"Alimentation", color:"#B07A2A" },
+  { id:"mouvement", label:"Mouvement", color:"#2C5F8A" },
+  { id:"note", label:"Note", color:"#6B6B60" }
+];
+
+function todayISO(){ return new Date().toISOString().slice(0,10); }
+function fmtDate(iso){ if(!iso) return ""; var p=iso.split("-"); return p.length===3? p[2]+"/"+p[1]+"/"+p[0] : iso; }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
+function isSaut(id){ return id.indexOf("SAUT-")===0; }
+function isInd(id){ return id.indexOf("IND-")===0; }
+function zoneOf(id){
+  var p = id.split("-")[0];
+  if (p==="IND") return ZONES.J;
+  if (p==="SAUT") return ZONES[SAUT_ZONE[parseInt(id.split("-")[1],10)]] || ZONES.J;
+  return ZONES[p] || ZONES.J;
+}
+function kindOf(id){
+  if (isInd(id)) return "Case individuelle";
+  if (isSaut(id)) return "Case de saut";
+  return "Case collective";
+}
+
+// numérotation horaire 1..67 : verte (droite→gauche), jaune (gauche→droite),
+// rouge (gauche→droite), bleue (droite→gauche, finit contre le centre).
+// Individuelles (I1..I20) et cases de saut hors numérotation.
+function yellowN(){ return Math.max(0, state.config.west - 3); }
+function numbering(){
+  var map={}, w=state.config.west, y=yellowN(), e=state.config.east, i;
+  for(i=1;i<=w;i++) map["V-"+i]=w-i+1;
+  for(i=1;i<=y;i++) map["J-"+i]=w+i;
+  for(i=1;i<=e;i++) map["R-"+i]=w+y+i;
+  for(i=1;i<=e;i++) map["B-"+i]=w+y+e+(e-i+1);
+  return map;
+}
+function numberToId(){
+  var rev={}, map=numbering();
+  Object.keys(map).forEach(function(id){ rev[map[id]]=id; });
+  return rev;
+}
+function allIds(){
+  var ids=Object.keys(numbering()), i;
+  for(i=1;i<=state.config.indiv;i++) ids.push("IND-"+i);
+  return ids; // les cases de saut ne font pas partie de l'inventaire
+}
+function lastNumber(){ return state.config.west + yellowN() + 2*state.config.east; }
+function penTitle(id){
+  if (isSaut(id)) return "Case de saut "+zoneOf(id).label.replace("Zone ","");
+  if (isInd(id)) return "Case individuelle I"+id.split("-")[1];
+  return "Case collective n° "+(numbering()[id]||"?");
+}
+function caseToken(id){
+  if (isSaut(id)) return SAUT_TOKEN[parseInt(id.split("-")[1],10)];
+  if (isInd(id)) return "ind_"+id.split("-")[1];
+  return String(numbering()[id]);
+}
+
+// ————— stockage local —————
+function load(){
+  try{
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if (raw){
+      var d = JSON.parse(raw);
+      if (d.config) state.config = { west:d.config.west||18, east:d.config.east||17, indiv:d.config.indiv||20 };
+      if (d.pens) state.pens = d.pens;
+      if (d.events) state.events = d.events;
+      if (d.moves) state.moves = d.moves;
+    }
+  }catch(e){ ui.storageOk=false; }
+}
+function save(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); ui.storageOk=true; }
+  catch(e){ ui.storageOk=false; }
+}
+
+// ————— données —————
+// Un bélier est un objet { num, cdo, race } ; les anciennes saisies (simples
+// chaînes) restent lisibles grâce aux accesseurs ci-dessous.
+function ramNum(r){ return (typeof r==="string")? r : ((r&&r.num)||""); }
+function ramCdo(r){ return (r&&typeof r==="object")? (r.cdo||"") : ""; }
+function ramRace(r){ return (r&&typeof r==="object")? (r.race||"") : ""; }
+function findRam(list,num){ for(var i=0;i<list.length;i++){ if(ramNum(list[i])===num) return i; } return -1; }
+function ramDesc(r){
+  var extra=[]; if(ramCdo(r)) extra.push("CDO "+ramCdo(r)); if(ramRace(r)) extra.push(ramRace(r));
+  return extra.join(" \u00B7 ");
+}
+// case actuelle d'un bélier (par son numéro d'identification)
+function currentCaseOf(num){
+  var ids=allIds();
+  for(var i=0;i<ids.length;i++){
+    var p=state.pens[ids[i]];
+    if(p&&p.rams&&findRam(p.rams,num)>-1) return ids[i];
+  }
+  return null;
+}
+// journal des déplacements : from/to = id de case ou null (entrée/sortie du bâtiment)
+function logMove(num, from, to, date){
+  state.moves.push({ ram:num, from:from||"", to:to||"", date:date||todayISO() });
+}
+function moveLabel(mv){
+  if(mv.from && mv.to) return "D\u00E9plac\u00E9 de \u00AB "+penTitle(mv.from)+" \u00BB vers \u00AB "+penTitle(mv.to)+" \u00BB";
+  if(mv.to) return "Plac\u00E9 en \u00AB "+penTitle(mv.to)+" \u00BB";
+  if(mv.from) return "Sorti de \u00AB "+penTitle(mv.from)+" \u00BB";
+  return "Mouvement";
+}
+function penCount(id){
+  var p=state.pens[id]; if(!p) return 0;
+  return (p.rams?p.rams.length:0) + (p.legacy||0);
+}
+function totalSheep(){ return allIds().reduce(function(s,id){return s+penCount(id);},0); }
+function occupiedCount(){ return allIds().filter(function(id){return penCount(id)>0;}).length; }
+function maxCount(){ var m=1; allIds().forEach(function(id){ m=Math.max(m,penCount(id)); }); return m; }
+function indTotal(){ var s=0,i; for(i=1;i<=state.config.indiv;i++) s+=penCount("IND-"+i); return s; }
+
+window.selectPen=function(id){
+  ui.selected = (ui.selected===id)? null : id;
+  ui.formRam=""; ui.ramView=null;
+  render();
+  if (ui.selected){
+    var el=document.getElementById("fiche"); if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+};
+window.openRam=function(num){
+  ui.ramView=num;
+  var c=currentCaseOf(num);
+  if(c) ui.selected=c;
+  render();
+  var el=document.getElementById("ramfiche"); if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
+};
+window.closeRam=function(){ ui.ramView=null; render(); };
+window.backToCase=function(caseId){
+  ui.ramView=null; ui.selected=caseId; render();
+  var el=document.getElementById("fiche"); if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
+};
+window.toggleInd=function(){ ui.indOpen=!ui.indOpen; render(); };
+window.toggleConfig=function(){ ui.showConfig=!ui.showConfig; render(); };
+window.closeFiche=function(){ ui.selected=null; render(); };
+
+window.addRam=function(){
+  var input=document.getElementById("raminput"); if(!input||!ui.selected) return;
+  var num=input.value.trim(); if(!num) return;
+  var cdoEl=document.getElementById("cdoinput"), raceEl=document.getElementById("raceinput");
+  var cdo=(cdoEl&&cdoEl.value.trim())||"", race=(raceEl&&raceEl.value.trim())||"";
+  var from=currentCaseOf(num);
+  if(from===ui.selected){ render(); return; } // déjà dans cette case
+  // retirer de l'ancienne case en conservant CDO/race déjà connus
+  if(from){
+    var old=state.pens[from], keep=old.rams[findRam(old.rams,num)];
+    if(!cdo) cdo=ramCdo(keep);
+    if(!race) race=ramRace(keep);
+    old.rams=old.rams.filter(function(r){return ramNum(r)!==num;});
+  }
+  var p=state.pens[ui.selected]||{rams:[]};
+  if(!p.rams) p.rams=[];
+  p.rams.push({num:num,cdo:cdo,race:race});
+  state.pens[ui.selected]=p;
+  logMove(num, from, ui.selected);
+  save();
+  render();
+  var again=document.getElementById("raminput");
+  if(again){ again.focus(); } // enchaîner les scans du lecteur de boucle
+};
+window.removeRam=function(num){
+  if(!ui.selected) return;
+  var p=state.pens[ui.selected]; if(!p||!p.rams) return;
+  p.rams=p.rams.filter(function(r){return ramNum(r)!==num;});
+  logMove(num, ui.selected, null);
+  save(); render();
+};
+window.clearLegacy=function(){
+  if(!ui.selected) return;
+  var p=state.pens[ui.selected]||{rams:[]}; p.legacy=0; state.pens[ui.selected]=p;
+  save(); render();
+};
+
+window.addEvent=function(){
+  if(!ui.selected) return;
+  var text=document.getElementById("evtext"), date=document.getElementById("evdate"),
+      type=document.getElementById("evtype"), ram=document.getElementById("evram");
+  if(!text||!text.value.trim()) return;
+  var list=state.events[ui.selected]||[];
+  list.unshift({ id:Date.now().toString(36), date:(date&&date.value)||todayISO(),
+                 type:(type&&type.value)||"note", text:text.value.trim(), ram:(ram&&ram.value)||"" });
+  state.events[ui.selected]=list;
+  ui.formType=(type&&type.value)||"soin"; ui.formDate=(date&&date.value)||todayISO(); ui.formRam="";
+  save(); render();
+};
+window.removeEvent=function(evId){
+  if(!ui.selected) return;
+  state.events[ui.selected]=(state.events[ui.selected]||[]).filter(function(e){return e.id!==evId;});
+  save(); render();
+};
+
+window.applyConfig=function(){
+  var w=parseInt(document.getElementById("cfgw").value,10)||18;
+  var e=parseInt(document.getElementById("cfge").value,10)||17;
+  var n=parseInt(document.getElementById("cfgi").value,10)||20;
+  state.config={ west:Math.min(30,Math.max(4,w)), east:Math.min(30,Math.max(1,e)), indiv:Math.min(40,Math.max(1,n)) };
+  ui.showConfig=false; save(); render();
+};
+
+// ————— export / import CSV —————
+function download(filename, text){
+  var blob=new Blob(["\uFEFF"+text],{type:"text/csv;charset=utf-8"});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement("a"); a.href=url; a.download=filename; a.click();
+  URL.revokeObjectURL(url);
+}
+window.exportInventory=function(){
+  var lines=["numero_identification;numero_cdo;race;case;zone;type_case"];
+  allIds().forEach(function(id){
+    var rams=(state.pens[id]&&state.pens[id].rams)||[];
+    rams.forEach(function(r){
+      lines.push(ramNum(r)+";"+ramCdo(r)+";"+String(ramRace(r)).replace(/;/g,",")+";"+caseToken(id)+";"+zoneOf(id).label+";"+kindOf(id));
+    });
+  });
+  download("inventaire_bergerie_"+todayISO()+".csv", lines.join("\n"));
+  ui.ioMessage="Inventaire exporté ("+(lines.length-1)+" béliers)."; render();
+};
+window.exportHistory=function(){
+  var lines=["numero_case;zone;date;type_evenement;identifiant_belier;commentaire"];
+  allIds().forEach(function(id){
+    (state.events[id]||[]).forEach(function(ev){
+      var t=EVENT_TYPES.filter(function(x){return x.id===ev.type;})[0];
+      lines.push(caseToken(id)+";"+zoneOf(id).label+";"+ev.date+";"+((t&&t.label)||ev.type)+";"+(ev.ram||"")+";"+String(ev.text||"").replace(/;/g,","));
+    });
+  });
+  state.moves.forEach(function(mv){
+    var ref=mv.to||mv.from||"";
+    var tok=ref? ((isInd(ref)||numbering()[ref]!==undefined)? caseToken(ref) : ref) : "";
+    var zn=ref&&(isInd(ref)||numbering()[ref]!==undefined)? zoneOf(ref).label : "";
+    lines.push(tok+";"+zn+";"+mv.date+";D\u00E9placement;"+mv.ram+";"+moveLabel(mv).replace(/;/g,","));
+  });
+  download("historique_bergerie_"+todayISO()+".csv", lines.join("\n"));
+  ui.ioMessage="Historique exporté ("+(lines.length-1)+" événements)."; render();
+};
+window.triggerImport=function(){ document.getElementById("csvfile").click(); };
+
+function parseCaseCell(raw){
+  var v=String(raw||"").toLowerCase().trim();
+  if(/saut/.test(v)) return null; // les cases de saut ne servent pas à l'inventaire
+  var m=v.match(/^(?:ind[a-zé]*[\s_-]*|i)(\d+)$/);
+  if(m){ var k=parseInt(m[1],10); return (k>=1&&k<=state.config.indiv)? "IND-"+k : null; }
+  var num=parseInt(v,10);
+  return numberToId()[num]||null;
+}
+function importCsvText(text){
+  var sep = text.indexOf(";")>-1 ? ";" : ",";
+  var rows = text.split(/\r?\n/).map(function(l){return l.trim();}).filter(Boolean)
+    .map(function(l){ return l.split(sep).map(function(c){return c.trim().replace(/^"|"$/g,"");}); });
+  if(rows.length<2) throw new Error("fichier vide");
+  var header=rows[0].map(function(h){return h.toLowerCase();});
+  var ramCol=-1, caseCol=-1, cdoCol=-1, raceCol=-1, i;
+  for(i=0;i<header.length;i++){
+    if(cdoCol<0 && /cdo/.test(header[i])) cdoCol=i;
+    else if(raceCol<0 && /race/.test(header[i])) raceCol=i;
+    else if(ramCol<0 && /ident|boucle|belier|bélier|animal/.test(header[i])) ramCol=i;
+    if(caseCol<0 && /case|parc|lot|emplacement/.test(header[i])) caseCol=i;
+  }
+  if(ramCol<0||caseCol<0) throw new Error("Colonnes non reconnues : il faut une colonne identifiant et une colonne case");
+  var ok=0, skipped=0;
+  rows.slice(1).forEach(function(r){
+    var num=r[ramCol], id=parseCaseCell(r[caseCol]);
+    if(!num||!id){ skipped++; return; }
+    // n° CDO : rétablir les zéros de tête perdus par Excel (0042 devenu 42)
+    var cdo=(cdoCol>-1 && r[cdoCol])? String(r[cdoCol]).trim() : "";
+    if(cdo && /^\d{1,4}$/.test(cdo)) cdo=("0000"+cdo).slice(-4);
+    var race=(raceCol>-1 && r[raceCol])? String(r[raceCol]).trim() : "";
+    var from=currentCaseOf(num);
+    if(from===id){ return; } // déjà à sa place, rien à faire
+    if(from){
+      var old=state.pens[from];
+      old.rams=old.rams.filter(function(x){return ramNum(x)!==num;});
+    }
+    var pen=state.pens[id]||{rams:[]}; if(!pen.rams) pen.rams=[];
+    pen.rams.push({num:num,cdo:cdo,race:race});
+    state.pens[id]=pen;
+    logMove(num, from, id);
+    ok++;
+  });
+  save();
+  ui.ioMessage="Import terminé : "+ok+" bélier(s) placé(s)"+(skipped? ", "+skipped+" ligne(s) ignorée(s)":"")+".";
+}
+
+// ————— recherche —————
+// Cherche dans TOUTES les entrées : numéros de béliers, cases (numéro, I5, saut jaune…),
+// zones, types d'événements, textes, dates (aaaa-mm-jj ou jj/mm/aaaa).
+// Plusieurs mots = toutes les conditions à la fois (ex. « soin verte 2026 »).
+function matches(hay, words){
+  var h=hay.toLowerCase();
+  for(var i=0;i<words.length;i++){ if(h.indexOf(words[i])===-1) return false; }
+  return true;
+}
+function searchAll(){
+  var q=(ui.search||"").toLowerCase().trim();
+  if(!q) return null;
+  var words=q.split(/\s+/).filter(Boolean);
+  var rams=[], events=[];
+  allIds().forEach(function(id){
+    var where=caseToken(id)+" "+kindOf(id)+" "+zoneOf(id).label+" "+penTitle(id);
+    var pen=state.pens[id];
+    if(pen&&pen.rams){
+      pen.rams.forEach(function(r){
+        if(matches(ramNum(r)+" "+ramCdo(r)+" "+ramRace(r)+" "+where, words)) rams.push({ram:r,id:id});
+      });
+    }
+    (state.events[id]||[]).forEach(function(ev){
+      var t=EVENT_TYPES.filter(function(x){return x.id===ev.type;})[0];
+      var hay=(ev.text||"")+" "+((t&&t.label)||ev.type)+" "+(ev.ram||"")+" "+(ev.date||"")+" "+fmtDate(ev.date)+" "+where;
+      if(matches(hay,words)) events.push({ev:ev,id:id,typeLabel:(t&&t.label)||ev.type,typeColor:(t&&t.color)||"#6B6B60"});
+    });
+  });
+  events.sort(function(a,b){ return a.ev.date<b.ev.date?1:-1; });
+  return { rams:rams, events:events };
+}
+function searchResultsHtml(){
+  var res=searchAll();
+  if(!res) return '<p class="sr-empty">Tapez un num&#233;ro de b&#233;lier, une case (12, I5, saut jaune), une zone, un type d\'&#233;v&#233;nement, un mot ou une date. Plusieurs mots pour croiser : &#171;&#8239;soin verte&#8239;&#187;.</p>';
+  var h='';
+  var LIMIT=50;
+  if(res.rams.length===0&&res.events.length===0) return '<p class="sr-empty">Aucun r&#233;sultat pour &#171;&#8239;'+esc(ui.search)+'&#8239;&#187;.</p>';
+  if(res.rams.length>0){
+    h+='<p class="sr-group">B&#233;liers ('+res.rams.length+')</p>';
+    res.rams.slice(0,LIMIT).forEach(function(x){
+      var z=zoneOf(x.id), d=ramDesc(x.ram), safe=esc(ramNum(x.ram)).replace(/'/g,"\\'");
+      h+='<div class="sr-item" onclick="openRam(\''+safe+'\')"><span class="sr-ram">&#128017; '+esc(ramNum(x.ram))+'</span><span class="sr-where">'+(d? esc(d)+'<br>':'')+'<span class="sr-zone" style="background:'+z.color+'"></span>'+esc(penTitle(x.id))+'</span><span class="sr-open">Historique &#8250;</span></div>';
+    });
+    if(res.rams.length>LIMIT) h+='<p class="sr-empty">&#8230; et '+(res.rams.length-LIMIT)+' autres &#8212; affinez la recherche.</p>';
+  }
+  if(res.events.length>0){
+    h+='<p class="sr-group">&#201;v&#233;nements ('+res.events.length+')</p>';
+    res.events.slice(0,LIMIT).forEach(function(x){
+      var z=zoneOf(x.id);
+      h+='<div class="sr-item" onclick="selectPen(\''+x.id+'\')"><span class="tag" style="background:'+x.typeColor+'">'+esc(x.typeLabel)+'</span><span class="sr-where">'+(x.ev.ram? '<span class="mono" style="font-weight:600">['+esc(x.ev.ram)+']</span> ':'')+esc(x.ev.text)+'<br><span class="sr-zone" style="background:'+z.color+'"></span>'+esc(penTitle(x.id))+' &#183; '+fmtDate(x.ev.date)+'</span><span class="sr-open">Ouvrir &#8250;</span></div>';
+    });
+    if(res.events.length>LIMIT) h+='<p class="sr-empty">&#8230; et '+(res.events.length-LIMIT)+' autres &#8212; affinez la recherche.</p>';
+  }
+  return h;
+}
+window.doSearch=function(v){
+  ui.search=v;
+  var el=document.getElementById("searchresults");
+  if(el) el.innerHTML=searchResultsHtml();
+};
+window.clearSearch=function(){
+  ui.search="";
+  var inp=document.getElementById("searchinput"); if(inp) inp.value="";
+  var el=document.getElementById("searchresults"); if(el) el.innerHTML=searchResultsHtml();
+};
+
+// ————— rendu —————
+function penFillColor(id){
+  var n=penCount(id), z=zoneOf(id);
+  if(n===0) return isSaut(id)? z.soft : "#fff";
+  var t=0.35+0.65*Math.min(1,n/maxCount());
+  var hex=z.color.replace("#","");
+  var r=parseInt(hex.slice(0,2),16), g=parseInt(hex.slice(2,4),16), b=parseInt(hex.slice(4,6),16);
+  function mix(c){ return Math.round(255+(c-255)*t); }
+  return "rgb("+mix(r)+","+mix(g)+","+mix(b)+")";
+}
+function penTextColor(id){ return (penCount(id)/maxCount()>0.55)? "#fff" : "#1B201B"; }
+
+function penSvg(id,x,y,w,h,isTop,big){
+  var z=zoneOf(id);
+  if(isSaut(id)){
+    // hors inventaire : non sélectionnable, simple repère coloré
+    var s0='<g>';
+    s0+='<rect x="'+(x+1.5)+'" y="'+(y+1.5)+'" width="'+(w-3)+'" height="'+(h-3)+'" rx="2" fill="'+z.soft+'" stroke="'+z.color+'" stroke-width="2.5"/>';
+    s0+='<text x="'+(x+w/2)+'" y="'+(y+h/2+4)+'" text-anchor="middle" font-size="11" font-weight="800" fill="'+z.color+'" style="font-family:ui-monospace,monospace;pointer-events:none">SAUT</text>';
+    s0+='</g>';
+    return s0;
+  }
+  var count=penCount(id), sel=(ui.selected===id);
+  var hasEv=(state.events[id]||[]).length>0;
+  var label = String(numbering()[id]||"");
+  var s='<g onclick="selectPen(\''+id+'\')" style="cursor:pointer">';
+  s+='<rect x="'+(x+1.5)+'" y="'+(y+1.5)+'" width="'+(w-3)+'" height="'+(h-3)+'" rx="2" fill="'+penFillColor(id)+'" stroke="'+(sel?"#1B201B":z.color)+'" stroke-width="'+(sel?3.5:(big?2.5:1.5))+'"/>';
+  s+='<text x="'+(x+w/2)+'" y="'+(isTop? y+22 : y+h-12)+'" text-anchor="middle" font-size="12" font-weight="700" fill="'+penTextColor(id)+'" style="font-family:ui-monospace,monospace;pointer-events:none">'+label+'</text>';
+  s+='<text x="'+(x+w/2)+'" y="'+(isTop? y+h-16 : y+30)+'" text-anchor="middle" font-size="15" font-weight="800" fill="'+(count>0? penTextColor(id) : "#C9C7BD")+'" style="pointer-events:none">'+(count>0? count : "&#183;")+'</text>';
+  if(hasEv) s+='<circle cx="'+(x+w-9)+'" cy="'+(isTop? y+10 : y+h-10)+'" r="3.5" fill="#1B201B"/>';
+  s+='</g>';
+  return s;
+}
+
+function planSvg(){
+  var PEN_W=48, PEN_H=96, AISLE_H=46, BLOCK_W=160, M=24;
+  var w=state.config.west, e=state.config.east, y=yellowN();
+  var westW=w*PEN_W, eastW=e*PEN_W, indW=westW-y*PEN_W;
+  var svgW=M+westW+BLOCK_W+eastW+M, svgH=M+PEN_H+AISLE_H+PEN_H+M+26;
+  var topY=M, aisleY=M+PEN_H, botY=aisleY+AISLE_H, i;
+  var s='<svg width="'+svgW+'" height="'+svgH+'" viewBox="0 0 '+svgW+' '+svgH+'" style="min-width:'+svgW+'px">';
+  s+='<rect x="'+(M-6)+'" y="'+(topY-6)+'" width="'+(svgW-2*M+12)+'" height="'+(PEN_H*2+AISLE_H+12)+'" fill="none" stroke="#1B201B" stroke-width="2.5"/>';
+  s+='<rect x="'+M+'" y="'+aisleY+'" width="'+westW+'" height="'+AISLE_H+'" fill="#EDEAE0"/>';
+  s+='<rect x="'+(M+westW+BLOCK_W)+'" y="'+aisleY+'" width="'+eastW+'" height="'+AISLE_H+'" fill="#EDEAE0"/>';
+  s+='<text x="'+(M+westW/2)+'" y="'+(aisleY+AISLE_H/2+4)+'" text-anchor="middle" font-size="11" fill="#8A8878" letter-spacing="4" style="pointer-events:none">ALL&#201;E CENTRALE</text>';
+  s+='<text x="'+(M+westW+BLOCK_W+eastW/2)+'" y="'+(aisleY+AISLE_H/2+4)+'" text-anchor="middle" font-size="11" fill="#8A8878" letter-spacing="4" style="pointer-events:none">ALL&#201;E CENTRALE</text>';
+  // rangée jaune (haut, aile 1)
+  for(i=1;i<=y;i++) s+=penSvg("J-"+i, M+(i-1)*PEN_W, topY, PEN_W, PEN_H, true, false);
+  // bloc individuelles (contre le centre)
+  var ix=M+y*PEN_W;
+  s+='<g onclick="toggleInd()" style="cursor:pointer">';
+  s+='<rect x="'+(ix+1.5)+'" y="'+(topY+1.5)+'" width="'+(indW-3)+'" height="'+(PEN_H-3)+'" rx="2" fill="'+(ui.indOpen? ZONES.J.color : ZONES.J.soft)+'" stroke="'+ZONES.J.color+'" stroke-width="2.5"/>';
+  for(i=1;i<10;i++) s+='<line x1="'+(ix+i*indW/10)+'" y1="'+(topY+4)+'" x2="'+(ix+i*indW/10)+'" y2="'+(topY+PEN_H-4)+'" stroke="'+(ui.indOpen? "#FFFFFF66" : ZONES.J.color+"55")+'" stroke-width="1"/>';
+  s+='<text x="'+(ix+indW/2)+'" y="'+(topY+PEN_H/2-4)+'" text-anchor="middle" font-size="10" font-weight="800" fill="'+(ui.indOpen?"#fff":ZONES.J.dark)+'" style="pointer-events:none">CASES INDIVIDUELLES ('+state.config.indiv+')</text>';
+  s+='<text x="'+(ix+indW/2)+'" y="'+(topY+PEN_H/2+14)+'" text-anchor="middle" font-size="13" font-weight="800" fill="'+(ui.indOpen?"#fff":ZONES.J.dark)+'" style="pointer-events:none">'+(indTotal()>0? indTotal()+" b&#233;liers" : "toucher pour ouvrir")+'</text>';
+  s+='</g>';
+  // rangée verte (bas, aile 1) : case 1 contre le centre
+  for(i=1;i<=w;i++) s+=penSvg("V-"+i, M+(i-1)*PEN_W, botY, PEN_W, PEN_H, false, false);
+  // cases de saut
+  var half=(BLOCK_W-8)/2;
+  s+=penSvg("SAUT-1", M+westW+4, topY, half, PEN_H, true, true);
+  s+=penSvg("SAUT-2", M+westW+4+half, topY, half, PEN_H, true, true);
+  s+=penSvg("SAUT-3", M+westW+4, botY, half, PEN_H, false, true);
+  s+=penSvg("SAUT-4", M+westW+4+half, botY, half, PEN_H, false, true);
+  s+='<rect x="'+(M+westW+4)+'" y="'+aisleY+'" width="'+(BLOCK_W-8)+'" height="'+AISLE_H+'" fill="#E7E5DB"/>';
+  s+='<text x="'+(M+westW+BLOCK_W/2)+'" y="'+(aisleY+AISLE_H/2+4)+'" text-anchor="middle" font-size="10" font-weight="700" fill="#6B6B60" style="pointer-events:none">CASES DE SAUT</text>';
+  // aile 2
+  for(i=1;i<=e;i++) s+=penSvg("R-"+i, M+westW+BLOCK_W+(i-1)*PEN_W, topY, PEN_W, PEN_H, true, false);
+  for(i=1;i<=e;i++) s+=penSvg("B-"+i, M+westW+BLOCK_W+(i-1)*PEN_W, botY, PEN_W, PEN_H, false, false);
+  // étiquettes de zones
+  function tag(x,yy,z){ return '<rect x="'+x+'" y="'+(yy-9)+'" width="10" height="10" rx="2" fill="'+z.color+'"/><text x="'+(x+15)+'" y="'+yy+'" font-size="11" font-weight="700" fill="'+z.color+'">'+z.label.toUpperCase()+'</text>'; }
+  s+=tag(M, topY-12, ZONES.J)+tag(M, svgH-8, ZONES.V)+tag(M+westW+BLOCK_W, topY-12, ZONES.R)+tag(M+westW+BLOCK_W, svgH-8, ZONES.B);
+  s+='</svg>';
+  return s;
+}
+
+function ficheHtml(){
+  if(!ui.selected) return '<p class="hint">S&#233;lectionnez une case sur le plan &#8212; le bloc &#171;&#8239;individuelles&#8239;&#187; (rang&#233;e jaune) s\'ouvre en grille. Les 4 cases de saut au centre sont de simples rep&#232;res color&#233;s, hors inventaire.</p>';
+  var id=ui.selected, z=zoneOf(id);
+  var pen=state.pens[id]||{rams:[]}, rams=pen.rams||[], legacy=pen.legacy||0;
+  var evs=(state.events[id]||[]).slice().sort(function(a,b){return a.date<b.date?1:-1;});
+  var h='<section class="panel" id="fiche" style="border-top:4px solid '+z.color+'">';
+  h+='<button class="close" onclick="closeFiche()">Fermer &#10005;</button>';
+  h+='<h2><span class="zbadge" style="background:'+z.color+'">'+z.label+'</span>'+esc(penTitle(id))+'</h2>';
+  h+='<p class="sub">'+(rams.length+legacy)+' b&#233;lier(s) &#183; '+evs.length+' &#233;v&#233;nement(s)</p>';
+  // béliers
+  h+='<div class="box" style="background:'+z.soft+'"><p class="boxtitle" style="color:'+z.dark+'">B&#233;liers dans cette case</p>';
+  if(rams.length===0&&legacy===0) h+='<p class="sub" style="margin-bottom:8px">Case vide. Ajoutez le num&#233;ro d\'identification de chaque b&#233;lier ci-dessous (saisie ou scan du lecteur de boucle).</p>';
+  if(rams.length>0){
+    h+='<ul class="chips">';
+    rams.forEach(function(r){
+      var num=ramNum(r), d=ramDesc(r), safe=esc(num).replace(/'/g,"\\'");
+      h+='<li class="chip" style="border-color:'+z.color+'"><span onclick="openRam(\''+safe+'\')" style="cursor:pointer">&#128017; '+esc(num)+(d? '<br><small style="font-weight:400;color:var(--muted);font-family:inherit">'+esc(d)+'</small>':'')+'</span><button onclick="removeRam(\''+safe+'\')">&#10005;</button></li>';
+    });
+    h+='</ul>';
+    h+='<p class="sub" style="margin:-2px 0 8px">Touchez un b&#233;lier pour ouvrir son historique individuel.</p>';
+  }
+  if(legacy>0) h+='<p class="sub" style="margin-bottom:8px">'+legacy+' animal(aux) compt&#233;(s) sans num&#233;ro. <a href="#" onclick="clearLegacy();return false;">Effacer ce comptage</a></p>';
+  h+='<div class="row"><input type="text" id="raminput" placeholder="N&#176; d\'identification &#8212; scannez ou tapez" onkeydown="if(event.key===\'Enter\'){addRam();}">';
+  h+='<input type="text" id="cdoinput" placeholder="CDO (4 chiffres)" maxlength="4" inputmode="numeric" style="flex:0 1 130px">';
+  h+='<input type="text" id="raceinput" placeholder="Race (facultatif)" style="flex:0 1 170px;font-family:inherit">';
+  h+='<button class="act" style="background:'+z.color+'" onclick="addRam()">Ajouter</button></div></div>';
+  // événement
+  h+='<div class="box" style="background:var(--paper)"><p class="boxtitle" style="color:var(--ink)">Ajouter &#224; l\'historique</p><div class="row">';
+  h+='<select id="evtype">'+EVENT_TYPES.map(function(t){return '<option value="'+t.id+'"'+(ui.formType===t.id?" selected":"")+'>'+t.label+'</option>';}).join("")+'</select>';
+  h+='<select id="evram"><option value="">Toute la case</option>'+rams.map(function(r){var n=ramNum(r);return '<option value="'+esc(n)+'">B&#233;lier '+esc(n)+(ramCdo(r)? ' (CDO '+esc(ramCdo(r))+')':'')+'</option>';}).join("")+'</select>';
+  h+='<input type="date" id="evdate" value="'+ui.formDate+'">';
+  h+='<input type="text" id="evtext" placeholder="Ex. vaccination, tonte, saut, collecte&#8230;" onkeydown="if(event.key===\'Enter\'){addEvent();}">';
+  h+='<button class="act" style="background:var(--ink)" onclick="addEvent()">Enregistrer</button></div></div>';
+  // historique
+  if(evs.length===0){
+    h+='<p class="sub" style="margin-top:12px">Aucun &#233;v&#233;nement pour cette case.</p>';
+  } else {
+    h+='<ul class="hist">';
+    evs.forEach(function(ev){
+      var t=EVENT_TYPES.filter(function(x){return x.id===ev.type;})[0]||EVENT_TYPES[EVENT_TYPES.length-1];
+      h+='<li><span class="tag" style="background:'+t.color+'">'+t.label+'</span><div style="flex:1;min-width:0"><div style="font-size:14px">'+(ev.ram? '<span class="mono" style="font-weight:600">['+esc(ev.ram)+']</span> ':'')+esc(ev.text)+'</div><div class="when">'+fmtDate(ev.date)+'</div></div><button class="del" onclick="removeEvent(\''+ev.id+'\')">Supprimer</button></li>';
+    });
+    h+='</ul>';
+  }
+  h+='</section>';
+  return h;
+}
+
+// ————— fiche individuelle d'un bélier —————
+function safeCaseName(id){
+  if(!id) return "";
+  if(isInd(id) || numbering()[id]!==undefined) return penTitle(id);
+  return id; // case d'une ancienne configuration
+}
+function ramFicheHtml(){
+  var num=ui.ramView;
+  var caseId=currentCaseOf(num);
+  // retrouver la fiche du bélier (CDO, race)
+  var r=null;
+  if(caseId){ var p=state.pens[caseId]; r=p.rams[findRam(p.rams,num)]; }
+  var z=caseId? zoneOf(caseId) : ZONES.J;
+  // historique fusionné : déplacements + événements le concernant, du plus récent au plus ancien
+  var items=[];
+  state.moves.forEach(function(mv){
+    if(mv.ram===num) items.push({date:mv.date, kind:"move", label:moveLabel(mv)});
+  });
+  allIds().forEach(function(id){
+    (state.events[id]||[]).forEach(function(ev){
+      if(ev.ram===num){
+        var t=EVENT_TYPES.filter(function(x){return x.id===ev.type;})[0];
+        items.push({date:ev.date, kind:"event", label:ev.text, typeLabel:(t&&t.label)||ev.type,
+                    typeColor:(t&&t.color)||"#6B6B60", where:safeCaseName(id)});
+      }
+    });
+  });
+  items.sort(function(a,b){ return a.date<b.date?1:-1; });
+  var h='<section class="panel" id="ramfiche" style="border-top:4px solid '+(caseId? z.color : "var(--muted)")+'">';
+  h+='<button class="close" onclick="closeRam()">Fermer &#10005;</button>';
+  h+='<h2>&#128017; <span class="mono">'+esc(num)+'</span></h2>';
+  var d=r? ramDesc(r) : "";
+  if(d) h+='<p class="sub">'+esc(d)+'</p>';
+  if(caseId){
+    h+='<p class="sub">Actuellement : <span class="sr-zone" style="background:'+z.color+'"></span>'+esc(penTitle(caseId))+'</p>';
+    h+='<p style="margin:8px 0 0"><a href="#" onclick="backToCase(\''+caseId+'\');return false;" style="font-size:13px;font-weight:700;color:var(--ink)">&#8249; Retour &#224; la case</a></p>';
+  } else {
+    h+='<p class="sub">Ce b&#233;lier n\'est actuellement dans aucune case du b&#226;timent.</p>';
+  }
+  h+='<p class="boxtitle" style="color:var(--ink);margin-top:16px">Historique individuel ('+items.length+')</p>';
+  if(items.length===0){
+    h+='<p class="sub">Aucun &#233;v&#233;nement ni d&#233;placement enregistr&#233; pour ce b&#233;lier.</p>';
+  } else {
+    h+='<ul class="hist">';
+    items.forEach(function(it){
+      if(it.kind==="move"){
+        h+='<li><span class="tag" style="background:#2C5F8A">D&#233;placement</span><div style="flex:1;min-width:0"><div style="font-size:14px">'+esc(it.label)+'</div><div class="when">'+fmtDate(it.date)+'</div></div></li>';
+      } else {
+        h+='<li><span class="tag" style="background:'+it.typeColor+'">'+esc(it.typeLabel)+'</span><div style="flex:1;min-width:0"><div style="font-size:14px">'+esc(it.label)+'</div><div class="when">'+esc(it.where)+' &#183; '+fmtDate(it.date)+'</div></div></li>';
+      }
+    });
+    h+='</ul>';
+  }
+  h+='</section>';
+  return h;
+}
+
+function render(){
+  var app=document.getElementById("app");
+  var h='';
+  h+='<header><p class="eyebrow">CDEO</p><h1>Bergerie &#8212; plan interactif</h1>';
+  h+='<div class="headrow"><div class="total">'+totalSheep()+'<small>b&#233;liers &#183; '+occupiedCount()+' case(s) occup&#233;e(s)</small></div>';
+  h+='<button class="btn" onclick="exportInventory()">Exporter l\'inventaire</button>';
+  h+='<button class="btn" onclick="exportHistory()">Exporter l\'historique</button>';
+  h+='<button class="btn solid" onclick="triggerImport()">Importer CSV</button>';
+  h+='<button class="btn" onclick="toggleConfig()">Configurer</button></div>';
+  if(ui.ioMessage) h+='<p class="msg">'+esc(ui.ioMessage)+'</p>';
+  if(!ui.storageOk) h+='<p class="warn">Sauvegarde locale indisponible dans cet aper&#231;u &#8212; t&#233;l&#233;chargez le fichier et ouvrez-le dans le navigateur du t&#233;l&#233;phone pour que les donn&#233;es soient conserv&#233;es.</p>';
+  h+='</header>';
+  if(ui.showConfig){
+    h+='<div class="panel cfg" style="margin-top:12px"><p style="font-weight:700;font-size:14px;margin:0 0 6px">Configuration du b&#226;timent</p>';
+    h+='<p class="sub" style="margin-bottom:10px">Verte en bas (num&#233;rot&#233;e depuis le centre), jaune en haut dont les 3 derni&#232;res cases forment le bloc individuel. Rouge en haut et bleue en bas c&#244;t&#233; aile 2. La num&#233;rotation 1&#8211;'+lastNumber()+' se recalcule automatiquement.</p>';
+    h+='<label>Cases verte <input type="number" id="cfgw" min="4" max="30" value="'+state.config.west+'"></label>';
+    h+='<label>Cases rouge/bleue <input type="number" id="cfge" min="1" max="30" value="'+state.config.east+'"></label>';
+    h+='<label>Individuelles <input type="number" id="cfgi" min="1" max="40" value="'+state.config.indiv+'"></label> ';
+    h+='<button class="act" style="background:var(--ink)" onclick="applyConfig()">Appliquer</button></div>';
+  }
+  h+='<div class="planwrap">'+planSvg()+'</div>';
+  if(ui.indOpen){
+    h+='<div class="panel" style="border:1.5px solid var(--J);box-shadow:none"><p class="boxtitle" style="color:var(--Jdark)">Cases individuelles I1 &#224; I'+state.config.indiv+' (hors num&#233;rotation) &#183; rang&#233;e jaune, contre les cases de saut</p><div class="grid">';
+    for(var i=1;i<=state.config.indiv;i++){
+      var iid="IND-"+i, n=penCount(iid), sel=(ui.selected===iid);
+      h+='<button class="cellbtn'+(sel?" sel":"")+'" style="background:'+(n>0?"var(--Jsoft)":"#fff")+'" onclick="selectPen(\''+iid+'\')"><span class="id">I'+i+'</span><span class="n" style="color:'+(n>0?"var(--Jdark)":"var(--line)")+'">'+(n>0?n:"&#183;")+'</span></button>';
+    }
+    h+='</div></div>';
+  }
+  h+='<div class="legend">';
+  [ZONES.J,ZONES.V,ZONES.R,ZONES.B].forEach(function(z){ h+='<span><span class="sw" style="background:'+z.color+'"></span>'+z.label+'</span>'; });
+  h+='<span><span class="dot"></span>historique renseign&#233;</span>';
+  h+='<span>Num&#233;rotation horaire&#8239;: case 1 en verte contre le centre, case '+lastNumber()+' en bleue contre le centre. Individuelles et sauts hors num&#233;rotation.</span></div>';
+  h+='<div class="panel" style="box-shadow:none;border:1px solid var(--line)">';
+  h+='<p class="boxtitle" style="color:var(--ink)">Recherche dans l\'inventaire</p>';
+  h+='<div class="row"><input type="text" id="searchinput" placeholder="B&#233;lier, case, zone, &#233;v&#233;nement, date&#8230;" value="'+esc(ui.search)+'" oninput="doSearch(this.value)">';
+  h+='<button class="act" style="background:var(--muted)" onclick="clearSearch()">Effacer</button></div>';
+  h+='<div id="searchresults">'+searchResultsHtml()+'</div></div>';
+  h+= ui.ramView? ramFicheHtml() : ficheHtml();
+  app.innerHTML=h;
+}
+
+document.getElementById("csvfile").addEventListener("change", function(e){
+  var f=e.target.files && e.target.files[0];
+  if(!f) return;
+  var reader=new FileReader();
+  reader.onload=function(){
+    try{ importCsvText(String(reader.result||"")); }
+    catch(err){ ui.ioMessage="Import impossible : "+(err.message||"fichier illisible")+"."; }
+    render();
+  };
+  reader.readAsText(f,"utf-8");
+  e.target.value="";
+});
+
+load();
+save(); // vérifie que la sauvegarde locale fonctionne
+render();
+</script>
+</body>
+</html>
