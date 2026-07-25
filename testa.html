@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#20241F">
-<title>Bergerie CDEO — plan interactif</title>
+<title>CDEO — Bergerie &amp; Orhy</title>
 <style>
   :root{
     --ink:#1B201B; --paper:#F5F4EE; --line:#C9C7BD; --white:#fff;
-    --head:#20241F; --straw:#D9A441; --muted:#6B6B60;
+    --head:#20241F; --straw:#D9A441; --muted:#6B6B60; --alert:#E07B00;
     --J:#D9A441; --Jsoft:#F6ECD6; --Jdark:#8A6A20;
     --V:#1E7A46; --Vsoft:#DFEEE4;
     --R:#BC2B2A; --Rsoft:#F3DEDD;
@@ -16,7 +16,7 @@
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--paper);color:var(--ink)}
-  header{background:var(--head);padding:14px 16px}
+  header{background:var(--head);padding:14px 16px 0}
   header .eyebrow{color:var(--straw);letter-spacing:.18em;font-size:11px;font-weight:700;text-transform:uppercase;margin:0}
   header h1{color:#fff;font-size:20px;font-weight:800;margin:2px 0 8px}
   .headrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
@@ -26,11 +26,18 @@
   .btn.solid{background:var(--straw);color:var(--ink);border-color:var(--straw);font-weight:700}
   .msg{color:#D8DCD3;font-size:12px;margin:8px 0 0}
   .warn{color:#F2B8B5;font-size:12px;margin:8px 0 0}
+  .tabs{display:flex;gap:6px;margin-top:12px}
+  .tab{flex:1;border:none;border-radius:8px 8px 0 0;padding:10px 6px;font-size:13px;font-weight:800;cursor:pointer;background:#3A3F39;color:#B9BDB5}
+  .tab.on{background:var(--paper);color:var(--ink)}
+  .scanbar{display:flex;gap:6px;align-items:center;background:#fff;border:1.5px solid var(--straw);border-radius:8px;margin:12px 8px 0;padding:8px}
+  .scanbar input{flex:1;min-width:0;border:none;outline:none;font-size:15px;font-family:ui-monospace,monospace;background:transparent}
+  .scanbar .lbl{font-size:11px;font-weight:800;color:var(--Jdark);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
   .planwrap{overflow-x:auto;padding:14px 8px}
   svg{display:block}
   .legend{display:flex;flex-wrap:wrap;gap:14px;padding:0 16px 10px;font-size:12px;color:var(--muted);align-items:center}
   .sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-2px}
   .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ink);margin-right:5px}
+  .adot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--alert);margin-right:5px}
   .panel{background:#fff;border-radius:10px;margin:0 8px 20px;padding:14px;box-shadow:0 1px 4px #0002}
   .panel h2{font-size:17px;font-weight:800;margin:0}
   .zbadge{display:inline-block;border-radius:5px;padding:2px 8px;color:#fff;font-size:13px;margin-right:8px;vertical-align:middle}
@@ -49,8 +56,14 @@
   .hist{list-style:none;margin:10px 0 0;padding:0}
   .hist li{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line);align-items:flex-start}
   .tag{border-radius:5px;padding:2px 7px;font-size:11px;font-weight:700;color:#fff;white-space:nowrap}
-  .hist .del{background:none;border:none;color:#9A9A8C;font-size:11px;cursor:pointer}
+  .hist .del,.hist .edit{background:none;border:none;font-size:11px;cursor:pointer}
+  .hist .del{color:#9A9A8C}
+  .hist .edit{color:var(--ink);font-weight:700}
   .hist .when{font-size:11px;color:var(--muted);margin-top:2px}
+  .due{display:inline-block;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:800;margin-left:6px}
+  .due.soon{background:#FBEACD;color:#8A5300}
+  .due.late{background:#F8DBDB;color:#8E1F1F}
+  .due.ok{background:#EDECE5;color:var(--muted)}
   .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
   @media(min-width:640px){.grid{grid-template-columns:repeat(10,1fr)}}
   .cellbtn{border:1.5px solid var(--J);border-radius:6px;background:#fff;padding:6px 2px;text-align:center;cursor:pointer}
@@ -67,27 +80,35 @@
   .sr-zone{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
   .sr-open{font-size:12px;font-weight:700;color:var(--ink);white-space:nowrap}
   .sr-empty{font-size:13px;color:var(--muted);padding:8px 0 0}
-  .cfg label{font-size:13px;margin-right:12px}
+  .cfg label{font-size:13px;margin-right:12px;display:inline-block;margin-bottom:8px}
   .mono{font-family:ui-monospace,monospace}
+  .dash h3{font-size:14px;font-weight:800;margin:0 0 8px}
+  .dash table{border-collapse:collapse;width:100%;font-size:13px}
+  .dash td,.dash th{padding:5px 8px;border-top:1px solid var(--line);text-align:left}
+  .dash th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+  .dash td.num{text-align:right;font-weight:800}
 </style>
 </head>
 <body>
 <div id="app"></div>
 <input type="file" id="csvfile" accept=".csv,.txt" style="display:none">
+<input type="file" id="bakfile" accept=".json" style="display:none">
 
 <script>
 "use strict";
 // ————————————————————————————————————————————
-// Bergerie CDEO — version autonome hors-ligne
-// Fonctionne sans internet : ouvrez ce fichier dans le
-// navigateur du téléphone. Les données sont enregistrées
-// dans la mémoire locale de l'appareil.
+// CDEO — Bergerie (béliers) & Orhy (agneaux), hors-ligne.
+// Sauvegarde/restauration complète, scan global Allflex,
+// événements groupés, rappels de soins, synthèse, naissances,
+// pesées, modification des événements.
 // ————————————————————————————————————————————
 
 var STORAGE_KEY = "bergerie_cdeo_v1";
-var state = { config: { west: 18, east: 17, indiv: 20 }, pens: {}, events: {}, moves: [] };
-var ui = { selected: null, indOpen: false, showConfig: false, ioMessage: "", storageOk: true,
-           formType: "soin", formRam: "", formDate: todayISO(), search: "", ramView: null };
+var state = { config: { west:18, east:17, indiv:20, capCol:0, capInd:0, capOrhy:0 },
+              pens: {}, events: {}, moves: [], partitions: {} };
+var ui = { building:"bergerie", selected:null, indOpen:false, showConfig:false, showGroupEvent:false,
+           ioMessage:"", storageOk:true, formType:"soin", formDate:todayISO(), search:"",
+           ramView:null, editingEvId:null };
 
 var ZONES = {
   J: { id:"J", label:"Zone jaune", color:"#D9A441", soft:"#F6ECD6", dark:"#8A6A20" },
@@ -96,11 +117,17 @@ var ZONES = {
   B: { id:"B", label:"Zone bleue", color:"#2C5F8A", soft:"#DDE8F1", dark:"#2C5F8A" }
 };
 var SAUT_ZONE = {1:"J",2:"R",3:"V",4:"B"};
-var SAUT_TOKEN = {1:"saut_jaune",2:"saut_rouge",3:"saut_verte",4:"saut_bleue"};
+var BLOCKS = {
+  A: { id:"A", label:"Bloc A", color:"#4A4F49", soft:"#ECEBE4", dark:"#4A4F49" },
+  B: { id:"B", label:"Bloc B", color:"#4A4F49", soft:"#ECEBE4", dark:"#4A4F49" },
+  C: { id:"C", label:"Bloc C", color:"#4A4F49", soft:"#ECEBE4", dark:"#4A4F49" },
+  D: { id:"D", label:"Bloc D", color:"#4A4F49", soft:"#ECEBE4", dark:"#4A4F49" }
+};
 var EVENT_TYPES = [
   { id:"soin", label:"Soin", color:"#8A4A9E" },
   { id:"collecte", label:"Collecte / récolte", color:"#1E7A46" },
   { id:"saut", label:"Saut / saillie", color:"#B03A6B" },
+  { id:"pesee", label:"Pesée", color:"#5B7A2A" },
   { id:"alimentation", label:"Alimentation", color:"#B07A2A" },
   { id:"mouvement", label:"Mouvement", color:"#2C5F8A" },
   { id:"note", label:"Note", color:"#6B6B60" }
@@ -109,24 +136,53 @@ var EVENT_TYPES = [
 function todayISO(){ return new Date().toISOString().slice(0,10); }
 function fmtDate(iso){ if(!iso) return ""; var p=iso.split("-"); return p.length===3? p[2]+"/"+p[1]+"/"+p[0] : iso; }
 function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function toISO(v){
+  v=String(v||"").trim();
+  if(/^\d{4}-\d{2}-\d{2}$/.test(v)) return v;
+  var m=v.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if(m) return m[3]+"-"+("0"+m[2]).slice(-2)+"-"+("0"+m[1]).slice(-2);
+  return "";
+}
+function daysBetween(isoA, isoB){
+  return Math.round((new Date(isoB)-new Date(isoA))/86400000);
+}
+function ageStr(naiss){
+  if(!naiss) return "";
+  var d=daysBetween(naiss, todayISO());
+  if(d<0) return "";
+  if(d<60) return d+" j";
+  var months=Math.floor(d/30.44);
+  if(months<24) return months+" mois";
+  var y=Math.floor(months/12);
+  return y+" an"+(y>1?"s":"")+(months%12? " "+(months%12)+" mois":"");
+}
 
+// ————— identifiants de cases —————
 function isSaut(id){ return id.indexOf("SAUT-")===0; }
 function isInd(id){ return id.indexOf("IND-")===0; }
+function isOrhy(id){ return id.indexOf("O:")===0; }
+function bldgOf(id){ return isOrhy(id)? "orhy" : "bergerie"; }
+function orhyBlock(id){ return id.split(":")[1].split("-")[0]; }
+function orhyNum(id){ return parseInt(id.split("-")[1],10); }
+function orhyToken(id){ return orhyBlock(id).toLowerCase()+orhyNum(id); }
+function animalWord(b){ return b==="orhy"? "agneau" : "b\u00E9lier"; }
+function animalIcon(b){ return b==="orhy"? "&#128017;" : "&#128016;"; }
+
 function zoneOf(id){
+  if(isOrhy(id)) return BLOCKS[orhyBlock(id)] || BLOCKS.A;
   var p = id.split("-")[0];
   if (p==="IND") return ZONES.J;
   if (p==="SAUT") return ZONES[SAUT_ZONE[parseInt(id.split("-")[1],10)]] || ZONES.J;
   return ZONES[p] || ZONES.J;
 }
 function kindOf(id){
+  if(isOrhy(id)) return "Case agneaux";
   if (isInd(id)) return "Case individuelle";
   if (isSaut(id)) return "Case de saut";
   return "Case collective";
 }
 
-// numérotation horaire 1..67 : verte (droite→gauche), jaune (gauche→droite),
-// rouge (gauche→droite), bleue (droite→gauche, finit contre le centre).
-// Individuelles (I1..I20) et cases de saut hors numérotation.
+// ————— numérotation bergerie (horaire 1..67) —————
 function yellowN(){ return Math.max(0, state.config.west - 3); }
 function numbering(){
   var map={}, w=state.config.west, y=yellowN(), e=state.config.east, i;
@@ -141,53 +197,108 @@ function numberToId(){
   Object.keys(map).forEach(function(id){ rev[map[id]]=id; });
   return rev;
 }
-function allIds(){
+function bergerieIds(){
   var ids=Object.keys(numbering()), i;
   for(i=1;i<=state.config.indiv;i++) ids.push("IND-"+i);
-  return ids; // les cases de saut ne font pas partie de l'inventaire
+  return ids;
 }
+function orhyIds(){
+  var ids=[], blocks=["A","B","C","D"], i, n;
+  for(i=0;i<4;i++) for(n=1;n<=6;n++) ids.push("O:"+blocks[i]+"-"+n);
+  return ids;
+}
+function allIds(){ return bergerieIds().concat(orhyIds()); }
+function buildingIds(b){ return b==="orhy"? orhyIds() : bergerieIds(); }
 function lastNumber(){ return state.config.west + yellowN() + 2*state.config.east; }
+
 function penTitle(id){
+  if(isOrhy(id)) return "Orhy \u00B7 case "+orhyToken(id)+" ("+zoneOf(id).label+")";
   if (isSaut(id)) return "Case de saut "+zoneOf(id).label.replace("Zone ","");
   if (isInd(id)) return "Case individuelle I"+id.split("-")[1];
-  return "Case collective n° "+(numbering()[id]||"?");
+  return "Case collective n\u00B0 "+(numbering()[id]||"?");
 }
 function caseToken(id){
-  if (isSaut(id)) return SAUT_TOKEN[parseInt(id.split("-")[1],10)];
+  if(isOrhy(id)) return orhyToken(id);
   if (isInd(id)) return "ind_"+id.split("-")[1];
   return String(numbering()[id]);
 }
+function capacityOf(id){
+  if(isOrhy(id)) return state.config.capOrhy||0;
+  if(isInd(id)) return state.config.capInd||0;
+  return state.config.capCol||0;
+}
 
-// ————— stockage local —————
+// ————— cloisons amovibles (Orhy) —————
+function partKey(block,row,gap){ return block+"-"+row+"-"+gap; }
+function partOpen(block,row,gap){ return !!state.partitions[partKey(block,row,gap)]; }
+function groupOf(id){
+  if(!isOrhy(id)) return [id];
+  var b=orhyBlock(id), n=orhyNum(id);
+  // 1-2-3 en rangée basse (1 en bas à gauche), 4-5-6 en rangée haute (4 face au 1)
+  var row=(n<=3)? "B" : "T";
+  var base=(n<=3)? 0 : 3;
+  var col=n-base;
+  var start=col, end=col;
+  while(start>1 && partOpen(b,row,start-1)) start--;
+  while(end<3 && partOpen(b,row,end)) end++;
+  var ids=[];
+  for(var c=start;c<=end;c++) ids.push("O:"+b+"-"+(base+c));
+  return ids;
+}
+function leaderOf(id){ return groupOf(id)[0]; }
+function groupTokenLabel(ids){
+  if(ids.length===1) return orhyToken(ids[0]);
+  return orhyToken(ids[0])+"\u2013"+orhyToken(ids[ids.length-1]);
+}
+window.togglePartition=function(key){
+  state.partitions[key]=!state.partitions[key];
+  if(ui.selected && isOrhy(ui.selected)) ui.selected=leaderOf(ui.selected);
+  save(); render();
+};
+
+// ————— stockage local + sauvegarde complète —————
 function load(){
   try{
     var raw = localStorage.getItem(STORAGE_KEY);
-    if (raw){
-      var d = JSON.parse(raw);
-      if (d.config) state.config = { west:d.config.west||18, east:d.config.east||17, indiv:d.config.indiv||20 };
-      if (d.pens) state.pens = d.pens;
-      if (d.events) state.events = d.events;
-      if (d.moves) state.moves = d.moves;
-    }
+    if (raw) applyData(JSON.parse(raw));
   }catch(e){ ui.storageOk=false; }
+}
+function applyData(d){
+  if(!d) return;
+  if (d.config) state.config = {
+    west:d.config.west||18, east:d.config.east||17, indiv:d.config.indiv||20,
+    capCol:d.config.capCol||0, capInd:d.config.capInd||0, capOrhy:d.config.capOrhy||0
+  };
+  if (d.pens) state.pens = d.pens;
+  if (d.events) state.events = d.events;
+  if (d.moves) state.moves = d.moves;
+  if (d.partitions) state.partitions = d.partitions;
 }
 function save(){
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); ui.storageOk=true; }
   catch(e){ ui.storageOk=false; }
 }
+window.exportBackup=function(){
+  var payload=JSON.stringify({ app:"cdeo-bergerie", version:1, savedAt:new Date().toISOString(), state:state }, null, 1);
+  var blob=new Blob([payload],{type:"application/json"});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement("a"); a.href=url; a.download="sauvegarde_cdeo_"+todayISO()+".json"; a.click();
+  URL.revokeObjectURL(url);
+  ui.ioMessage="Sauvegarde compl\u00E8te export\u00E9e (b\u00E2timents, historiques, d\u00E9placements, cloisons)."; render();
+};
+window.triggerRestore=function(){ document.getElementById("bakfile").click(); };
 
 // ————— données —————
-// Un bélier est un objet { num, cdo, race } ; les anciennes saisies (simples
-// chaînes) restent lisibles grâce aux accesseurs ci-dessous.
 function ramNum(r){ return (typeof r==="string")? r : ((r&&r.num)||""); }
 function ramCdo(r){ return (r&&typeof r==="object")? (r.cdo||"") : ""; }
 function ramRace(r){ return (r&&typeof r==="object")? (r.race||"") : ""; }
+function ramNaiss(r){ return (r&&typeof r==="object")? (r.naissance||"") : ""; }
 function findRam(list,num){ for(var i=0;i<list.length;i++){ if(ramNum(list[i])===num) return i; } return -1; }
 function ramDesc(r){
   var extra=[]; if(ramCdo(r)) extra.push("CDO "+ramCdo(r)); if(ramRace(r)) extra.push(ramRace(r));
+  var a=ageStr(ramNaiss(r)); if(a) extra.push(a);
   return extra.join(" \u00B7 ");
 }
-// case actuelle d'un bélier (par son numéro d'identification)
 function currentCaseOf(num){
   var ids=allIds();
   for(var i=0;i<ids.length;i++){
@@ -196,109 +307,281 @@ function currentCaseOf(num){
   }
   return null;
 }
-// journal des déplacements : from/to = id de case ou null (entrée/sortie du bâtiment)
+function getRam(num){
+  var c=currentCaseOf(num);
+  if(!c) return null;
+  var p=state.pens[c];
+  return p.rams[findRam(p.rams,num)];
+}
 function logMove(num, from, to, date){
   state.moves.push({ ram:num, from:from||"", to:to||"", date:date||todayISO() });
 }
 function moveLabel(mv){
-  if(mv.from && mv.to) return "D\u00E9plac\u00E9 de \u00AB "+penTitle(mv.from)+" \u00BB vers \u00AB "+penTitle(mv.to)+" \u00BB";
-  if(mv.to) return "Plac\u00E9 en \u00AB "+penTitle(mv.to)+" \u00BB";
-  if(mv.from) return "Sorti de \u00AB "+penTitle(mv.from)+" \u00BB";
+  if(mv.from && mv.to) return "D\u00E9plac\u00E9 de \u00AB "+safeCaseName(mv.from)+" \u00BB vers \u00AB "+safeCaseName(mv.to)+" \u00BB";
+  if(mv.to) return "Plac\u00E9 en \u00AB "+safeCaseName(mv.to)+" \u00BB";
+  if(mv.from) return "Sorti de \u00AB "+safeCaseName(mv.from)+" \u00BB";
   return "Mouvement";
+}
+function safeCaseName(id){
+  if(!id) return "";
+  if(isOrhy(id) || isInd(id) || numbering()[id]!==undefined) return penTitle(id);
+  return id;
 }
 function penCount(id){
   var p=state.pens[id]; if(!p) return 0;
   return (p.rams?p.rams.length:0) + (p.legacy||0);
 }
-function totalSheep(){ return allIds().reduce(function(s,id){return s+penCount(id);},0); }
-function occupiedCount(){ return allIds().filter(function(id){return penCount(id)>0;}).length; }
+function groupCount(ids){ var s=0; ids.forEach(function(id){ s+=penCount(id); }); return s; }
+function totalSheep(b){
+  if(b==="synthese") return totalSheep("bergerie")+totalSheep("orhy");
+  return buildingIds(b).reduce(function(s,id){return s+penCount(id);},0);
+}
+function occupiedCount(b){
+  if(b==="synthese") return occupiedCount("bergerie")+occupiedCount("orhy");
+  return buildingIds(b).filter(function(id){return penCount(id)>0;}).length;
+}
 function maxCount(){ var m=1; allIds().forEach(function(id){ m=Math.max(m,penCount(id)); }); return m; }
 function indTotal(){ var s=0,i; for(i=1;i<=state.config.indiv;i++) s+=penCount("IND-"+i); return s; }
 
+// déplacement centralisé (utilisé par ajout, scan, fiche animal, import)
+function moveAnimal(num, targetId, extra){
+  var from=currentCaseOf(num);
+  if(targetId && from===targetId) return false;
+  var keep=null;
+  if(from){
+    var old=state.pens[from];
+    keep=old.rams[findRam(old.rams,num)];
+    old.rams=old.rams.filter(function(r){return ramNum(r)!==num;});
+  }
+  if(targetId){
+    var rec={ num:num,
+      cdo:(extra&&extra.cdo)||ramCdo(keep)||"",
+      race:(extra&&extra.race)||ramRace(keep)||"",
+      naissance:(extra&&extra.naissance)||ramNaiss(keep)||"" };
+    var pen=state.pens[targetId]||{rams:[]}; if(!pen.rams) pen.rams=[];
+    pen.rams.push(rec); state.pens[targetId]=pen;
+  }
+  logMove(num, from, targetId||null);
+  return true;
+}
+
+// ————— rappels —————
+function dueClass(echeance){
+  if(!echeance) return "";
+  var d=daysBetween(todayISO(), echeance);
+  if(d<0) return "late";
+  if(d<=14) return "soon";
+  return "ok";
+}
+function allReminders(){
+  var out=[];
+  allIds().forEach(function(id){
+    (state.events[id]||[]).forEach(function(ev){
+      if(ev.echeance) out.push({id:id, ev:ev, cls:dueClass(ev.echeance)});
+    });
+  });
+  out.sort(function(a,b){ return a.ev.echeance>b.ev.echeance?1:-1; });
+  return out;
+}
+function penHasDue(id){
+  var evs=state.events[id]||[];
+  for(var i=0;i<evs.length;i++){
+    var c=dueClass(evs[i].echeance);
+    if(c==="late"||c==="soon") return true;
+  }
+  return false;
+}
+function groupHasDue(ids){ for(var i=0;i<ids.length;i++){ if(penHasDue(ids[i])) return true; } return false; }
+
+// ————— navigation —————
+window.setBuilding=function(b){
+  if(ui.building===b) return;
+  ui.building=b; ui.selected=null; ui.ramView=null; ui.indOpen=false; ui.showConfig=false;
+  ui.showGroupEvent=false; ui.editingEvId=null;
+  render();
+};
 window.selectPen=function(id){
-  ui.selected = (ui.selected===id)? null : id;
-  ui.formRam=""; ui.ramView=null;
+  var target = isOrhy(id)? leaderOf(id) : id;
+  ui.selected = (ui.selected===target)? null : target;
+  ui.ramView=null; ui.editingEvId=null;
+  if(ui.selected) ui.building = bldgOf(ui.selected);
   render();
   if (ui.selected){
     var el=document.getElementById("fiche"); if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
   }
 };
 window.openRam=function(num){
-  ui.ramView=num;
+  ui.ramView=num; ui.editingEvId=null;
   var c=currentCaseOf(num);
-  if(c) ui.selected=c;
+  if(c){ ui.selected=isOrhy(c)? leaderOf(c) : c; ui.building=bldgOf(c); }
   render();
   var el=document.getElementById("ramfiche"); if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
 };
 window.closeRam=function(){ ui.ramView=null; render(); };
 window.backToCase=function(caseId){
-  ui.ramView=null; ui.selected=caseId; render();
+  ui.ramView=null; ui.selected=isOrhy(caseId)? leaderOf(caseId) : caseId; ui.building=bldgOf(caseId); render();
   var el=document.getElementById("fiche"); if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
 };
 window.toggleInd=function(){ ui.indOpen=!ui.indOpen; render(); };
 window.toggleConfig=function(){ ui.showConfig=!ui.showConfig; render(); };
-window.closeFiche=function(){ ui.selected=null; render(); };
+window.toggleGroupEvent=function(){ ui.showGroupEvent=!ui.showGroupEvent; render(); };
+window.closeFiche=function(){ ui.selected=null; ui.editingEvId=null; render(); };
 
+// ————— scan global (« scan d'abord ») —————
+window.globalScan=function(){
+  var inp=document.getElementById("scaninput"); if(!inp) return;
+  var num=inp.value.trim(); if(!num) return;
+  inp.value="";
+  var c=currentCaseOf(num);
+  if(c){
+    // animal connu : sa fiche s'ouvre avec les actions (déplacer, soigner…)
+    openRam(num);
+  } else if(ui.selected && ui.building!=="synthese"){
+    moveAnimal(num, ui.selected, null);
+    save();
+    ui.ioMessage="Nouvel animal "+num+" ajout\u00E9 dans "+safeCaseName(ui.selected)+".";
+    render();
+    var again=document.getElementById("scaninput"); if(again) again.focus();
+  } else {
+    ui.ioMessage="Animal "+num+" inconnu. S\u00E9lectionnez une case puis rescannez pour l'y placer.";
+    render();
+    var again2=document.getElementById("scaninput"); if(again2) again2.focus();
+  }
+};
+
+// ————— actions sur les animaux —————
 window.addRam=function(){
   var input=document.getElementById("raminput"); if(!input||!ui.selected) return;
   var num=input.value.trim(); if(!num) return;
-  var cdoEl=document.getElementById("cdoinput"), raceEl=document.getElementById("raceinput");
-  var cdo=(cdoEl&&cdoEl.value.trim())||"", race=(raceEl&&raceEl.value.trim())||"";
+  var cdoEl=document.getElementById("cdoinput"), raceEl=document.getElementById("raceinput"), nEl=document.getElementById("naissinput");
+  var members=groupOf(ui.selected);
   var from=currentCaseOf(num);
-  if(from===ui.selected){ render(); return; } // déjà dans cette case
-  // retirer de l'ancienne case en conservant CDO/race déjà connus
-  if(from){
-    var old=state.pens[from], keep=old.rams[findRam(old.rams,num)];
-    if(!cdo) cdo=ramCdo(keep);
-    if(!race) race=ramRace(keep);
-    old.rams=old.rams.filter(function(r){return ramNum(r)!==num;});
-  }
-  var p=state.pens[ui.selected]||{rams:[]};
-  if(!p.rams) p.rams=[];
-  p.rams.push({num:num,cdo:cdo,race:race});
-  state.pens[ui.selected]=p;
-  logMove(num, from, ui.selected);
-  save();
-  render();
+  if(from && members.indexOf(from)>-1){ render(); return; }
+  moveAnimal(num, ui.selected, {
+    cdo:(cdoEl&&cdoEl.value.trim())||"",
+    race:(raceEl&&raceEl.value.trim())||"",
+    naissance:(nEl&&toISO(nEl.value))||""
+  });
+  save(); render();
   var again=document.getElementById("raminput");
-  if(again){ again.focus(); } // enchaîner les scans du lecteur de boucle
+  if(again){ again.focus(); }
 };
 window.removeRam=function(num){
   if(!ui.selected) return;
-  var p=state.pens[ui.selected]; if(!p||!p.rams) return;
-  p.rams=p.rams.filter(function(r){return ramNum(r)!==num;});
-  logMove(num, ui.selected, null);
+  var members=groupOf(ui.selected);
+  var from=currentCaseOf(num);
+  if(from && members.indexOf(from)>-1){ moveAnimal(num, null, null); }
   save(); render();
+};
+window.moveRamTo=function(){
+  var num=ui.ramView; if(!num) return;
+  var sel=document.getElementById("movetarget"); if(!sel) return;
+  var target=sel.value;
+  if(target==="__none"){ moveAnimal(num, null, null); save(); ui.ioMessage="Animal "+num+" sorti des b\u00E2timents."; render(); return; }
+  if(!target) return;
+  if(moveAnimal(num, target, null)){
+    save();
+    ui.selected=isOrhy(target)? leaderOf(target) : target;
+    ui.building=bldgOf(target);
+    ui.ioMessage="Animal "+num+" d\u00E9plac\u00E9 vers "+safeCaseName(target)+".";
+  }
+  render();
 };
 window.clearLegacy=function(){
   if(!ui.selected) return;
-  var p=state.pens[ui.selected]||{rams:[]}; p.legacy=0; state.pens[ui.selected]=p;
+  groupOf(ui.selected).forEach(function(id){
+    var p=state.pens[id]; if(p) p.legacy=0;
+  });
   save(); render();
 };
 
+// ————— événements (ajout, modification, suppression) —————
 window.addEvent=function(){
   if(!ui.selected) return;
   var text=document.getElementById("evtext"), date=document.getElementById("evdate"),
-      type=document.getElementById("evtype"), ram=document.getElementById("evram");
+      type=document.getElementById("evtype"), ram=document.getElementById("evram"),
+      ech=document.getElementById("evech");
   if(!text||!text.value.trim()) return;
-  var list=state.events[ui.selected]||[];
-  list.unshift({ id:Date.now().toString(36), date:(date&&date.value)||todayISO(),
-                 type:(type&&type.value)||"note", text:text.value.trim(), ram:(ram&&ram.value)||"" });
-  state.events[ui.selected]=list;
-  ui.formType=(type&&type.value)||"soin"; ui.formDate=(date&&date.value)||todayISO(); ui.formRam="";
+  var fields={ date:(date&&date.value)||todayISO(), type:(type&&type.value)||"note",
+               text:text.value.trim(), ram:(ram&&ram.value)||"", echeance:(ech&&ech.value)||"" };
+  if(ui.editingEvId){
+    // modification d'un événement existant du groupe
+    groupOf(ui.selected).forEach(function(id){
+      (state.events[id]||[]).forEach(function(ev){
+        if(ev.id===ui.editingEvId){ ev.date=fields.date; ev.type=fields.type; ev.text=fields.text; ev.ram=fields.ram; ev.echeance=fields.echeance; }
+      });
+    });
+    ui.editingEvId=null;
+    ui.ioMessage="\u00C9v\u00E9nement mis \u00E0 jour.";
+  } else {
+    var list=state.events[ui.selected]||[];
+    list.unshift({ id:Date.now().toString(36), date:fields.date, type:fields.type, text:fields.text, ram:fields.ram, echeance:fields.echeance });
+    state.events[ui.selected]=list;
+  }
+  ui.formType=fields.type; ui.formDate=fields.date;
   save(); render();
 };
+window.editEvent=function(evId){
+  ui.editingEvId=evId; render();
+  var el=document.getElementById("evform"); if(el) el.scrollIntoView({behavior:"smooth",block:"center"});
+};
+window.cancelEdit=function(){ ui.editingEvId=null; render(); };
 window.removeEvent=function(evId){
   if(!ui.selected) return;
-  state.events[ui.selected]=(state.events[ui.selected]||[]).filter(function(e){return e.id!==evId;});
+  groupOf(ui.selected).forEach(function(id){
+    if(state.events[id]) state.events[id]=state.events[id].filter(function(e){return e.id!==evId;});
+  });
+  if(ui.editingEvId===evId) ui.editingEvId=null;
   save(); render();
 };
 
+// ————— événement groupé (zone / bloc / bâtiment) —————
+function scopeIds(scope){
+  var w=state.config.west, y=yellowN(), e=state.config.east, ids=[], i;
+  switch(scope){
+    case "zJ": for(i=1;i<=y;i++) ids.push("J-"+i); break;
+    case "zV": for(i=1;i<=w;i++) ids.push("V-"+i); break;
+    case "zR": for(i=1;i<=e;i++) ids.push("R-"+i); break;
+    case "zB": for(i=1;i<=e;i++) ids.push("B-"+i); break;
+    case "ind": for(i=1;i<=state.config.indiv;i++) ids.push("IND-"+i); break;
+    case "bergerie": ids=bergerieIds(); break;
+    case "bA": case "bB": case "bC": case "bD":
+      var bk=scope[1]; for(i=1;i<=6;i++) ids.push("O:"+bk+"-"+i); break;
+    case "orhy": ids=orhyIds(); break;
+  }
+  return ids;
+}
+window.applyGroupEvent=function(){
+  var scope=document.getElementById("gescope"), type=document.getElementById("getype"),
+      date=document.getElementById("gedate"), ech=document.getElementById("geech"),
+      text=document.getElementById("getext"), occ=document.getElementById("geocc");
+  if(!text||!text.value.trim()||!scope) return;
+  var ids=scopeIds(scope.value);
+  var onlyOcc=occ? occ.checked : true;
+  var nCases=0, nAnimals=0, stamp=Date.now().toString(36);
+  ids.forEach(function(id,idx){
+    var cnt=penCount(id);
+    if(onlyOcc && cnt===0) return;
+    var list=state.events[id]||[];
+    list.unshift({ id:stamp+"-"+idx, date:(date&&date.value)||todayISO(), type:(type&&type.value)||"note",
+                   text:text.value.trim(), ram:"", echeance:(ech&&ech.value)||"" });
+    state.events[id]=list;
+    nCases++; nAnimals+=cnt;
+  });
+  save();
+  ui.showGroupEvent=false;
+  ui.ioMessage="\u00C9v\u00E9nement group\u00E9 ajout\u00E9 \u00E0 "+nCases+" case(s) ("+nAnimals+" animaux).";
+  render();
+};
+
+// ————— configuration —————
 window.applyConfig=function(){
-  var w=parseInt(document.getElementById("cfgw").value,10)||18;
-  var e=parseInt(document.getElementById("cfge").value,10)||17;
-  var n=parseInt(document.getElementById("cfgi").value,10)||20;
-  state.config={ west:Math.min(30,Math.max(4,w)), east:Math.min(30,Math.max(1,e)), indiv:Math.min(40,Math.max(1,n)) };
+  var g=function(id,def){ var el=document.getElementById(id); return el? (parseInt(el.value,10)||def) : def; };
+  state.config={
+    west:Math.min(30,Math.max(4,g("cfgw",18))), east:Math.min(30,Math.max(1,g("cfge",17))),
+    indiv:Math.min(40,Math.max(1,g("cfgi",20))),
+    capCol:Math.max(0,g("cfgcc",0)), capInd:Math.max(0,g("cfgci",0)), capOrhy:Math.max(0,g("cfgco",0))
+  };
   ui.showConfig=false; save(); render();
 };
 
@@ -310,38 +593,44 @@ function download(filename, text){
   URL.revokeObjectURL(url);
 }
 window.exportInventory=function(){
-  var lines=["numero_identification;numero_cdo;race;case;zone;type_case"];
+  var lines=["numero_identification;numero_cdo;race;naissance;case;zone;type_case;batiment"];
   allIds().forEach(function(id){
     var rams=(state.pens[id]&&state.pens[id].rams)||[];
+    var b=bldgOf(id)==="orhy"? "Orhy" : "Bergerie";
     rams.forEach(function(r){
-      lines.push(ramNum(r)+";"+ramCdo(r)+";"+String(ramRace(r)).replace(/;/g,",")+";"+caseToken(id)+";"+zoneOf(id).label+";"+kindOf(id));
+      lines.push(ramNum(r)+";"+ramCdo(r)+";"+String(ramRace(r)).replace(/;/g,",")+";"+ramNaiss(r)+";"+caseToken(id)+";"+zoneOf(id).label+";"+kindOf(id)+";"+b);
     });
   });
-  download("inventaire_bergerie_"+todayISO()+".csv", lines.join("\n"));
-  ui.ioMessage="Inventaire exporté ("+(lines.length-1)+" béliers)."; render();
+  download("inventaire_cdeo_"+todayISO()+".csv", lines.join("\n"));
+  ui.ioMessage="Inventaire export\u00E9 ("+(lines.length-1)+" animaux, deux b\u00E2timents)."; render();
 };
 window.exportHistory=function(){
-  var lines=["numero_case;zone;date;type_evenement;identifiant_belier;commentaire"];
+  var lines=["numero_case;zone;date;type_evenement;identifiant;commentaire;rappel;batiment"];
   allIds().forEach(function(id){
+    var b=bldgOf(id)==="orhy"? "Orhy" : "Bergerie";
     (state.events[id]||[]).forEach(function(ev){
       var t=EVENT_TYPES.filter(function(x){return x.id===ev.type;})[0];
-      lines.push(caseToken(id)+";"+zoneOf(id).label+";"+ev.date+";"+((t&&t.label)||ev.type)+";"+(ev.ram||"")+";"+String(ev.text||"").replace(/;/g,","));
+      lines.push(caseToken(id)+";"+zoneOf(id).label+";"+ev.date+";"+((t&&t.label)||ev.type)+";"+(ev.ram||"")+";"+String(ev.text||"").replace(/;/g,",")+";"+(ev.echeance||"")+";"+b);
     });
   });
   state.moves.forEach(function(mv){
     var ref=mv.to||mv.from||"";
-    var tok=ref? ((isInd(ref)||numbering()[ref]!==undefined)? caseToken(ref) : ref) : "";
-    var zn=ref&&(isInd(ref)||numbering()[ref]!==undefined)? zoneOf(ref).label : "";
-    lines.push(tok+";"+zn+";"+mv.date+";D\u00E9placement;"+mv.ram+";"+moveLabel(mv).replace(/;/g,","));
+    var known=ref&&(isOrhy(ref)||isInd(ref)||numbering()[ref]!==undefined);
+    var tok=ref? (known? caseToken(ref) : ref) : "";
+    var zn=known? zoneOf(ref).label : "";
+    var b=ref? (bldgOf(ref)==="orhy"? "Orhy":"Bergerie") : "";
+    lines.push(tok+";"+zn+";"+mv.date+";D\u00E9placement;"+mv.ram+";"+moveLabel(mv).replace(/;/g,",")+";;"+b);
   });
-  download("historique_bergerie_"+todayISO()+".csv", lines.join("\n"));
-  ui.ioMessage="Historique exporté ("+(lines.length-1)+" événements)."; render();
+  download("historique_cdeo_"+todayISO()+".csv", lines.join("\n"));
+  ui.ioMessage="Historique export\u00E9 ("+(lines.length-1)+" lignes, d\u00E9placements inclus)."; render();
 };
 window.triggerImport=function(){ document.getElementById("csvfile").click(); };
 
 function parseCaseCell(raw){
   var v=String(raw||"").toLowerCase().trim();
-  if(/saut/.test(v)) return null; // les cases de saut ne servent pas à l'inventaire
+  if(/saut/.test(v)) return null;
+  var o=v.match(/^([abcd])\s*-?\s*([1-6])$/);
+  if(o) return "O:"+o[1].toUpperCase()+"-"+o[2];
   var m=v.match(/^(?:ind[a-zé]*[\s_-]*|i)(\d+)$/);
   if(m){ var k=parseInt(m[1],10); return (k>=1&&k<=state.config.indiv)? "IND-"+k : null; }
   var num=parseInt(v,10);
@@ -353,11 +642,12 @@ function importCsvText(text){
     .map(function(l){ return l.split(sep).map(function(c){return c.trim().replace(/^"|"$/g,"");}); });
   if(rows.length<2) throw new Error("fichier vide");
   var header=rows[0].map(function(h){return h.toLowerCase();});
-  var ramCol=-1, caseCol=-1, cdoCol=-1, raceCol=-1, i;
+  var ramCol=-1, caseCol=-1, cdoCol=-1, raceCol=-1, naissCol=-1, i;
   for(i=0;i<header.length;i++){
     if(cdoCol<0 && /cdo/.test(header[i])) cdoCol=i;
     else if(raceCol<0 && /race/.test(header[i])) raceCol=i;
-    else if(ramCol<0 && /ident|boucle|belier|bélier|animal/.test(header[i])) ramCol=i;
+    else if(naissCol<0 && /naiss/.test(header[i])) naissCol=i;
+    else if(ramCol<0 && /ident|boucle|belier|bélier|agneau|animal/.test(header[i])) ramCol=i;
     if(caseCol<0 && /case|parc|lot|emplacement/.test(header[i])) caseCol=i;
   }
   if(ramCol<0||caseCol<0) throw new Error("Colonnes non reconnues : il faut une colonne identifiant et une colonne case");
@@ -365,33 +655,26 @@ function importCsvText(text){
   rows.slice(1).forEach(function(r){
     var num=r[ramCol], id=parseCaseCell(r[caseCol]);
     if(!num||!id){ skipped++; return; }
-    // n° CDO : rétablir les zéros de tête perdus par Excel (0042 devenu 42)
     var cdo=(cdoCol>-1 && r[cdoCol])? String(r[cdoCol]).trim() : "";
     if(cdo && /^\d{1,4}$/.test(cdo)) cdo=("0000"+cdo).slice(-4);
     var race=(raceCol>-1 && r[raceCol])? String(r[raceCol]).trim() : "";
-    var from=currentCaseOf(num);
-    if(from===id){ return; } // déjà à sa place, rien à faire
-    if(from){
-      var old=state.pens[from];
-      old.rams=old.rams.filter(function(x){return ramNum(x)!==num;});
-    }
-    var pen=state.pens[id]||{rams:[]}; if(!pen.rams) pen.rams=[];
-    pen.rams.push({num:num,cdo:cdo,race:race});
-    state.pens[id]=pen;
-    logMove(num, from, id);
-    ok++;
+    var naiss=(naissCol>-1 && r[naissCol])? toISO(r[naissCol]) : "";
+    if(moveAnimal(num, id, {cdo:cdo, race:race, naissance:naiss})) ok++;
   });
   save();
-  ui.ioMessage="Import terminé : "+ok+" bélier(s) placé(s)"+(skipped? ", "+skipped+" ligne(s) ignorée(s)":"")+".";
+  ui.ioMessage="Import termin\u00E9 : "+ok+" animal(aux) plac\u00E9(s)"+(skipped? ", "+skipped+" ligne(s) ignor\u00E9e(s)":"")+".";
 }
 
 // ————— recherche —————
-// Cherche dans TOUTES les entrées : numéros de béliers, cases (numéro, I5, saut jaune…),
-// zones, types d'événements, textes, dates (aaaa-mm-jj ou jj/mm/aaaa).
-// Plusieurs mots = toutes les conditions à la fois (ex. « soin verte 2026 »).
 function matches(hay, words){
   var h=hay.toLowerCase();
-  for(var i=0;i<words.length;i++){ if(h.indexOf(words[i])===-1) return false; }
+  for(var i=0;i<words.length;i++){
+    var w=words[i];
+    if(w.length===1){
+      var re=new RegExp("(^|[^a-z0-9])"+w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"($|[^a-z0-9])");
+      if(!re.test(h)) return false;
+    } else if(h.indexOf(w)===-1) return false;
+  }
   return true;
 }
 function searchAll(){
@@ -400,16 +683,16 @@ function searchAll(){
   var words=q.split(/\s+/).filter(Boolean);
   var rams=[], events=[];
   allIds().forEach(function(id){
-    var where=caseToken(id)+" "+kindOf(id)+" "+zoneOf(id).label+" "+penTitle(id);
+    var where=caseToken(id)+" "+kindOf(id)+" "+zoneOf(id).label+" "+penTitle(id)+" "+(bldgOf(id)==="orhy"?"orhy agneau":"bergerie b\u00E9lier belier");
     var pen=state.pens[id];
     if(pen&&pen.rams){
       pen.rams.forEach(function(r){
-        if(matches(ramNum(r)+" "+ramCdo(r)+" "+ramRace(r)+" "+where, words)) rams.push({ram:r,id:id});
+        if(matches(ramNum(r)+" "+ramCdo(r)+" "+ramRace(r)+" "+ramNaiss(r)+" "+where, words)) rams.push({ram:r,id:id});
       });
     }
     (state.events[id]||[]).forEach(function(ev){
       var t=EVENT_TYPES.filter(function(x){return x.id===ev.type;})[0];
-      var hay=(ev.text||"")+" "+((t&&t.label)||ev.type)+" "+(ev.ram||"")+" "+(ev.date||"")+" "+fmtDate(ev.date)+" "+where;
+      var hay=(ev.text||"")+" "+((t&&t.label)||ev.type)+" "+(ev.ram||"")+" "+(ev.date||"")+" "+fmtDate(ev.date)+" "+(ev.echeance||"")+" "+where;
       if(matches(hay,words)) events.push({ev:ev,id:id,typeLabel:(t&&t.label)||ev.type,typeColor:(t&&t.color)||"#6B6B60"});
     });
   });
@@ -418,15 +701,15 @@ function searchAll(){
 }
 function searchResultsHtml(){
   var res=searchAll();
-  if(!res) return '<p class="sr-empty">Tapez un num&#233;ro de b&#233;lier, une case (12, I5, saut jaune), une zone, un type d\'&#233;v&#233;nement, un mot ou une date. Plusieurs mots pour croiser : &#171;&#8239;soin verte&#8239;&#187;.</p>';
+  if(!res) return '<p class="sr-empty">Tapez un num&#233;ro d\'animal, une case (12, I5, a3), une zone ou un bloc, un type d\'&#233;v&#233;nement, un mot ou une date. Plusieurs mots pour croiser : &#171;&#8239;soin verte&#8239;&#187;, &#171;&#8239;orhy bloc b&#8239;&#187;.</p>';
   var h='';
   var LIMIT=50;
   if(res.rams.length===0&&res.events.length===0) return '<p class="sr-empty">Aucun r&#233;sultat pour &#171;&#8239;'+esc(ui.search)+'&#8239;&#187;.</p>';
   if(res.rams.length>0){
-    h+='<p class="sr-group">B&#233;liers ('+res.rams.length+')</p>';
+    h+='<p class="sr-group">Animaux ('+res.rams.length+')</p>';
     res.rams.slice(0,LIMIT).forEach(function(x){
       var z=zoneOf(x.id), d=ramDesc(x.ram), safe=esc(ramNum(x.ram)).replace(/'/g,"\\'");
-      h+='<div class="sr-item" onclick="openRam(\''+safe+'\')"><span class="sr-ram">&#128017; '+esc(ramNum(x.ram))+'</span><span class="sr-where">'+(d? esc(d)+'<br>':'')+'<span class="sr-zone" style="background:'+z.color+'"></span>'+esc(penTitle(x.id))+'</span><span class="sr-open">Historique &#8250;</span></div>';
+      h+='<div class="sr-item" onclick="openRam(\''+safe+'\')"><span class="sr-ram">'+animalIcon(bldgOf(x.id))+' '+esc(ramNum(x.ram))+'</span><span class="sr-where">'+(d? esc(d)+'<br>':'')+'<span class="sr-zone" style="background:'+z.color+'"></span>'+esc(penTitle(x.id))+'</span><span class="sr-open">Historique &#8250;</span></div>';
     });
     if(res.rams.length>LIMIT) h+='<p class="sr-empty">&#8230; et '+(res.rams.length-LIMIT)+' autres &#8212; affinez la recherche.</p>';
   }
@@ -451,22 +734,23 @@ window.clearSearch=function(){
   var el=document.getElementById("searchresults"); if(el) el.innerHTML=searchResultsHtml();
 };
 
-// ————— rendu —————
-function penFillColor(id){
-  var n=penCount(id), z=zoneOf(id);
-  if(n===0) return isSaut(id)? z.soft : "#fff";
-  var t=0.35+0.65*Math.min(1,n/maxCount());
-  var hex=z.color.replace("#","");
+// ————— rendu : couleurs —————
+function fillFromColor(color, count){
+  if(count===0) return "#fff";
+  var t=0.35+0.65*Math.min(1,count/maxCount());
+  var hex=color.replace("#","");
   var r=parseInt(hex.slice(0,2),16), g=parseInt(hex.slice(2,4),16), b=parseInt(hex.slice(4,6),16);
   function mix(c){ return Math.round(255+(c-255)*t); }
   return "rgb("+mix(r)+","+mix(g)+","+mix(b)+")";
 }
-function penTextColor(id){ return (penCount(id)/maxCount()>0.55)? "#fff" : "#1B201B"; }
+function penFillColor(id){ return fillFromColor(zoneOf(id).color, penCount(id)); }
+function textOn(count){ return (count/maxCount()>0.55)? "#fff" : "#1B201B"; }
+function penTextColor(id){ return textOn(penCount(id)); }
 
+// ————— plan bergerie —————
 function penSvg(id,x,y,w,h,isTop,big){
   var z=zoneOf(id);
   if(isSaut(id)){
-    // hors inventaire : non sélectionnable, simple repère coloré
     var s0='<g>';
     s0+='<rect x="'+(x+1.5)+'" y="'+(y+1.5)+'" width="'+(w-3)+'" height="'+(h-3)+'" rx="2" fill="'+z.soft+'" stroke="'+z.color+'" stroke-width="2.5"/>';
     s0+='<text x="'+(x+w/2)+'" y="'+(y+h/2+4)+'" text-anchor="middle" font-size="11" font-weight="800" fill="'+z.color+'" style="font-family:ui-monospace,monospace;pointer-events:none">SAUT</text>';
@@ -475,12 +759,14 @@ function penSvg(id,x,y,w,h,isTop,big){
   }
   var count=penCount(id), sel=(ui.selected===id);
   var hasEv=(state.events[id]||[]).length>0;
+  var due=penHasDue(id);
   var label = String(numbering()[id]||"");
   var s='<g onclick="selectPen(\''+id+'\')" style="cursor:pointer">';
   s+='<rect x="'+(x+1.5)+'" y="'+(y+1.5)+'" width="'+(w-3)+'" height="'+(h-3)+'" rx="2" fill="'+penFillColor(id)+'" stroke="'+(sel?"#1B201B":z.color)+'" stroke-width="'+(sel?3.5:(big?2.5:1.5))+'"/>';
   s+='<text x="'+(x+w/2)+'" y="'+(isTop? y+22 : y+h-12)+'" text-anchor="middle" font-size="12" font-weight="700" fill="'+penTextColor(id)+'" style="font-family:ui-monospace,monospace;pointer-events:none">'+label+'</text>';
   s+='<text x="'+(x+w/2)+'" y="'+(isTop? y+h-16 : y+30)+'" text-anchor="middle" font-size="15" font-weight="800" fill="'+(count>0? penTextColor(id) : "#C9C7BD")+'" style="pointer-events:none">'+(count>0? count : "&#183;")+'</text>';
   if(hasEv) s+='<circle cx="'+(x+w-9)+'" cy="'+(isTop? y+10 : y+h-10)+'" r="3.5" fill="#1B201B"/>';
+  if(due) s+='<circle cx="'+(x+9)+'" cy="'+(isTop? y+10 : y+h-10)+'" r="3.5" fill="#E07B00"/>';
   s+='</g>';
   return s;
 }
@@ -497,9 +783,7 @@ function planSvg(){
   s+='<rect x="'+(M+westW+BLOCK_W)+'" y="'+aisleY+'" width="'+eastW+'" height="'+AISLE_H+'" fill="#EDEAE0"/>';
   s+='<text x="'+(M+westW/2)+'" y="'+(aisleY+AISLE_H/2+4)+'" text-anchor="middle" font-size="11" fill="#8A8878" letter-spacing="4" style="pointer-events:none">ALL&#201;E CENTRALE</text>';
   s+='<text x="'+(M+westW+BLOCK_W+eastW/2)+'" y="'+(aisleY+AISLE_H/2+4)+'" text-anchor="middle" font-size="11" fill="#8A8878" letter-spacing="4" style="pointer-events:none">ALL&#201;E CENTRALE</text>';
-  // rangée jaune (haut, aile 1)
   for(i=1;i<=y;i++) s+=penSvg("J-"+i, M+(i-1)*PEN_W, topY, PEN_W, PEN_H, true, false);
-  // bloc individuelles (contre le centre)
   var ix=M+y*PEN_W;
   s+='<g onclick="toggleInd()" style="cursor:pointer">';
   s+='<rect x="'+(ix+1.5)+'" y="'+(topY+1.5)+'" width="'+(indW-3)+'" height="'+(PEN_H-3)+'" rx="2" fill="'+(ui.indOpen? ZONES.J.color : ZONES.J.soft)+'" stroke="'+ZONES.J.color+'" stroke-width="2.5"/>';
@@ -507,9 +791,7 @@ function planSvg(){
   s+='<text x="'+(ix+indW/2)+'" y="'+(topY+PEN_H/2-4)+'" text-anchor="middle" font-size="10" font-weight="800" fill="'+(ui.indOpen?"#fff":ZONES.J.dark)+'" style="pointer-events:none">CASES INDIVIDUELLES ('+state.config.indiv+')</text>';
   s+='<text x="'+(ix+indW/2)+'" y="'+(topY+PEN_H/2+14)+'" text-anchor="middle" font-size="13" font-weight="800" fill="'+(ui.indOpen?"#fff":ZONES.J.dark)+'" style="pointer-events:none">'+(indTotal()>0? indTotal()+" b&#233;liers" : "toucher pour ouvrir")+'</text>';
   s+='</g>';
-  // rangée verte (bas, aile 1) : case 1 contre le centre
   for(i=1;i<=w;i++) s+=penSvg("V-"+i, M+(i-1)*PEN_W, botY, PEN_W, PEN_H, false, false);
-  // cases de saut
   var half=(BLOCK_W-8)/2;
   s+=penSvg("SAUT-1", M+westW+4, topY, half, PEN_H, true, true);
   s+=penSvg("SAUT-2", M+westW+4+half, topY, half, PEN_H, true, true);
@@ -517,78 +799,87 @@ function planSvg(){
   s+=penSvg("SAUT-4", M+westW+4+half, botY, half, PEN_H, false, true);
   s+='<rect x="'+(M+westW+4)+'" y="'+aisleY+'" width="'+(BLOCK_W-8)+'" height="'+AISLE_H+'" fill="#E7E5DB"/>';
   s+='<text x="'+(M+westW+BLOCK_W/2)+'" y="'+(aisleY+AISLE_H/2+4)+'" text-anchor="middle" font-size="10" font-weight="700" fill="#6B6B60" style="pointer-events:none">CASES DE SAUT</text>';
-  // aile 2
   for(i=1;i<=e;i++) s+=penSvg("R-"+i, M+westW+BLOCK_W+(i-1)*PEN_W, topY, PEN_W, PEN_H, true, false);
   for(i=1;i<=e;i++) s+=penSvg("B-"+i, M+westW+BLOCK_W+(i-1)*PEN_W, botY, PEN_W, PEN_H, false, false);
-  // étiquettes de zones
   function tag(x,yy,z){ return '<rect x="'+x+'" y="'+(yy-9)+'" width="10" height="10" rx="2" fill="'+z.color+'"/><text x="'+(x+15)+'" y="'+yy+'" font-size="11" font-weight="700" fill="'+z.color+'">'+z.label.toUpperCase()+'</text>'; }
   s+=tag(M, topY-12, ZONES.J)+tag(M, svgH-8, ZONES.V)+tag(M+westW+BLOCK_W, topY-12, ZONES.R)+tag(M+westW+BLOCK_W, svgH-8, ZONES.B);
   s+='</svg>';
   return s;
 }
 
-function ficheHtml(){
-  if(!ui.selected) return '<p class="hint">S&#233;lectionnez une case sur le plan &#8212; le bloc &#171;&#8239;individuelles&#8239;&#187; (rang&#233;e jaune) s\'ouvre en grille. Les 4 cases de saut au centre sont de simples rep&#232;res color&#233;s, hors inventaire.</p>';
-  var id=ui.selected, z=zoneOf(id);
-  var pen=state.pens[id]||{rams:[]}, rams=pen.rams||[], legacy=pen.legacy||0;
-  var evs=(state.events[id]||[]).slice().sort(function(a,b){return a.date<b.date?1:-1;});
-  var h='<section class="panel" id="fiche" style="border-top:4px solid '+z.color+'">';
-  h+='<button class="close" onclick="closeFiche()">Fermer &#10005;</button>';
-  h+='<h2><span class="zbadge" style="background:'+z.color+'">'+z.label+'</span>'+esc(penTitle(id))+'</h2>';
-  h+='<p class="sub">'+(rams.length+legacy)+' b&#233;lier(s) &#183; '+evs.length+' &#233;v&#233;nement(s)</p>';
-  // béliers
-  h+='<div class="box" style="background:'+z.soft+'"><p class="boxtitle" style="color:'+z.dark+'">B&#233;liers dans cette case</p>';
-  if(rams.length===0&&legacy===0) h+='<p class="sub" style="margin-bottom:8px">Case vide. Ajoutez le num&#233;ro d\'identification de chaque b&#233;lier ci-dessous (saisie ou scan du lecteur de boucle).</p>';
-  if(rams.length>0){
-    h+='<ul class="chips">';
-    rams.forEach(function(r){
-      var num=ramNum(r), d=ramDesc(r), safe=esc(num).replace(/'/g,"\\'");
-      h+='<li class="chip" style="border-color:'+z.color+'"><span onclick="openRam(\''+safe+'\')" style="cursor:pointer">&#128017; '+esc(num)+(d? '<br><small style="font-weight:400;color:var(--muted);font-family:inherit">'+esc(d)+'</small>':'')+'</span><button onclick="removeRam(\''+safe+'\')">&#10005;</button></li>';
+// ————— plan Orhy —————
+function orhyPlanSvg(){
+  var CW=78, CH=88, M=24, GX=56, GY=44;
+  var BW=3*CW, BH=2*CH;
+  var svgW=M+BW+GX+BW+M, svgH=M+16+BH+GY+BH+M;
+  var s='<svg width="'+svgW+'" height="'+svgH+'" viewBox="0 0 '+svgW+' '+svgH+'" style="min-width:'+svgW+'px">';
+  var positions={ C:[M, M+16], D:[M+BW+GX, M+16], A:[M, M+16+BH+GY], B:[M+BW+GX, M+16+BH+GY] };
+  s+='<text x="'+(svgW/2)+'" y="'+(M+16+BH+GY/2+4)+'" text-anchor="middle" font-size="11" fill="#8A8878" letter-spacing="4" style="pointer-events:none">ALL&#201;E</text>';
+  ["C","D","A","B"].forEach(function(bk){
+    var blk=BLOCKS[bk], bx=positions[bk][0], by=positions[bk][1];
+    s+='<rect x="'+bx+'" y="'+(by-13)+'" width="10" height="10" rx="2" fill="'+blk.color+'"/>';
+    s+='<text x="'+(bx+15)+'" y="'+(by-4)+'" font-size="11" font-weight="700" fill="'+blk.color+'">'+blk.label.toUpperCase()+'</text>';
+    // rangée haute : cases 4-6 ("T") · rangée basse : cases 1-3 ("B"), le 1 face au 4
+    [["T",3,0],["B",0,CH]].forEach(function(rowDef){
+      var row=rowDef[0], base=rowDef[1], oy=rowDef[2];
+      var col=1;
+      while(col<=3){
+        var g=groupOf("O:"+bk+"-"+(base+col));
+        var len=g.length;
+        var leader=g[0];
+        var x=bx+(col-1)*CW, y=by+oy, wdt=len*CW;
+        var cnt=groupCount(g), sel=(ui.selected===leader);
+        var hasEv=false; g.forEach(function(id){ if((state.events[id]||[]).length>0) hasEv=true; });
+        var due=groupHasDue(g);
+        s+='<g onclick="selectPen(\''+leader+'\')" style="cursor:pointer">';
+        s+='<rect x="'+(x+1.5)+'" y="'+(y+1.5)+'" width="'+(wdt-3)+'" height="'+(CH-3)+'" rx="2" fill="'+fillFromColor(blk.color,cnt)+'" stroke="'+(sel?"#1B201B":blk.color)+'" stroke-width="'+(sel?3.5:1.8)+'"/>';
+        s+='<text x="'+(x+wdt/2)+'" y="'+(y+24)+'" text-anchor="middle" font-size="13" font-weight="700" fill="'+textOn(cnt)+'" style="font-family:ui-monospace,monospace;pointer-events:none">'+groupTokenLabel(g)+'</text>';
+        s+='<text x="'+(x+wdt/2)+'" y="'+(y+CH-16)+'" text-anchor="middle" font-size="15" font-weight="800" fill="'+(cnt>0? textOn(cnt) : "#C9C7BD")+'" style="pointer-events:none">'+(cnt>0? cnt : "&#183;")+'</text>';
+        if(hasEv) s+='<circle cx="'+(x+wdt-9)+'" cy="'+(y+10)+'" r="3.5" fill="#1B201B"/>';
+        if(due) s+='<circle cx="'+(x+9)+'" cy="'+(y+10)+'" r="3.5" fill="#E07B00"/>';
+        s+='</g>';
+        col+=len;
+      }
+      for(var gap=1;gap<=2;gap++){
+        var key=partKey(bk,row,gap);
+        var px=bx+gap*CW, py=by+oy+CH/2;
+        var open=partOpen(bk,row,gap);
+        s+='<g onclick="togglePartition(\''+key+'\')" style="cursor:pointer">';
+        s+='<circle cx="'+px+'" cy="'+py+'" r="11" fill="#fff" stroke="'+blk.color+'" stroke-width="1.5"/>';
+        s+='<text x="'+px+'" y="'+(py+4)+'" text-anchor="middle" font-size="11" font-weight="800" fill="'+blk.color+'" style="pointer-events:none">'+(open? "&#8596;" : "&#9612;&#9616;")+'</text>';
+        s+='</g>';
+      }
     });
-    h+='</ul>';
-    h+='<p class="sub" style="margin:-2px 0 8px">Touchez un b&#233;lier pour ouvrir son historique individuel.</p>';
-  }
-  if(legacy>0) h+='<p class="sub" style="margin-bottom:8px">'+legacy+' animal(aux) compt&#233;(s) sans num&#233;ro. <a href="#" onclick="clearLegacy();return false;">Effacer ce comptage</a></p>';
-  h+='<div class="row"><input type="text" id="raminput" placeholder="N&#176; d\'identification &#8212; scannez ou tapez" onkeydown="if(event.key===\'Enter\'){addRam();}">';
-  h+='<input type="text" id="cdoinput" placeholder="CDO (4 chiffres)" maxlength="4" inputmode="numeric" style="flex:0 1 130px">';
-  h+='<input type="text" id="raceinput" placeholder="Race (facultatif)" style="flex:0 1 170px;font-family:inherit">';
-  h+='<button class="act" style="background:'+z.color+'" onclick="addRam()">Ajouter</button></div></div>';
-  // événement
-  h+='<div class="box" style="background:var(--paper)"><p class="boxtitle" style="color:var(--ink)">Ajouter &#224; l\'historique</p><div class="row">';
-  h+='<select id="evtype">'+EVENT_TYPES.map(function(t){return '<option value="'+t.id+'"'+(ui.formType===t.id?" selected":"")+'>'+t.label+'</option>';}).join("")+'</select>';
-  h+='<select id="evram"><option value="">Toute la case</option>'+rams.map(function(r){var n=ramNum(r);return '<option value="'+esc(n)+'">B&#233;lier '+esc(n)+(ramCdo(r)? ' (CDO '+esc(ramCdo(r))+')':'')+'</option>';}).join("")+'</select>';
-  h+='<input type="date" id="evdate" value="'+ui.formDate+'">';
-  h+='<input type="text" id="evtext" placeholder="Ex. vaccination, tonte, saut, collecte&#8230;" onkeydown="if(event.key===\'Enter\'){addEvent();}">';
-  h+='<button class="act" style="background:var(--ink)" onclick="addEvent()">Enregistrer</button></div></div>';
-  // historique
-  if(evs.length===0){
-    h+='<p class="sub" style="margin-top:12px">Aucun &#233;v&#233;nement pour cette case.</p>';
-  } else {
-    h+='<ul class="hist">';
-    evs.forEach(function(ev){
-      var t=EVENT_TYPES.filter(function(x){return x.id===ev.type;})[0]||EVENT_TYPES[EVENT_TYPES.length-1];
-      h+='<li><span class="tag" style="background:'+t.color+'">'+t.label+'</span><div style="flex:1;min-width:0"><div style="font-size:14px">'+(ev.ram? '<span class="mono" style="font-weight:600">['+esc(ev.ram)+']</span> ':'')+esc(ev.text)+'</div><div class="when">'+fmtDate(ev.date)+'</div></div><button class="del" onclick="removeEvent(\''+ev.id+'\')">Supprimer</button></li>';
-    });
-    h+='</ul>';
-  }
-  h+='</section>';
+    s+='<rect x="'+bx+'" y="'+by+'" width="'+BW+'" height="'+BH+'" fill="none" stroke="#1B201B" stroke-width="2.5"/>';
+  });
+  s+='</svg>';
+  return s;
+}
+
+// ————— sélecteur de case (déplacement direct) —————
+function caseSelectOptions(){
+  var h='<option value="">D\u00E9placer vers\u2026</option>';
+  h+='<optgroup label="Bergerie \u2014 collectives">';
+  var rev=numberToId();
+  Object.keys(rev).map(Number).sort(function(a,b){return a-b;}).forEach(function(n){
+    h+='<option value="'+rev[n]+'">Case '+n+' ('+zoneOf(rev[n]).label.replace("Zone ","")+')</option>';
+  });
+  h+='</optgroup><optgroup label="Bergerie \u2014 individuelles">';
+  for(var i=1;i<=state.config.indiv;i++) h+='<option value="IND-'+i+'">I'+i+'</option>';
+  h+='</optgroup><optgroup label="Orhy">';
+  orhyIds().forEach(function(id){ h+='<option value="'+id+'">'+orhyToken(id)+' ('+zoneOf(id).label+')</option>'; });
+  h+='</optgroup>';
+  h+='<option value="__none">\u2014 Sortir des b\u00E2timents \u2014</option>';
   return h;
 }
 
-// ————— fiche individuelle d'un bélier —————
-function safeCaseName(id){
-  if(!id) return "";
-  if(isInd(id) || numbering()[id]!==undefined) return penTitle(id);
-  return id; // case d'une ancienne configuration
-}
+// ————— fiche individuelle d'un animal —————
 function ramFicheHtml(){
   var num=ui.ramView;
   var caseId=currentCaseOf(num);
-  // retrouver la fiche du bélier (CDO, race)
-  var r=null;
-  if(caseId){ var p=state.pens[caseId]; r=p.rams[findRam(p.rams,num)]; }
+  var b=caseId? bldgOf(caseId) : ui.building;
+  var r=caseId? getRam(num) : null;
   var z=caseId? zoneOf(caseId) : ZONES.J;
-  // historique fusionné : déplacements + événements le concernant, du plus récent au plus ancien
   var items=[];
   state.moves.forEach(function(mv){
     if(mv.ram===num) items.push({date:mv.date, kind:"move", label:moveLabel(mv)});
@@ -598,32 +889,38 @@ function ramFicheHtml(){
       if(ev.ram===num){
         var t=EVENT_TYPES.filter(function(x){return x.id===ev.type;})[0];
         items.push({date:ev.date, kind:"event", label:ev.text, typeLabel:(t&&t.label)||ev.type,
-                    typeColor:(t&&t.color)||"#6B6B60", where:safeCaseName(id)});
+                    typeColor:(t&&t.color)||"#6B6B60", where:safeCaseName(id), echeance:ev.echeance||""});
       }
     });
   });
   items.sort(function(a,b){ return a.date<b.date?1:-1; });
   var h='<section class="panel" id="ramfiche" style="border-top:4px solid '+(caseId? z.color : "var(--muted)")+'">';
   h+='<button class="close" onclick="closeRam()">Fermer &#10005;</button>';
-  h+='<h2>&#128017; <span class="mono">'+esc(num)+'</span></h2>';
+  h+='<h2>'+animalIcon(b)+' <span class="mono">'+esc(num)+'</span></h2>';
   var d=r? ramDesc(r) : "";
   if(d) h+='<p class="sub">'+esc(d)+'</p>';
   if(caseId){
     h+='<p class="sub">Actuellement : <span class="sr-zone" style="background:'+z.color+'"></span>'+esc(penTitle(caseId))+'</p>';
     h+='<p style="margin:8px 0 0"><a href="#" onclick="backToCase(\''+caseId+'\');return false;" style="font-size:13px;font-weight:700;color:var(--ink)">&#8249; Retour &#224; la case</a></p>';
   } else {
-    h+='<p class="sub">Ce b&#233;lier n\'est actuellement dans aucune case du b&#226;timent.</p>';
+    h+='<p class="sub">Cet animal n\'est actuellement dans aucune case.</p>';
   }
+  // déplacement direct
+  h+='<div class="box" style="background:var(--paper)"><p class="boxtitle" style="color:var(--ink)">D\u00E9placer cet animal</p>';
+  h+='<div class="row"><select id="movetarget" style="flex:1">'+caseSelectOptions()+'</select>';
+  h+='<button class="act" style="background:var(--ink)" onclick="moveRamTo()">D\u00E9placer</button></div>';
+  h+='<p class="sub" style="margin-top:6px">Le d\u00E9placement est dat\u00E9 et ajout\u00E9 \u00E0 son historique automatiquement.</p></div>';
   h+='<p class="boxtitle" style="color:var(--ink);margin-top:16px">Historique individuel ('+items.length+')</p>';
   if(items.length===0){
-    h+='<p class="sub">Aucun &#233;v&#233;nement ni d&#233;placement enregistr&#233; pour ce b&#233;lier.</p>';
+    h+='<p class="sub">Aucun &#233;v&#233;nement ni d&#233;placement enregistr&#233; pour cet animal.</p>';
   } else {
     h+='<ul class="hist">';
     items.forEach(function(it){
       if(it.kind==="move"){
         h+='<li><span class="tag" style="background:#2C5F8A">D&#233;placement</span><div style="flex:1;min-width:0"><div style="font-size:14px">'+esc(it.label)+'</div><div class="when">'+fmtDate(it.date)+'</div></div></li>';
       } else {
-        h+='<li><span class="tag" style="background:'+it.typeColor+'">'+esc(it.typeLabel)+'</span><div style="flex:1;min-width:0"><div style="font-size:14px">'+esc(it.label)+'</div><div class="when">'+esc(it.where)+' &#183; '+fmtDate(it.date)+'</div></div></li>';
+        var dd=it.echeance? '<span class="due '+dueClass(it.echeance)+'">Rappel '+fmtDate(it.echeance)+'</span>' : '';
+        h+='<li><span class="tag" style="background:'+it.typeColor+'">'+esc(it.typeLabel)+'</span><div style="flex:1;min-width:0"><div style="font-size:14px">'+esc(it.label)+dd+'</div><div class="when">'+esc(it.where)+' &#183; '+fmtDate(it.date)+'</div></div></li>';
       }
     });
     h+='</ul>';
@@ -632,45 +929,268 @@ function ramFicheHtml(){
   return h;
 }
 
+// ————— fiche de case (ou groupe fusionné) —————
+function findEventInGroup(evId, members){
+  for(var i=0;i<members.length;i++){
+    var list=state.events[members[i]]||[];
+    for(var j=0;j<list.length;j++) if(list[j].id===evId) return list[j];
+  }
+  return null;
+}
+function ficheHtml(){
+  if(!ui.selected){
+    if(ui.building==="orhy")
+      return '<p class="hint">S&#233;lectionnez une case sur le plan d\'Orhy. Les pastilles &#9612;&#9616; entre les cases sont les cloisons amovibles : touchez-en une pour l\'ouvrir (&#8596;) et fusionner les cases, touchez &#224; nouveau pour la refermer.</p>';
+    return '<p class="hint">S&#233;lectionnez une case sur le plan &#8212; le bloc &#171;&#8239;individuelles&#8239;&#187; (rang&#233;e jaune) s\'ouvre en grille. Les 4 cases de saut au centre sont de simples rep&#232;res color&#233;s, hors inventaire. Pastille orange = rappel de soin proche ou d\u00E9pass\u00E9.</p>';
+  }
+  var id=ui.selected, z=zoneOf(id), b=bldgOf(id), word=animalWord(b), icon=animalIcon(b);
+  var members=groupOf(id);
+  var rams=[], legacy=0;
+  members.forEach(function(m){
+    var p=state.pens[m]||{rams:[]};
+    (p.rams||[]).forEach(function(r){ rams.push({r:r, src:m}); });
+    legacy+=(p.legacy||0);
+  });
+  var evs=[];
+  members.forEach(function(m){
+    (state.events[m]||[]).forEach(function(ev){ evs.push(ev); });
+  });
+  evs.sort(function(a,b){return a.date<b.date?1:-1;});
+  var title;
+  if(isOrhy(id)){
+    title = members.length>1? "Cases "+members.map(orhyToken).join(" + ")+" (fusionn&#233;es)"
+                            : "Case "+orhyToken(id)+" \u00B7 "+z.label;
+  } else {
+    title = esc(penTitle(id));
+  }
+  var cap=capacityOf(id)*members.length;
+  var over=cap>0 && (rams.length+legacy)>cap;
+  var editing = ui.editingEvId? findEventInGroup(ui.editingEvId, members) : null;
+  var h='<section class="panel" id="fiche" style="border-top:4px solid '+z.color+'">';
+  h+='<button class="close" onclick="closeFiche()">Fermer &#10005;</button>';
+  h+='<h2><span class="zbadge" style="background:'+z.color+'">'+(isOrhy(id)? "Orhy" : "Bergerie")+'</span>'+title+'</h2>';
+  h+='<p class="sub">'+(rams.length+legacy)+' '+word+'(s)'+(cap>0? ' / capacit\u00E9 '+cap : '')+' &#183; '+evs.length+' &#233;v&#233;nement(s)'+(over? ' &#183; <b style="color:#8E1F1F">au-dessus de la capacit\u00E9</b>':'')+'</p>';
+  // animaux
+  h+='<div class="box" style="background:'+z.soft+'"><p class="boxtitle" style="color:'+z.dark+'">'+(b==="orhy"?"Agneaux":"B\u00E9liers")+' dans cette case</p>';
+  if(rams.length===0&&legacy===0) h+='<p class="sub" style="margin-bottom:8px">Case vide. Ajoutez le num&#233;ro d\'identification de chaque '+word+' ci-dessous (saisie ou scan du lecteur de boucle).</p>';
+  if(rams.length>0){
+    h+='<ul class="chips">';
+    rams.forEach(function(x){
+      var num=ramNum(x.r), d=ramDesc(x.r), safe=esc(num).replace(/'/g,"\\'");
+      var srcNote=(members.length>1)? ' <small style="font-weight:400;color:var(--muted);font-family:inherit">('+orhyToken(x.src)+')</small>' : '';
+      h+='<li class="chip" style="border-color:'+z.color+'"><span onclick="openRam(\''+safe+'\')" style="cursor:pointer">'+icon+' '+esc(num)+srcNote+(d? '<br><small style="font-weight:400;color:var(--muted);font-family:inherit">'+esc(d)+'</small>':'')+'</span><button onclick="removeRam(\''+safe+'\')">&#10005;</button></li>';
+    });
+    h+='</ul>';
+    h+='<p class="sub" style="margin:-2px 0 8px">Touchez un '+word+' pour ouvrir son historique et le d&#233;placer.</p>';
+  }
+  if(legacy>0) h+='<p class="sub" style="margin-bottom:8px">'+legacy+' animal(aux) compt&#233;(s) sans num&#233;ro. <a href="#" onclick="clearLegacy();return false;">Effacer ce comptage</a></p>';
+  h+='<div class="row"><input type="text" id="raminput" placeholder="N&#176; d\'identification &#8212; scannez ou tapez" onkeydown="if(event.key===\'Enter\'){addRam();}">';
+  h+='<input type="text" id="cdoinput" placeholder="CDO" maxlength="4" inputmode="numeric" style="flex:0 1 90px">';
+  h+='<input type="text" id="raceinput" placeholder="Race" style="flex:0 1 140px;font-family:inherit">';
+  h+='<input type="date" id="naissinput" title="Date de naissance" style="flex:0 1 150px">';
+  h+='<button class="act" style="background:'+z.color+'" onclick="addRam()">Ajouter</button></div>';
+  h+='<p class="sub" style="margin-top:4px">CDO, race et date de naissance sont facultatifs.</p></div>';
+  // événement (ajout ou modification)
+  var f = editing? { type:editing.type, ram:editing.ram||"", date:editing.date, text:editing.text, ech:editing.echeance||"" }
+                 : { type:ui.formType, ram:"", date:ui.formDate, text:"", ech:"" };
+  h+='<div class="box" id="evform" style="background:var(--paper)'+(editing? ';border:1.5px solid var(--ink)':'')+'">';
+  h+='<p class="boxtitle" style="color:var(--ink)">'+(editing? "Modifier l'\u00E9v\u00E9nement" : "Ajouter \u00E0 l'historique")+'</p><div class="row">';
+  h+='<select id="evtype">'+EVENT_TYPES.map(function(t){return '<option value="'+t.id+'"'+(f.type===t.id?" selected":"")+'>'+t.label+'</option>';}).join("")+'</select>';
+  var ramOpts='<option value="">Toute la case</option>';
+  var seen={};
+  rams.forEach(function(x){ var n=ramNum(x.r); seen[n]=1; ramOpts+='<option value="'+esc(n)+'"'+(f.ram===n?" selected":"")+'>'+esc(n)+(ramCdo(x.r)? ' (CDO '+esc(ramCdo(x.r))+')':'')+'</option>'; });
+  if(f.ram && !seen[f.ram]) ramOpts+='<option value="'+esc(f.ram)+'" selected>'+esc(f.ram)+' (parti)</option>';
+  h+='<select id="evram">'+ramOpts+'</select>';
+  h+='<input type="date" id="evdate" value="'+f.date+'">';
+  h+='<input type="text" id="evtext" placeholder="Ex. vaccination, pes\u00E9e 32 kg, tonte&#8230;" value="'+esc(f.text)+'" onkeydown="if(event.key===\'Enter\'){addEvent();}">';
+  h+='<label style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px">Rappel le <input type="date" id="evech" value="'+f.ech+'"></label>';
+  h+='<button class="act" style="background:var(--ink)" onclick="addEvent()">'+(editing? "Mettre \u00E0 jour" : "Enregistrer")+'</button>';
+  if(editing) h+='<button class="act" style="background:var(--muted)" onclick="cancelEdit()">Annuler</button>';
+  h+='</div></div>';
+  // historique
+  if(evs.length===0){
+    h+='<p class="sub" style="margin-top:12px">Aucun &#233;v&#233;nement pour cette case.</p>';
+  } else {
+    h+='<ul class="hist">';
+    evs.forEach(function(ev){
+      var t=EVENT_TYPES.filter(function(x){return x.id===ev.type;})[0]||EVENT_TYPES[EVENT_TYPES.length-1];
+      var dd=ev.echeance? '<span class="due '+dueClass(ev.echeance)+'">Rappel '+fmtDate(ev.echeance)+'</span>' : '';
+      h+='<li><span class="tag" style="background:'+t.color+'">'+t.label+'</span><div style="flex:1;min-width:0"><div style="font-size:14px">'+(ev.ram? '<span class="mono" style="font-weight:600">['+esc(ev.ram)+']</span> ':'')+esc(ev.text)+dd+'</div><div class="when">'+fmtDate(ev.date)+'</div></div><button class="edit" onclick="editEvent(\''+ev.id+'\')">Modifier</button><button class="del" onclick="removeEvent(\''+ev.id+'\')">Supprimer</button></li>';
+    });
+    h+='</ul>';
+  }
+  h+='</section>';
+  return h;
+}
+
+// ————— événement groupé (panneau) —————
+function groupEventHtml(){
+  var b=ui.building;
+  var opts;
+  if(b==="orhy"){
+    opts='<option value="bA">Bloc A</option><option value="bB">Bloc B</option><option value="bC">Bloc C</option><option value="bD">Bloc D</option><option value="orhy">Tout Orhy</option>';
+  } else {
+    opts='<option value="zJ">Zone jaune</option><option value="zV">Zone verte</option><option value="zR">Zone rouge</option><option value="zB">Zone bleue</option><option value="ind">Cases individuelles</option><option value="bergerie">Toute la bergerie</option>';
+  }
+  var h='<div class="panel" style="border:1.5px solid var(--ink);box-shadow:none">';
+  h+='<button class="close" onclick="toggleGroupEvent()">Fermer &#10005;</button>';
+  h+='<p class="boxtitle" style="color:var(--ink)">\u00C9v\u00E9nement group\u00E9 &#8212; appliquer \u00E0 plusieurs cases d\'un coup</p>';
+  h+='<div class="row">';
+  h+='<select id="gescope">'+opts+'</select>';
+  h+='<select id="getype">'+EVENT_TYPES.map(function(t){return '<option value="'+t.id+'">'+t.label+'</option>';}).join("")+'</select>';
+  h+='<input type="date" id="gedate" value="'+todayISO()+'">';
+  h+='<label style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px">Rappel le <input type="date" id="geech"></label>';
+  h+='<input type="text" id="getext" placeholder="Ex. vaccination entérotox\u00E9mie" style="font-family:inherit">';
+  h+='<label style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px"><input type="checkbox" id="geocc" checked> cases occup\u00E9es uniquement</label>';
+  h+='<button class="act" style="background:var(--ink)" onclick="applyGroupEvent()">Appliquer</button>';
+  h+='</div></div>';
+  return h;
+}
+
+// ————— synthèse —————
+function dashboardHtml(){
+  var h='<div class="panel dash">';
+  // effectifs
+  h+='<h3>Effectifs</h3><table><tr><th>Emplacement</th><th style="text-align:right">Animaux</th></tr>';
+  h+='<tr><td><b>Bergerie (b\u00E9liers)</b></td><td class="num">'+totalSheep("bergerie")+'</td></tr>';
+  [["zJ","Zone jaune"],["zV","Zone verte"],["zR","Zone rouge"],["zB","Zone bleue"],["ind","Cases individuelles"]].forEach(function(x){
+    var n=scopeIds(x[0]).reduce(function(s,id){return s+penCount(id);},0);
+    h+='<tr><td style="padding-left:20px">'+x[1]+'</td><td class="num">'+n+'</td></tr>';
+  });
+  h+='<tr><td><b>Orhy (agneaux)</b></td><td class="num">'+totalSheep("orhy")+'</td></tr>';
+  ["A","B","C","D"].forEach(function(bk){
+    var n=scopeIds("b"+bk).reduce(function(s,id){return s+penCount(id);},0);
+    h+='<tr><td style="padding-left:20px">Bloc '+bk+'</td><td class="num">'+n+'</td></tr>';
+  });
+  h+='</table>';
+  // races
+  var races={};
+  allIds().forEach(function(id){
+    ((state.pens[id]||{}).rams||[]).forEach(function(r){
+      var k=ramRace(r)||"Non renseign\u00E9e";
+      races[k]=(races[k]||0)+1;
+    });
+  });
+  var raceKeys=Object.keys(races).sort(function(a,b){return races[b]-races[a];});
+  if(raceKeys.length){
+    h+='<h3 style="margin-top:16px">Par race</h3><table>';
+    raceKeys.forEach(function(k){ h+='<tr><td>'+esc(k)+'</td><td class="num">'+races[k]+'</td></tr>'; });
+    h+='</table>';
+  }
+  // rappels
+  var rem=allReminders();
+  h+='<h3 style="margin-top:16px">Rappels de soins ('+rem.length+')</h3>';
+  if(rem.length===0){
+    h+='<p class="sub">Aucun rappel programm\u00E9. Ajoutez une date &#171;&#8239;Rappel le&#8239;&#187; sur un \u00E9v\u00E9nement pour qu\'il apparaisse ici et sur le plan (pastille orange).</p>';
+  } else {
+    h+='<ul class="hist">';
+    rem.slice(0,20).forEach(function(x){
+      var t=EVENT_TYPES.filter(function(e){return e.id===x.ev.type;})[0];
+      h+='<li style="cursor:pointer" onclick="selectPen(\''+x.id+'\')"><span class="due '+x.cls+'">'+fmtDate(x.ev.echeance)+'</span><div style="flex:1;min-width:0"><div style="font-size:14px">'+esc(x.ev.text)+(x.ev.ram? ' <span class="mono">['+esc(x.ev.ram)+']</span>':'')+'</div><div class="when">'+esc(safeCaseName(x.id))+' &#183; '+((t&&t.label)||x.ev.type)+' du '+fmtDate(x.ev.date)+'</div></div><span class="sr-open">Ouvrir &#8250;</span></li>';
+    });
+    h+='</ul>';
+    if(rem.length>20) h+='<p class="sub">&#8230; et '+(rem.length-20)+' autres.</p>';
+  }
+  // capacité
+  var caps=[];
+  allIds().forEach(function(id){
+    var c=capacityOf(id);
+    if(c>0 && penCount(id)>c) caps.push({id:id, n:penCount(id), cap:c});
+  });
+  if(state.config.capCol||state.config.capInd||state.config.capOrhy){
+    h+='<h3 style="margin-top:16px">Cases au-dessus de la capacit\u00E9 ('+caps.length+')</h3>';
+    if(caps.length===0) h+='<p class="sub">Tout est dans les limites d\u00E9finies.</p>';
+    else {
+      h+='<ul class="hist">';
+      caps.forEach(function(x){ h+='<li style="cursor:pointer" onclick="selectPen(\''+x.id+'\')"><span class="due late">'+x.n+' / '+x.cap+'</span><div style="flex:1"><div style="font-size:14px">'+esc(safeCaseName(x.id))+'</div></div><span class="sr-open">Ouvrir &#8250;</span></li>'; });
+      h+='</ul>';
+    }
+  } else {
+    h+='<p class="sub" style="margin-top:12px">Astuce : d\u00E9finissez des capacit\u00E9s maximales par type de case dans &#171;&#8239;Configurer&#8239;&#187; (onglet Bergerie) pour voir ici les cases surcharg\u00E9es.</p>';
+  }
+  // derniers déplacements
+  h+='<h3 style="margin-top:16px">Derniers d\u00E9placements</h3>';
+  if(state.moves.length===0) h+='<p class="sub">Aucun d\u00E9placement enregistr\u00E9.</p>';
+  else {
+    h+='<ul class="hist">';
+    state.moves.slice(-10).reverse().forEach(function(mv){
+      h+='<li><span class="tag" style="background:#2C5F8A">'+fmtDate(mv.date)+'</span><div style="flex:1;min-width:0"><div style="font-size:14px"><span class="mono">'+esc(mv.ram)+'</span> &#8212; '+esc(moveLabel(mv))+'</div></div></li>';
+    });
+    h+='</ul>';
+  }
+  h+='</div>';
+  return h;
+}
+
+// ————— rendu principal —————
 function render(){
   var app=document.getElementById("app");
+  var b=ui.building;
   var h='';
-  h+='<header><p class="eyebrow">CDEO</p><h1>Bergerie &#8212; plan interactif</h1>';
-  h+='<div class="headrow"><div class="total">'+totalSheep()+'<small>b&#233;liers &#183; '+occupiedCount()+' case(s) occup&#233;e(s)</small></div>';
-  h+='<button class="btn" onclick="exportInventory()">Exporter l\'inventaire</button>';
-  h+='<button class="btn" onclick="exportHistory()">Exporter l\'historique</button>';
+  var titles={bergerie:"Bergerie &#8212; plan interactif", orhy:"Orhy &#8212; b&#226;timent des agneaux", synthese:"Synth&#232;se des deux b&#226;timents"};
+  h+='<header><p class="eyebrow">CDEO</p><h1>'+titles[b]+'</h1>';
+  var word=(b==="synthese")? "animaux" : animalWord(b)+"(s)";
+  h+='<div class="headrow"><div class="total">'+totalSheep(b)+'<small>'+word+' &#183; '+occupiedCount(b)+' case(s) occup&#233;e(s)</small></div>';
+  h+='<button class="btn" onclick="exportInventory()">Export inventaire</button>';
+  h+='<button class="btn" onclick="exportHistory()">Export historique</button>';
   h+='<button class="btn solid" onclick="triggerImport()">Importer CSV</button>';
-  h+='<button class="btn" onclick="toggleConfig()">Configurer</button></div>';
+  h+='<button class="btn" onclick="exportBackup()">Sauvegarde</button>';
+  h+='<button class="btn" onclick="triggerRestore()">Restaurer</button>';
+  if(b==="bergerie") h+='<button class="btn" onclick="toggleConfig()">Configurer</button>';
+  if(b!=="synthese") h+='<button class="btn" onclick="toggleGroupEvent()">\u00C9v\u00E9nement group\u00E9</button>';
+  h+='</div>';
   if(ui.ioMessage) h+='<p class="msg">'+esc(ui.ioMessage)+'</p>';
   if(!ui.storageOk) h+='<p class="warn">Sauvegarde locale indisponible dans cet aper&#231;u &#8212; t&#233;l&#233;chargez le fichier et ouvrez-le dans le navigateur du t&#233;l&#233;phone pour que les donn&#233;es soient conserv&#233;es.</p>';
-  h+='</header>';
-  if(ui.showConfig){
-    h+='<div class="panel cfg" style="margin-top:12px"><p style="font-weight:700;font-size:14px;margin:0 0 6px">Configuration du b&#226;timent</p>';
-    h+='<p class="sub" style="margin-bottom:10px">Verte en bas (num&#233;rot&#233;e depuis le centre), jaune en haut dont les 3 derni&#232;res cases forment le bloc individuel. Rouge en haut et bleue en bas c&#244;t&#233; aile 2. La num&#233;rotation 1&#8211;'+lastNumber()+' se recalcule automatiquement.</p>';
+  h+='<div class="tabs">';
+  h+='<button class="tab'+(b==="bergerie"?" on":"")+'" onclick="setBuilding(\'bergerie\')">&#128016; Bergerie</button>';
+  h+='<button class="tab'+(b==="orhy"?" on":"")+'" onclick="setBuilding(\'orhy\')">&#128017; Orhy</button>';
+  h+='<button class="tab'+(b==="synthese"?" on":"")+'" onclick="setBuilding(\'synthese\')">&#128202; Synth&#232;se</button>';
+  h+='</div></header>';
+  // barre de scan globale
+  h+='<div class="scanbar"><span class="lbl">&#128246; Scan boucle</span><input type="text" id="scaninput" placeholder="Scannez une boucle n\'importe quand&#8230;" onkeydown="if(event.key===\'Enter\'){globalScan();}"><button class="act" style="background:var(--Jdark)" onclick="globalScan()">OK</button></div>';
+  if(b==="bergerie" && ui.showConfig){
+    h+='<div class="panel cfg" style="margin-top:12px"><p style="font-weight:700;font-size:14px;margin:0 0 6px">Configuration</p>';
+    h+='<p class="sub" style="margin-bottom:10px">Num&#233;rotation 1&#8211;'+lastNumber()+' recalcul\u00E9e automatiquement. Capacit\u00E9s : 0 = d\u00E9sactiv\u00E9 ; au-del\u00E0 de la capacit\u00E9, la case est signal\u00E9e dans la Synth\u00E8se.</p>';
     h+='<label>Cases verte <input type="number" id="cfgw" min="4" max="30" value="'+state.config.west+'"></label>';
     h+='<label>Cases rouge/bleue <input type="number" id="cfge" min="1" max="30" value="'+state.config.east+'"></label>';
-    h+='<label>Individuelles <input type="number" id="cfgi" min="1" max="40" value="'+state.config.indiv+'"></label> ';
+    h+='<label>Individuelles <input type="number" id="cfgi" min="1" max="40" value="'+state.config.indiv+'"></label><br>';
+    h+='<label>Capacit\u00E9 collective <input type="number" id="cfgcc" min="0" value="'+state.config.capCol+'"></label>';
+    h+='<label>Capacit\u00E9 individuelle <input type="number" id="cfgci" min="0" value="'+state.config.capInd+'"></label>';
+    h+='<label>Capacit\u00E9 case Orhy <input type="number" id="cfgco" min="0" value="'+state.config.capOrhy+'"></label> ';
     h+='<button class="act" style="background:var(--ink)" onclick="applyConfig()">Appliquer</button></div>';
   }
-  h+='<div class="planwrap">'+planSvg()+'</div>';
-  if(ui.indOpen){
-    h+='<div class="panel" style="border:1.5px solid var(--J);box-shadow:none"><p class="boxtitle" style="color:var(--Jdark)">Cases individuelles I1 &#224; I'+state.config.indiv+' (hors num&#233;rotation) &#183; rang&#233;e jaune, contre les cases de saut</p><div class="grid">';
-    for(var i=1;i<=state.config.indiv;i++){
-      var iid="IND-"+i, n=penCount(iid), sel=(ui.selected===iid);
-      h+='<button class="cellbtn'+(sel?" sel":"")+'" style="background:'+(n>0?"var(--Jsoft)":"#fff")+'" onclick="selectPen(\''+iid+'\')"><span class="id">I'+i+'</span><span class="n" style="color:'+(n>0?"var(--Jdark)":"var(--line)")+'">'+(n>0?n:"&#183;")+'</span></button>';
+  if(b!=="synthese" && ui.showGroupEvent) h+='<div style="margin-top:12px">'+groupEventHtml()+'</div>';
+  if(b==="synthese"){
+    h+='<div style="margin-top:14px">'+dashboardHtml()+'</div>';
+  } else {
+    h+='<div class="planwrap">'+(b==="orhy"? orhyPlanSvg() : planSvg())+'</div>';
+    if(b==="bergerie" && ui.indOpen){
+      h+='<div class="panel" style="border:1.5px solid var(--J);box-shadow:none"><p class="boxtitle" style="color:var(--Jdark)">Cases individuelles I1 &#224; I'+state.config.indiv+' (hors num&#233;rotation) &#183; rang&#233;e jaune, contre les cases de saut</p><div class="grid">';
+      for(var i=1;i<=state.config.indiv;i++){
+        var iid="IND-"+i, n=penCount(iid), sel=(ui.selected===iid);
+        h+='<button class="cellbtn'+(sel?" sel":"")+'" style="background:'+(n>0?"var(--Jsoft)":"#fff")+'" onclick="selectPen(\''+iid+'\')"><span class="id">I'+i+'</span><span class="n" style="color:'+(n>0?"var(--Jdark)":"var(--line)")+'">'+(n>0?n:"&#183;")+'</span></button>';
+      }
+      h+='</div></div>';
     }
-    h+='</div></div>';
+    if(b==="bergerie"){
+      h+='<div class="legend">';
+      [ZONES.J,ZONES.V,ZONES.R,ZONES.B].forEach(function(z){ h+='<span><span class="sw" style="background:'+z.color+'"></span>'+z.label+'</span>'; });
+      h+='<span><span class="dot"></span>historique</span><span><span class="adot"></span>rappel proche/d&#233;pass&#233;</span>';
+      h+='<span>Num&#233;rotation horaire&#8239;: case 1 en verte contre le centre, case '+lastNumber()+' en bleue contre le centre.</span></div>';
+    } else {
+      h+='<div class="legend">';
+      h+='<span>Blocs C et D en haut, A et B en bas &#183; cases 1&#8211;3 en bas (1 &#224; gauche) face aux cases 4&#8211;6.</span>';
+      h+='<span><span class="dot"></span>historique</span><span><span class="adot"></span>rappel proche/d&#233;pass&#233;</span>';
+      h+='<span>&#9612;&#9616; cloison ferm&#233;e &#183; &#8596; cloison ouverte (cases fusionn&#233;es).</span></div>';
+    }
   }
-  h+='<div class="legend">';
-  [ZONES.J,ZONES.V,ZONES.R,ZONES.B].forEach(function(z){ h+='<span><span class="sw" style="background:'+z.color+'"></span>'+z.label+'</span>'; });
-  h+='<span><span class="dot"></span>historique renseign&#233;</span>';
-  h+='<span>Num&#233;rotation horaire&#8239;: case 1 en verte contre le centre, case '+lastNumber()+' en bleue contre le centre. Individuelles et sauts hors num&#233;rotation.</span></div>';
   h+='<div class="panel" style="box-shadow:none;border:1px solid var(--line)">';
-  h+='<p class="boxtitle" style="color:var(--ink)">Recherche dans l\'inventaire</p>';
-  h+='<div class="row"><input type="text" id="searchinput" placeholder="B&#233;lier, case, zone, &#233;v&#233;nement, date&#8230;" value="'+esc(ui.search)+'" oninput="doSearch(this.value)">';
+  h+='<p class="boxtitle" style="color:var(--ink)">Recherche (les deux b&#226;timents)</p>';
+  h+='<div class="row"><input type="text" id="searchinput" placeholder="Animal, case, zone, bloc, &#233;v&#233;nement, date&#8230;" value="'+esc(ui.search)+'" oninput="doSearch(this.value)">';
   h+='<button class="act" style="background:var(--muted)" onclick="clearSearch()">Effacer</button></div>';
   h+='<div id="searchresults">'+searchResultsHtml()+'</div></div>';
-  h+= ui.ramView? ramFicheHtml() : ficheHtml();
+  if(b!=="synthese") h+= ui.ramView? ramFicheHtml() : ficheHtml();
+  else if(ui.ramView) h+=ramFicheHtml();
   app.innerHTML=h;
 }
 
@@ -686,9 +1206,30 @@ document.getElementById("csvfile").addEventListener("change", function(e){
   reader.readAsText(f,"utf-8");
   e.target.value="";
 });
+document.getElementById("bakfile").addEventListener("change", function(e){
+  var f=e.target.files && e.target.files[0];
+  if(!f) return;
+  var reader=new FileReader();
+  reader.onload=function(){
+    try{
+      var d=JSON.parse(String(reader.result||""));
+      var payload=d.state||d;
+      if(!payload.pens && !payload.config) throw new Error("ce fichier n'est pas une sauvegarde de l'application");
+      if(typeof confirm==="function" && !confirm("Restaurer cette sauvegarde ? Les donn\u00E9es actuelles de ce t\u00E9l\u00E9phone seront remplac\u00E9es.")){ return; }
+      state = { config:{west:18,east:17,indiv:20,capCol:0,capInd:0,capOrhy:0}, pens:{}, events:{}, moves:[], partitions:{} };
+      applyData(payload);
+      save();
+      ui.selected=null; ui.ramView=null;
+      ui.ioMessage="Sauvegarde restaur\u00E9e"+(d.savedAt? " (du "+fmtDate(String(d.savedAt).slice(0,10))+")":"")+".";
+    }catch(err){ ui.ioMessage="Restauration impossible : "+(err.message||"fichier illisible")+"."; }
+    render();
+  };
+  reader.readAsText(f,"utf-8");
+  e.target.value="";
+});
 
 load();
-save(); // vérifie que la sauvegarde locale fonctionne
+save();
 render();
 </script>
 </body>
