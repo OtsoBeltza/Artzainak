@@ -298,13 +298,10 @@
             </button>
             
             <nav id="mainNav" class="hidden md:block">
-                <ul class="flex space-x-4">
-                    <li><a href="index.html" class="block hover:underline font-bold">Accueil</a></li>
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="hover:underline font-bold">Accueil</a></li>
                     <li><a href="#services" class="hover:underline">Services</a></li>
-                    <li><a href="reservation.html" class="hover:underline">Formation</a></li>
-                    <li><a href="location.html" class="hover:underline">Ecopâturage</a></li>
-                    <li><a href="evaluation.html" class="hover:underline">Évaluation</a></li>
-                    <li><a href="oeil.html" class="hover:underline">L\'Œil</a></li>
+                    <li><a href="oeil.html" class="hover:underline">L'Œil</a></li>
                     <li><a href="ressources.html" class="hover:underline">Ressources</a></li>
                     <li><a href="contact.html" class="hover:underline">Contact</a></li>
                 </ul>
@@ -312,29 +309,11 @@
         </div>
         <nav id="mobileNav" class="hidden bg-primary-dark py-2 px-4">
             <ul class="space-y-2">
-                <li><a href="index.html" class="block hover:underline font-bold">Accueil</a></li>
+                <li><a href="index.html" class="block hover:underline">Accueil</a></li>
                 <li><a href="#services" class="block hover:underline">Services</a></li>
-                <li><a href="reservation.html" class="hover:underline">Formation</a></li>
-                <li><a href="location.html" class="hover:underline">Ecopâturage</a></li>
-                <li><a href="evaluation.html" class="hover:underline">Évaluation</a></li>
-                <li><a href="oeil.html" class="hover:underline">L\'Œil</a></li>
-                    <li><a href="ressources.html" class="block hover:underline">Ressources</a></li>
+                <li><a href="oeil.html" class="block hover:underline">L'Œil</a></li>
+                <li><a href="ressources.html" class="block hover:underline">Ressources</a></li>
                 <li><a href="contact.html" class="block hover:underline">Contact</a></li>
-                <!-- Réseaux sociaux pour mobile -->
-                <li class="pt-4 border-t border-gray-600">
-                    <div class="flex gap-4">
-                        <a href="https://youtube.com/@lesdraillesauxloups?si=byronwbqN9pqV_Mg" class="text-white hover:text-secondary transition-colors">
-                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M23.498 6.186a2.977 2.977 0 0 0-2.096-2.108C19.548 3.75 12 3.75 12 3.75s-7.548 0-9.402.328A2.977 2.977 0 0 0 .502 6.186C.25 8.072.25 12 .25 12s0 3.928.252 5.814a2.977 2.977 0 0 0 2.096 2.108C4.452 20.25 12 20.25 12 20.25s7.548 0 9.402-.328a2.977 2.977 0 0 0 2.096-2.108C23.75 15.928 23.75 12 23.75 12s0-3.928-.252-5.814zM9.75 15.568V8.432L15.5 12l-5.75 3.568z"/>
-                            </svg>
-                        </a>
-                        <a href="https://www.facebook.com/artzainak.education.des.chiens.de.trou/" class="text-white hover:text-secondary transition-colors">
-                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                            </svg>
-                        </a>
-                    </div>
-                </li>
             </ul>
         </nav>
     </header>
@@ -375,7 +354,7 @@
             <h2 class="text-3xl font-bold text-center text-forest mb-4 section-title" style="color: #3A614A;">Notre passion pour les chiens de troupeau</h2>  
             <div class="flex flex-col md:flex-row items-center gap-8">
                 <div class="w-full md:w-1/2 mb-6 md:mb-0">
-                    <img src="images/training1.jpg" alt="Chien de troupeau en action" class="w-full mx-auto rounded-lg shadow-lg" onerror="this.src='https://via.placeholder.com/600x400?text=Chien+de+troupeau'">
+                    <img loading="lazy" src="images/training1.jpg" alt="Chien de troupeau en action" class="w-full mx-auto rounded-lg shadow-lg" onerror="this.src='https://via.placeholder.com/600x400?text=Chien+de+troupeau'">
                 </div>
                 <div class="w-full md:w-1/2">
                     <p class="mb-4 text-forest" style="color: #3A614A;">Artzainak est né d'une passion pour les chiens de berger et leur capacité exceptionnelle à travailler avec le troupeau. Basés au Pays Basque, nous proposons des services professionnels d'éducation canine spécialisée et d'écopâturage.</p>
@@ -416,7 +395,7 @@
                 <div class="gallery-item gallery-item-enhanced rounded-lg overflow-hidden shadow-md" data-category="dogs">
                     <a href="images/dogs1.jpg" data-lightbox="gallery" data-title="Border Collie en plein travail">
                         <div class="aspect-square overflow-hidden relative">
-                            <img src="images/dogs1.jpg" data-src="images/dogs1.jpg" alt="Border Collie" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400?text=Border+Collie'">
+                            <img loading="lazy" src="images/dogs1.jpg" data-src="images/dogs1.jpg" alt="Border Collie" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400?text=Border+Collie'">
                             <div class="gallery-caption">
                                 <h4 class="text-white font-medium">Border Collie</h4>
                                 <p class="text-white/80 text-sm">Un chien précoce</p>
@@ -428,7 +407,7 @@
                 <div class="gallery-item gallery-item-enhanced rounded-lg overflow-hidden shadow-md" data-category="dogs">
                     <a href="images/dogs2.jpg" data-lightbox="gallery" data-title="Entrainement sur le terrain">
                         <div class="aspect-square overflow-hidden relative">
-                            <img src="images/dogs2.jpg" data-src="images/dogs2.jpg" alt="Entrainement" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400?text=Entrainement'">
+                            <img loading="lazy" src="images/dogs2.jpg" data-src="images/dogs2.jpg" alt="Entrainement" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400?text=Entrainement'">
                             <div class="gallery-caption">
                                 <h4 class="text-white font-medium">Entrainement</h4>
                                 <p class="text-white/80 text-sm">On apprend à faire face, le "pousse"</p>
@@ -441,7 +420,7 @@
                 <div class="gallery-item gallery-item-enhanced rounded-lg overflow-hidden shadow-md" data-category="sheep">
                     <a href="images/sheep1.jpg" data-lightbox="gallery" data-title="Troupeau en écopâturage">
                         <div class="aspect-square overflow-hidden relative">
-                            <img src="images/sheep1.jpg" data-src="images/sheep1.jpg" alt="Écopâturage" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400?text=Écopâturage'">
+                            <img loading="lazy" src="images/sheep1.jpg" data-src="images/sheep1.jpg" alt="Écopâturage" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400?text=Écopâturage'">
                             <div class="gallery-caption">
                                 <h4 class="text-white font-medium">Troupeau</h4>
                                 <p class="text-white/80 text-sm">La meneuse connaît les bons coins</p>
@@ -453,7 +432,7 @@
                 <div class="gallery-item gallery-item-enhanced rounded-lg overflow-hidden shadow-md" data-category="sheep">
                     <a href="images/sheep2.jpg" data-lightbox="gallery" data-title="Entretien écologique des terrains">
                         <div class="aspect-square overflow-hidden relative">
-                            <img src="images/sheep2.jpg" data-src="images/sheep2.jpg" alt="Entretien écologique" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400?text=Entretien+écologique'">
+                            <img loading="lazy" src="images/sheep2.jpg" data-src="images/sheep2.jpg" alt="Entretien écologique" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400?text=Entretien+écologique'">
                             <div class="gallery-caption">
                                 <h4 class="text-white font-medium">Entretien écologique</h4>
                                 <p class="text-white/80 text-sm">Ecopâturage le long des vignes</p>
@@ -466,7 +445,7 @@
                 <div class="gallery-item gallery-item-enhanced rounded-lg overflow-hidden shadow-md" data-category="landscape">
                     <a href="images/landscape1.jpg" data-lightbox="gallery" data-title="Paysages du Pays Basque">
                         <div class="aspect-square overflow-hidden relative">
-                            <img src="images/landscape1.jpg" data-src="images/landscape1.jpg" alt="Paysage" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400?text=Paysage+Pays+Basque'">
+                            <img loading="lazy" src="images/landscape1.jpg" data-src="images/landscape1.jpg" alt="Paysage" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x400?text=Paysage+Pays+Basque'">
                             <div class="gallery-caption">
                                 <h4 class="text-white font-medium">Pays Basque</h4>
                                 <p class="text-white/80 text-sm">Le berger avec ses Manex à tête noire</p>
