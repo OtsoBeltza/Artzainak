@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentions légales - Artzainak</title>
+    <meta name="robots" content="noindex, follow">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#284533', dark: '#1a2e20' },
+                        secondary: { DEFAULT: '#e8f4f8' },
+                        cream: { DEFAULT: '#fff1d2' },
+                        accent: { DEFAULT: '#3A614A' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-cream text-gray-800">
+    <header class="bg-primary p-4 text-white shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="images/logo.png" alt="Artzainak Logo" class="h-16 mr-2">
+                <span class="text-xl font-bold">ARTZAINAK</span>
+            </a>
+            <nav>
+                <a href="index.html" class="hover:underline">← Retour à l'accueil</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto max-w-3xl px-4 py-10">
+        <h1 class="text-3xl font-bold text-primary mb-8">Mentions légales</h1>
+        <div class="bg-white rounded-lg shadow-md p-6 md:p-8 space-y-6 leading-relaxed">
+            <section>
+                <h2 class="text-xl font-semibold text-primary mb-2">Éditeur du site</h2>
+                <p>Le site artzainak.netlify.app est édité par :</p>
+                <p class="mt-2">
+                    <strong>[À COMPLÉTER : nom et prénom, ou dénomination sociale]</strong><br>
+                    Statut : [À COMPLÉTER : ex. entrepreneur individuel / micro-entreprise / association]<br>
+                    Adresse : Quartier Ahetzia, 64130 Ordiarp<br>
+                    Téléphone : +33 (0)6 08 91 94 31<br>
+                    Courriel : takalowshin@gmail.com<br>
+                    SIRET : [À COMPLÉTER si activité déclarée]
+                </p>
+            </section>
+            <section>
+                <h2 class="text-xl font-semibold text-primary mb-2">Directeur de la publication</h2>
+                <p>[À COMPLÉTER : nom du responsable]</p>
+            </section>
+            <section>
+                <h2 class="text-xl font-semibold text-primary mb-2">Hébergement</h2>
+                <p>Le site est hébergé par :<br>
+                    <strong>Netlify, Inc.</strong><br>
+                    512 2nd Street, Suite 200<br>
+                    San Francisco, CA 94107, États-Unis<br>
+                    <a href="https://www.netlify.com" class="text-accent underline">www.netlify.com</a>
+                </p>
+            </section>
+            <section>
+                <h2 class="text-xl font-semibold text-primary mb-2">Propriété intellectuelle</h2>
+                <p>L'ensemble des contenus de ce site (textes, photographies, illustrations, logo) est la propriété de l'éditeur, sauf mention contraire. Toute reproduction, représentation ou diffusion, totale ou partielle, sans autorisation écrite préalable est interdite.</p>
+            </section>
+            <section>
+                <h2 class="text-xl font-semibold text-primary mb-2">Responsabilité</h2>
+                <p>L'éditeur s'efforce d'assurer l'exactitude des informations diffusées sur ce site, sans toutefois pouvoir la garantir. Les liens vers des sites tiers n'engagent pas la responsabilité de l'éditeur quant à leur contenu.</p>
+            </section>
+            <p class="text-sm text-gray-500">Dernière mise à jour : août 2026</p>
+        </div>
+    </main>
+
+    <footer class="py-6 px-4 bg-primary-dark text-white mt-10">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <h2 class="text-xl font-bold">ARTZAINAK</h2>
+                <p class="text-sm">Éducation de chiens de troupeau au Pays Basque</p>
+            </div>
+            <div class="text-sm text-center md:text-right">
+                <div class="flex gap-4 justify-center md:justify-end mb-2">
+                    <a href="mentions-legales.html" class="hover:text-accent transition duration-300">Mentions légales</a>
+                    <a href="politique-confidentialite.html" class="hover:text-accent transition duration-300">Politique de confidentialité</a>
+                </div>
+                <p>&copy; 2026 Artzainak. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

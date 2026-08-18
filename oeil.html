@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'Œil — comprendre le chien au travail | Artzainak</title>
+<meta name="description" content="L'Œil : outil gratuit pour comprendre votre chien de travail par sa séquence de chasse. 14 disciplines, 46 dérives résolues pas à pas, niveau de preuve indiqué partout. Par Artzainak, éducation de chiens de troupeau au Pays Basque.">
+<link rel="canonical" href="https://artzainak.netlify.app/oeil.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="L'Œil — comprendre le chien au travail">
+<meta property="og:description" content="14 disciplines, 46 dérives, niveau de preuve indiqué partout. Outil gratuit par Artzainak.">
+<meta property="og:url" content="https://artzainak.netlify.app/oeil.html">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nuit:#16241C; --foret:#27412F; --sauge:#6E8A6B;
+  --ocre:#C4873A; --ocre-clair:#E0B063; --creme:#F2EBDA; --creme-vif:#FBF6E9;
+  --terre:#7C5B36; --alerte:#9C3B24; --trait:rgba(39,65,47,.16);
+  --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--creme);color:var(--nuit);font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.enveloppe{max-width:1120px;margin:0 auto;padding:0 28px}
+
+.bandeau{position:sticky;top:0;z-index:60;background:rgba(242,235,218,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--trait)}
+.bandeau .enveloppe{display:flex;align-items:center;gap:26px;height:62px}
+.sigle{font-family:var(--serif);font-weight:900;font-size:21px;letter-spacing:-.02em;color:var(--foret);white-space:nowrap}
+.sigle span{color:var(--ocre)}
+.menu{display:flex;gap:19px;margin-left:auto;flex-wrap:wrap}
+.menu a{font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--foret);text-decoration:none;font-weight:500;padding:4px 0;border-bottom:2px solid transparent}
+.menu a:hover,.menu a:focus-visible{border-bottom-color:var(--ocre)}
+
+.ouverture{background:var(--foret);color:var(--creme-vif);padding:88px 0 76px;position:relative;overflow:hidden}
+.ouverture::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 78% 32%,rgba(224,176,99,.16),transparent 55%)}
+.ouverture .enveloppe{position:relative;z-index:2}
+.surtitre{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--ocre-clair);margin-bottom:24px}
+.ouverture h1{font-family:var(--serif);font-weight:900;font-size:clamp(40px,7vw,78px);line-height:.98;letter-spacing:-.03em;max-width:15ch}
+.ouverture h1 em{font-style:normal;color:var(--ocre-clair)}
+.chapeau{margin-top:26px;max-width:57ch;font-size:19px;color:rgba(251,246,233,.86)}
+.regard{margin-top:52px;display:flex;align-items:center;gap:26px;flex-wrap:wrap;padding-top:34px;border-top:1px solid rgba(224,176,99,.28)}
+.oeil-fixe{width:104px;height:104px;flex:none;display:grid;place-items:center;position:relative}
+.oeil-fixe .halo{position:absolute;inset:0;border:1px solid rgba(224,176,99,.45);border-radius:50%;animation:pulse 4.4s ease-in-out infinite}
+.oeil-fixe .halo:nth-child(2){inset:14px;animation-delay:.5s}
+.oeil-fixe .pupille{width:20px;height:20px;border-radius:50%;background:var(--ocre-clair);box-shadow:0 0 22px rgba(224,176,99,.7)}
+@keyframes pulse{0%,100%{opacity:.25;transform:scale(1)}50%{opacity:.85;transform:scale(1.06)}}
+.regard p{max-width:48ch;font-size:16px;color:rgba(251,246,233,.8)}
+.regard p strong{color:var(--ocre-clair);font-weight:600}
+
+section{padding:78px 0;border-bottom:1px solid var(--trait)}
+.etiquette{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--terre);margin-bottom:14px;display:block}
+h2{font-family:var(--serif);font-weight:900;letter-spacing:-.025em;font-size:clamp(28px,4.4vw,44px);line-height:1.05;color:var(--foret);max-width:20ch}
+h3{font-family:var(--serif);font-weight:600;font-size:22px;color:var(--foret);letter-spacing:-.01em}
+.intro{margin-top:18px;max-width:63ch;font-size:18px;color:rgba(22,36,28,.82)}
+
+/* --- encadré « en clair » : traduction sans jargon --- */
+.en-clair{
+  margin-top:22px;max-width:63ch;background:rgba(224,176,99,.15);
+  border-left:4px solid var(--ocre);padding:16px 20px;border-radius:2px;font-size:16px;
+}
+.en-clair b{
+  display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--terre);margin-bottom:6px;font-weight:500;
+}
+.en-clair.sombre{background:rgba(224,176,99,.13);border-left-color:var(--ocre-clair);color:rgba(251,246,233,.88)}
+.en-clair.sombre b{color:var(--ocre-clair)}
+
+/* --- disciplines --- */
+.familles{display:flex;gap:8px;flex-wrap:wrap;margin:34px 0 22px}
+.familles button{font-family:var(--sans);font-size:14px;font-weight:500;padding:9px 16px;border:1px solid var(--trait);border-radius:2px;background:transparent;color:var(--foret);cursor:pointer;transition:.15s}
+.familles button:hover{border-color:var(--sauge)}
+.familles button[aria-pressed="true"]{background:var(--foret);color:var(--creme-vif);border-color:var(--foret)}
+
+.tuiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:7px}
+.tuile{
+  font-family:var(--sans);text-align:left;cursor:pointer;color:var(--nuit);
+  background:var(--creme-vif);border:1px solid var(--trait);border-top:3px solid var(--sauge);
+  border-radius:2px;padding:13px 14px 12px;transition:.15s;display:flex;flex-direction:column;gap:5px;
+}
+.tuile:hover{transform:translateY(-2px);border-color:var(--sauge)}
+.tuile[aria-pressed="true"]{background:#fff;border-top-color:var(--ocre);outline:2px solid var(--foret);outline-offset:-1px}
+.tuile .t-nom{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--foret);line-height:1.15}
+.tuile .t-sig{font-family:var(--mono);font-size:10.5px;color:var(--terre);line-height:1.4}
+.tuile[data-f="troupeau"]{border-top-color:var(--ocre)}
+.tuile[data-f="chasse"]{border-top-color:var(--terre)}
+.tuile[data-f="nez"]{border-top-color:var(--sauge)}
+.tuile[data-f="service"]{border-top-color:#8A8F7A}
+
+.fdetail{
+  margin-top:9px;background:var(--creme-vif);border:1px solid var(--trait);
+  border-left:4px solid var(--ocre);border-radius:3px;padding:28px 30px;
+}
+.fdetail .f-tete{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:3px}
+.fdetail h3{font-size:25px;font-weight:900}
+.fdetail .f-sous{font-size:14px;color:var(--terre);font-style:italic}
+.fdetail .f-sig{
+  font-family:var(--mono);font-size:12px;color:var(--terre);background:rgba(124,91,54,.09);
+  padding:8px 12px;border-radius:2px;margin:14px 0 20px;display:inline-block;
+}
+.fdetail .f-sig em{font-style:normal;color:var(--ocre);font-weight:500}
+.f-grille{display:grid;grid-template-columns:1fr 1fr;gap:20px 28px}
+.f-bloc h5{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--terre);margin-bottom:6px;font-weight:500}
+.f-bloc p{font-size:15px;line-height:1.6}
+.f-cle{
+  grid-column:1/-1;background:var(--foret);color:var(--creme-vif);
+  padding:18px 22px;border-radius:2px;
+}
+.f-cle h5{color:var(--ocre-clair)}
+.f-cle p{color:rgba(251,246,233,.9);max-width:74ch}
+.f-preuve{
+  grid-column:1/-1;border-top:1px dashed var(--trait);padding-top:16px;
+}
+.f-preuve p{font-size:14.5px;color:rgba(22,36,28,.78)}
+.f-refs{
+  grid-column:1/-1;font-family:var(--mono);font-size:11.5px;color:var(--terre);
+  border-top:1px solid var(--trait);padding-top:13px;
+}
+.f-niveau{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  padding:4px 9px;border-radius:2px;font-weight:500;white-space:nowrap;
+}
+.f-niveau.science{background:var(--foret);color:var(--ocre-clair)}
+.f-niveau.cadre{background:rgba(110,138,107,.28);color:var(--foret)}
+.f-niveau.terrain{background:rgba(196,135,58,.22);color:var(--terre)}
+.f-niveau.reserve{background:rgba(156,59,36,.14);color:var(--alerte)}
+
+/* --- séquence --- */
+.selecteur{display:flex;gap:8px;flex-wrap:wrap;margin:36px 0 26px}
+.selecteur button{font-family:var(--sans);font-size:14px;font-weight:500;padding:9px 16px;border:1px solid var(--trait);border-radius:2px;background:transparent;color:var(--foret);cursor:pointer;transition:.15s}
+.selecteur button:hover{border-color:var(--sauge)}
+.selecteur button[aria-pressed="true"]{background:var(--foret);color:var(--creme-vif);border-color:var(--foret)}
+.ruban{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;margin-bottom:8px}
+.patron{border:none;cursor:pointer;font-family:var(--sans);padding:16px 8px 14px;border-radius:2px;text-align:center;background:var(--creme-vif);border-top:4px solid var(--sauge);transition:.18s;color:var(--nuit)}
+.patron:hover{transform:translateY(-3px)}
+.patron .num{font-family:var(--mono);font-size:10px;color:var(--terre);display:block}
+.patron .nom{font-size:13px;font-weight:600;line-height:1.25;display:block;margin-top:5px}
+.patron[data-zone="hyper"]{border-top-color:var(--ocre);background:rgba(196,135,58,.13)}
+.patron[data-zone="regule"]{border-top-color:var(--sauge);background:rgba(110,138,107,.13)}
+.patron[data-zone="inhibe"]{border-top-color:rgba(22,36,28,.25);background:rgba(22,36,28,.05);opacity:.62}
+.patron[aria-pressed="true"]{outline:2px solid var(--foret);outline-offset:2px}
+.legende{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0 26px;font-size:13px;color:var(--terre)}
+.legende span{display:flex;align-items:center;gap:7px}
+.pastille{width:13px;height:4px;border-radius:2px;display:inline-block}
+.detail{background:var(--creme-vif);border:1px solid var(--trait);border-left:4px solid var(--ocre);padding:28px;border-radius:3px;min-height:210px}
+.detail .statut{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--terre);margin:4px 0 16px}
+.grille-detail{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:16px}
+.bloc-detail h4{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--terre);margin-bottom:7px;font-weight:500}
+.bloc-detail p{font-size:15px}
+
+/* --- questionnaires --- */
+.avertissement{background:rgba(156,59,36,.07);border-left:4px solid var(--alerte);padding:18px 22px;border-radius:2px;margin-top:30px;font-size:15px;max-width:70ch}
+.avertissement strong{color:var(--alerte);font-weight:600}
+.question{border-bottom:1px solid var(--trait);padding:26px 0}
+.question:last-of-type{border-bottom:none}
+.question .rang{font-family:var(--mono);font-size:11px;color:var(--terre);letter-spacing:.14em}
+.question p.libelle{font-size:18px;margin:8px 0 16px;max-width:60ch;color:var(--foret)}
+.choix{display:flex;flex-direction:column;gap:8px}
+.choix label{display:flex;gap:12px;align-items:flex-start;padding:11px 15px;border:1px solid var(--trait);border-radius:2px;cursor:pointer;background:var(--creme-vif);font-size:15px;transition:.14s}
+.choix label:hover{border-color:var(--sauge)}
+.choix input{margin-top:5px;accent-color:var(--foret);flex:none}
+.choix label:has(input:checked){border-color:var(--foret);background:#fff;border-left:3px solid var(--ocre)}
+.bouton{font-family:var(--sans);font-size:15px;font-weight:500;background:var(--foret);color:var(--creme-vif);border:none;padding:14px 28px;border-radius:2px;cursor:pointer;transition:.16s}
+.bouton:hover{background:var(--nuit)}
+.bouton:disabled{opacity:.4;cursor:not-allowed}
+.bouton.secondaire{background:transparent;color:var(--foret);border:1px solid var(--foret)}
+.bouton.secondaire:hover{background:rgba(39,65,47,.07)}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.resultat{margin-top:36px;display:none}
+.resultat.visible{display:block;animation:apparait .45s ease}
+@keyframes apparait{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.fiche{background:var(--foret);color:var(--creme-vif);padding:34px;border-radius:3px}
+.fiche h3{color:var(--ocre-clair);font-size:28px;font-weight:900;margin-bottom:12px}
+.fiche p{color:rgba(251,246,233,.86);max-width:63ch}
+.barres{margin-top:26px;display:grid;gap:12px;max-width:520px}
+.barre{display:grid;grid-template-columns:130px 1fr 40px;align-items:center;gap:12px;font-size:13px}
+.barre .piste{height:6px;background:rgba(251,246,233,.16);border-radius:3px;overflow:hidden}
+.barre .jauge{height:100%;background:var(--ocre-clair);border-radius:3px;transition:width .6s ease}
+.barre .val{font-family:var(--mono);font-size:12px;color:var(--ocre-clair);text-align:right}
+.conseils{margin-top:26px;display:grid;gap:14px}
+.conseil{background:var(--creme-vif);border:1px solid var(--trait);border-left:4px solid var(--sauge);padding:20px 24px;border-radius:2px}
+.conseil h4{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--foret);margin-bottom:6px}
+.conseil p{font-size:15px;color:rgba(22,36,28,.82)}
+.conseil.rouge{border-left-color:var(--alerte)}
+.source{display:inline-block;margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--terre);background:rgba(124,91,54,.1);padding:3px 8px;border-radius:2px}
+
+/* --- arbre des dérives --- */
+.arbre{background:var(--creme-vif);border:1px solid var(--trait);border-radius:3px;padding:30px;margin-top:34px}
+.fil{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;font-family:var(--mono);font-size:11px;color:var(--terre);min-height:17px}
+.fil span::after{content:" ›";color:var(--ocre)}
+.fil span:last-child::after{content:""}
+.compteur{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ocre);margin-bottom:8px;display:block}
+.arbre .demande{font-family:var(--serif);font-size:24px;font-weight:600;color:var(--foret);max-width:34ch;line-height:1.25;margin-bottom:22px}
+.options{display:grid;gap:9px}
+.options button{
+  font-family:var(--sans);font-size:15.5px;text-align:left;padding:15px 20px;
+  border:1px solid var(--trait);background:#fff;border-radius:2px;cursor:pointer;
+  color:var(--nuit);transition:.15s;display:flex;gap:13px;align-items:flex-start;line-height:1.45;
+}
+.options button:hover{border-color:var(--foret);border-left:4px solid var(--ocre);padding-left:17px}
+.options button i{font-style:normal;color:var(--ocre);font-family:var(--mono);font-size:13px;flex:none;padding-top:2px}
+.pilotage{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap;border-top:1px solid var(--trait);padding-top:20px}
+.pilotage button{font-family:var(--sans);font-size:13.5px;padding:9px 17px;border:1px solid var(--trait);background:transparent;color:var(--foret);border-radius:2px;cursor:pointer}
+.pilotage button:hover:not(:disabled){border-color:var(--foret)}
+.pilotage button:disabled{opacity:.35;cursor:not-allowed}
+
+.verdict{border-top:3px solid var(--ocre);padding-top:24px}
+.verdict .nature{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--terre);margin-bottom:9px}
+.verdict h3{font-size:27px;font-weight:900;font-family:var(--serif);margin-bottom:16px;line-height:1.15;max-width:26ch}
+.verdict.grave h3{color:var(--alerte)}
+.pave{margin-bottom:20px}
+.pave h5{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--terre);margin-bottom:7px;font-weight:500}
+.pave p{font-size:16px;max-width:66ch}
+.cible{background:var(--foret);color:var(--creme-vif);padding:19px 23px;border-radius:2px;margin-bottom:22px}
+.cible h5{color:var(--ocre-clair)}
+.cible p{color:var(--creme-vif)}
+.exercices{display:grid;gap:11px;margin-bottom:20px}
+.exo{background:#fff;border:1px solid var(--trait);border-left:4px solid var(--sauge);padding:17px 21px;border-radius:2px}
+.exo .ou{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ocre);margin-bottom:5px}
+.exo h6{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--foret);margin-bottom:5px}
+.exo p{font-size:15px;color:rgba(22,36,28,.83)}
+.piege{background:rgba(156,59,36,.07);border-left:4px solid var(--alerte);padding:16px 21px;border-radius:2px;margin-bottom:20px;font-size:15px}
+.piege b{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--alerte);margin-bottom:5px;font-weight:500}
+
+/* --- frise --- */
+.frise{margin-top:36px;display:grid;gap:2px}
+.etape{display:grid;grid-template-columns:170px 1fr;gap:24px;background:var(--creme-vif);border:1px solid var(--trait);padding:24px}
+.etape .age{font-family:var(--mono);font-size:13px;color:var(--ocre);font-weight:500}
+.etape .age small{display:block;color:var(--terre);font-size:11px;margin-top:5px;letter-spacing:.1em;text-transform:uppercase}
+.etape h4{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--foret);margin-bottom:7px}
+.etape p{font-size:15px;color:rgba(22,36,28,.82);max-width:64ch}
+
+/* --- bibliothèque --- */
+.rayons{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:36px}
+.ouvrage{background:var(--creme-vif);border:1px solid var(--trait);padding:24px;border-radius:3px;display:flex;flex-direction:column;gap:10px}
+.ouvrage .auteur{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--foret)}
+.ouvrage .titre{font-size:14px;font-style:italic;color:var(--terre)}
+.ouvrage p{font-size:15px;color:rgba(22,36,28,.8)}
+.preuve{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:2px;align-self:flex-start;margin-top:auto;font-weight:500}
+.preuve.science{background:var(--foret);color:var(--ocre-clair)}
+.preuve.clinique{background:rgba(110,138,107,.25);color:var(--foret)}
+.preuve.metier{background:rgba(196,135,58,.2);color:var(--terre)}
+
+/* --- limites --- */
+.limites{background:var(--nuit);color:var(--creme-vif);border-bottom:none}
+.limites h2{color:var(--creme-vif)}
+.limites .intro{color:rgba(251,246,233,.78)}
+.liste-limites{margin-top:32px;display:grid;gap:2px;max-width:830px}
+.limite{display:grid;grid-template-columns:28px 1fr;gap:16px;align-items:start;padding:18px 0;border-bottom:1px solid rgba(251,246,233,.12)}
+.limite .marque{font-family:var(--mono);color:var(--alerte);font-size:18px;line-height:1.3}
+.limite p{font-size:16px;color:rgba(251,246,233,.85)}
+.limite strong{color:var(--ocre-clair);font-weight:600}
+
+footer{background:var(--foret);color:rgba(251,246,233,.62);padding:44px 0;font-size:14px}
+footer .enveloppe{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer strong{color:var(--ocre-clair);font-weight:600}
+
+@media(max-width:860px){
+  .ruban{grid-template-columns:repeat(4,1fr)}
+  .grille-detail{grid-template-columns:1fr}
+  .etape{grid-template-columns:1fr;gap:10px}
+  .menu{display:none}
+  section{padding:56px 0}
+  .arbre{padding:22px}
+  .f-grille{grid-template-columns:1fr}
+  .fdetail{padding:22px}
+}
+@media(max-width:520px){
+  .ruban{grid-template-columns:repeat(2,1fr)}
+  .barre{grid-template-columns:96px 1fr 36px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+
+/* --- sous-titres de section --- */
+.sous-titre{font-family:var(--serif);font-size:26px;font-weight:900;color:var(--foret);letter-spacing:-.02em;margin-top:52px;padding-top:34px;border-top:1px solid var(--trait)}
+
+/* --- postures --- */
+.grille-postures{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
+.posture{background:var(--creme-vif);border:1px solid var(--trait);border-radius:3px;overflow:hidden;margin:0}
+.posture svg{display:block;width:100%;height:auto;background:var(--creme-vif);border-bottom:1px solid var(--trait)}
+.posture figcaption{padding:18px 21px 20px}
+.posture h4{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--foret);margin-bottom:3px}
+.posture .p-sous{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--terre);margin-bottom:9px}
+.posture p{font-size:14.5px;line-height:1.6;color:rgba(22,36,28,.82)}
+.posture p b{font-weight:600;color:var(--foret)}
+
+/* --- niveau de preuve sur les verdicts --- */
+.v-tete{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:9px}
+.v-tete .nature{margin-bottom:0}
+.v-niveau,.i-niveau{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:3.5px 8px;border-radius:2px;font-weight:500;white-space:nowrap}
+.v-niveau.science,.i-niveau.science{background:var(--foret);color:var(--ocre-clair)}
+.v-niveau.clinique,.i-niveau.clinique{background:rgba(110,138,107,.3);color:var(--foret)}
+.v-niveau.terrain,.i-niveau.terrain{background:rgba(196,135,58,.22);color:var(--terre)}
+.v-niveau.securite,.i-niveau.securite{background:rgba(156,59,36,.14);color:var(--alerte)}
+.v-niveau.reserve,.i-niveau.reserve{background:rgba(22,36,28,.1);color:var(--terre)}
+.v-pied{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border-top:1px solid var(--trait);padding-top:14px;margin-top:4px}
+.btn-imp{font-family:var(--sans);font-size:13px;padding:8px 15px;border:1px solid var(--trait);background:transparent;color:var(--foret);border-radius:2px;cursor:pointer}
+.btn-imp:hover{border-color:var(--foret)}
+
+/* --- marque de synthèse --- */
+.f-marque{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;background:rgba(251,246,233,.2);color:var(--creme-vif);padding:2.5px 6px;border-radius:2px;margin-left:8px;font-weight:400;opacity:.9}
+
+/* --- fil d'Ariane réel --- */
+.fil span{background:rgba(124,91,54,.08);padding:3px 8px;border-radius:2px}
+.fil span::after{content:"";margin-left:4px}
+
+/* --- passerelle profil -> dérives --- */
+.passerelle{margin-top:16px;background:var(--creme-vif);border:1px solid var(--trait);border-left:4px solid var(--ocre);padding:20px 24px;border-radius:2px}
+.passerelle p{font-size:15px;max-width:66ch;margin-bottom:14px;color:rgba(22,36,28,.82)}
+
+/* --- index des dérives --- */
+.index-derives{margin-top:14px;background:var(--creme-vif);border:1px solid var(--trait);border-radius:3px}
+.index-derives summary{padding:16px 24px;cursor:pointer;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--terre);font-weight:500}
+.index-derives summary:hover{color:var(--foret)}
+.index-derives>div{padding:4px 24px 24px}
+.index-derives h5{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ocre);margin:18px 0 8px;font-weight:500}
+.liste-index{list-style:none;display:grid;gap:3px}
+.liste-index button{width:100%;text-align:left;font-family:var(--sans);font-size:14.5px;background:#fff;border:1px solid var(--trait);border-radius:2px;padding:10px 14px;cursor:pointer;color:var(--nuit);display:flex;justify-content:space-between;align-items:center;gap:12px;transition:.14s}
+.liste-index button:hover{border-color:var(--foret);border-left:3px solid var(--ocre);padding-left:12px}
+.pt-alerte{color:var(--alerte);font-weight:700}
+
+/* --- carnet --- */
+.carnet{margin-top:24px;background:var(--creme-vif);border:1px solid var(--trait);border-radius:3px;padding:26px 28px}
+.c-tete{display:flex;gap:26px;flex-wrap:wrap;margin-bottom:20px}
+.c-tete div{display:flex;align-items:baseline;gap:8px}
+.c-tete span{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--terre)}
+.c-tete i{font-style:normal;min-width:130px;border-bottom:1px solid var(--sauge);padding:2px 4px;font-size:15px}
+.c-table{width:100%;border-collapse:collapse;font-size:14.5px}
+.c-table thead th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--terre);text-align:left;font-weight:500;padding:0 8px 8px;border-bottom:1.5px solid var(--sauge)}
+.c-table tbody th{text-align:left;font-weight:500;font-size:14.5px;color:var(--foret);padding:11px 8px;border-bottom:1px solid var(--trait);width:24%}
+.c-table td{border-bottom:1px solid var(--trait);padding:11px 8px;min-width:80px}
+.c-table td:focus{outline:2px solid var(--ocre);outline-offset:-2px;background:#fff}
+.c-note{font-size:14px;color:rgba(22,36,28,.78);margin:18px 0 18px;max-width:70ch}
+
+/* =============== IMPRESSION =============== */
+@media print{
+  @page{margin:15mm}
+  html,body{background:#fff!important;color:#000!important;font-size:10.5pt}
+  .bandeau,.ouverture,footer,.btn-imp,.pilotage,.index-derives,.familles,
+  .selecteur,.actions,.passerelle button,.carnet button,.options{display:none!important}
+  section{padding:0!important;border:none!important;page-break-inside:avoid}
+  .fiche,.cible,.f-cle,.limites{background:#fff!important;color:#000!important}
+  .fiche h3,.cible h5,.f-cle h5,.limites h2,.limite strong{color:#000!important}
+  .fiche p,.cible p,.f-cle p,.limite p,.limites .intro{color:#000!important}
+  .verdict,.exo,.piege,.detail,.fdetail,.carnet,.conseil{border-color:#999!important;background:#fff!important}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:8pt}
+  /* impression ciblée */
+  body[data-impression] section{display:none!important}
+  body[data-impression="derive"] section#derives{display:block!important}
+  body[data-impression="derive"] #derives .etiquette,
+  body[data-impression="derive"] #derives h2,
+  body[data-impression="derive"] #derives .intro,
+  body[data-impression="derive"] #derives .en-clair,
+  body[data-impression="derive"] #derives .fil{display:none!important}
+  body[data-impression="derive"] .arbre{border:none!important;padding:0!important}
+  body[data-impression="carnet"] section#commencer{display:block!important}
+  body[data-impression="carnet"] #commencer>.enveloppe>*:not(.carnet):not(#carnet){display:none!important}
+  body[data-impression="carnet"] .c-table td{height:34px}
+  body[data-impression="carnet"] .en-clair{display:none!important}
+}
+@media(max-width:860px){
+  .grille-postures{grid-template-columns:1fr}
+  .c-table{font-size:13px}
+  .c-table tbody th{width:34%}
+}
+:focus-visible{outline:2px solid var(--ocre);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="bandeau">
+  <div class="enveloppe">
+    <div style="display:flex;align-items:baseline;gap:14px"><div class="sigle">L'<span>Œil</span></div><a href="index.html" style="font-size:12px;color:var(--sauge);text-decoration:none;letter-spacing:.04em">← Artzainak</a></div>
+    <nav class="menu">
+      <a href="#disciplines">Disciplines</a>
+      <a href="#observer">Observer</a>
+      <a href="#profil">Mon chien</a>
+      <a href="#commencer">Commencer</a>
+      <a href="#derives">Dérives</a>
+      <a href="#bibliotheque">Bibliothèque</a>
+      <a href="#limites">Limites</a>
+    </nav>
+  </div>
+</header>
+
+<div class="ouverture">
+  <div class="enveloppe">
+    <span class="surtitre">Comprendre avant de dresser</span>
+    <h1>Votre chien ne vous désobéit pas. Il <em>chasse</em>.</h1>
+    <p class="chapeau">Conduire un troupeau, arrêter une bécasse, remonter une piste de sang, rapporter un canard : ce sont toutes des morceaux d'une même séquence de chasse ancienne, dont l'élevage a exagéré certains gestes et éteint les autres. Voir cette séquence, c'est comprendre presque tout le reste.</p>
+    <div class="regard">
+      <div class="oeil-fixe"><div class="halo"></div><div class="halo"></div><div class="pupille"></div></div>
+      <p>Les chiens de conduite sont sélectionnés pour <strong>montrer</strong> des gestes de chasse — fixer, ramper, pincer le jarret. Les chiens de protection sont sélectionnés pour garder un comportement de jeune animal&nbsp;: rester avec le troupeau auquel ils sont attachés, et aboyer devant la nouveauté. Chez eux, <strong>poursuivre et mordre sont absents</strong>.<br><span style="font-family:var(--mono);font-size:12px;opacity:.7">Coppinger &amp; Coppinger — constat repris dans la littérature vétérinaire</span></p>
+    </div>
+  </div>
+</div>
+
+<section id="disciplines">
+  <div class="enveloppe">
+    <span class="etiquette">Disciplines</span>
+    <h2>Quatorze métiers, une seule partition</h2>
+    <p class="intro">Touchez un métier pour l'ouvrir. Chaque fiche dit ce que fait le chien, où sa séquence a été coupée, quel contresens revient le plus souvent chez ceux qui débutent, et sur quoi repose exactement ce qui est affirmé. Le module conduite de troupeau est le seul à disposer de l'outil complet de diagnostic.</p>
+
+    <div class="en-clair">
+      <b>En clair</b>
+      Un chien de chaque métier fait à peu près la même chose qu'un loup qui chasse — sauf qu'on lui a coupé le film à un endroit différent. Le border collie s'arrête avant de mordre. Le chien d'arrêt s'arrête avant de courir. Le retriever va jusqu'à attraper, mais sans serrer. Tout le reste du dressage consiste à travailler avec cette coupure-là.
+    </div>
+
+    <div class="familles" role="group" aria-label="Familles de disciplines">
+      <button type="button" data-famille="tout" aria-pressed="true">Toutes</button>
+      <button type="button" data-famille="troupeau" aria-pressed="false">Troupeau</button>
+      <button type="button" data-famille="chasse" aria-pressed="false">Chasse</button>
+      <button type="button" data-famille="nez" aria-pressed="false">Travail du nez</button>
+      <button type="button" data-famille="service" aria-pressed="false">Service et sport</button>
+    </div>
+
+    <div class="tuiles" id="grille-disciplines"></div>
+    <div class="fdetail" id="fiche-detail" aria-live="polite"></div>
+  </div>
+</section>
+
+<section id="observer">
+  <div class="enveloppe">
+    <span class="etiquette">Observer</span>
+    <h2>Les huit gestes de la séquence</h2>
+    <p class="intro">Choisissez un type de chien, puis touchez un geste pour voir ce qu'il devient chez lui. C'est la même suite de huit gestes à chaque fois — seules changent les couleurs.</p>
+
+    <div class="selecteur" role="group" aria-label="Type de chien">
+      <button type="button" data-profil="collie" aria-pressed="true">Border collie</button>
+      <button type="button" data-profil="culotte" aria-pressed="false">Berger à la culotte</button>
+      <button type="button" data-profil="protection" aria-pressed="false">Chien de protection</button>
+      <button type="button" data-profil="arret" aria-pressed="false">Chien d'arrêt</button>
+      <button type="button" data-profil="rapport" aria-pressed="false">Rapporteur</button>
+      <button type="button" data-profil="courant" aria-pressed="false">Chien courant</button>
+      <button type="button" data-profil="terrier" aria-pressed="false">Terrier</button>
+    </div>
+
+    <div class="ruban" id="ruban"></div>
+    <div class="legende">
+      <span><i class="pastille" style="background:var(--ocre)"></i> Exagéré</span>
+      <span><i class="pastille" style="background:var(--sauge)"></i> Présent et régulé</span>
+      <span><i class="pastille" style="background:rgba(22,36,28,.3)"></i> Éteint ou rare</span>
+    </div>
+    <div class="detail" id="detail" aria-live="polite"></div>
+
+    <h3 class="sous-titre">Reconnaître les postures</h3>
+    <p class="intro" style="margin-top:10px">Quatre silhouettes, une seule ligne de repère : la hauteur du garrot.
+    C'est en la gardant en tête qu'on lit une posture en une seconde, sans avoir à réfléchir.
+    Ces dessins sont des schémas, volontairement dépouillés — ils isolent la géométrie du corps, pas l'apparence du chien.</p>
+    <div class="grille-postures">
+<figure class="posture"><svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg" role="img"><line x1="16" y1="152" x2="290" y2="152" stroke="#C9BFA6" stroke-width="1.6"/><line x1="16" y1="95" x2="290" y2="95" stroke="#C4873A" stroke-width="1" stroke-dasharray="5 4" opacity=".8"/><text x="289" y="90" text-anchor="end" font-size="8.5" letter-spacing="1.2" fill="#7C5B36" font-family="IBM Plex Mono, monospace">GARROT</text><g fill="none" stroke="#6E8A6B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">  <path d="M128 101 L122 123 L130 145"/>  <path d="M194 107 L204 127 L191 139 L199 149"/></g><path d="M207 97 C 226 106, 240 119, 245 133" fill="none" stroke="#27412F" stroke-width="6" stroke-linecap="round"/><path d="M110 95 C 132 88, 182 88, 206 95 C 215 105, 213 118, 200 122 C 174 129, 134 128, 114 120 C 105 114, 103 101, 110 95 Z" fill="#27412F"/><path d="M116 98 L94 103" fill="none" stroke="#27412F" stroke-width="19" stroke-linecap="round"/><path d="M99 93 C 91 89, 80 91, 74 97 L62 102 L63 109 L77 108 C 89 111, 98 105, 100 100 Z" fill="#27412F"/><path d="M92 90 L101 79 L106 93 Z" fill="#27412F"/><circle cx="83" cy="100" r="2" fill="#F2EBDA"/><line x1="74" y1="104" x2="26" y2="108" stroke="#C4873A" stroke-width="1.2" stroke-dasharray="2 3" opacity=".85"/><g fill="none" stroke="#27412F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">  <path d="M117 99 L110 123 L120 146"/>  <path d="M199 103 L209 125 L194 138 L204 150"/></g><text x="16" y="167" font-size="9" letter-spacing=".6" fill="#7C5B36" font-family="IBM Plex Mono, monospace">TÊTE SOUS LE GARROT · REGARD PROJETÉ</text></svg><figcaption><h4>L'approche</h4><div class="p-sous">Border collie · chien de conduite</div><p>La ligne du dos s'abaisse <b>et la tête descend avec elle</b>, au niveau du garrot ou en dessous. C'est la signature. Un chien qui marche simplement vers les brebis garde la tête au-dessus du garrot.</p></figcaption></figure>
+<figure class="posture"><svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg" role="img"><line x1="16" y1="152" x2="290" y2="152" stroke="#C9BFA6" stroke-width="1.6"/><line x1="16" y1="82" x2="290" y2="82" stroke="#C4873A" stroke-width="1" stroke-dasharray="5 4" opacity=".8"/><text x="289" y="77" text-anchor="end" font-size="8.5" letter-spacing="1.2" fill="#7C5B36" font-family="IBM Plex Mono, monospace">GARROT</text><g fill="none" stroke="#6E8A6B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">  <path d="M130 95 L140 113 L131 130"/>  <path d="M195 99 L203 120 L189 134"/></g><path d="M209 87 C 228 82, 242 72, 249 62" fill="none" stroke="#27412F" stroke-width="6" stroke-linecap="round"/><path d="M112 85 C 134 77, 182 77, 208 85 C 217 95, 214 109, 200 113 C 174 119, 132 118, 114 110 C 104 104, 104 91, 112 85 Z" fill="#27412F"/><path d="M120 88 L102 67" fill="none" stroke="#27412F" stroke-width="18" stroke-linecap="round"/><path d="M108 66 C 102 59, 91 57, 83 60 L68 62 L68 69 L84 71 C 96 75, 106 71, 109 66 Z" fill="#27412F"/><path d="M103 58 L113 50 L116 63 Z" fill="#27412F"/><circle cx="90" cy="65" r="2" fill="#F2EBDA"/><g fill="none" stroke="#27412F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">  <path d="M120 90 L110 111 L94 133"/>  <path d="M201 95 L216 117 L229 133 L241 146"/></g><text x="16" y="167" font-size="9" letter-spacing=".6" fill="#7C5B36" font-family="IBM Plex Mono, monospace">TÊTE AU-DESSUS DU GARROT · ALLURE DIRECTE</text></svg><figcaption><h4>La poursuite</h4><div class="p-sous">Tous les chiens de travail</div><p>Dès que la tête repasse <b>au-dessus</b> de la ligne du garrot, vous n'êtes plus dans l'approche. C'est le repère le plus utile sur le terrain, parce qu'il précède la course d'une seconde ou deux.</p></figcaption></figure>
+<figure class="posture"><svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg" role="img"><line x1="16" y1="152" x2="290" y2="152" stroke="#C9BFA6" stroke-width="1.6"/><line x1="16" y1="78" x2="290" y2="78" stroke="#C4873A" stroke-width="1" stroke-dasharray="5 4" opacity=".8"/><text x="289" y="73" text-anchor="end" font-size="8.5" letter-spacing="1.2" fill="#7C5B36" font-family="IBM Plex Mono, monospace">GARROT</text><g fill="none" stroke="#6E8A6B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">  <path d="M130 88 L126 116 L130 150"/>  <path d="M193 93 L201 116 L189 131 L197 150"/></g><path d="M208 82 C 226 81, 240 79, 254 77" fill="none" stroke="#27412F" stroke-width="6" stroke-linecap="round"/><path d="M114 80 C 136 73, 184 73, 207 80 C 216 90, 214 104, 201 108 C 175 114, 134 113, 116 105 C 106 99, 106 86, 114 80 Z" fill="#27412F"/><path d="M122 82 L104 70" fill="none" stroke="#27412F" stroke-width="18" stroke-linecap="round"/><path d="M110 67 C 103 62, 92 61, 84 64 L66 68 L67 75 L85 75 C 97 79, 107 73, 111 68 Z" fill="#27412F"/><path d="M104 60 L114 52 L117 65 Z" fill="#27412F"/><circle cx="91" cy="70" r="2" fill="#F2EBDA"/><g fill="none" stroke="#27412F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">  <path d="M119 84 L110 108 L129 111"/>  <path d="M199 89 L208 114 L197 130 L206 150"/></g><text x="16" y="167" font-size="9" letter-spacing=".6" fill="#7C5B36" font-family="IBM Plex Mono, monospace">QUEUE DANS L'AXE DU DOS · ANTÉRIEUR REPLIÉ</text></svg><figcaption><h4>L'arrêt</h4><div class="p-sous">Braques, épagneuls, pointers, setters</div><p>Queue tendue dans l'axe du dos, antérieur replié, nez porté vers l'avant. C'est le même blocage que l'œil du collie — mais la poursuite qui devrait suivre a été éteinte.</p></figcaption></figure>
+<figure class="posture"><svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg" role="img"><line x1="16" y1="152" x2="290" y2="152" stroke="#C9BFA6" stroke-width="1.6"/><line x1="16" y1="126" x2="290" y2="126" stroke="#C4873A" stroke-width="1" stroke-dasharray="5 4" opacity=".8"/><text x="289" y="121" text-anchor="end" font-size="8.5" letter-spacing="1.2" fill="#7C5B36" font-family="IBM Plex Mono, monospace">GARROT</text><path d="M209 129 C 226 136, 240 144, 252 149" fill="none" stroke="#6E8A6B" stroke-width="6" stroke-linecap="round"/><g fill="none" stroke="#6E8A6B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">  <path d="M131 136 L120 147 L100 149"/></g><path d="M118 125 C 140 119, 186 119, 208 125 C 215 133, 213 144, 200 147 C 172 151, 136 151, 120 146 C 112 141, 112 129, 118 125 Z" fill="#27412F"/><path d="M199 133 L209 143 L196 148 L206 150" fill="none" stroke="#27412F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M123 130 L102 137" fill="none" stroke="#27412F" stroke-width="18" stroke-linecap="round"/><path d="M108 128 C 100 125, 89 127, 82 132 L64 137 L65 144 L84 143 C 96 145, 106 139, 109 134 Z" fill="#27412F"/><path d="M101 124 L110 114 L115 127 Z" fill="#27412F"/><circle cx="92" cy="135" r="2" fill="#F2EBDA"/><line x1="76" y1="140" x2="24" y2="144" stroke="#C4873A" stroke-width="1.2" stroke-dasharray="2 3" opacity=".85"/><path d="M124 133 L111 147 L91 149" fill="none" stroke="#27412F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><text x="16" y="167" font-size="9" letter-spacing=".6" fill="#7C5B36" font-family="IBM Plex Mono, monospace">STERNUM AU SOL · TÊTE TENDUE, PAS RENTRÉE</text></svg><figcaption><h4>Le couché de blocage</h4><div class="p-sous">Border collie · à ne pas confondre</div><p>Sternum au sol, <b>tête tendue vers l'avant</b>, regard verrouillé. Le chien qui se couche parce qu'il a chaud ou mal fait l'inverse : il rentre la tête et détourne le regard.</p></figcaption></figure>
+    </div>
+
+  </div>
+</section>
+
+<section id="profil">
+  <div class="enveloppe">
+    <span class="etiquette">Mon chien</span>
+    <h2>Où en est votre chien dans sa séquence ?</h2>
+    <p class="intro">Six questions sur ce que vous avez réellement vu. Le résultat n'est pas un verdict : c'est une hypothèse de lecture, qui vous dit surtout par quel bout regarder et à qui parler. Pour un problème précis et installé, passez plutôt à l'outil suivant.</p>
+
+    <div class="avertissement">
+      <strong>Ce que ceci n'est pas.</strong> Ce questionnaire ne pose aucun diagnostic, ne remplace ni un vétérinaire comportementaliste ni un dresseur expérimenté, et ne prédit pas si votre chien sera un bon chien de troupeau. Il organise vos observations, rien de plus.
+    </div>
+
+    <form id="questionnaire">
+      <div class="question"><span class="rang">Question 1 sur 6</span>
+        <p class="libelle">Devant des animaux qui bougent, que fait votre chien en premier ?</p>
+        <div class="choix">
+          <label><input type="radio" name="q1" value="a"><span>Il les regarde à peine, il passe à autre chose.</span></label>
+          <label><input type="radio" name="q1" value="b"><span>Il s'oriente, se fixe sur eux et se bloque du regard.</span></label>
+          <label><input type="radio" name="q1" value="c"><span>Il s'oriente et part immédiatement, sans temps d'arrêt.</span></label>
+          <label><input type="radio" name="q1" value="d"><span>Il s'oriente, aboie, tourne autour, très excité.</span></label>
+        </div></div>
+      <div class="question"><span class="rang">Question 2 sur 6</span>
+        <p class="libelle">Quand il avance vers les animaux, à quoi ressemble sa posture ?</p>
+        <div class="choix">
+          <label><input type="radio" name="q2" value="a"><span>Debout, normale, sans intention particulière.</span></label>
+          <label><input type="radio" name="q2" value="b"><span>Corps bas, ramassé, pas lents, tête dans l'axe.</span></label>
+          <label><input type="radio" name="q2" value="c"><span>Il se couche et ne repart plus, même appelé.</span></label>
+          <label><input type="radio" name="q2" value="d"><span>Course directe, corps haut, il fonce dans le tas.</span></label>
+        </div></div>
+      <div class="question"><span class="rang">Question 3 sur 6</span>
+        <p class="libelle">Que se passe-t-il quand un animal se détache du groupe ?</p>
+        <div class="choix">
+          <label><input type="radio" name="q3" value="a"><span>Il ne réagit pas particulièrement.</span></label>
+          <label><input type="radio" name="q3" value="b"><span>Il contourne largement pour le ramener vers le groupe.</span></label>
+          <label><input type="radio" name="q3" value="c"><span>Il le poursuit et le pousse encore plus loin.</span></label>
+          <label><input type="radio" name="q3" value="d"><span>Il le poursuit et tente de l'attraper.</span></label>
+        </div></div>
+      <div class="question"><span class="rang">Question 4 sur 6</span>
+        <p class="libelle">Avez-vous déjà vu votre chien saisir un animal avec la gueule ?</p>
+        <div class="choix">
+          <label><input type="radio" name="q4" value="a"><span>Jamais.</span></label>
+          <label><input type="radio" name="q4" value="b"><span>Une fois, dans une situation très excitée, sans blessure.</span></label>
+          <label><input type="radio" name="q4" value="c"><span>Il pince la laine ou les pattes assez régulièrement.</span></label>
+          <label><input type="radio" name="q4" value="d"><span>Il saisit, secoue ou a déjà blessé un animal.</span></label>
+        </div></div>
+      <div class="question"><span class="rang">Question 5 sur 6</span>
+        <p class="libelle">Quand vous l'appelez pendant qu'il est en action, que se passe-t-il ?</p>
+        <div class="choix">
+          <label><input type="radio" name="q5" value="a"><span>Il revient sans difficulté.</span></label>
+          <label><input type="radio" name="q5" value="b"><span>Il hésite, puis revient au bout de quelques secondes.</span></label>
+          <label><input type="radio" name="q5" value="c"><span>Il n'entend plus rien tant que les animaux bougent.</span></label>
+          <label><input type="radio" name="q5" value="d"><span>Il n'a encore jamais été en action près d'animaux.</span></label>
+        </div></div>
+      <div class="question"><span class="rang">Question 6 sur 6</span>
+        <p class="libelle">Quel âge a votre chien ?</p>
+        <div class="choix">
+          <label><input type="radio" name="q6" value="a"><span>Moins de 4 mois.</span></label>
+          <label><input type="radio" name="q6" value="b"><span>Entre 4 et 10 mois.</span></label>
+          <label><input type="radio" name="q6" value="c"><span>Entre 10 et 18 mois.</span></label>
+          <label><input type="radio" name="q6" value="d"><span>Plus de 18 mois.</span></label>
+        </div></div>
+      <div class="actions">
+        <button type="button" class="bouton" id="lire">Lire mon profil</button>
+        <button type="button" class="bouton secondaire" id="effacer">Tout effacer</button>
+      </div>
+    </form>
+    <div class="resultat" id="resultat"></div>
+  </div>
+</section>
+
+
+<section id="commencer">
+  <div class="enveloppe">
+    <span class="etiquette">Par où commencer</span>
+    <h2>L'âge décide plus que l'envie</h2>
+    <p class="intro">Le point le plus important de tout cet outil tient en une phrase, et elle vient des Coppinger : les gestes de la séquence apparaissent à des âges variables selon les individus, et le dressage au troupeau ne peut pas commencer avant que le regard fixe, l'approche et la poursuite ne soient apparus d'eux-mêmes.</p>
+
+    <div class="en-clair">
+      <b>En clair</b>
+      Inutile d'emmener un chiot de six mois voir les brebis pour « voir ce que ça donne ». Tant que le chien ne fixe pas et ne se baisse pas tout seul devant un animal, il n'y a rien à dresser. Ce qui se travaille avant, c'est le rappel, le calme et la confiance.
+    </div>
+
+    <div class="frise">
+      <div class="etape"><div class="age">2 – 4 mois<small>Avant tout</small></div><div>
+        <h4>Rien près du troupeau</h4>
+        <p>C'est la période où le chiot apprend le monde : gens, bruits, sols, autres chiens, véhicules. Un chiot privé de ces expériences développe des peurs durables qui gêneront ensuite le travail bien plus que n'importe quel défaut technique.</p>
+        <span class="source">Dehasse — développement et privation sensorielle</span></div></div>
+      <div class="etape"><div class="age">4 – 10 mois<small>Préparation</small></div><div>
+        <h4>Le lien, le rappel, le calme à distance des brebis</h4>
+        <p>Le troupeau reste visible mais hors de portée : le chien apprend qu'il peut voir des brebis sans que rien ne se passe. Beaucoup de problèmes naissent d'un chien lâché trop tôt, qui a appris seul que courir dans le tas est très agréable.</p>
+        <span class="source">Jones · Scrimgeour — fondations avant travail</span></div></div>
+      <div class="etape"><div class="age">10 – 18 mois<small>Variable selon l'individu</small></div><div>
+        <h4>La séquence apparaît — le vrai début</h4>
+        <p>Le regard fixe, le corps qui se baisse, la poursuite orientée apparaissent, souvent brutalement. C'est le signal que le travail peut commencer, avec un encadrant, un petit lot d'animaux calmes, un espace fermé et des séances très courtes. Certains chiens sont prêts à 8 mois, d'autres à 2 ans.</p>
+        <span class="source">Coppinger &amp; Schneider — apparition des patrons moteurs</span></div></div>
+      <div class="etape"><div class="age">Ensuite<small>Structuration</small></div><div>
+        <h4>Équilibre, flancs, arrêt, conduite</h4>
+        <p>Le chien apprend à tenir la position d'équilibre face à vous à travers le troupeau, à se déplacer sur les côtés, à s'arrêter à la demande, puis à pousser devant lui. C'est le domaine du métier, où les écoles diffèrent et où l'accompagnement vaut mille lectures.</p>
+        <span class="source">Jones · Scrimgeour · Holland</span></div></div>
+    </div>
+  </div>
+
+    <h3 class="sous-titre" id="carnet">Carnet d'observation</h3>
+    <p class="intro" style="margin-top:10px">Tout ce qui précède repose sur une idée simple : les gestes
+    apparaissent à des âges variables, et c'est leur apparition qui donne le feu vert. Encore faut-il
+    l'avoir notée. Cette feuille est faite pour être imprimée et remplie à la main, au fur et à mesure —
+    c'est la seule source de ce site que personne d'autre que vous ne peut produire.</p>
+
+    <div class="en-clair">
+      <b>Ce que ce carnet n'est pas</b>
+      Ce n'est pas une grille de notation et il n'y a pas de score à la fin. Aucune case vide ne signifie
+      un retard. On note une date et un contexte, c'est tout — et c'est déjà beaucoup plus que ce que
+      retient la mémoire six mois plus tard.
+    </div>
+
+    <div class="carnet">
+      <div class="c-tete">
+        <div><span>Chien</span><i contenteditable="true"></i></div>
+        <div><span>Né le</span><i contenteditable="true"></i></div>
+        <div><span>Observé par</span><i contenteditable="true"></i></div>
+      </div>
+      <table class="c-table">
+        <thead><tr><th>Geste</th><th>Première apparition</th><th>Dans quel contexte</th><th>Notes</th></tr></thead>
+        <tbody><tr><th>Orienter</th><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><th>Œil (regard fixe)</th><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><th>Approche (corps bas)</th><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><th>Poursuite</th><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><th>Saisie</th><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><th>Aboiement en travail</th><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><th>Arrêt sur ordre</th><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><th>Contournement large</th><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr></tbody>
+      </table>
+      <p class="c-note">Repère de lecture : le travail au troupeau ne peut pas commencer avant que le regard
+      fixe, l'approche et la poursuite ne soient apparus d'eux-mêmes. Les trois lignes correspondantes sont
+      celles qui décident. <span class="source">Coppinger &amp; Schneider, 1995</span></p>
+      <button type="button" class="bouton" onclick="imprimer('carnet')">Imprimer le carnet</button>
+    </div>
+  </section>
+
+<section id="derives">
+  <div class="enveloppe">
+    <span class="etiquette">Dérives</span>
+    <h2>Un problème précis, question après question</h2>
+    <p class="intro">Quarante-six situations qui posent réellement problème aux conducteurs, atteintes par une suite de questions courtes. Chaque issue donne quatre choses : ce qui se passe, ce qu'on vise, trois exercices selon le contexte, et le piège dans lequel presque tout le monde tombe.</p>
+
+    <div class="en-clair">
+      <b>En clair</b>
+      Répondez à deux ou trois questions et vous tombez sur la fiche qui correspond à votre situation. Rien n'est enregistré, vous pouvez revenir en arrière ou recommencer autant de fois que vous voulez.
+    </div>
+
+    <div class="arbre">
+      <div class="fil" id="fil"></div>
+      <div id="scene"></div>
+      <div class="pilotage">
+        <button type="button" id="retour" disabled>← Question précédente</button>
+        <button type="button" id="recommencer">Recommencer</button>
+      </div>
+
+    <details class="index-derives">
+      <summary>Voir l'index complet des 46 dérives</summary>
+      <div id="index-contenu"></div>
+    </details>
+    </div>
+  </div>
+</section>
+
+<section id="bibliotheque">
+  <div class="enveloppe">
+    <span class="etiquette">Bibliothèque</span>
+    <h2>D'où vient ce qui est écrit ici</h2>
+    <p class="intro">Le niveau de preuve n'est pas le même partout, et c'est indiqué franchement : la séquence de chasse est un fait établi et confirmé par la génomique, l'apparition des patrons est une observation solide, la manière de mener une séance relève du savoir de métier.</p>
+
+    <div class="en-clair">
+      <b>Pourquoi trois étiquettes plutôt qu'une</b>
+      « Recherche établie » veut dire que des chercheurs ont mesuré et publié, et que d'autres ont retrouvé la même chose. « Éthologie appliquée » veut dire que c'est solide et cohérent, mais moins testé en laboratoire. « Savoir de métier » veut dire que des gens très expérimentés obtiennent ce résultat, sans qu'on ait comparé leur méthode à une autre dans une étude. Les trois sont utiles. Les confondre serait malhonnête.
+    </div>
+
+    <div class="rayons">
+      <div class="ouvrage"><div class="auteur">Raymond &amp; Lorna Coppinger</div>
+        <div class="titre">Dogs — A Startling New Understanding of Canine Origin, Behavior and Evolution (2001)</div>
+        <p>Le socle. La séquence de chasse comme suite de gestes que la sélection a pu exagérer, éteindre ou déplacer selon le métier de la race. Chez le border collie, orientation, œil, approche et poursuite sont exagérés ; la saisie est éteinte.</p>
+        <span class="preuve science">Recherche établie</span></div>
+      <div class="ouvrage"><div class="auteur">Coppinger &amp; Schneider</div>
+        <div class="titre">Évolution des chiens de travail, in Serpell, The Domestic Dog (1995)</div>
+        <p>L'apparition des gestes varie fortement selon l'individu, et le dressage au troupeau ne peut pas commencer avant. Ils notent aussi que montrer l'œil semble se récompenser tout seul — ce qui explique beaucoup de blocages.</p>
+        <span class="preuve science">Recherche établie</span></div>
+      <div class="ouvrage"><div class="auteur">Monique Udell et coll.</div>
+        <div class="titre">Comparaison de races à séquences contrastées (2014)</div>
+        <p>Chiens de conduite, chiens de chasse à séquence complète et chiens de protection comparés expérimentalement. Confirme que la position d'une race dans la séquence influence jusqu'à sa manière de suivre un geste humain.</p>
+        <span class="preuve science">Recherche établie</span></div>
+      <div class="ouvrage"><div class="auteur">Jeong, Ostrander, Kim et coll.</div>
+        <div class="titre">Genomic evidence for behavioral adaptation of herding dogs — Science Advances, 2025</div>
+        <p>Génomes complets de 12 races de conduite comparés à 91 races non conductrices. Un variant du gène EPHB1, plus fréquent dans les lignées de travail du border collie, est associé à davantage de comportements de poursuite et de morsure sur 2 155 chiens. Les auteurs qualifient eux-mêmes leur résultat de suggestif et non concluant. <strong>Accès libre.</strong></p>
+        <span class="preuve science">Recherche établie</span></div>
+      <div class="ouvrage"><div class="auteur">Chiara Mariti et coll.</div>
+        <div class="titre">A pilot study on the case of calming signals — Journal of Veterinary Behavior 18, 2017</div>
+        <p>Vingt-quatre chiens observés en rencontres libres : 2 130 signaux relevés, plus fréquents pendant une interaction qu'en dehors, et plus nombreux entre chiens inconnus. C'est l'étude qui donne une base mesurée aux observations de Rugaas — tout en montrant que ces signaux indiquent d'abord une tension. <strong>Accès libre.</strong></p>
+        <span class="preuve science">Recherche établie</span></div>
+      <div class="ouvrage"><div class="auteur">Patricia McConnell</div>
+        <div class="titre">The Other End of the Leash (2002)</div>
+        <p>Éthologue et comportementaliste certifiée, elle travaille elle-même sur troupeau avec ses border collies. Son apport : nous sommes des primates, ils sont des canidés, et l'essentiel des malentendus vient de nos gestes plus que des leurs.</p>
+        <span class="preuve clinique">Éthologie appliquée</span></div>
+      <div class="ouvrage"><div class="auteur">Turid Rugaas</div>
+        <div class="titre">Les signaux d'apaisement</div>
+        <p>Grille de lecture des signaux par lesquels un chien désamorce une tension : détourner la tête, se lécher la truffe, ralentir, s'immobiliser. Rugaas n'est pas chercheuse et n'a fourni aucune preuve expérimentale. Mais Mariti et coll. ont depuis testé ces signaux et confirmé leur fonction de communication — voir la fiche suivante.</p>
+        <span class="preuve clinique">Observation de terrain</span></div>
+      <div class="ouvrage"><div class="auteur">Jean Donaldson</div>
+        <div class="titre">The Culture Clash (1996)</div>
+        <p>Ce qui est renforcé se répète. Central ici, parce que la séquence de chasse se renforce elle-même : un chien qui court après des brebis n'a besoin d'aucune récompense de votre part pour recommencer.</p>
+        <span class="preuve clinique">Théorie de l'apprentissage</span></div>
+      <div class="ouvrage"><div class="auteur">Joël Dehasse</div>
+        <div class="titre">Médecine du comportement du chien</div>
+        <p>Vétérinaire comportementaliste. Repère pour distinguer un problème d'éducation d'un trouble qui relève du soin, et pour comprendre les effets durables d'un développement pauvre en expériences.</p>
+        <span class="preuve clinique">Médecine vétérinaire</span></div>
+      <div class="ouvrage"><div class="auteur">H. Glyn Jones</div>
+        <div class="titre">A Way of Life — Sheepdog Training, Handling and Trialling</div>
+        <p>Éleveur gallois de troisième génération. Référence sur l'équilibre entre le conducteur, le chien et les brebis, du choix du chiot jusqu'au travail achevé.</p>
+        <span class="preuve metier">Savoir de métier</span></div>
+      <div class="ouvrage"><div class="auteur">Derek Scrimgeour</div>
+        <div class="titre">Talking Sheepdogs — Training Your Working Border Collie</div>
+        <p>Berger et dresseur du nord de l'Angleterre. Progression du chiot débutant jusqu'au concours, centrée sur la relation et la lecture fine du chien pendant la séance.</p>
+        <span class="preuve metier">Savoir de métier</span></div>
+      <div class="ouvrage"><div class="auteur">Vergil S. Holland</div>
+        <div class="titre">Herding Dogs — Progressive Training</div>
+        <p>Référence nord-américaine, très utilisée pour sa progression par étapes, aussi bien en élevage qu'en concours.</p>
+        <span class="preuve metier">Savoir de métier</span></div>
+      <div class="ouvrage"><div class="auteur">Abbé Émile Godard</div>
+        <div class="titre">Je dresse mon chien d'arrêt — braques, épagneuls, griffons, pointers, setters</div>
+        <p>Manuel français classique du dressage du chien d'arrêt, réédité depuis les années 1970. <strong>Cité comme référence connue du domaine, mais dont le contenu n'a pas été vérifié</strong> — c'est pourquoi la fiche chien d'arrêt n'avance aucun protocole.</p>
+        <span class="preuve metier">Savoir de métier</span></div>
+      <div class="ouvrage"><div class="auteur">Joseph Ortega</div>
+        <div class="titre">Le Flair du chien — pistage et détection</div>
+        <p>Ouvrage français sur le travail du nez : prise d'odeur, tenue de piste, angles, désignation d'objets. <strong>Même réserve que pour Godard</strong> : cité comme référence du domaine, contenu non vérifié.</p>
+        <span class="preuve metier">Savoir de métier</span></div>
+      <div class="ouvrage"><div class="auteur">Société centrale canine</div>
+        <div class="titre">Règlements des disciplines — recherche utilitaire, cavage, sauvetage, agility</div>
+        <p>Cadre officiel français : ce qui est demandé, à quels niveaux, sous quelles conditions d'accès. C'est la source qui dit ce qu'une discipline est réellement, plutôt que ce qu'on en raconte.</p>
+        <span class="preuve metier">Cadre réglementaire</span></div>
+      <div class="ouvrage"><div class="auteur">Union nationale pour l'utilisation de chiens de rouge</div>
+        <div class="titre">Formation des conducteurs de chien de sang (fondée en 1980)</div>
+        <p>Association qui forme les équipes conducteur-chien pour la recherche du grand gibier blessé, et dont les conducteurs agréés interviennent gratuitement. Ancrage de la fiche recherche au sang.</p>
+        <span class="preuve metier">Cadre associatif</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="limites" id="limites">
+  <div class="enveloppe">
+    <span class="etiquette" style="color:var(--ocre-clair)">Honnêteté</span>
+    <h2>Ce que cet outil ne fera jamais</h2>
+    <p class="intro">Un outil qui prétend tout résoudre est un outil qui invente. Voici ce qui est volontairement hors de portée.</p>
+    <div class="liste-limites">
+      <div class="limite"><span class="marque">×</span><p><strong>Aucun diagnostic.</strong> Un comportement qui inquiète — morsure, peur intense, agitation permanente — relève d'un vétérinaire comportementaliste, pas d'une page web.</p></div>
+      <div class="limite"><span class="marque">×</span><p><strong>Aucune méthode inventée.</strong> Tout ce qui est proposé renvoie à un auteur ou à un cadre nommé. Là où les écoles divergent, c'est écrit plutôt que tranché.</p></div>
+      <div class="limite"><span class="marque">×</span><p><strong>Aucun premier contact avec un troupeau sans accompagnement.</strong> Un jeune chien lâché seul sur des brebis peut blesser des animaux, se blesser, et surtout apprendre en quelques minutes des choses qui prendront des mois à défaire.</p></div>
+      <div class="limite"><span class="marque">×</span><p><strong>Aucune prédiction.</strong> Rien ici ne dit si votre chien deviendra un bon chien de travail. Les gestes apparaissent à des âges très variables, et leur absence à un instant donné ne signifie rien.</p></div>
+      <div class="limite"><span class="marque">×</span><p><strong>Aucune extrapolation du loup au chien.</strong> La séquence de chasse du loup sert de modèle de lecture, mais chien et loup ne sont pas superposables : cette limite est débattue dans la littérature, et elle est signalée plutôt que passée sous silence.</p></div>
+      <div class="limite"><span class="marque">↺</span><p><strong>Une correction déjà faite.</strong> Une version antérieure de cette page affirmait que chez le border collie l'orientation est suivie d'un regard fixe dans environ 85 % des cas. Ce chiffre n'a pas pu être rattaché à une publication : il a été retiré. Ce qui reste, et qui est solide, c'est le contraste entre chiens de conduite et chiens de protection.</p></div>
+      <div class="limite"><span class="marque">×</span><p><strong>Aucune fiche de discipline ne remplace sa formation.</strong> Recherche au sang, sauvetage, assistance, mordant sportif : ces métiers passent par des agréments, des associations et des encadrants. Les fiches expliquent, elles ne forment pas.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="terrain" style="background:var(--foret);border-bottom:none">
+  <div class="enveloppe" style="text-align:center;max-width:660px">
+    <span class="etiquette" style="color:var(--ocre-clair)">Et après</span>
+    <h2 style="color:var(--creme-vif)">Cet outil s'arrête où le terrain commence</h2>
+    <p style="color:rgba(251,246,233,.82);margin:0 0 28px">Lire, comprendre, se préparer : c'est ici. Mettre un chien devant des brebis pour la première fois, corriger une dérive installée, évaluer un jeune chien : c'est avec un accompagnement. Artzainak intervient à domicile au Pays Basque, si vous disposez d'un terrain et de brebis.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="evaluation.html" class="bouton" style="background:var(--creme-vif);color:var(--foret);text-decoration:none;display:inline-block">Faire évaluer mon chien</a>
+      <a href="contact.html" class="bouton secondaire" style="color:var(--creme-vif);border-color:rgba(251,246,233,.5);text-decoration:none;display:inline-block">Contacter Artzainak</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="enveloppe">
+    <div><strong>L'Œil</strong> — comprendre et accompagner son chien au travail</div>
+    <div>Quatorze disciplines · 46 dérives · Niveau de preuve indiqué partout</div>
+    <div style="margin-top:10px;font-size:12px;opacity:.75">Un outil <a href="index.html" style="color:inherit">Artzainak</a> · <a href="mentions-legales.html" style="color:inherit">Mentions légales</a> · <a href="politique-confidentialite.html" style="color:inherit">Politique de confidentialité</a></div>
+  </div>
+</footer>
+
+<script>
+"use strict";
+
+/* ============================================================
+   1. DISCIPLINES
+   ============================================================ */
+const NIVEAUX = {
+  science:["science","Recherche établie"],
+  cadre:["cadre","Cadre officiel"],
+  terrain:["terrain","Savoir de métier"],
+  reserve:["reserve","Cité, non vérifié"]
+};
+
+const DISCIPLINES = [
+{f:"troupeau",nom:"Le rassembleur",sous:"Border collie, kelpie, berger australien",
+ sig:"<em>Orienter · Œil · Approche · Poursuite</em> exagérés — saisie éteinte",
+ niv:"science",
+ metier:"Le chien part large, contourne le troupeau, se place à l’opposé du berger et ramène les animaux vers lui. Il travaille loin, en silence, et immobilise par le regard plutôt que par le contact. C’est le seul métier de cette liste où le chien décide en permanence de sa propre trajectoire.",
+ gram:"Les quatre premiers gestes sont amplifiés par la sélection ; les quatre derniers, à partir de la saisie, sont éteints. C’est cette coupure nette et précoce qui rend le chien utilisable sur des animaux vivants sans les blesser.",
+ cle:"Un chien qui bloque trop n’a pas un défaut : il a un excès de la qualité même qu’on recherche. Sanctionner le blocage abîme le regard. C’est le contresens le plus fréquent chez les débutants, et il coûte des mois.",
+ preuve:"L’étude génomique de 2025 a comparé 12 races de conduite à 91 races non conductrices et trouvé un variant du gène EPHB1 plus fréquent dans les lignées de travail du border collie, associé à davantage de poursuite et de morsure sur 2 155 chiens. Les auteurs qualifient eux-mêmes ce résultat de suggestif, non concluant.",
+ refs:"Coppinger &amp; Coppinger 2001 · Udell et coll. 2014 · Jeong, Ostrander &amp; Kim, Science Advances 2025"},
+
+{f:"troupeau",nom:"À la culotte et chien de rive",sous:"Berger des Pyrénées, beauceron, berger de Brie",
+ sig:"Œil faible ou absent — <em>poursuite</em> et pression du corps",
+ niv:"terrain",
+ metier:"Le chien travaille près des animaux, pousse, donne de la voix, et peut faire valoir son autorité par un pincement léger du jarret. Le beauceron sert aussi de chien de rive : il patrouille une limite invisible et maintient le troupeau sur une parcelle, comme une clôture mobile.",
+ gram:"Pas de regard fixe : ces chiens ne figent pas les animaux, ils les déplacent. La saisie n’a pas été éteinte mais réduite à un geste bref et fonctionnel, qui fait partie du métier.",
+ cle:"Le même geste ne se lit pas de la même façon selon le chien. Un pincement de jarret chez un berger des Pyrénées, c’est son travail ; chez un border collie, c’est un signal d’alerte. Appliquer à toutes les races la règle « aucune gueule sur les animaux » revient à retirer leur outil aux chiens à la culotte.",
+ preuve:"Cette distinction vient des associations d’utilisateurs et des clubs de race, pas de la recherche. Un examen d’aptitude au travail sur troupeau a été créé en 2009 au sein de la Réunion des amateurs de chiens pyrénéens pour évaluer instinct et motivation.",
+ refs:"RACP · associations d’utilisateurs de chiens de troupeau"},
+
+{f:"troupeau",nom:"Protection de troupeau",sous:"Montagne des Pyrénées, maremme, berger d’Anatolie",
+ sig:"Séquence <em>éteinte</em> — comportement de jeune animal conservé",
+ niv:"science",
+ metier:"Ce chien vit dans le troupeau jour et nuit et le défend. Il ne conduit pas, et ce n’est pas non plus un chien de garde de maison déplacé au pré : c’est un troisième métier, avec sa propre logique.",
+ gram:"La sélection n’a pas seulement éteint la fin de la séquence, elle a conservé chez l’adulte des comportements de jeune animal : rester avec le groupe auquel il est attaché, et signaler la nouveauté par l’aboiement plutôt que par la poursuite. Poursuivre et mordre sont absents.",
+ cle:"C’est le contre-exemple qui valide tout le reste. Si la séquence de chasse expliquait mal le comportement, on ne verrait pas une famille entière de chiens de travail chez qui elle est absente et où le métier fonctionne quand même — autrement.",
+ preuve:"L’étude expérimentale d’Udell a comparé le berger d’Anatolie au border collie et à l’airedale sur une tâche de suivi du geste humain : la race à séquence inhibée réussit moins bien, mais rattrape en partie avec l’expérience. La séquence n’est donc pas un destin.",
+ refs:"Coppinger &amp; Coppinger 2001 · Udell, Ewald, Dorey &amp; Wynne, Animal Behaviour 2014"},
+
+{f:"chasse",nom:"Chien d’arrêt",sous:"Braques, épagneuls, griffons, pointers, setters",
+ sig:"<em>Orienter</em> et <em>œil</em> exagérés — poursuite éteinte",
+ niv:"science",
+ metier:"Le chien quête devant le chasseur, prend le vent, puis se fige face au gibier. L’arrêt peut durer longtemps. Il n’avance ensuite que sur ordre, et ne bouge pas à l’envol ni au coup de feu.",
+ gram:"C’est le miroir exact du border collie. Chez le collie, la coupure se situe après la poursuite ; chez le chien d’arrêt, elle se situe avant. Le blocage est amplifié dans les deux cas, mais ce qui suit est éteint chez l’un et conservé chez l’autre.",
+ cle:"Ces deux métiers semblent n’avoir aucun rapport et sont pourtant expliqués par le même modèle avec un seul paramètre changé. C’est ce qui rend la grammaire de la séquence utile : elle prédit, elle ne se contente pas de décrire après coup.",
+ preuve:"Le point « chez les chiens d’arrêt, la poursuite doit être inhibée » est établi par Coppinger et Feinstein (2015) et repris dans une revue de littérature publiée en 2023 sur les interventions face aux comportements de prédation problématiques.",
+ refs:"Coppinger &amp; Feinstein 2015 · Applied Animal Behaviour Science 2023 · Godard (non vérifié)"},
+
+{f:"chasse",nom:"Leveur et rapporteur",sous:"Springer, cocker, labrador, golden, barbet",
+ sig:"Poursuite régulée — <em>saisie conservée mais adoucie</em>",
+ niv:"cadre",
+ metier:"Le chien fouille le couvert pour faire jaillir le gibier, s’arrête à l’envol, puis va chercher la pièce et la rapporte intacte. Groupe 8 de la nomenclature officielle : une vingtaine de races, réparties entre rapporteurs, leveurs et broussailleurs, et chiens d’eau.",
+ gram:"Seul métier de troupeau ou de chasse où la saisie est volontairement conservée. Elle a été adoucie plutôt qu’éteinte — c’est la gueule douce — tandis que le geste de secousse qui suit a disparu.",
+ cle:"Un chien qui mâchouille le gibier n’a pas un excès d’instinct : il a une modération qui ne tient plus sous l’excitation. Le raisonnement est exactement le même que pour un border collie qui pince, sauf que la cible du travail est inverse : ici on veut garder la saisie, pas la supprimer.",
+ preuve:"Répartition des races et définition des métiers : nomenclature officielle de la Société centrale canine. Le mécanisme d’adoucissement de la saisie est décrit par Coppinger ; je n’ai pas retrouvé d’étude qui le mesure.",
+ refs:"Société centrale canine — groupe 8 · Coppinger &amp; Coppinger 2001"},
+
+{f:"chasse",nom:"Chien courant",sous:"Beagle, ariégeois, anglo-français, bleu de Gascogne",
+ sig:"<em>Poursuite</em> très longue — la voix ajoutée par la sélection",
+ niv:"terrain",
+ metier:"Le chien prend une voie à l’odeur, la suit longtemps, souvent sur des kilomètres, et donne de la voix pour renseigner le chasseur sur ce qu’il fait. Travaille fréquemment en meute plutôt que seul.",
+ gram:"La poursuite est étirée au maximum en durée et en distance. Le fait le plus intéressant est un ajout : donner de la voix pendant la poursuite n’appartient pas au modèle de chasse d’origine. La sélection n’a pas fait que couper — elle a aussi greffé.",
+ cle:"On demande couramment à ces chiens un rappel fiable alors qu’ils ont été sélectionnés pendant des siècles précisément pour ne pas s’arrêter. Ce n’est pas impossible, mais c’est travailler à contre-courant d’une sélection ancienne — et cela mérite d’être su avant de juger le chien.",
+ preuve:"Description issue des standards de races et des épreuves de travail. Je n’ai pas retrouvé d’étude quantifiant l’extension de la poursuite chez ces races.",
+ refs:"Standards de races · épreuves de travail SCC"},
+
+{f:"chasse",nom:"Terrier et déterrage",sous:"Airedale, fox, jagd-terrier",
+ sig:"Séquence <em>complète</em> — rien ne s’arrête en route",
+ niv:"science",
+ metier:"Le chien va au contact, sous terre, dans un espace clos où il n’a ni recul ni assistance possible. C’est le métier qui demande le plus d’autonomie et le moins de retenue.",
+ gram:"La seule famille où la séquence est restée presque entière, proche de la forme sauvage. Orienter, fixer, approcher, poursuivre, saisir, secouer : tout est là.",
+ cle:"C’est le point de comparaison qui rend visible tout ce que le border collie a perdu. Regardez ces deux chiens côte à côte devant un même animal et vous verrez la sélection à l’œuvre plus clairement que dans n’importe quel texte.",
+ preuve:"L’airedale a précisément été choisi par Udell et ses collègues comme représentant de la séquence complète, en face du border collie et du berger d’Anatolie. C’est donc une race qui a servi de référence expérimentale, pas seulement d’exemple.",
+ refs:"Udell, Ewald, Dorey &amp; Wynne, Animal Behaviour 2014"},
+
+{f:"nez",nom:"Recherche au sang",sous:"Teckel, rouge de Bavière, rouge du Hanovre, basset des Alpes",
+ sig:"Orienter transformé en <em>suivi de voie</em> — poursuite ralentie",
+ niv:"cadre",
+ metier:"Retrouver un grand gibier blessé, plusieurs heures après le tir et sur plusieurs kilomètres. En France, l’Union nationale pour l’utilisation de chiens de rouge, fondée en 1980, forme les équipes conducteur-chien ; elle regroupe plus de 500 conducteurs et leurs interventions sont gratuites.",
+ gram:"L’orientation ne se fait plus par la vue mais par l’odeur, et la poursuite est délibérément ralentie : le chien travaille au pas, en harnais, au bout d’une longe. La saisie est éteinte.",
+ cle:"Ce chien doit ignorer les animaux sains qu’il croise pour rester sur une seule piste. On lui demande donc de résister à sa propre séquence pendant des heures — c’est l’inverse exact de ce qu’on demande à un chien courant, et cela explique pourquoi les deux métiers ne se mélangent pas.",
+ preuve:"Cadre associatif documenté : formation couvrant balistique, indices de blessure, comportement du gibier, législation et aspects vétérinaires. Ce n’est pas de la recherche scientifique, c’est un dispositif national organisé.",
+ refs:"UNUCR · fédérations départementales de chasseurs"},
+
+{f:"nez",nom:"Pistage et recherche utilitaire",sous:"Toutes races, discipline officielle",
+ sig:"Le <em>nez</em> remplace l’œil — séquence peu mobilisée",
+ niv:"cadre",
+ metier:"Le chien remonte la trace d’une personne, marque les objets qu’elle a laissés et la désigne à l’arrivée. Il travaille en harnais, au bout d’une longe. Quatre niveaux, du brevet à la classe 3, et plusieurs années pour atteindre le sommet.",
+ gram:"C’est la discipline qui s’éloigne le plus du modèle de chasse. Presque rien de la séquence n’est mobilisé : le travail repose sur une capacité olfactive et une motivation construites par l’apprentissage.",
+ cle:"L’inversion la plus intéressante de tout le site : ici c’est le chien qui décide de la direction, et le conducteur qui suit. Après des mois passés à apprendre à diriger un chien de troupeau, apprendre à se laisser conduire demande de désapprendre presque tout.",
+ preuve:"Structure de la discipline et niveaux : règlement officiel de la recherche utilitaire. Le contenu technique de la progression n’est pas repris ici faute de source vérifiée.",
+ refs:"Règlement recherche utilitaire SCC · Ortega (non vérifié)"},
+
+{f:"nez",nom:"Détection et cavage",sous:"Toutes races, lagotto romagnolo pour la truffe",
+ sig:"Recherche d’une odeur cible — <em>hors</em> séquence de chasse",
+ niv:"cadre",
+ metier:"Chercher une odeur précise et la signaler : truffes pour le cavage, ou odeur cible en détection sportive. Deux formules principales de cavage sont ouvertes à toutes les races, plus un programme propre au lagotto.",
+ gram:"Activité entièrement construite par apprentissage, sans appui sur un geste hérité. Le chien n’est pas en train de chasser une version modifiée de sa proie : il cherche une odeur qui ne lui évoque rien de particulier.",
+ cle:"C’est la discipline la plus accessible du site, et la plus sous-estimée. Elle convient aux chiens âgés, convalescents ou qui supportent mal les longues sorties, parce que le travail du nez fatigue sans exciter. Pour un chien de conduite qui ne redescend jamais, c’est souvent plus utile qu’une heure de course.",
+ preuve:"Cadre officiel des commissions concernées. L’affirmation « le travail olfactif fatigue sans exciter » est une observation largement partagée par les praticiens ; je ne l’ai pas retrouvée mesurée dans une étude.",
+ refs:"Commission cavage SCC · clubs de détection"},
+
+{f:"service",nom:"Sauvetage",sous:"Avalanche, décombres, surface, mantrailing",
+ sig:"Recherche olfactive sous <em>fortes contraintes</em> d’environnement",
+ niv:"cadre",
+ metier:"Programme officiel issu d’activités utilitaires, avec des épreuves en avalanche, en décombres, en quête de surface, en mantrailing et en pistage. Encadrement spécifique obligatoire.",
+ gram:"Le nez, comme en pistage, mais dans des environnements instables, bruyants et dangereux qui ajoutent une contrainte majeure : le chien doit continuer à travailler dans des conditions où la plupart des chiens décrochent.",
+ cle:"Aucun conseil technique n’est donné ici, et c’est délibéré. Le sauvetage comporte des contraintes de sécurité qui rendent une information partielle plus dangereuse qu’aucune information. Ce qui reste transposable, en revanche, c’est la lecture de l’état du chien — saturation, seuil, signaux de désamorçage.",
+ preuve:"Existence et structure du programme : commission d’utilisation nationale. Rien d’autre n’est affirmé.",
+ refs:"Groupe de travail sauvetage — CUN-CBG"},
+
+{f:"service",nom:"Assistance et guidage",sous:"Chien guide, aide motrice, alerte, médiation",
+ sig:"Métier construit <em>entièrement par apprentissage</em>",
+ niv:"cadre",
+ metier:"Chien guide d’aveugle, chien d’aide motrice, chien d’alerte pour l’épilepsie ou le diabète, chien de médiation. Formation d’environ deux ans, de la naissance à la remise, par des associations reconnues. Un chien réformé d’une spécialité peut être réorienté vers une autre.",
+ gram:"C’est le seul métier de cette liste qui ne repose sur aucun geste hérité de la chasse. Tout est construit : la conduite en ville, l’alerte, le refus d’obéir à un ordre dangereux.",
+ cle:"Cette fiche est ici comme garde-fou. La séquence de chasse explique beaucoup, mais pas tout, et une théorie qui explique tout n’explique plus rien. Le chien guide rappelle qu’une part considérable du comportement canin se construit par apprentissage et par relation.",
+ preuve:"Durée de formation et organisation : associations spécialisées. Les capacités d’alerte médicale sont un domaine actif de recherche dont je n’ai pas vérifié l’état actuel — ne les présentez pas comme acquises sans vérifier.",
+ refs:"Associations de chiens guides · Handi’chiens"},
+
+{f:"service",nom:"Sports d’obéissance et d’agilité",sous:"Agility, obérythmée, flyball, hoopers, treibball",
+ sig:"<em>Coordination et motivation</em> — aucune séquence héritée",
+ niv:"cadre",
+ metier:"Franchir un parcours d’obstacles, enchaîner des figures en musique, renvoyer une balle, pousser de gros ballons. L’agility est homologuée en France depuis le 1er janvier 1988 et ouverte à tous les chiens, de race ou non.",
+ gram:"Aucun appui sur un geste de chasse. Le moteur est la relation et la motivation, pas l’instinct.",
+ cle:"Une précision que presque tout le monde ignore : l’agility est une discipline d’agilité, pas de vitesse. Un chien de conduite y réussit souvent très bien, mais c’est aussi une activité qui monte vite en excitation. Pour un chien qui ne redescend jamais, ce n’est pas forcément le bon choix.",
+ preuve:"Date d’homologation et principe d’ouverture à tous les chiens : documentation officielle de la discipline.",
+ refs:"Commissions d’activités canines · SCC"},
+
+{f:"service",nom:"Mordant sportif",sous:"Ring, mondioring, campagne, IGP",
+ sig:"Travail sur mordant — <em>hors périmètre de conseil</em>",
+ niv:"reserve",
+ metier:"Disciplines encadrées par des règlements stricts, dans des clubs agréés, avec des hommes d’attaque formés. Mentionnées ici pour que le panorama soit complet.",
+ gram:"Le travail porte sur une saisie contrôlée dans un cadre codifié. La lecture en termes de séquence de chasse existe dans la littérature, mais je ne l’ai pas vérifiée à un niveau qui justifierait d’en tirer des conseils.",
+ cle:"Aucun conseil technique ne sera donné sur ces disciplines, dans aucune version de cet outil. La marge d’erreur y est trop faible et les conséquences d’une information partielle trop lourdes. Cette limite est un choix, pas un oubli.",
+ preuve:"Rien n’est affirmé ici au-delà de l’existence des règlements et du cadre associatif.",
+ refs:"Règlements ring · mondioring · campagne · IGP"}
+];
+
+const grille = document.getElementById("grille-disciplines");
+const fdetail = document.getElementById("fiche-detail");
+let familleActive = "tout", disciplineActive = 0;
+
+function dessinerTuiles(){
+  const liste = DISCIPLINES.map((d,i)=>({d:d,i:i}))
+                           .filter(o => familleActive==="tout" || o.d.f===familleActive);
+  if(!liste.some(o=>o.i===disciplineActive)) disciplineActive = liste[0].i;
+  grille.innerHTML = "";
+  liste.forEach(o=>{
+    const b = document.createElement("button");
+    b.type="button"; b.className="tuile"; b.dataset.f=o.d.f;
+    b.setAttribute("aria-pressed", o.i===disciplineActive ? "true":"false");
+    b.innerHTML = '<span class="t-nom">'+o.d.nom+'</span><span class="t-sig">'+
+                  o.d.sig.replace(/<\/?em>/g,"")+'</span>';
+    b.addEventListener("click",()=>{ disciplineActive=o.i; dessinerTuiles(); dessinerFiche(); });
+    grille.appendChild(b);
+  });
+}
+
+function dessinerFiche(){
+  const d = DISCIPLINES[disciplineActive], n = NIVEAUX[d.niv];
+  fdetail.innerHTML =
+    '<div class="f-tete"><h3>'+d.nom+'</h3>'+
+      '<span class="f-niveau '+n[0]+'">'+n[1]+'</span></div>'+
+    '<div class="f-sous">'+d.sous+'</div>'+
+    '<div class="f-sig">'+d.sig+'</div>'+
+    '<div class="f-grille">'+
+      '<div class="f-bloc"><h5>Ce que fait le chien</h5><p>'+d.metier+'</p></div>'+
+      '<div class="f-bloc"><h5>Où la séquence est coupée</h5><p>'+d.gram+'</p></div>'+
+      '<div class="f-cle"><h5>Ce qu’il faut avoir compris <span class="f-marque">synthèse du site</span></h5><p>'+d.cle+'</p></div>'+
+      '<div class="f-preuve"><h5 style="font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--terre);margin-bottom:6px;font-weight:500">Sur quoi cela repose</h5><p>'+d.preuve+'</p></div>'+
+      '<div class="f-refs">'+d.refs+'</div>'+
+    '</div>';
+}
+
+document.querySelectorAll('.familles button').forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll('.familles button').forEach(x=>x.setAttribute("aria-pressed","false"));
+    b.setAttribute("aria-pressed","true");
+    familleActive = b.dataset.famille;
+    dessinerTuiles(); dessinerFiche();
+  });
+});
+dessinerTuiles(); dessinerFiche();
+
+/* ============================================================
+   2. SÉQUENCE PRÉDATRICE
+   ============================================================ */
+const PATRONS = [
+  {n:"Orienter",  d:"Le chien détecte la cible et tourne tout son corps vers elle. Tout part de là."},
+  {n:"Œil",       d:"Le regard se fige. Le chien immobilise à distance, sans toucher."},
+  {n:"Approche",  d:"Le corps s'abaisse, les pas ralentissent. Il avance en tension contenue."},
+  {n:"Poursuite", d:"Il se lance sur ce qui bouge. Le geste le plus contagieux et le plus difficile à interrompre."},
+  {n:"Saisir",    d:"La gueule se referme sur la cible : laine, patte, jarret, plume."},
+  {n:"Secouer",   d:"Le mouvement de mise à mort : saisie suivie d'une secousse."},
+  {n:"Dépecer",   d:"Ouvrir et démembrer la proie."},
+  {n:"Consommer", d:"Manger."}
+];
+const PROFILS = {
+  collie:{nom:"Border collie",zones:["hyper","hyper","hyper","hyper","inhibe","inhibe","inhibe","inhibe"],
+    lecture:["Très marqué. L'orientation vers le troupeau est quasi automatique et se prolonge presque toujours en regard fixe.",
+      "Signature de la race. Le regard fixe suffit à faire bouger un lot de brebis, se déclenche en partie sur l'anticipation du mouvement, et paraît se récompenser tout seul.",
+      "Exagéré. Corps ramassé, pas comptés : ce que les bergers reconnaissent au premier coup d'œil chez un jeune chien prometteur.",
+      "Exagéré mais devant être régulé. Un chien qui poursuit sans se retenir disperse au lieu de rassembler. Tout le dressage met une bride sur ce geste, sans l'effacer.",
+      "Éteint par la sélection. Sa réapparition est un problème sérieux, pas un défaut d'obéissance.","Éteint.","Éteint.","Éteint."],
+    faire:["Laissez venir : ce geste apparaît seul, à un âge variable.",
+      "Ne le provoquez pas, ne le sanctionnez pas. Un chien qui bloque trop se travaille par le mouvement et la distance, avec un encadrant.",
+      "Observez et notez son apparition : c'est un des signaux du feu vert au travail.",
+      "C'est ici que se joue la sécurité du troupeau. Rappel et arrêt solides avant tout contact libre.",
+      "Arrêtez la séance et faites-vous accompagner. N'attendez pas la deuxième fois.",
+      "À confier immédiatement à un professionnel.","Sans objet au troupeau.","Sans objet au troupeau."]},
+  culotte:{nom:"Berger à la culotte",zones:["regule","inhibe","regule","hyper","regule","inhibe","inhibe","inhibe"],
+    lecture:["Présent, mais moins exclusif : ces chiens gardent un œil sur le berger autant que sur le troupeau.",
+      "Faible ou absent. Ces chiens ne figent pas les animaux du regard — ils les déplacent avec le corps et la voix.",
+      "Présent sous une forme plus courte : le chien vient au contact plutôt que d'approcher lentement de loin.",
+      "Dominant. C'est le moteur du travail : pousser, faire circuler, occuper l'espace.",
+      "Présent, sous la forme d'un pincement léger du jarret pour se faire respecter. C'est un geste de métier chez ces races, pas une dérive — mais il doit rester léger et rare.",
+      "Éteint.","Éteint.","Éteint."],
+    faire:["Ne lui demandez pas de travailler comme un border collie : il n'a pas les mêmes outils.",
+      "Inutile de chercher un œil qui n'existe pas dans cette lignée.",
+      "Travaillez la distance pour éviter qu'il ne colle en permanence aux animaux.",
+      "L'énergie est là. Le travail consiste à la canaliser et à obtenir des arrêts nets.",
+      "Faites la différence entre le pincement de métier, léger et fonctionnel, et la saisie qui blesse. La seconde relève d'un professionnel.",
+      "Situation à confier à un professionnel.","Sans objet.","Sans objet."]},
+  protection:{nom:"Chien de protection de troupeau",zones:["regule","inhibe","inhibe","inhibe","inhibe","inhibe","inhibe","inhibe"],
+    lecture:["Présent, mais l'orientation débouche le plus souvent sur une approche sociale ou une exploration, pas sur une chasse.",
+      "Absent. La plupart des races européennes de protection ne montrent pas cette suite de gestes.",
+      "Absent.","Absent.","Éteint.","Éteint.","Éteint.","Éteint."],
+    faire:["Ce chien vit avec le troupeau et le défend. Attendre de lui une conduite est un contresens.",
+      "Rien à travailler ici.","Rien à travailler ici.","Rien à travailler ici.",
+      "Toute réapparition de saisie sur les animaux gardés est un signal d'alerte.",
+      "Consultation nécessaire.","Sans objet.","Sans objet."]},
+  arret:{nom:"Chien d'arrêt",zones:["hyper","hyper","regule","inhibe","regule","inhibe","inhibe","inhibe"],
+    lecture:["Très marqué : la quête est une orientation continue, nez au vent, vers l'odeur du gibier.",
+      "Exagéré et prolongé — c'est l'arrêt lui-même, un blocage figé face au gibier.",
+      "Présent, sous la forme de l'avancée contrôlée vers l'oiseau à la demande du chasseur.",
+      "Éteint par la sélection. Un chien d'arrêt qui poursuit à l'envol ne remplit pas sa fonction.",
+      "Présent mais transformé : la saisie sert à rapporter, gueule douce, sans abîmer.",
+      "Éteint.","Éteint.","Éteint."],
+    faire:["La quête large se travaille tôt, mais tout repose d'abord sur l'obéissance de base.",
+      "L'arrêt est spontané chez un bon sujet. On l'affermit, on ne le fabrique pas.",
+      "Le travail fin consiste à obtenir que le chien avance seulement quand on le lui demande.",
+      "Le sage à l'envol et au coup de feu est le cœur du dressage, et sa difficulté principale.",
+      "Le rapport se construit à part, avec du matériel adapté, avant d'être associé au gibier.",
+      "Sans objet.","Sans objet.","Sans objet."]},
+  rapport:{nom:"Leveur et rapporteur",zones:["regule","inhibe","regule","regule","hyper","inhibe","inhibe","inhibe"],
+    lecture:["Présent : la quête se fait dans le couvert, souvent au contact de la végétation.",
+      "Absent ou très faible — ces chiens ne figent pas le gibier, ils le font jaillir.",
+      "Présent, court : le chien fouille et pousse plutôt qu'il n'approche lentement.",
+      "Présent et régulé : la poursuite existe mais doit s'arrêter net au coup de feu.",
+      "Exagéré et adouci. C'est le geste central : attraper et tenir sans serrer, ce qu'on appelle la gueule douce.",
+      "Éteint — c'est précisément ce qu'on ne veut pas voir réapparaître.","Éteint.","Éteint."],
+    faire:["La quête proche se canalise pour que le chien ne dépasse pas la portée du fusil.",
+      "Rien à chercher ici.","Rien de particulier.",
+      "Le sage à l'envol s'obtient avant d'introduire le gibier réel.",
+      "Le rapport se construit progressivement, avec des objets de plus en plus proches du gibier.",
+      "Un chien qui secoue ou mâchouille abîme le gibier : c'est le défaut classique, à reprendre tôt.",
+      "Sans objet.","Sans objet."]},
+  courant:{nom:"Chien courant",zones:["regule","inhibe","inhibe","hyper","regule","regule","regule","regule"],
+    lecture:["Présent, mais par le nez plutôt que par les yeux : c'est la prise de voie.",
+      "Absent.","Absent — le chien courant ne s'approche pas discrètement, il suit et pousse.",
+      "Très exagéré, sur des distances et des durées considérables, accompagné de la voix. La voix n'appartient pas au modèle de chasse d'origine : c'est un ajout de la sélection.",
+      "Présent.","Présent.","Présent.","Présent."],
+    faire:["Le travail porte sur la qualité de la voie plutôt que sur le contrôle rapproché.",
+      "Sans objet.","Sans objet.",
+      "L'enjeu est le rappel et l'arrêt de la poursuite, dans une race sélectionnée pour ne pas s'arrêter.",
+      "Séquence conservée : ces chiens travaillent souvent en meute, avec les règles propres à ce cadre.",
+      "Idem.","Idem.","Idem."]},
+  terrier:{nom:"Terrier de chasse",zones:["regule","regule","regule","regule","regule","regule","regule","regule"],
+    lecture:["Séquence complète, proche de la forme sauvage.","Présent, bref.","Présent.","Présent et complet.",
+      "Présent — la sélection ne l'a pas éteint.","Présent.","Présent.","Présent."],
+    faire:["Chez ces chiens, rien ne s'arrête tout seul au milieu de la séquence.",
+      "Comparaison utile pour mesurer à quel point la séquence du border collie a été taillée.",
+      "Comparaison seulement.","Comparaison seulement.","Comparaison seulement.",
+      "Comparaison seulement.","Comparaison seulement.","Comparaison seulement."]}
+};
+const ZONE_TEXTE = {hyper:"Exagéré par la sélection",regule:"Présent et régulé",inhibe:"Éteint ou rare"};
+let profilActif="collie", patronActif=1;
+const ruban=document.getElementById("ruban"), detail=document.getElementById("detail");
+
+function dessinerRuban(){
+  const p=PROFILS[profilActif];
+  ruban.innerHTML="";
+  PATRONS.forEach((pat,i)=>{
+    const b=document.createElement("button");
+    b.type="button"; b.className="patron"; b.dataset.zone=p.zones[i];
+    b.setAttribute("aria-pressed", i===patronActif?"true":"false");
+    b.innerHTML='<span class="num">'+(i+1)+'</span><span class="nom">'+pat.n+'</span>';
+    b.addEventListener("click",()=>{patronActif=i;dessinerRuban();dessinerDetail();});
+    ruban.appendChild(b);
+  });
+}
+function dessinerDetail(){
+  const p=PROFILS[profilActif], i=patronActif;
+  detail.innerHTML='<h3>'+PATRONS[i].n+' — '+p.nom+'</h3>'+
+    '<div class="statut">'+ZONE_TEXTE[p.zones[i]]+'</div>'+
+    '<div class="grille-detail">'+
+    '<div class="bloc-detail"><h4>Ce que c\'est</h4><p>'+PATRONS[i].d+'</p></div>'+
+    '<div class="bloc-detail"><h4>Chez ce chien</h4><p>'+p.lecture[i]+'</p></div>'+
+    '<div class="bloc-detail"><h4>Ce que vous pouvez faire</h4><p>'+p.faire[i]+'</p></div>'+
+    '<div class="bloc-detail"><h4>Source</h4><p>Coppinger &amp; Coppinger (2001) ; Coppinger &amp; Schneider (1995) ; Udell et coll. (2014) ; pour les fiches françaises, standards et règlements de la Société centrale canine.</p></div></div>';
+}
+document.querySelectorAll('.selecteur button').forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll('.selecteur button').forEach(x=>x.setAttribute("aria-pressed","false"));
+    b.setAttribute("aria-pressed","true");
+    profilActif=b.dataset.profil; patronActif=1;
+    dessinerRuban(); dessinerDetail();
+  });
+});
+dessinerRuban(); dessinerDetail();
+
+/* ============================================================
+   3. PROFIL — questionnaire court
+   ============================================================ */
+const CONSEILS={
+  jeune:{cible:"d_indecision",titre:"La séquence n'est pas encore là",
+    texte:"Rien dans vos réponses n'indique que le regard fixe, l'approche et la poursuite orientée soient apparus. Ce n'est ni un mauvais signe ni un retard : ces gestes émergent à des âges très différents d'un chien à l'autre. Ce qui compte maintenant se construit loin des brebis.",
+    items:[{t:"Ne forcez pas le contact avec le troupeau",p:"Le dressage ne peut pas commencer avant l'apparition spontanée de l'œil, de l'approche et de la poursuite. Provoquer ce contact fabrique surtout de l'excitation désordonnée.",s:"Coppinger & Schneider"},
+      {t:"Construisez le monde du chien",p:"Gens, sols, bruits, véhicules, autres animaux, dans le calme. Un chien qui a peur travaillera mal quel que soit son potentiel.",s:"Dehasse"},
+      {t:"Travaillez le rappel jusqu'à ce qu'il soit ennuyeux",p:"Un rappel solide obtenu sans troupeau est la seule chose qui vous restera le jour où la poursuite se déclenchera.",s:"Donaldson"}]},
+  oeil:{cible:"d_oeil_colle",titre:"Beaucoup d'œil, peu de mouvement",
+    texte:"Votre chien bloque, se fixe, parfois se couche et ne repart plus. Chez le border collie cette part de la séquence est fortement exagérée, et montrer l'œil semble se récompenser par soi-même : le chien n'a besoin de rien d'autre pour recommencer. Le travail ne consiste pas à supprimer ce regard, mais à lui remettre du mouvement.",
+    items:[{t:"Le problème est un excès de qualité",p:"Un chien qui fige fort est un chien qui a du regard. Le sanctionner abîme précisément ce qu'on cherche à obtenir.",s:"Coppinger & Schneider"},
+      {t:"Le mouvement se relance par la distance et l'angle",p:"Les écoles diffèrent sur la manière de faire repartir un chien bloqué. C'est typiquement ce qui se transmet sur le terrain, avec quelqu'un qui voit votre chien travailler.",s:"Jones · Scrimgeour"},
+      {t:"Regardez aussi vos propres gestes",p:"Nous sommes des primates : nous nous penchons, nous tendons les bras, nous parlons trop. Beaucoup de blocages sont entretenus par le conducteur sans qu'il s'en aperçoive.",s:"McConnell"}]},
+  poursuite:{cible:"trav_course",titre:"La poursuite prend le dessus",
+    texte:"Votre chien fonce, coupe, disperse plutôt que de rassembler, et il n'entend plus grand-chose une fois lancé. C'est le geste le plus auto-renforçant de toute la séquence : chaque course réussie rend la suivante plus probable, sans que vous n'ayez rien récompensé.",
+    items:[{t:"Chaque course libre est une répétition apprise",p:"Ce qui est renforcé se répète. Tant que le chien peut courir librement dans le troupeau, il consolide exactement ce que vous voulez défaire.",s:"Donaldson"},
+      {t:"L'arrêt d'abord, le troupeau ensuite",p:"Rappel et arrêt doivent tenir hors contexte avant tout travail libre. Un lot restreint, un espace fermé, des séances très courtes.",s:"Jones · Scrimgeour · Holland"},
+      {t:"Faites-vous accompagner dès maintenant",p:"Un chien qui disperse peut blesser des animaux et se blesser. C'est le moment de travailler avec quelqu'un d'expérimenté, pas d'essayer seul.",s:"Consensus des auteurs de terrain"}]},
+  saisie:{cible:"trav_saisie",titre:"La saisie est réapparue — priorité absolue",
+    texte:"Vous décrivez des pincements réguliers, ou une saisie avec secousse. Chez un chien de conduite type border collie, cette part de la séquence a été éteinte par la sélection : sa réapparition n'est pas de la désobéissance, c'est un signal sérieux qui met en jeu la sécurité des animaux.",
+    items:[{t:"Arrêtez tout contact libre avec le troupeau",p:"Aucun exercice, aucune correction improvisée. La priorité est d'empêcher la répétition du geste.",s:"Principe de sécurité"},
+      {t:"Consultez un vétérinaire comportementaliste",p:"Il faut écarter ce qui relève du soin — douleur, trouble du comportement — avant de parler de dressage.",s:"Dehasse"},
+      {t:"Puis un dresseur expérimenté, avec le vétérinaire",p:"Les deux se complètent : l'un traite ce qui relève du soin, l'autre reconstruit le travail.",s:"Limite assumée de cet outil"}],rouge:true},
+  equilibre:{titre:"Une base équilibrée",
+    texte:"Vos réponses décrivent un chien qui s'oriente, regarde, approche et contourne pour ramener, sans saisie et avec un rappel qui fonctionne. C'est la configuration à partir de laquelle un travail structuré devient possible — ce qui ne veut pas dire qu'il s'apprend seul.",
+    items:[{t:"Le geste-clé s'appelle l'équilibre",p:"Le chien apprend à se placer de l'autre côté du troupeau par rapport à vous, et à tenir cette position. Tout le reste s'y accroche.",s:"Jones"},
+      {t:"Des séances courtes, un lot calme",p:"Peu d'animaux habitués aux chiens, un espace fermé, et on arrête pendant que ça va bien plutôt qu'après l'erreur.",s:"Scrimgeour · Holland"},
+      {t:"Cherchez quelqu'un qui voit travailler votre chien",p:"Les livres cités ici sont excellents, mais aucun ne voit ce que fait votre chien à l'instant où il le fait.",s:"Limite assumée de cet outil"}]}
+};
+document.getElementById("lire").addEventListener("click",()=>{
+  const f=document.getElementById("questionnaire"), r={};
+  for(let i=1;i<=6;i++){
+    const c=f.querySelector('input[name="q'+i+'"]:checked');
+    if(!c){alert("Il manque la question "+i+". Répondez aux six pour obtenir une lecture.");return;}
+    r["q"+i]=c.value;
+  }
+  let oeil=0,poursuite=0,saisie=0,controle=0,maturite=0;
+  if(r.q1==="b")oeil+=3; if(r.q1==="c")poursuite+=3; if(r.q1==="d")poursuite+=2; if(r.q1==="a")maturite-=2;
+  if(r.q2==="b")oeil+=3; if(r.q2==="c")oeil+=4; if(r.q2==="d")poursuite+=3; if(r.q2==="a")maturite-=2;
+  if(r.q3==="b")controle+=4; if(r.q3==="c")poursuite+=3; if(r.q3==="d"){saisie+=3;poursuite+=2;} if(r.q3==="a")maturite-=2;
+  if(r.q4==="b")saisie+=2; if(r.q4==="c")saisie+=4; if(r.q4==="d")saisie+=6;
+  if(r.q5==="a")controle+=3; if(r.q5==="b")controle+=1; if(r.q5==="c"){poursuite+=2;controle-=2;} if(r.q5==="d")maturite-=3;
+  if(r.q6==="a")maturite-=4; if(r.q6==="b")maturite-=2; if(r.q6==="c")maturite+=1; if(r.q6==="d")maturite+=2;
+
+  let cle;
+  if(saisie>=4) cle="saisie";
+  else if(maturite<=-4 || (oeil<=1&&poursuite<=1&&controle<=1)) cle="jeune";
+  else if(poursuite>=4 && poursuite>oeil) cle="poursuite";
+  else if(oeil>=4 && oeil>=poursuite) cle="oeil";
+  else cle="equilibre";
+
+  const c=CONSEILS[cle], pct=v=>Math.max(0,Math.min(100,Math.round(v/7*100)));
+  let html='<div class="fiche"><div class="surtitre">Lecture de vos observations</div><h3>'+c.titre+'</h3><p>'+c.texte+'</p><div class="barres">'+
+    barre("Œil / blocage",pct(oeil))+barre("Poursuite",pct(poursuite))+barre("Saisie",pct(saisie))+barre("Contrôle et rappel",pct(controle))+
+    '</div></div><div class="conseils">';
+  c.items.forEach(it=>{html+='<div class="conseil'+(c.rouge?" rouge":"")+'"><h4>'+it.t+'</h4><p>'+it.p+'</p><span class="source">'+it.s+'</span></div>';});
+  html+='</div>';
+  if(c.cible){
+    html+='<div class="passerelle"><p>Un outil plus précis existe pour cette situation : '+
+      'l\'arbre des dérives peut vous conduire à une fiche détaillée, avec exercices et pièges à éviter.</p>'+
+      '<button type="button" class="bouton" onclick="allerVers(\''+c.cible+'\')">Ouvrir la branche correspondante →</button></div>';
+  } else {
+    html+='<div class="passerelle"><p>Rien dans vos réponses ne pointe vers une dérive particulière. '+
+      'Si un point précis vous préoccupe malgré tout, l\'index des dérives les liste toutes.</p>'+
+      '<button type="button" class="bouton secondaire" onclick="allerVers(\'depart\')">Aller à l\'arbre des dérives →</button></div>';
+  }
+  const zone=document.getElementById("resultat");
+  zone.innerHTML=html; zone.classList.add("visible");
+  zone.scrollIntoView({behavior:"smooth",block:"start"});
+});
+function barre(nom,v){return '<div class="barre"><span>'+nom+'</span><span class="piste"><span class="jauge" style="width:'+v+'%"></span></span><span class="val">'+v+'</span></div>';}
+document.getElementById("effacer").addEventListener("click",()=>{
+  document.getElementById("questionnaire").reset();
+  const z=document.getElementById("resultat"); z.classList.remove("visible"); z.innerHTML="";
+});
+
+/* ============================================================
+   4. ARBRE DES DÉRIVES — 30 issues
+   ============================================================ */
+const PREUVE = {
+  science:["science","Recherche établie"],
+  clinique:["clinique","Éthologie clinique"],
+  terrain:["terrain","Savoir de métier"],
+  securite:["securite","Principe de sécurité"],
+  reserve:["reserve","Module non construit"]
+};
+
+const ARBRE = {
+
+depart:{q:"Où le problème se manifeste-t-il d'abord ?",o:[
+  {l:"Au travail, sur les animaux",v:"trav"},
+  {l:"Au quotidien : maison, promenade, rencontres",v:"quot"},
+  {l:"En séance d'éducation, hors animaux",v:"edu"},
+  {l:"Sur un autre travail : chasse, pistage, sport",v:"autre"}]},
+
+/* ---------- TRAVAIL ---------- */
+trav:{q:"Comment cela se manifeste-t-il au travail ?",o:[
+  {l:"Il court trop, il s'emballe, il disperse",v:"trav_course"},
+  {l:"Il pince ou il mord les animaux",v:"trav_saisie"},
+  {l:"Il se bloque, il n'avance plus",v:"trav_bloc"},
+  {l:"Il se désintéresse ou il quitte la séance",v:"trav_quitte"},
+  {l:"Il n'obéit plus à des ordres qu'il connaît",v:"trav_sourd"},
+  {l:"Il aboie sans arrêt pendant le travail",v:"d_aboi"},
+  {l:"Ses trajets sont mauvais : il coupe, il sort mal",v:"trav_traj"}]},
+
+trav_course:{q:"S'arrête-t-il quand vous le lui demandez pendant l'action ?",o:[
+  {l:"Jamais, ou presque jamais",v:"d_course_folle"},
+  {l:"Oui mais avec retard et à contrecœur",v:"d_course_recup"},
+  {l:"Bien en début de séance, puis ça se dégrade",v:"d_saturation"}]},
+
+trav_saisie:{q:"Dans quelle situation la saisie apparaît-elle ?",o:[
+  {l:"Quand il est très excité, en pleine course",v:"d_saisie_desinhib"},
+  {l:"Quand un animal lui fait face ou le charge",v:"d_grip_defensif"},
+  {l:"Quand un animal refuse d'avancer",v:"d_grip_forcage"},
+  {l:"Sans motif visible, y compris au calme",v:"d_saisie_grave"}]},
+
+trav_bloc:{q:"À quoi ressemble le blocage ?",o:[
+  {l:"Il fixe intensément et ne repart plus",v:"d_oeil_colle"},
+  {l:"Il se couche et refuse de se relever",v:"d_refus_relever"},
+  {l:"Il s'arrête loin et n'ose pas approcher",v:"d_peur_pression"},
+  {l:"Il tourne autour sans jamais s'engager",v:"d_indecision"}]},
+
+trav_quitte:{q:"Que fait-il exactement quand il décroche ?",o:[
+  {l:"Il renifle le sol, se secoue, bâille, s'éloigne un peu",v:"d_apaisement"},
+  {l:"Il part complètement, revient vers vous ou au véhicule",v:"d_demission"},
+  {l:"Il se met à faire autre chose : creuser, jouer, marquer",v:"d_derivation"}]},
+
+trav_sourd:{q:"Dans quel état est-il à ce moment-là ?",o:[
+  {l:"Très excité, haletant, les yeux fixes",v:"d_surchauffe"},
+  {l:"Calme mais il fait semblant de ne pas entendre",v:"d_ordre_use"},
+  {l:"Il obéit ailleurs mais pas près des animaux",v:"d_generalisation"}]},
+
+trav_traj:{q:"Quel est le défaut de trajet le plus net ?",o:[
+  {l:"Il coupe par le milieu au lieu de contourner",v:"d_coupe"},
+  {l:"Il part bien mais s'arrête à mi-parcours",v:"d_sortie_courte"},
+  {l:"Il arrive trop près et bouscule les animaux",v:"d_pression_finale"},
+  {l:"Il ne sait aller que d'un seul côté",v:"d_flanc_unique"}]},
+
+/* ---------- QUOTIDIEN ---------- */
+quot:{q:"Quel est le problème au quotidien ?",o:[
+  {l:"Il ne se pose jamais, il est toujours en mouvement",v:"quot_agite"},
+  {l:"Il réagit fort à des choses précises",v:"quot_reactif"},
+  {l:"Il a peur, il se cache, il fuit",v:"quot_peur"},
+  {l:"Il fait des choses répétitives et bizarres",v:"quot_repet"},
+  {l:"Il est difficile quand on le laisse seul",v:"d_separation"},
+  {l:"Il grogne quand on approche de sa gamelle ou d'un objet",v:"d_gardiennage"}]},
+
+quot_agite:{q:"Se calme-t-il après une grosse dépense physique ?",o:[
+  {l:"Non, et il en redemande toujours plus",v:"d_hyperactif"},
+  {l:"Oui, mais ça ne dure pas",v:"d_besoin_mental"},
+  {l:"Il ne dort pas ou très peu",v:"d_sommeil"}]},
+
+quot_reactif:{q:"Il réagit surtout à quoi ?",o:[
+  {l:"Aux autres chiens",v:"d_reactif_chiens"},
+  {l:"À tout ce qui bouge : vélos, voitures, joggeurs, enfants",v:"d_poursuite_deviee"},
+  {l:"Aux visiteurs, aux inconnus qui entrent",v:"d_inconnus"},
+  {l:"Aux bruits : coups de feu, orage, moteurs",v:"d_bruits"}]},
+
+quot_peur:{q:"Depuis quand cette peur existe-t-elle ?",o:[
+  {l:"Depuis toujours, ou depuis très jeune",v:"d_privation"},
+  {l:"Elle est apparue après un événement précis",v:"d_peur_acquise"},
+  {l:"Elle est apparue progressivement chez un adulte",v:"d_peur_tardive"}]},
+
+quot_repet:{q:"Que fait-il précisément ?",o:[
+  {l:"Il poursuit les ombres, les reflets, la lumière",v:"d_ombres"},
+  {l:"Il tourne sur lui-même, se mord la queue, se lèche trop",v:"d_stereotypie"},
+  {l:"Il fixe un point ou un objet sans fin",v:"d_fixation_objet"}]},
+
+/* ---------- ÉDUCATION ---------- */
+edu:{q:"Qu'est-ce qui coince en séance ?",o:[
+  {l:"Il apprend très lentement",v:"edu_lent"},
+  {l:"Il connaît l'ordre mais ne le fait pas partout",v:"d_generalisation"},
+  {l:"Il se démoralise, se couche, se fige",v:"d_shutdown"},
+  {l:"Il est trop excité pour apprendre quoi que ce soit",v:"d_surchauffe_seance"},
+  {l:"Il savait le faire et il ne le fait plus",v:"d_regression"}]},
+
+edu_lent:{q:"Comment travaillez-vous actuellement ?",o:[
+  {l:"Séances longues, on répète beaucoup",v:"d_seance_longue"},
+  {l:"Séances courtes mais les progrès sont minces",v:"d_criteres"},
+  {l:"Le chien ne semble pas comprendre ce qu'on attend",v:"d_criteres"}]},
+
+/* ---------- AUTRES DISCIPLINES ---------- */
+autre:{q:"Dans quel domaine ?",o:[
+  {l:"Chasse — chien d'arrêt",v:"d_arret_derive"},
+  {l:"Chasse — rapport et gueule dure",v:"d_gueule_dure"},
+  {l:"Travail du nez — pistage, recherche, détection",v:"d_nez_derive"},
+  {l:"Sport ou discipline encadrée",v:"d_sport_derive"}]},
+
+/* ============ ISSUES ============ */
+
+d_course_folle:{fin:true,niv:"science",grave:true,titre:"Poursuite incontrôlée — le chien n'est plus joignable",
+  nature:"Dérive de la poursuite",
+  quoi:"Une fois lancé, votre chien n'entend plus rien. Ce n'est pas de l'entêtement : la poursuite est la partie la plus exagérée de sa séquence de chasse, et elle se récompense toute seule. Chaque course réussie rend la suivante plus probable et plus difficile à interrompre, même si vous n'avez rien donné au chien. C'est pour cette raison qu'attendre que « ça se calme avec l'âge » ne fonctionne pas : le comportement s'entraîne à chaque répétition.",
+  cible:"Reprendre la main sur le déclencheur avant qu'il ne s'enclenche, plutôt que d'essayer d'arrêter une course déjà lancée.",
+  exos:[
+    {ou:"Hors animaux",t:"L'arrêt en mouvement",p:"Le chien trotte vers vous, vous demandez l'arrêt, il se couche net. Puis en marchant à côté. Puis en courant. Puis avec une balle qui roule. Le geste doit être solide sans brebis avant d'exister avec."},
+    {ou:"Au quotidien",t:"Zéro course libre entre les séances",p:"Pas de poursuite de vélos, de balles lancées à répétition, de jeux de course sans règles. Vous ne pouvez pas éteindre au troupeau ce que vous entretenez ailleurs."},
+    {ou:"Sur animaux",t:"Longe, petit lot, espace fermé, encadrant",p:"On ne remet pas un chien qui ne s'arrête pas dans une situation où il peut courir. Le retour au troupeau se fait attaché, avec peu d'animaux calmes, et quelqu'un d'expérimenté à côté."}],
+  piege:"Crier plus fort et courir après lui. Vous devenez alors un élément du jeu, et la scène entière — brebis qui fuient, humain qui court — devient encore plus excitante que la course seule.",
+  src:"Donaldson — renforcement · Jones · Scrimgeour"},
+
+d_course_recup:{fin:true,niv:"science",titre:"Poursuite récupérable — le contrôle existe, il est juste trop lent",
+  nature:"Dérive de la poursuite",
+  quoi:"Il revient, mais avec un délai et de la résistance. Autrement dit, l'ordre fonctionne mais il est en concurrence directe avec une activité bien plus gratifiante. Chaque seconde de délai est une seconde de poursuite en plus, donc une répétition de plus du comportement que vous voulez réduire.",
+  cible:"Réduire le délai à zéro, en travaillant à un niveau d'excitation où le chien peut encore réussir.",
+  exos:[
+    {ou:"Hors animaux",t:"Baisser la difficulté jusqu'à la réussite",p:"S'il obéit en trois secondes à dix mètres et jamais à trente, travaillez à dix mètres. Un exercice réussi vingt fois vaut mieux qu'un exercice raté trois fois."},
+    {ou:"Au quotidien",t:"L'arrêt paie, toujours",p:"Un arrêt obtenu doit être suivi de quelque chose qui compte pour ce chien-là. Pour un chien de conduite, la meilleure récompense est souvent l'autorisation de repartir travailler."},
+    {ou:"Sur animaux",t:"Arrêter la séance sur une réussite",p:"On stoppe pendant que ça va bien, pas après l'erreur. Une séance qui se termine sur un bon arrêt vaut mieux qu'une séance longue qui finit mal."}],
+  piege:"Répéter l'ordre trois fois. Le chien apprend alors que le premier n'engage à rien, et vous fabriquez vous-même le délai que vous cherchez à supprimer.",
+  src:"Donaldson · Scrimgeour"},
+
+d_saturation:{fin:true,niv:"terrain",titre:"Saturation — ça se dégrade au fil de la séance",
+  nature:"Fatigue et excitation cumulées",
+  quoi:"Le début va bien, la fin est mauvaise. Ce n'est pas de la mauvaise volonté : l'excitation s'accumule au fil de la séance et le chien perd progressivement sa capacité à écouter. La performance ne décroît pas parce qu'il se lasse, mais parce qu'il monte.",
+  cible:"Terminer avant le point de bascule, pas après.",
+  exos:[
+    {ou:"Hors animaux",t:"Repérer le signe précurseur",p:"Notez ce qui change juste avant la dégradation : halètement, queue plus haute, oreilles fixes, réponses plus lentes. C'est votre signal d'arrêt, et il arrive toujours plus tôt qu'on ne croit."},
+    {ou:"Au quotidien",t:"Un vrai temps de récupération",p:"Après une séance, du calme réel — pas un jeu, pas une balade excitante. Le retour au niveau de base prend plus longtemps qu'on ne l'imagine."},
+    {ou:"Sur animaux",t:"Trois séances de cinq minutes plutôt qu'une de vingt",p:"Le fractionnement conserve la qualité. Une séance longue entraîne surtout la version dégradée du comportement."}],
+  piege:"Vouloir « finir sur quelque chose de bien » quand le chien est déjà saturé. On prolonge alors une séance qui ne peut plus rien produire de bon.",
+  src:"Scrimgeour · Holland"},
+
+d_saisie_desinhib:{fin:true,niv:"clinique",grave:true,titre:"Saisie dans l'excitation — arrêt immédiat du travail libre",
+  nature:"Réapparition d'un geste éteint",
+  quoi:"Chez un chien de conduite type border collie, la saisie a été éteinte par la sélection. Quand elle réapparaît au sommet de l'excitation, cela signifie que le chien est monté au-delà du niveau où sa retenue fonctionne encore. Ce n'est pas de la désobéissance et cela ne se corrige pas par une punition — mais cela met en jeu la sécurité des animaux, donc cela s'arrête tout de suite.",
+  cible:"Empêcher toute nouvelle répétition, puis faire examiner le chien avant de reprendre.",
+  exos:[
+    {ou:"Priorité",t:"Plus de contact libre",p:"Longe ou pas de troupeau du tout, le temps de comprendre. Chaque répétition consolide le geste."},
+    {ou:"Étape obligatoire",t:"Vétérinaire comportementaliste",p:"Une douleur, un trouble, une modification récente de l'état du chien doivent être écartés avant toute lecture en termes de dressage."},
+    {ou:"Ensuite",t:"Reprise encadrée, sous le seuil",p:"Le travail reprend à un niveau d'excitation où le chien reste capable de se retenir, avec quelqu'un qui voit la séance."}],
+  piege:"Punir sévèrement sur le moment. Cela ajoute de la tension à une situation déjà trop chargée, et fabrique parfois exactement le contraire : une saisie plus rapide et plus discrète.",
+  src:"Coppinger — inhibition sélective · Dehasse"},
+
+d_grip_defensif:{fin:true,niv:"terrain",titre:"Pincement défensif — le chien se protège",
+  nature:"Réponse de défense, pas de prédation",
+  quoi:"Une brebis qui fait face, une mère qui charge pour protéger son agneau, un bélier qui ne cède pas : le chien pince parce qu'il est sous pression et n'a pas d'autre issue. C'est un comportement différent de la saisie d'excitation, et la confusion entre les deux fait faire beaucoup d'erreurs. Ici le problème n'est pas le chien, c'est la situation dans laquelle on l'a mis.",
+  cible:"Retirer la pression plutôt que corriger le chien, et lui redonner une porte de sortie.",
+  exos:[
+    {ou:"Immédiat",t:"Changer les animaux",p:"Des brebis habituées aux chiens, sans agneaux, sans bélier. Un lot difficile fabrique des pincements chez un chien qui n'en fait jamais autrement."},
+    {ou:"Hors animaux",t:"Apprendre à se retirer",p:"Un ordre clair pour reculer ou s'écarter donne au chien une réponse acceptable quand la pression monte. Sans cette issue, il ne lui reste que la gueule."},
+    {ou:"Sur animaux",t:"Augmenter la distance de travail",p:"Beaucoup de pincements défensifs disparaissent quand le chien travaille de plus loin et n'a plus besoin de trancher un face-à-face."}],
+  piege:"Corriger le chien pour un geste qu'il a fait par nécessité. Vous obtenez alors un chien qui ne pince plus mais qui n'ose plus tenir la pression du tout, ce qui est bien plus difficile à réparer.",
+  src:"McConnell — lecture de la posture · savoir de terrain"},
+
+d_grip_forcage:{fin:true,niv:"terrain",titre:"Pincement de forçage — le chien pousse un animal qui ne bouge pas",
+  nature:"Geste de métier chez certaines races, dérive chez d'autres",
+  quoi:"Face à un animal qui refuse d'avancer, le chien pince pour le faire céder. Ce geste est normal et attendu chez les bergers à la culotte, où il fait partie du métier — un pincement léger du jarret. Chez un rassembleur type border collie, où la saisie a été éteinte, sa présence signale plutôt que le chien n'a pas d'autre outil pour gérer un refus.",
+  cible:"Donner au chien un moyen de faire avancer un animal sans le toucher.",
+  exos:[
+    {ou:"Sur animaux",t:"Travailler la pression par la distance",p:"Un pas en avant, une pause, un pas en avant. Un animal cède le plus souvent à la présence maintenue avant de céder au contact."},
+    {ou:"Hors animaux",t:"L'avance au pas, à la demande",p:"Le chien apprend à avancer lentement et à s'arrêter net sur ordre. C'est ce contrôle fin qui remplace le pincement."},
+    {ou:"Cadre",t:"Vérifier ce qu'on attend de la race",p:"Un berger des Pyrénées qui pince légèrement fait son travail. Un border collie qui pince a un problème. Le même geste ne se lit pas de la même façon selon le chien."}],
+  piege:"Appliquer à toutes les races la règle « aucune gueule sur les animaux ». Chez les chiens à la culotte, supprimer complètement le pincement supprime aussi leur capacité à travailler.",
+  src:"RACP · associations d'utilisateurs · Coppinger"},
+
+d_saisie_grave:{fin:true,niv:"clinique",grave:true,titre:"Saisie sans déclencheur visible — sortir du cadre du dressage",
+  nature:"Signal clinique",
+  quoi:"Une saisie qui survient au calme, sans excitation ni pression, ne se lit pas comme une dérive de travail. Ce genre de comportement peut avoir une cause médicale ou relever d'un trouble du comportement, et aucun exercice ne doit être tenté avant d'avoir écarté ces possibilités.",
+  cible:"Obtenir un avis vétérinaire avant toute autre démarche.",
+  exos:[
+    {ou:"Immédiat",t:"Aucun contact avec les animaux",p:"Ni travail, ni approche libre, ni essai « pour voir ». La sécurité passe avant tout le reste."},
+    {ou:"Immédiat",t:"Vétérinaire comportementaliste",p:"Douleur, trouble neurologique, trouble du comportement : ce sont des hypothèses médicales et elles se traitent médicalement."},
+    {ou:"Après",t:"Reprise seulement si un professionnel le valide",p:"Cet outil ne peut ni évaluer ni accompagner cette situation, et ne prétendra pas le contraire."}],
+  piege:"Chercher une explication dans le dressage. Quand un comportement n'a pas de déclencheur, la question n'est plus « comment le corriger » mais « d'où vient-il ».",
+  src:"Dehasse — médecine du comportement"},
+
+d_oeil_colle:{fin:true,niv:"science",titre:"Œil collé — le chien fixe et ne repart plus",
+  nature:"Excès d'un geste exagéré",
+  quoi:"Le regard fixe est la signature du border collie, et il se récompense tout seul : le chien n'a besoin de rien d'autre pour continuer. Quand il devient trop fort, le chien s'installe dedans et perd le mouvement. Il est important de comprendre que ce n'est pas un défaut d'obéissance mais un excès de ce qu'on a sélectionné.",
+  cible:"Remettre du mouvement sans abîmer le regard.",
+  exos:[
+    {ou:"Sur animaux",t:"Changer l'angle plutôt que forcer",p:"Un chien collé se relance souvent mieux par un déplacement latéral que par un ordre d'avancer répété. Il faut casser la fixation, pas la combattre de face."},
+    {ou:"Sur animaux",t:"Des animaux qui bougent",p:"Le regard s'installe surtout sur des animaux immobiles. Un lot qui se déplace donne au chien quelque chose à suivre."},
+    {ou:"Hors animaux",t:"Travailler le déclenchement du mouvement",p:"Un ordre clair d'avancer, appris au calme et sans troupeau, donne un point d'appui quand le chien est bloqué."}],
+  piege:"Sanctionner le blocage. Vous punissez alors précisément la qualité que vous cherchez à obtenir, et vous risquez un chien qui n'ose plus fixer du tout.",
+  src:"Coppinger & Schneider · Jones · Scrimgeour"},
+
+d_refus_relever:{fin:true,niv:"clinique",titre:"Refus de se relever — vérifier le corps avant le comportement",
+  nature:"À écarter médicalement d'abord",
+  quoi:"Un chien qui se couche et refuse de repartir peut être bloqué par l'excès de regard, mais il peut aussi avoir mal, être épuisé, ou avoir trop chaud. L'ordre des vérifications compte : on regarde le corps avant d'interpréter le comportement, car un chien qui a mal fait souvent exactement la même chose qu'un chien qui bloque.",
+  cible:"Éliminer les causes physiques, puis lire le comportement.",
+  exos:[
+    {ou:"D'abord",t:"Chaleur, sol, fatigue, douleur",p:"Températures, durée de travail, état des coussinets, boiterie discrète, âge du chien. Une consultation s'impose si le doute persiste."},
+    {ou:"Ensuite",t:"Séances très courtes",p:"Si le corps va bien, on reconstruit sur des durées où le chien n'a pas le temps d'atteindre le point de blocage."},
+    {ou:"Ensuite",t:"Relance par le mouvement",p:"Comme pour l'œil collé : changer d'angle, faire bouger les animaux, éviter le face-à-face avec un chien figé."}],
+  piege:"Insister verbalement sur un chien qui ne peut pas se relever. Si la cause est physique, on aggrave ; si elle est comportementale, on ajoute de la pression à une situation déjà bloquée.",
+  src:"Dehasse · savoir de terrain"},
+
+d_peur_pression:{fin:true,niv:"terrain",titre:"Le chien n'ose pas approcher",
+  nature:"Évitement sous pression",
+  quoi:"Le chien s'arrête à distance et n'engage pas. Souvent parce que les animaux sont trop nombreux, trop lourds ou trop réactifs pour lui, parfois parce qu'une mauvaise expérience est passée par là. Un chien qui n'ose pas n'est pas un chien sans instinct : c'est un chien qu'on a mis face à plus fort que lui.",
+  cible:"Reconstruire de la confiance avec un lot que le chien peut réellement déplacer.",
+  exos:[
+    {ou:"Sur animaux",t:"Trois ou quatre brebis, pas trente",p:"Un petit lot calme et habitué aux chiens redonne au chien l'expérience de réussir. C'est la base de toute reconstruction."},
+    {ou:"Sur animaux",t:"Espace fermé et petit",p:"Un grand parc laisse les animaux fuir et le chien perdre le contrôle. Un espace restreint rend la situation lisible."},
+    {ou:"Hors animaux",t:"Ne pas ajouter de pression humaine",p:"Un chien déjà sous pression a besoin d'un conducteur calme et immobile, pas d'encouragements pressants. Notre agitation se lit comme une menace supplémentaire."}],
+  piege:"Augmenter la difficulté pour « le forcer à se lancer ». On obtient au mieux un chien qui subit, au pire un chien qui refuse durablement le troupeau.",
+  src:"McConnell · Jones"},
+
+d_indecision:{fin:true,niv:"science",titre:"Il tourne autour sans s'engager",
+  nature:"Séquence incomplète ou immature",
+  quoi:"Le chien s'intéresse, il se déplace, mais rien ne se déclenche vraiment. C'est très fréquent chez un jeune dont les gestes n'ont pas encore fini d'apparaître. Coppinger et Schneider sont clairs là-dessus : l'apparition des patrons varie fortement d'un individu à l'autre, et le dressage ne peut pas commencer avant.",
+  cible:"Attendre sans forcer, tout en travaillant ce qui se travaille.",
+  exos:[
+    {ou:"Sur animaux",t:"Exposition courte et sans enjeu",p:"Quelques minutes, sans rien demander, puis on sort. On laisse la séquence mûrir plutôt que de la provoquer."},
+    {ou:"Hors animaux",t:"Tout le reste",p:"Rappel, arrêt, marche, calme, confiance. Ce sont ces acquis qui rendront le vrai début de travail beaucoup plus simple."},
+    {ou:"Repère",t:"Observer plutôt que juger",p:"Notez quand apparaissent le premier vrai regard fixe, le premier corps qui se baisse. Ces dates valent mieux que n'importe quelle impression générale."}],
+  piege:"Conclure que le chien « n'a rien dans le sang » à dix mois. Certains démarrent à huit mois, d'autres à deux ans, et le second groupe ne fait pas de moins bons chiens.",
+  src:"Coppinger & Schneider"},
+
+d_apaisement:{fin:true,niv:"clinique",titre:"Il se secoue, bâille, renifle — il vous dit qu'il sature",
+  nature:"Signaux de désamorçage",
+  quoi:"Renifler le sol sans raison, bâiller, se lécher le nez, se secouer, détourner la tête, ralentir : ces comportements sont décrits comme des signaux par lesquels le chien désamorce une tension. C'est une grille de lecture très répandue et utile sur le terrain, mais il faut le dire honnêtement : elle repose sur l'observation de praticiens plus que sur un corpus expérimental validé. Prise pour ce qu'elle est, elle rend un vrai service — elle vous dit d'arrêter avant que ça n'aille plus mal.",
+  cible:"Réduire la pression maintenant, plutôt que d'attendre le décrochage complet.",
+  exos:[
+    {ou:"En séance",t:"S'arrêter au premier signal",p:"Pause, distance, respiration. Un chien qui donne ces signaux ne progressera plus dans les minutes qui suivent."},
+    {ou:"En séance",t:"Regarder ce que vous faites",p:"Ton de voix, gestes des bras, position du corps, proximité. La pression vient très souvent du conducteur sans qu'il s'en rende compte."},
+    {ou:"Sur la durée",t:"Séances plus courtes que ce que vous croyez nécessaire",p:"Le meilleur repère reste la fin de séance sur une réussite, avant que ces signaux n'apparaissent."}],
+  piege:"Interpréter le reniflage comme de la distraction et hausser le ton. Vous ajoutez alors de la pression au moment précis où le chien vous demandait d'en enlever.",
+  src:"Rugaas — observation de terrain · McConnell"},
+
+d_demission:{fin:true,niv:"terrain",titre:"Il quitte complètement la séance",
+  nature:"Décrochage installé",
+  quoi:"Le chien part, revient vers vous ou vers le véhicule, et ne veut plus travailler. C'est en général l'étape d'après les signaux d'apaisement : la pression a duré trop longtemps. Un chien qui démissionne a appris que la séance n'apporte rien de bon — et cet apprentissage-là est solide.",
+  cible:"Faire redevenir la séance quelque chose de désirable, à un niveau où il peut réussir.",
+  exos:[
+    {ou:"Réinitialiser",t:"Baisser massivement l'exigence",p:"Trois minutes, un lot facile, une seule chose demandée, et on arrête. Pendant plusieurs séances, l'objectif est uniquement que le chien veuille y retourner."},
+    {ou:"En séance",t:"Terminer avant qu'il ne parte",p:"Si le décrochage arrive à la sixième minute, arrêtez à la quatrième. Toujours."},
+    {ou:"Hors séance",t:"Vérifier ce qui a changé",p:"Un nouveau lot, une douleur, un événement marquant, un changement chez le conducteur. Une démission a presque toujours une histoire."}],
+  piege:"Aller le chercher et le ramener de force au travail. Vous confirmez que la séance est un endroit dont il faut s'échapper.",
+  src:"Donaldson · Rugaas · savoir de terrain"},
+
+d_derivation:{fin:true,niv:"science",titre:"Il se met à faire autre chose",
+  nature:"Comportement de substitution",
+  quoi:"Creuser, jouer, marquer, attraper des herbes en plein travail : quand un chien ne peut ni avancer ni fuir, il fait souvent une troisième chose sans rapport. C'est un signe de conflit interne, pas d'insolence. Des observations anciennes en laboratoire ont montré la même chose chez des border collies placés devant des proies qui ne bougeaient pas : ils se mettaient à faire des courbettes de jeu et à aboyer.",
+  cible:"Lever le conflit en rendant la situation lisible pour le chien.",
+  exos:[
+    {ou:"Sur animaux",t:"Donner du mouvement",p:"La substitution apparaît souvent quand rien ne bouge et que le chien ne sait plus quoi faire. Des animaux qui se déplacent règlent une bonne partie du problème."},
+    {ou:"En séance",t:"Une seule demande à la fois",p:"Deux ordres contradictoires, ou une consigne floue, produisent exactement ce genre de comportement."},
+    {ou:"En séance",t:"Baisser la difficulté d'un cran",p:"Si la substitution revient au même moment de chaque séance, c'est là qu'il faut simplifier."}],
+  piege:"Punir le comportement de substitution. Il disparaît, mais le conflit reste — et il ressort ailleurs, souvent sous une forme moins lisible.",
+  src:"Coppinger & Schneider · Rugaas"},
+
+d_surchauffe:{fin:true,niv:"clinique",titre:"Trop excité pour entendre",
+  nature:"Excitation au-dessus du seuil d'écoute",
+  quoi:"Le chien connaît l'ordre, il ne l'exécute pas, et il est visiblement très excité. Il ne fait pas semblant : au-delà d'un certain niveau d'excitation, la capacité à traiter une consigne s'effondre. Ce qu'on prend pour de la désobéissance est un état, pas un choix.",
+  cible:"Travailler sous le seuil, et faire redescendre plutôt que d'insister.",
+  exos:[
+    {ou:"En séance",t:"Trouver le seuil et rester dessous",p:"Cherchez la distance et le niveau d'activité auxquels le chien répond encore. C'est votre point de départ, même s'il paraît ridiculement facile."},
+    {ou:"Hors animaux",t:"Apprendre à redescendre",p:"Des exercices calmes après une phase d'excitation contrôlée : le chien apprend que l'excitation retombe, ce qui n'a rien d'évident pour lui."},
+    {ou:"Sur animaux",t:"Séquences très courtes",p:"Une minute d'action, une pause au calme, une minute d'action. Le fractionnement empêche l'accumulation."}],
+  piege:"Répéter l'ordre de plus en plus fort. Le chien ne l'entend pas mieux, et vous ajoutez de l'excitation à un chien qui en a déjà trop.",
+  src:"Donaldson · McConnell"},
+
+d_ordre_use:{fin:true,niv:"science",titre:"L'ordre ne veut plus rien dire",
+  nature:"Consigne vidée de son sens",
+  quoi:"Un ordre répété sans conséquence finit par ne plus rien signifier. Si vous dites « couché » cinq fois et que le chien finit par se coucher, ce qu'il a appris, c'est qu'il se couche au cinquième. Si vous le dites et que rien ne suit, il a appris que ce mot n'est pas important.",
+  cible:"Redonner de la valeur au mot, en repartant proprement.",
+  exos:[
+    {ou:"Hors animaux",t:"Un mot, une fois",p:"On demande une seule fois. Si rien ne vient, on ne répète pas : on rend l'exercice plus facile et on recommence."},
+    {ou:"Hors animaux",t:"Repartir d'un mot neuf si nécessaire",p:"Quand un ordre est trop abîmé, il est souvent plus rapide d'en apprendre un nouveau que de réparer l'ancien."},
+    {ou:"Sur animaux",t:"N'utiliser l'ordre que quand vous pouvez l'obtenir",p:"Un ordre donné dans une situation où le chien ne peut pas réussir l'affaiblit à chaque fois."}],
+  piege:"Croire que le chien « fait exprès ». Il applique exactement ce qu'on lui a appris, y compris ce qu'on ne voulait pas lui apprendre.",
+  src:"Donaldson"},
+
+d_generalisation:{fin:true,niv:"science",titre:"Il obéit ici mais pas là-bas",
+  nature:"Défaut de généralisation",
+  quoi:"Le chien exécute parfaitement dans le jardin et plus du tout près des brebis. C'est normal et très courant : les chiens généralisent mal. Pour eux, « couché dans la cuisine » et « couché dans un pré avec trente brebis » ne sont pas la même chose. Il ne s'agit pas de rappeler un acquis, mais de le réapprendre dans chaque nouveau décor.",
+  cible:"Réapprendre le même geste dans une dizaine de contextes différents.",
+  exos:[
+    {ou:"Hors animaux",t:"Changer un seul paramètre à la fois",p:"Même lieu, autre heure. Autre lieu, même exercice. Debout, puis assis, puis en marchant. Un changement par séance."},
+    {ou:"Progression",t:"Approcher les animaux par paliers",p:"À cent mètres, puis cinquante, puis vingt. On ne passe au palier suivant que lorsque le précédent est acquis sans hésitation."},
+    {ou:"Repère",t:"Compter les décors, pas les répétitions",p:"Dix contextes différents valent bien mieux que cent répétitions au même endroit."}],
+  piege:"Conclure qu'il « sait mais ne veut pas ». C'est l'erreur d'interprétation la plus fréquente, et elle mène directement à des corrections injustifiées.",
+  src:"Donaldson — apprentissage et contexte"},
+
+d_coupe:{fin:true,niv:"terrain",titre:"Il coupe au lieu de contourner",
+  nature:"Trajet trop direct",
+  quoi:"Au lieu de partir large et de contourner, le chien va droit sur les animaux. Le résultat est mécanique : le troupeau se disperse au lieu de se regrouper. Le trajet large n'est pas une élégance de concours, c'est ce qui permet aux animaux de rester ensemble.",
+  cible:"Élargir le départ, sans transformer cela en bataille d'ordres.",
+  exos:[
+    {ou:"Sur animaux",t:"Se placer pour ouvrir l'angle",p:"La position du conducteur influence énormément le trajet du chien. Beaucoup de trajets trop directs se corrigent en changeant d'endroit, pas en criant."},
+    {ou:"Sur animaux",t:"Raccourcir la distance",p:"Un chien qui coupe sur cent mètres réussit souvent parfaitement sur vingt. On construit large sur court avant d'allonger."},
+    {ou:"Cadre",t:"Ce point s'apprend sur le terrain",p:"Les écoles diffèrent sensiblement sur la manière d'obtenir un bon départ. C'est typiquement ce qui se transmet avec quelqu'un qui voit le chien travailler."}],
+  piege:"Multiplier les ordres pendant le trajet. Un chien qu'on corrige en permanence pendant sa course finit par ne plus oser partir du tout.",
+  src:"Jones · Scrimgeour · Holland"},
+
+d_sortie_courte:{fin:true,niv:"terrain",titre:"Il part bien mais s'arrête en route",
+  nature:"Trajet interrompu",
+  quoi:"Le départ est correct, puis le chien s'arrête à mi-chemin. Cela peut venir d'un manque de confiance, d'une distance trop grande pour son niveau, ou d'un chien qui ne voit plus les animaux et ne sait plus où aller.",
+  cible:"Retrouver une distance où le trajet se termine toujours.",
+  exos:[
+    {ou:"Sur animaux",t:"Revenir à la distance qui marche",p:"S'il va au bout à trente mètres et s'arrête à cent, on travaille à trente et on allonge de dix en dix."},
+    {ou:"Sur animaux",t:"Terrain visible",p:"Un creux, une haie, une pente qui masquent les animaux suffisent souvent à expliquer l'arrêt. Commencez sur un terrain dégagé."},
+    {ou:"Hors animaux",t:"Vérifier la forme physique",p:"Un chien qui s'arrête toujours au même endroit peut aussi être limité par sa condition, la chaleur ou une gêne discrète."}],
+  piege:"Envoyer plus loin pour « le pousser à progresser ». On installe alors durablement le trajet incomplet.",
+  src:"Jones · Holland"},
+
+d_pression_finale:{fin:true,niv:"terrain",titre:"Il arrive trop près et bouscule",
+  nature:"Pression excessive en fin de trajet",
+  quoi:"Le trajet est bon, mais le chien arrive trop près et met le troupeau en fuite. La distance finale — ce que les praticiens appellent le point où le chien doit s'arrêter derrière les animaux — est un des réglages les plus fins du travail, et le plus dépendant du type d'animaux.",
+  cible:"Apprendre au chien à s'arrêter avant le contact.",
+  exos:[
+    {ou:"Sur animaux",t:"L'arrêt en fin de trajet",p:"L'ordre d'arrêt donné avant l'arrivée, systématiquement, jusqu'à ce que le chien anticipe et s'arrête seul au bon endroit."},
+    {ou:"Sur animaux",t:"Adapter aux animaux",p:"Des brebis lourdes acceptent une pression que des animaux légers ne supportent pas. La bonne distance dépend du lot, pas d'une règle fixe."},
+    {ou:"En séance",t:"Travailler avec des animaux calmes",p:"Un lot qui fuit entretient la pression. Un lot posé permet au chien d'apprendre à s'arrêter."}],
+  piege:"Se concentrer sur la vitesse du chien. Ce n'est pas la vitesse qui pose problème mais la distance d'arrêt, et les deux se règlent séparément.",
+  src:"Jones · Scrimgeour"},
+
+d_flanc_unique:{fin:true,niv:"terrain",titre:"Il ne travaille que d'un côté",
+  nature:"Asymétrie de travail",
+  quoi:"Le chien part volontiers à droite et jamais à gauche, ou l'inverse. C'est très courant. Cela peut venir d'un déséquilibre d'apprentissage — un côté davantage travaillé au départ — mais aussi d'une gêne physique, d'une douleur ou d'un problème de vue d'un côté.",
+  cible:"Rééquilibrer les deux côtés, après avoir écarté une cause physique.",
+  exos:[
+    {ou:"D'abord",t:"Écarter le physique",p:"Une asymétrie nette et durable mérite un examen vétérinaire, en particulier chez un chien qui travaillait des deux côtés auparavant."},
+    {ou:"Sur animaux",t:"Travailler surtout le côté faible",p:"Deux départs du côté difficile pour un du côté facile, sur plusieurs séances."},
+    {ou:"En séance",t:"Faciliter le côté faible",p:"Distance plus courte, angle plus ouvert, position du conducteur qui aide. On rend le côté difficile facile avant de le rendre normal."}],
+  piege:"Insister uniquement du côté difficile jusqu'à l'échec. On associe alors ce côté à une expérience désagréable, ce qui aggrave l'asymétrie.",
+  src:"Holland · Scrimgeour"},
+
+d_aboi:{fin:true,niv:"terrain",titre:"Il aboie sans arrêt pendant le travail",
+  nature:"À lire différemment selon la race",
+  quoi:"Chez un rassembleur silencieux type border collie, un aboiement continu signale le plus souvent de la frustration ou une excitation excessive. Chez un berger à la culotte, en revanche, donner de la voix fait partie du travail : le berger des Pyrénées est réputé pour aboyer, et beaucoup de chiens de ce type utilisent la voix pour déplacer les animaux. La même observation ne se lit donc pas de la même façon.",
+  cible:"Distinguer la voix de travail de l'aboiement de frustration, puis agir seulement sur la seconde.",
+  exos:[
+    {ou:"D'abord",t:"Repérer quand il aboie",p:"S'il aboie quand il ne peut pas agir — retenu, bloqué, empêché — c'est de la frustration. S'il aboie en poussant les animaux, c'est peut-être son métier."},
+    {ou:"Si frustration",t:"Réduire l'attente et l'excitation",p:"Moins de temps d'attente, séquences plus courtes, moins de retenue prolongée. La frustration s'entretient surtout dans les temps morts."},
+    {ou:"Si voix de travail",t:"Ne pas la supprimer",p:"Chez un chien à la culotte, supprimer la voix revient à lui retirer un de ses outils de travail."}],
+  piege:"Vouloir un border collie totalement silencieux ou un berger des Pyrénées totalement muet. On juge alors le chien selon un standard qui n'est pas le sien.",
+  src:"Coppinger · associations d'utilisateurs · RACP"},
+
+d_hyperactif:{fin:true,niv:"clinique",titre:"Jamais posé, toujours plus",
+  nature:"Excitation chronique",
+  quoi:"Un chien qui ne se pose jamais et redemande toujours plus d'activité n'est pas forcément sous-dépensé : il est parfois entraîné à l'excitation permanente. Plus on augmente l'activité physique, plus on entraîne l'endurance et la demande. Il faut aussi savoir que cette agitation permanente peut relever d'une cause médicale — c'est un point sur lequel un avis vétérinaire vaut mieux qu'un raisonnement de bon sens.",
+  cible:"Entraîner le calme comme on entraîne un exercice.",
+  exos:[
+    {ou:"Au quotidien",t:"Des plages de repos imposées",p:"Un espace calme, des temps où il ne se passe rien, un rythme régulier. Le repos s'apprend, il ne vient pas tout seul chez ces chiens."},
+    {ou:"Au quotidien",t:"Remplacer une partie de la course par du nez",p:"Le travail olfactif fatigue sans exciter. C'est une des rares activités qui font redescendre au lieu de faire monter."},
+    {ou:"Prudence",t:"Consulter si c'est massif",p:"Un chien qui ne dort presque pas, ou qui ne redescend jamais, mérite un examen plutôt qu'un programme d'exercice."}],
+  piege:"Augmenter encore la dépense physique. Un chien de travail s'entraîne, et vous obtiendrez surtout un athlète qui a besoin de plus.",
+  src:"Dehasse · McConnell"},
+
+d_besoin_mental:{fin:true,niv:"clinique",titre:"Il se calme, mais ça ne dure pas",
+  nature:"Dépense physique sans occupation mentale",
+  quoi:"La fatigue physique retombe vite. Un chien de conduite est sélectionné pour résoudre des problèmes en mouvement, et un simple lancer de balle répété ne sollicite presque rien de cette capacité. Ce n'est pas une question de quantité mais de nature de l'activité.",
+  cible:"Remplacer une partie de la dépense par des activités qui demandent de réfléchir.",
+  exos:[
+    {ou:"Au quotidien",t:"Chercher plutôt que courir",p:"Objets cachés, pistes courtes dans le jardin, recherche de nourriture dispersée. Quelques minutes de nez valent une longue course."},
+    {ou:"Au quotidien",t:"Des exercices qui demandent de choisir",p:"Discriminer deux objets, attendre un signal, s'arrêter en mouvement. La difficulté mentale fatigue mieux que la distance."},
+    {ou:"Repère",t:"Observer la qualité du repos",p:"Un chien correctement occupé dort profondément après. Un chien seulement épuisé physiquement s'assoupit puis se relève."}],
+  piege:"Le lancer de balle en série. C'est l'activité qui excite le plus pour l'effet le moins durable, et elle entretient exactement la poursuite qu'on cherche à réguler.",
+  src:"McConnell · Donaldson"},
+
+d_sommeil:{fin:true,niv:"clinique",titre:"Il ne dort presque pas",
+  nature:"Signal à faire examiner",
+  quoi:"Un chien qui dort très peu, se réveille sans arrêt ou ne trouve jamais le repos sort du champ de l'éducation. Le sommeil est un indicateur robuste : quand il est franchement perturbé, la question devient médicale.",
+  cible:"Faire examiner avant de chercher une solution éducative.",
+  exos:[
+    {ou:"D'abord",t:"Consultation vétérinaire",p:"Douleur, trouble anxieux, cause organique. Ces hypothèses se vérifient, elles ne se devinent pas."},
+    {ou:"En attendant",t:"Un environnement de repos correct",p:"Un endroit calme, sombre, à l'écart du passage, où le chien n'est pas sollicité."},
+    {ou:"En attendant",t:"Réduire l'excitation du soir",p:"Pas de jeu intense ni de séance de travail juste avant la nuit."}],
+  piege:"Fatiguer davantage le chien pour qu'il dorme. Si la cause est une douleur ou une anxiété, on aggrave la situation.",
+  src:"Dehasse"},
+
+d_reactif_chiens:{fin:true,niv:"clinique",titre:"Il réagit fort aux autres chiens",
+  nature:"Réactivité sociale",
+  quoi:"Aboyer, tirer, se figer, foncer à la vue d'un autre chien. Les causes possibles sont multiples — peur, frustration de ne pas pouvoir aller, mauvaise expérience — et elles ne se traitent pas de la même façon. C'est un domaine où un mauvais diagnostic fait perdre des mois, et où l'accompagnement d'un professionnel change tout.",
+  cible:"Retrouver une distance où le chien peut voir un autre chien sans réagir, et repartir de là.",
+  exos:[
+    {ou:"Au quotidien",t:"Travailler à la distance qui marche",p:"Trouvez la distance à laquelle il remarque l'autre chien sans réagir. C'est là que le travail est possible, et nulle part ailleurs."},
+    {ou:"Au quotidien",t:"Éviter les mises en échec",p:"Chaque épisode de réaction forte renforce la réaction. Changer de trottoir n'est pas fuir, c'est éviter une répétition."},
+    {ou:"Cadre",t:"Se faire accompagner",p:"Distinguer peur, frustration et autre chose demande de voir le chien. C'est le type de situation où un professionnel fait gagner beaucoup de temps."}],
+  piege:"Multiplier les rencontres « pour qu'il s'habitue ». Sans travail sur la distance, on répète surtout la réaction.",
+  src:"Dehasse · Donaldson · McConnell"},
+
+d_poursuite_deviee:{fin:true,niv:"science",titre:"Il poursuit tout ce qui bouge",
+  nature:"Séquence de chasse détournée",
+  quoi:"Vélos, voitures, joggeurs, enfants qui courent : le chien applique à ces cibles la poursuite qui lui a été sélectionnée. C'est le même geste qu'au troupeau, sur un objet qui n'est pas prévu pour. Ce comportement est dangereux et il se renforce tout seul, puisque la cible s'éloigne toujours — le chien a donc l'impression de réussir à chaque fois.",
+  cible:"Empêcher les répétitions et donner un exutoire acceptable à la poursuite.",
+  exos:[
+    {ou:"Immédiat",t:"Gestion avant éducation",p:"Longe, itinéraires calmes, anticipation. Tant que le chien peut poursuivre, aucun apprentissage ne tiendra."},
+    {ou:"Au quotidien",t:"Un exutoire cadré",p:"La poursuite ne s'efface pas. Elle se canalise vers une activité autorisée, sous contrôle, avec un début et une fin nets."},
+    {ou:"Progression",t:"Travailler l'arrêt loin des déclencheurs",p:"Le geste d'arrêt se construit au calme, puis s'approche progressivement des situations réelles."}],
+  piege:"Considérer que c'est « son instinct, on n'y peut rien ». C'est bien son instinct, et c'est précisément pour cela qu'il faut le gérer plutôt que d'espérer qu'il passe.",
+  src:"Coppinger · Donaldson"},
+
+d_inconnus:{fin:true,niv:"clinique",titre:"Il réagit aux visiteurs",
+  nature:"Réactivité au territoire ou aux inconnus",
+  quoi:"Aboiements, tension, parfois grognement à l'arrivée de quelqu'un. Les causes vont de la peur à la surveillance apprise. Comme pour la réactivité aux chiens, c'est une situation qui gagne beaucoup à être vue par quelqu'un plutôt qu'interprétée à distance.",
+  cible:"Faire des arrivées un événement prévisible et sans enjeu.",
+  exos:[
+    {ou:"Au quotidien",t:"Une place attribuée",p:"Un endroit précis où le chien va quand quelqu'un arrive, appris tranquillement sans visiteur avant d'être utilisé avec."},
+    {ou:"Au quotidien",t:"Ne pas faire interagir de force",p:"Les visiteurs ignorent le chien. Un chien tendu à qui on tend la main se retrouve coincé entre deux réponses."},
+    {ou:"Alerte",t:"Un grognement se respecte",p:"Un grognement est une information précieuse. Le punir supprime l'avertissement sans supprimer le motif."}],
+  piege:"Punir le grognement. Vous obtenez un chien qui ne prévient plus, ce qui est bien plus dangereux qu'un chien qui grogne.",
+  src:"Dehasse · McConnell"},
+
+d_bruits:{fin:true,niv:"clinique",titre:"Il a peur des bruits",
+  nature:"Peur sonore",
+  quoi:"Coups de feu, orage, moteurs, feux d'artifice. C'est une peur fréquente qui s'aggrave souvent avec le temps si rien n'est fait, et qui a des conséquences directes en travail comme en chasse. Elle se traite, mais rarement seul et rarement vite.",
+  cible:"Ne plus laisser le chien vivre d'épisodes intenses, et faire accompagner le travail de fond.",
+  exos:[
+    {ou:"Immédiat",t:"Un refuge accessible",p:"Un endroit où le chien peut aller de lui-même, sans être dérangé. Le laisser s'y réfugier n'entretient pas la peur : cela lui donne une réponse."},
+    {ou:"Au quotidien",t:"Ne pas exposer brutalement",p:"Emmener un chien qui craint les détonations à une battue pour « qu'il s'habitue » aggrave presque toujours les choses."},
+    {ou:"Cadre",t:"Faire accompagner",p:"Les peurs sonores installées relèvent d'un travail progressif encadré, parfois associé à un accompagnement vétérinaire."}],
+  piege:"Croire que rassurer un chien qui a peur renforce sa peur. Le réconfort ne renforce pas une émotion — mais paniquer soi-même, oui.",
+  src:"Dehasse · Donaldson"},
+
+d_privation:{fin:true,niv:"clinique",titre:"Peur présente depuis toujours",
+  nature:"Développement pauvre en expériences",
+  quoi:"Un chiot élevé dans un environnement pauvre pendant ses premières semaines peut développer des peurs durables face à tout ce qu'il n'a pas rencontré à ce moment-là : sols, bruits, gens, véhicules. Dehasse a beaucoup décrit ces situations. Le point important est que ce n'est pas un défaut de caractère, et que le travail est long mais réel.",
+  cible:"Élargir progressivement le monde connu du chien, sans jamais le mettre en échec.",
+  exos:[
+    {ou:"Principe",t:"Toujours sous le seuil",p:"Le chien découvre à une distance et une intensité où il reste capable de manger, de bouger, de vous regarder. Au-delà, il n'apprend rien."},
+    {ou:"Au quotidien",t:"Une nouveauté à la fois",p:"Un sol nouveau, ou un bruit nouveau, ou un lieu nouveau. Pas les trois ensemble."},
+    {ou:"Cadre",t:"Accompagnement recommandé",p:"Ces situations bénéficient énormément d'un suivi, parfois d'un accompagnement vétérinaire en parallèle."}],
+  piege:"L'exposition forcée. Mettre le chien au contact de ce qui l'effraie « pour qu'il voie que ce n'est rien » produit des peurs plus profondes.",
+  src:"Dehasse — privation sensorielle"},
+
+d_peur_acquise:{fin:true,niv:"science",titre:"Peur apparue après un événement",
+  nature:"Association apprise",
+  quoi:"Une frayeur, une douleur, une mauvaise rencontre, et le chien associe durablement un lieu, un bruit ou une situation à ce qui s'est passé. Ces associations se font très vite, parfois en une seule fois, et se défont beaucoup plus lentement.",
+  cible:"Recréer des expériences neutres ou agréables, très progressivement.",
+  exos:[
+    {ou:"Principe",t:"Recommencer très loin",p:"Beaucoup plus loin, beaucoup plus faible, beaucoup plus court que ce qui paraît nécessaire."},
+    {ou:"Au quotidien",t:"Associer à quelque chose de bon",p:"La situation redoutée annonce systématiquement quelque chose d'agréable, à une intensité où le chien reste capable d'en profiter."},
+    {ou:"Attention",t:"Ne pas replonger",p:"Une seule répétition intense peut effacer des semaines de travail."}],
+  piege:"Aller trop vite parce que « ça allait mieux la semaine dernière ». Les progrès sur les peurs ne sont pas linéaires.",
+  src:"Donaldson · Dehasse"},
+
+d_peur_tardive:{fin:true,niv:"clinique",titre:"Peur apparue tardivement chez un adulte",
+  nature:"Signal à faire examiner",
+  quoi:"Un chien adulte qui devient progressivement craintif sans événement identifiable est une situation qui mérite un examen. Une douleur qui s'installe, une baisse de vue ou d'audition, un problème général peuvent se manifester d'abord par un changement de comportement.",
+  cible:"Écarter une cause médicale avant toute interprétation comportementale.",
+  exos:[
+    {ou:"D'abord",t:"Bilan vétérinaire",p:"Douleur, vue, audition, état général. Ce sont les premières hypothèses, pas les dernières."},
+    {ou:"En attendant",t:"Ne pas insister",p:"Réduire les situations difficiles plutôt que d'essayer de les faire accepter."},
+    {ou:"Ensuite",t:"Adapter selon le diagnostic",p:"Un chien qui entend ou voit moins n'a pas besoin de rééducation mais d'adaptations."}],
+  piege:"Interpréter un changement tardif comme un caprice ou un effet de l'âge. Chez l'adulte, un changement de comportement est d'abord une donnée médicale.",
+  src:"Dehasse"},
+
+d_stereotypie:{fin:true,niv:"clinique",grave:true,titre:"Comportements répétitifs — hors du champ éducatif",
+  nature:"Signal clinique",
+  quoi:"Tourner sur soi-même, se mordre la queue, se lécher jusqu'à la lésion : ces comportements répétitifs peuvent avoir une origine médicale, être liés à un état de mal-être durable, ou s'être installés comme un automatisme. Ils ne se traitent pas par des exercices trouvés sur une page web.",
+  cible:"Consulter, sans passer par une phase d'essais éducatifs.",
+  exos:[
+    {ou:"Immédiat",t:"Vétérinaire comportementaliste",p:"C'est la première étape, pas la dernière. Certaines de ces situations relèvent directement du soin."},
+    {ou:"En attendant",t:"Ne pas punir",p:"La punition d'un comportement répétitif l'aggrave le plus souvent, ou le déplace."},
+    {ou:"En attendant",t:"Noter les circonstances",p:"Quand, combien de temps, dans quel contexte. Ces informations sont précieuses pour la consultation."}],
+  piege:"Attendre de voir. Ces comportements se consolident avec le temps et deviennent beaucoup plus difficiles à traiter.",
+  src:"Dehasse — médecine du comportement"},
+
+d_ombres:{fin:true,niv:"clinique",grave:true,titre:"Poursuite d'ombres et de reflets",
+  nature:"Signal clinique",
+  quoi:"La poursuite d'ombres, de reflets ou de points lumineux est particulièrement fréquente chez les chiens de conduite. Elle ressemble à un jeu mais s'installe souvent comme un comportement compulsif difficile à interrompre, et elle occupe une place croissante dans la vie du chien.",
+  cible:"Consulter tôt, et supprimer immédiatement les déclencheurs.",
+  exos:[
+    {ou:"Immédiat",t:"Supprimer les sources",p:"Pointeurs lumineux, reflets de montre, lampes torches : plus jamais, y compris pour jouer. Ces jeux sont une cause fréquente d'installation."},
+    {ou:"Immédiat",t:"Consultation",p:"Plus le comportement est installé, plus il est difficile à traiter. C'est une situation où l'attente coûte cher."},
+    {ou:"En attendant",t:"Occuper autrement",p:"Le travail olfactif est souvent proposé comme activité de remplacement, mais il ne remplace pas la consultation."}],
+  piege:"Jouer au pointeur laser avec un chien de conduite. C'est l'exemple le plus courant d'un jeu anodin qui déclenche un vrai trouble.",
+  src:"Dehasse · McConnell"},
+
+d_fixation_objet:{fin:true,niv:"clinique",titre:"Il fixe un objet sans fin",
+  nature:"Entre l'œil et la compulsion",
+  quoi:"Un chien de conduite peut reporter son regard fixe sur des objets : une balle, une porte, un point du mur. Tant que cela reste occasionnel et interruptible, c'est une expression de sa séquence sans support adapté. Quand cela devient impossible à interrompre et occupe l'essentiel de son temps, on change de catégorie.",
+  cible:"Vérifier si c'est interruptible, et agir en conséquence.",
+  exos:[
+    {ou:"Test",t:"Pouvez-vous l'interrompre facilement ?",p:"Si oui, il manque surtout au chien une occupation adaptée. Si non, ou si cela revient aussitôt, consultez."},
+    {ou:"Au quotidien",t:"Retirer l'objet et occuper le nez",p:"Supprimer le support et proposer une activité olfactive à la place résout beaucoup de fixations naissantes."},
+    {ou:"Prudence",t:"Ne pas laisser s'installer",p:"Une fixation tolérée pendant des mois devient nettement plus difficile à défaire."}],
+  piege:"Trouver ça amusant et l'encourager. Beaucoup de troubles installés ont commencé comme une drôlerie de famille.",
+  src:"Dehasse · Coppinger"},
+
+d_separation:{fin:true,niv:"clinique",titre:"Difficile quand il reste seul",
+  nature:"Mal-être en l'absence du maître",
+  quoi:"Aboiements, destructions, malpropreté, agitation dès le départ. Attention à la lecture : un chien de travail peut aussi mal supporter la solitude simplement parce qu'il n'a rien à faire. La distinction entre les deux compte, et elle se fait mieux avec un professionnel — filmer le chien seul est souvent l'élément le plus décisif.",
+  cible:"Identifier de quoi il s'agit avant de choisir une approche.",
+  exos:[
+    {ou:"Diagnostic",t:"Filmer une absence",p:"Cela renseigne beaucoup mieux qu'un état des dégâts au retour : à quel moment ça commence, sous quelle forme, si ça retombe."},
+    {ou:"Au quotidien",t:"Des départs sans mise en scène",p:"Départs et retours neutres, sans effusions ni préparatifs longs qui annoncent l'absence."},
+    {ou:"Cadre",t:"Se faire accompagner si c'est intense",p:"Les situations sévères relèvent d'un suivi, parfois avec un accompagnement vétérinaire."}],
+  piege:"Punir au retour. Le chien n'associe pas la punition à ce qu'il a fait une heure plus tôt, et l'attente du retour devient anxieuse.",
+  src:"Dehasse · Donaldson"},
+
+d_gardiennage:{fin:true,niv:"securite",grave:true,titre:"Il grogne près de sa gamelle ou d'un objet",
+  nature:"Protection de ressource",
+  quoi:"Le chien se raidit, grogne ou montre les dents quand on approche de sa nourriture, d'un objet ou d'un endroit. C'est un comportement fréquent et cohérent du point de vue du chien, mais qui présente un risque réel de morsure, en particulier avec des enfants.",
+  cible:"Éviter tout affrontement immédiatement, et se faire accompagner.",
+  exos:[
+    {ou:"Immédiat",t:"Ne rien retirer de force",p:"Chaque confrontation aggrave le comportement et augmente le risque. Faites échanger contre mieux plutôt que de prendre."},
+    {ou:"Immédiat",t:"Protéger l'entourage",p:"Enfants tenus à l'écart des repas et des couchages, sans exception, pendant toute la durée du travail."},
+    {ou:"Cadre",t:"Accompagnement nécessaire",p:"C'est un domaine où la marge d'erreur est faible. Aucun protocole ne devrait être appliqué seul depuis une page web, y compris celle-ci."}],
+  piege:"Mettre la main dans la gamelle « pour lui montrer qui commande ». C'est le conseil le plus répandu et l'un des plus dangereux : il confirme au chien que votre approche annonce une perte.",
+  src:"Donaldson · Dehasse"},
+
+d_shutdown:{fin:true,niv:"terrain",titre:"Il se démoralise en séance",
+  nature:"Renoncement",
+  quoi:"Le chien se couche, se fige, ralentit, ne propose plus rien. Ce n'est pas du calme : c'est un arrêt. Cela survient quand les échecs s'accumulent, quand la pression est trop forte, ou quand le chien ne comprend plus ce qu'on attend. Un chien qui a renoncé n'apprend plus rien.",
+  cible:"Faire réussir, tout de suite, sur quelque chose de très facile.",
+  exos:[
+    {ou:"Immédiat",t:"Arrêter la séance",p:"Rien de bon ne sortira de la suite. On arrête et on reprend plus tard sur un exercice acquis."},
+    {ou:"Ensuite",t:"Ne demander que ce qu'il sait faire",p:"Plusieurs séances entières sur des choses réussies, sans nouveauté. On reconstruit l'envie de proposer."},
+    {ou:"Ensuite",t:"Réexaminer sa progression",p:"Un renoncement signale presque toujours des étapes trop grandes ou des critères qui changent d'une séance à l'autre."}],
+  piege:"Interpréter l'immobilité comme de la sagesse. Un chien qui ne propose plus rien n'est pas un chien calme.",
+  src:"Donaldson · Rugaas"},
+
+d_surchauffe_seance:{fin:true,niv:"clinique",titre:"Trop excité pour apprendre",
+  nature:"Excitation incompatible avec l'apprentissage",
+  quoi:"Il saute, aboie, tourne, ne tient pas en place dès qu'une séance commence. Souvent parce que la séance est devenue le moment le plus stimulant de la journée. Un chien dans cet état ne mémorise presque rien : l'apprentissage demande un niveau d'excitation moyen, ni trop bas ni trop haut.",
+  cible:"Faire commencer les séances au calme.",
+  exos:[
+    {ou:"Avant",t:"Un rituel calme d'entrée",p:"Quelques minutes d'immobilité avant de commencer. On ne démarre pas tant que le chien n'est pas posé."},
+    {ou:"Pendant",t:"Alterner action et immobilité",p:"Trente secondes d'exercice, trente secondes de calme. Le calme fait partie de la séance, ce n'est pas une pause."},
+    {ou:"Autour",t:"Réduire l'attente avant la séance",p:"Un chien qui voit les préparatifs pendant dix minutes arrive déjà saturé."}],
+  piege:"Attendre qu'il se calme tout seul en le laissant s'exciter. L'excitation ne retombe pas d'elle-même chez ces chiens, elle s'entretient.",
+  src:"Donaldson · McConnell"},
+
+d_regression:{fin:true,niv:"terrain",titre:"Il savait le faire et il ne le fait plus",
+  nature:"Perte d'un acquis",
+  quoi:"Un geste maîtrisé qui se dégrade a généralement une cause identifiable : critères qui ont glissé sans qu'on s'en aperçoive, contexte qui a changé, douleur qui s'installe, ou acquis qui n'avait jamais été aussi solide qu'on le croyait.",
+  cible:"Trouver ce qui a changé, plutôt que de réapprendre par-dessus.",
+  exos:[
+    {ou:"D'abord",t:"Vérifier le physique",p:"Une régression sur les positions — assis, couché, sauts, arrêts — est souvent le premier signe d'une gêne."},
+    {ou:"Ensuite",t:"Revenir au niveau où ça marchait",p:"Baissez jusqu'à obtenir une réussite systématique, puis remontez plus lentement qu'avant."},
+    {ou:"Ensuite",t:"Vérifier ce que vous avez changé",p:"Position, ton, moment, lieu, récompense. Les régressions viennent très souvent d'un changement du côté humain."}],
+  piege:"Répéter beaucoup plus. On consolide alors la version dégradée.",
+  src:"Donaldson"},
+
+d_seance_longue:{fin:true,niv:"terrain",titre:"Des séances trop longues",
+  nature:"Format inadapté",
+  quoi:"Les longues séances répétitives produisent surtout de la fatigue et de la lassitude. La qualité d'une séance se mesure au nombre de bonnes répétitions, pas à sa durée — et les bonnes répétitions se raréfient vite.",
+  cible:"Raccourcir fortement et multiplier les occasions.",
+  exos:[
+    {ou:"Format",t:"Trois minutes, plusieurs fois par jour",p:"Plus efficace qu'une demi-heure quotidienne, et bien plus facile à tenir dans une vraie journée."},
+    {ou:"Format",t:"Arrêter sur une réussite",p:"Toujours. Une séance qui s'arrête bien donne envie de recommencer."},
+    {ou:"Repère",t:"Compter les bonnes répétitions",p:"Dix bonnes valent mieux que quarante moyennes."}],
+  piege:"Continuer parce que « ça vient presque ». C'est en général le moment où la qualité a déjà commencé à baisser.",
+  src:"Donaldson · Scrimgeour"},
+
+d_criteres:{fin:true,niv:"science",titre:"Il ne comprend pas ce qu'on attend",
+  nature:"Critères flous ou trop grands",
+  quoi:"Quand un chien n'apprend pas, la cause la plus fréquente n'est pas son intelligence mais la façon dont l'exercice est découpé. Deux erreurs reviennent tout le temps : demander une trop grosse marche d'un coup, et changer discrètement d'exigence d'une séance à l'autre.",
+  cible:"Découper plus finement et fixer une exigence stable.",
+  exos:[
+    {ou:"Méthode",t:"Une seule chose à la fois",p:"Durée, distance, distraction : jamais deux ensemble. Si vous augmentez la distance, vous baissez tout le reste."},
+    {ou:"Méthode",t:"Écrire le critère avant de commencer",p:"Sachez précisément ce que vous acceptez et ce que vous n'acceptez pas, avant la séance. C'est le remède le plus efficace au flou."},
+    {ou:"Méthode",t:"Taux de réussite autour de huit sur dix",p:"Si le chien échoue plus souvent, l'exercice est trop dur. S'il réussit toujours, il n'apprend plus rien."}],
+  piege:"Croire que le chien est lent. Dans l'immense majorité des cas, c'est le découpage de l'exercice qui est en cause.",
+  src:"Donaldson"},
+
+d_arret_derive:{fin:true,niv:"reserve",titre:"Chien d'arrêt — l'arrêt ne tient pas",
+  nature:"Fiche de lecture, hors module complet",
+  quoi:"Le chien coule sur le gibier, part à l'envol, ou refuse d'avancer sur ordre. Ces défauts se lisent dans la même grammaire : chez le chien d'arrêt, la poursuite a été éteinte par la sélection et le blocage exagéré. Un chien qui part à l'envol est un chien chez qui cette extinction ne tient plus sous l'excitation.",
+  cible:"Ce module n'est pas construit — voici seulement où chercher.",
+  exos:[
+    {ou:"Honnêteté",t:"Cet outil ne traite pas encore la chasse",p:"Aucun exercice précis n'est proposé ici, parce qu'il n'a pas été bâti au niveau d'exigence du module troupeau."},
+    {ou:"Référence",t:"Le manuel de Godard",p:"Je dresse mon chien d'arrêt reste la référence française la plus utilisée pour braques, épagneuls, griffons, pointers et setters."},
+    {ou:"Cadre",t:"Les clubs de race et field trials",p:"Le dressage du sage à l'envol et au coup de feu se transmet sur le terrain, avec du gibier et des gens qui en font."}],
+  piege:"Appliquer au chien d'arrêt les recettes du chien de troupeau. Les deux métiers coupent la séquence à deux endroits opposés.",
+  src:"Godard · Coppinger & Feinstein"},
+
+d_gueule_dure:{fin:true,niv:"reserve",titre:"Rapport — il abîme le gibier",
+  nature:"Fiche de lecture, hors module complet",
+  quoi:"Le chien rapporte mais serre, mâchouille ou secoue. Dans la grammaire de la séquence, la saisie a été conservée chez les rapporteurs mais adoucie, et le geste de secousse éteint. Une gueule dure signale que cette modération ne tient plus, souvent sous l'effet de l'excitation.",
+  cible:"Ce module n'est pas construit — voici seulement où chercher.",
+  exos:[
+    {ou:"Honnêteté",t:"Aucun protocole détaillé ici",p:"Le rapport se travaille avec du matériel spécifique et une progression que cet outil n'a pas encore établie sérieusement."},
+    {ou:"Repère",t:"Le geste est régulé, pas absent",p:"On ne cherche pas à supprimer la saisie chez un rapporteur, seulement à la maintenir douce."},
+    {ou:"Cadre",t:"Clubs du groupe 8",p:"Une vingtaine de races partagent ce métier, avec des épreuves de travail et des encadrants qui le pratiquent."}],
+  piege:"Corriger dans la gueule du chien au moment de la remise. C'est le meilleur moyen d'obtenir un chien qui n'ose plus rapporter du tout.",
+  src:"Société centrale canine — groupe 8"},
+
+d_nez_derive:{fin:true,niv:"reserve",titre:"Travail du nez — il perd la piste ou change de trace",
+  nature:"Fiche de lecture, hors module complet",
+  quoi:"Perdre la voie dans les angles, lever la tête, partir sur une autre trace : ce sont les difficultés classiques du travail olfactif. Il faut savoir une chose que beaucoup ignorent : le stress dégrade fortement la capacité du chien à travailler du nez, et un chien pressé travaille moins bien qu'un chien calme.",
+  cible:"Ce module n'est pas construit — voici seulement où chercher.",
+  exos:[
+    {ou:"Honnêteté",t:"Aucune progression détaillée ici",p:"Les étapes du pistage — prise d'odeur, tenue de piste, angles, objets, désignation — méritent mieux qu'un résumé approximatif."},
+    {ou:"Référence",t:"Ortega, Le Flair du chien",p:"Ouvrage français de référence sur le pistage et la détection, cité comme base par les praticiens de la discipline."},
+    {ou:"Cadre",t:"Les règlements officiels",p:"La recherche utilitaire est une discipline reconnue avec quatre niveaux et des exigences précises. C'est le cadre qui définit le travail."}],
+  piege:"Presser le chien pour qu'il avance. Le travail du nez demande du temps, et l'agitation du conducteur se transmet directement à la qualité de la recherche.",
+  src:"Ortega · règlements SCC"},
+
+d_sport_derive:{fin:true,niv:"reserve",titre:"Discipline encadrée — passer par son club",
+  nature:"Hors périmètre de conseil",
+  quoi:"Agility, obérythmée, sauvetage, mordant sportif, attelage : ces disciplines ont leurs règlements, leurs progressions et leurs encadrants. Certaines, comme le sauvetage ou le mordant, comportent des contraintes techniques et de sécurité qui rendent tout conseil général inutile, voire risqué.",
+  cible:"Ce module n'est pas construit, et il ne le sera pas au niveau du conseil technique.",
+  exos:[
+    {ou:"Honnêteté",t:"Cet outil ne conseillera pas sur ces disciplines",p:"Elles supposent un encadrement direct. Une page web ne peut ni voir la séance ni corriger un geste dangereux."},
+    {ou:"Ce qui reste utile",t:"La lecture de l'état du chien",p:"Excitation, saturation, signaux de désamorçage, seuil d'apprentissage : ces notions valent dans toutes les disciplines, et se trouvent dans les fiches précédentes."},
+    {ou:"Cadre",t:"Le club et la commission concernée",p:"Chaque discipline a une commission qui publie ses règlements et forme ses juges et ses encadrants."}],
+  piege:"Chercher en ligne des protocoles de disciplines à risque. C'est exactement le cas où une information partielle fait plus de mal que pas d'information du tout.",
+  src:"Règlements des commissions SCC"}
+};
+
+/* ---- moteur de l'arbre ---- */
+let chemin=["depart"];
+const scene=document.getElementById("scene"), fil=document.getElementById("fil");
+const btnRetour=document.getElementById("retour"), btnRecommencer=document.getElementById("recommencer");
+
+/* table des parents : sert au fil d'Ariane, à l'index et aux passerelles */
+const PARENT={depart:null};
+(function(){
+  const file=["depart"];
+  while(file.length){
+    const c=file.shift(), n=ARBRE[c];
+    if(!n || n.fin) continue;
+    n.o.forEach(op=>{ if(!(op.v in PARENT)){ PARENT[op.v]=c; file.push(op.v); } });
+  }
+})();
+
+function cheminVers(cible){
+  if(!(cible in PARENT)) return ["depart"];
+  const p=[]; let c=cible;
+  while(c){ p.unshift(c); c=PARENT[c]; }
+  return p;
+}
+function libelle(parent,enfant){
+  const n=ARBRE[parent];
+  if(!n || n.fin) return "";
+  const op=n.o.find(o=>o.v===enfant);
+  if(!op) return "";
+  return op.l.length>38 ? op.l.slice(0,36)+"…" : op.l;
+}
+function allerVers(cible){
+  chemin=cheminVers(cible); afficher();
+  document.getElementById("derives").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function imprimer(mode){
+  document.body.dataset.impression=mode;
+  window.print();
+}
+window.addEventListener("afterprint",()=>{ delete document.body.dataset.impression; });
+
+function afficher(){
+  const cle=chemin[chemin.length-1], n=ARBRE[cle];
+  let f="";
+  for(let i=1;i<chemin.length;i++){
+    const l=libelle(chemin[i-1],chemin[i]);
+    if(l) f+='<span>'+l+'</span>';
+  }
+  fil.innerHTML=f;
+  btnRetour.disabled = chemin.length<=1;
+
+  if(n.fin){
+    const pr=PREUVE[n.niv]||PREUVE.terrain;
+    let h='<div class="verdict'+(n.grave?" grave":"")+'">'+
+      '<div class="v-tete"><span class="nature">'+n.nature+'</span>'+
+      '<span class="v-niveau '+pr[0]+'">'+pr[1]+'</span></div><h3>'+n.titre+'</h3>'+
+      '<div class="pave"><h5>Ce qui se passe</h5><p>'+n.quoi+'</p></div>'+
+      '<div class="cible"><h5>Ce qu\'on vise</h5><p>'+n.cible+'</p></div>'+
+      '<div class="exercices">';
+    n.exos.forEach(e=>{h+='<div class="exo"><div class="ou">'+e.ou+'</div><h6>'+e.t+'</h6><p>'+e.p+'</p></div>';});
+    h+='</div><div class="piege"><b>Le piège classique</b>'+n.piege+'</div>'+
+       '<div class="v-pied"><span class="source">'+n.src+'</span>'+
+       '<button type="button" class="btn-imp" onclick="imprimer(\'derive\')">Imprimer cette fiche</button></div></div>';
+    scene.innerHTML=h;
+  } else {
+    let h='<span class="compteur">Étape '+chemin.length+'</span>'+
+      '<div class="demande">'+n.q+'</div><div class="options">';
+    n.o.forEach((op,i)=>{h+='<button type="button" data-v="'+op.v+'"><i>'+String.fromCharCode(65+i)+'</i>'+op.l+'</button>';});
+    h+='</div>';
+    scene.innerHTML=h;
+    scene.querySelectorAll('.options button').forEach(b=>{
+      b.addEventListener("click",()=>{ chemin.push(b.dataset.v); afficher(); });
+    });
+  }
+}
+btnRetour.addEventListener("click",()=>{ if(chemin.length>1){chemin.pop(); afficher();} });
+btnRecommencer.addEventListener("click",()=>{ chemin=["depart"]; afficher(); });
+
+/* ---- index complet ---- */
+(function(){
+  const FAMILLES={trav:"Au travail, sur les animaux",quot:"Au quotidien",
+                  edu:"En séance d'éducation",autre:"Autres disciplines"};
+  const groupes={trav:[],quot:[],edu:[],autre:[]};
+  Object.keys(ARBRE).forEach(c=>{
+    if(!ARBRE[c].fin) return;
+    const p=cheminVers(c);
+    const racine=p.length>1 ? p[1] : "trav";
+    if(groupes[racine]) groupes[racine].push(c);
+  });
+  let h="";
+  Object.keys(FAMILLES).forEach(f=>{
+    if(!groupes[f].length) return;
+    h+='<h5>'+FAMILLES[f]+'</h5><ul class="liste-index">';
+    groupes[f].sort((a,b)=>ARBRE[a].titre.localeCompare(ARBRE[b].titre,"fr"));
+    groupes[f].forEach(c=>{
+      const n=ARBRE[c], pr=PREUVE[n.niv]||PREUVE.terrain;
+      h+='<li><button type="button" onclick="allerVers(\''+c+'\')">'+
+         (n.grave?'<span class="pt-alerte">•</span> ':'')+n.titre+
+         '<span class="i-niveau '+pr[0]+'">'+pr[1]+'</span></button></li>';
+    });
+    h+='</ul>';
+  });
+  document.getElementById("index-contenu").innerHTML=h;
+})();
+
+afficher();
+</script>
+</body>
+</html>
