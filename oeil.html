@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Œil — quatre degrés de regard sur le chien de conduite | Artzainak</title>
+
+    <meta name="description" content="L'Œil : quatre outils libres et gratuits sur le comportement du chien de conduite. Comprendre, se servir d'un chien formé, construire son chien, transmettre. Chaque affirmation porte son niveau de preuve.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="L'Œil — quatre degrés de regard sur le chien de conduite">
+    <meta property="og:description" content="Quatre outils libres : comprendre le comportement du chien, se servir d'un chien formé, construire son chien, transmettre. Sources et niveaux de preuve indiqués partout.">
+    <meta property="og:image" content="https://artzainak.netlify.app/images/og-image.jpg">
+    <meta property="og:url" content="https://artzainak.netlify.app/oeil.html">
+    <meta property="og:site_name" content="Artzainak">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="L'Œil — quatre degrés de regard sur le chien de conduite">
+    <meta name="twitter:description" content="Quatre outils libres sur le comportement du chien de conduite, avec les sources et leurs limites.">
+    <meta name="twitter:image" content="https://artzainak.netlify.app/images/og-image.jpg">
+
+    <link rel="alternate" hreflang="fr" href="https://artzainak.netlify.app/oeil.html">
+    <link rel="canonical" href="https://artzainak.netlify.app/oeil.html">
+
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#284533',
+                            dark: '#1a2e20'
+                        },
+                        secondary: {
+                            DEFAULT: '#e8f4f8',
+                            dark: '#c7e1ea'
+                        },
+                        /* Ajouts : « cream » était déjà utilisé dans le site sans être défini,
+                           et « ocre » complète la charte vert forêt / ocre / blanc cassé. */
+                        cream: {
+                            DEFAULT: '#fff1d2',
+                            dark: '#f5e7c8'
+                        },
+                        ocre: {
+                            DEFAULT: '#B9812F',
+                            dark: '#8E6222'
+                        },
+                        basque: {
+                            red: '#DC3545',
+                            green: '#198754'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: #B9812F;
+            margin: 1rem auto 2rem;
+        }
+        .text-forest { color: #284533; }
+
+        .social-links { display: flex; align-items: center; gap: 1rem; }
+        .social-links a {
+            padding: .5rem; border-radius: 50%; background: rgba(255,255,255,.1);
+            transition: all .3s ease; display: flex; align-items: center; justify-content: center;
+        }
+        .social-links a:hover { background: rgba(255,255,255,.2); transform: translateY(-2px); }
+
+        .footer-enhanced { background-color: #1a2e20; }
+        .footer-social-highlight {
+            background: rgba(255,241,210,.1); border-radius: 1rem;
+            padding: 1.5rem; text-align: center; margin-bottom: 2rem;
+        }
+        .footer-social-buttons { display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; }
+        .footer-social-buttons a {
+            padding: .75rem 1.5rem; border-radius: .5rem; font-weight: 600;
+            transition: all .3s ease; display: flex; align-items: center; gap: .5rem;
+        }
+        .footer-social-buttons .youtube { background: #FF0000; color: #fff; }
+        .footer-social-buttons .youtube:hover { background: #CC0000; transform: translateY(-2px); }
+        .footer-social-buttons .facebook { background: #1877F2; color: #fff; }
+        .footer-social-buttons .facebook:hover { background: #166FE5; transform: translateY(-2px); }
+
+        /* --- Degrés --- */
+        .degre {
+            border-left: 6px solid #284533;
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+        .degre:hover { transform: translateY(-4px); box-shadow: 0 12px 28px -10px rgba(40,69,51,.35); }
+        .degre.a-venir { border-left-color: #C9C0A8; }
+        .degre.a-venir:hover { transform: none; box-shadow: none; }
+
+        @media print {
+            header, .acces, .footer-enhanced, .no-print { display: none !important; }
+            .degre { break-inside: avoid; page-break-inside: avoid; border-left-width: 3px; }
+            .bloc-print { break-inside: avoid; page-break-inside: avoid; }
+            .bg-primary, .bg-primary-dark { background: #fff !important; color: #284533 !important; }
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
+
+    <!-- ============ EN-TÊTE (identique au reste du site) ============ -->
+    <header class="bg-primary p-4 text-white sticky top-0 z-10 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="images/logo.png" alt="Artzainak Logo" class="h-24 mr-2">
+                <span class="text-xl font-bold">ARTZAINAK</span>
+            </a>
+            <p class="text-lg hidden sm:block font-medium">Éducation de chiens de troupeau au Pays Basque</p>
+
+            <div class="hidden lg:flex social-links">
+                <a href="https://youtube.com/@lesdraillesauxloups?si=byronwbqN9pqV_Mg" aria-label="Notre chaîne YouTube" class="hover:scale-110 transition-transform">
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.498 6.186a2.977 2.977 0 0 0-2.096-2.108C19.548 3.75 12 3.75 12 3.75s-7.548 0-9.402.328A2.977 2.977 0 0 0 .502 6.186C.25 8.072.25 12 .25 12s0 3.928.252 5.814a2.977 2.977 0 0 0 2.096 2.108C4.452 20.25 12 20.25 12 20.25s7.548 0 9.402-.328a2.977 2.977 0 0 0 2.096-2.108C23.75 15.928 23.75 12 23.75 12s0-3.928-.252-5.814zM9.75 15.568V8.432L15.5 12l-5.75 3.568z"/>
+                    </svg>
+                </a>
+                <a href="https://www.facebook.com/artzainak.education.des.chiens.de.trou/" aria-label="Notre page Facebook" class="hover:scale-110 transition-transform">
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </a>
+            </div>
+
+            <button id="menuToggle" class="md:hidden focus:outline-none" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu principal">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <nav id="mainNav" class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="hover:underline">Accueil</a></li>
+                    <li><a href="index.html#services" class="hover:underline">Services</a></li>
+                    <li><a href="oeil.html" class="hover:underline font-bold" aria-current="page">L'Œil</a></li>
+                    <li><a href="ressources.html" class="hover:underline">Ressources</a></li>
+                    <li><a href="contact.html" class="hover:underline">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+        <nav id="mobileNav" class="hidden bg-primary-dark py-2 px-4">
+            <ul class="space-y-2">
+                <li><a href="index.html" class="block hover:underline">Accueil</a></li>
+                <li><a href="index.html#services" class="block hover:underline">Services</a></li>
+                <li><a href="oeil.html" class="block hover:underline font-bold">L'Œil</a></li>
+                <li><a href="ressources.html" class="block hover:underline">Ressources</a></li>
+                <li><a href="contact.html" class="block hover:underline">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ============ BANDEAU ============ -->
+    <section class="bg-primary text-white py-14 px-4">
+        <div class="container mx-auto flex flex-col md:flex-row items-center gap-10">
+            <div class="flex-grow">
+                <p class="uppercase tracking-widest text-xs text-ocre font-semibold mb-3">Ressources libres · gratuit</p>
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">L'Œil</h1>
+                <p class="text-lg text-cream/90 max-w-2xl">Quatre degrés de regard sur le chien de conduite. Le même animal, vu de plus en plus près — depuis la simple curiosité jusqu'à la transmission.</p>
+            </div>
+            <div class="flex-shrink-0">
+                <svg width="150" height="150" viewBox="0 0 40 40" aria-hidden="true">
+                    <ellipse cx="20" cy="20" rx="18" ry="11" fill="none" stroke="#B9812F" stroke-width="1.4"/>
+                    <circle cx="20" cy="20" r="7" fill="none" stroke="#B9812F" stroke-width="1.4"/>
+                    <circle cx="20" cy="20" r="3" fill="#B9812F"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PAR OÙ ENTRER ============ -->
+    <section class="py-14 px-4" style="background-color:#fff1d2;">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl font-bold text-center text-forest section-title">Par où entrer</h2>
+            <div class="bg-white rounded-lg shadow-md p-6 md:p-8 bloc-print">
+                <p class="mb-3 text-forest">Ce n'est pas un parcours qu'on suit du début à la fin. Ce sont <strong>quatre portes</strong>, et chacune est ouverte : prenez celle qui correspond à votre situation, pas celle où vous croyez devoir commencer.</p>
+                <p class="text-gray-600 text-sm">Le dessin de l'œil s'ouvre d'un degré à l'autre. Il ne mesure pas votre valeur : il mesure <em>combien vous regardez</em>. Un éleveur qui se sert bien d'un chien formé n'est pas « en dessous » d'un berger qui en construit un — il regarde autre chose.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ LES QUATRE DEGRÉS ============ -->
+    <section class="py-16 px-4 bg-secondary dark:bg-gray-900">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="text-3xl font-bold text-center text-forest section-title">Les quatre degrés</h2>
+
+            <div class="space-y-6">
+
+                <!-- ---------- DEGRÉ 1 ---------- -->
+                <article class="degre bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 md:p-8 grid md:grid-cols-[110px_1fr_auto] gap-6 md:gap-8 items-start">
+                    <div class="text-center">
+                        <svg width="88" height="70" viewBox="0 0 40 32" aria-hidden="true" class="mx-auto">
+                            <defs><clipPath id="a1"><ellipse cx="20" cy="16" rx="17" ry="10.5"/></clipPath></defs>
+                            <g clip-path="url(#a1)">
+                                <rect x="0" y="0" width="40" height="32" fill="#fff1d2"/>
+                                <circle cx="20" cy="16" r="6.5" fill="none" stroke="#8C8577" stroke-width="1.3"/>
+                                <circle cx="20" cy="16" r="2.6" fill="#8C8577"/>
+                                <rect x="0" y="0" width="40" height="19" fill="#fff"/>
+                                <path d="M0,19 H40" stroke="#284533" stroke-width="1.5" fill="none"/>
+                            </g>
+                            <ellipse cx="20" cy="16" rx="17" ry="10.5" fill="none" stroke="#284533" stroke-width="1.5"/>
+                        </svg>
+                        <span class="block mt-2 text-xs uppercase tracking-widest font-bold text-ocre">Degré 1</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs uppercase tracking-widest font-bold text-ocre mb-1">Comprendre</span>
+                        <h3 class="text-2xl font-bold text-forest mb-2">L'Œil</h3>
+                        <p class="text-gray-600 mb-4">Pour <strong class="text-gray-800">toute personne qui vit avec un chien</strong> et se demande pourquoi il fait ça : fixer les vélos, courir après les voitures, pincer les mollets des enfants.</p>
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <h4 class="text-xs uppercase tracking-widest font-bold text-primary mb-1">Ce que ça fait</h4>
+                                <p class="text-sm text-gray-700">Explique le comportement par la séquence de chasse. Quatorze disciplines canines, un questionnaire de profil, quarante-six problèmes courants et leurs pistes.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xs uppercase tracking-widest font-bold mb-1" style="color:#9A4A22;">Ce que ça ne fait pas</h4>
+                                <p class="text-sm" style="color:#7A3D1E;">Ne donne aucune méthode de dressage et ne remplace pas un professionnel. C'est un outil pour voir, pas pour faire.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="acces md:w-44 w-full">
+                        <a href="oeil-outil.html" class="block text-center bg-primary hover:bg-primary-dark text-white font-bold py-3 px-5 rounded-lg transition duration-300">Ouvrir L'Œil</a>
+                        <p class="text-center text-xs text-gray-500 mt-2">Page interactive · gratuit</p>
+                    </div>
+                </article>
+
+                <!-- ---------- DEGRÉ 2 ---------- -->
+                <article class="degre bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 md:p-8 grid md:grid-cols-[110px_1fr_auto] gap-6 md:gap-8 items-start">
+                    <div class="text-center">
+                        <svg width="88" height="70" viewBox="0 0 40 32" aria-hidden="true" class="mx-auto">
+                            <defs><clipPath id="a2"><ellipse cx="20" cy="16" rx="17" ry="10.5"/></clipPath></defs>
+                            <g clip-path="url(#a2)">
+                                <rect x="0" y="0" width="40" height="32" fill="#fff1d2"/>
+                                <circle cx="20" cy="16" r="6.5" fill="none" stroke="#6B6F66" stroke-width="1.3"/>
+                                <circle cx="20" cy="16" r="2.6" fill="#6B6F66"/>
+                                <rect x="0" y="0" width="40" height="14" fill="#fff"/>
+                                <path d="M0,14 H40" stroke="#284533" stroke-width="1.5" fill="none"/>
+                            </g>
+                            <ellipse cx="20" cy="16" rx="17" ry="10.5" fill="none" stroke="#284533" stroke-width="1.5"/>
+                        </svg>
+                        <span class="block mt-2 text-xs uppercase tracking-widest font-bold text-ocre">Degré 2</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs uppercase tracking-widest font-bold text-ocre mb-1">Se servir</span>
+                        <h3 class="text-2xl font-bold text-forest mb-2">Mode d'emploi</h3>
+                        <p class="text-gray-600 mb-4">Pour <strong class="text-gray-800">l'éleveur qui a acheté ou repris un chien déjà formé</strong> et doit maintenant s'en servir sans défaire ce qu'un autre a construit.</p>
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <h4 class="text-xs uppercase tracking-widest font-bold text-primary mb-1">Ce que ça fait</h4>
+                                <p class="text-sm text-gray-700">Treize fiches d'une page : les questions à poser au vendeur, le vocabulaire du chien, où se placer, les cinq tâches courantes, ce qui abîme un chien formé, l'entretien.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xs uppercase tracking-widest font-bold mb-1" style="color:#9A4A22;">Ce que ça ne fait pas</h4>
+                                <p class="text-sm" style="color:#7A3D1E;">N'apprend pas à dresser, et ne dit pas comment rattraper un chien déjà dégradé. À ce stade, on appelle quelqu'un.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="acces md:w-44 w-full">
+                        <a href="documents/mode-emploi-eleveur.pdf" class="block text-center bg-primary hover:bg-primary-dark text-white font-bold py-3 px-5 rounded-lg transition duration-300">Télécharger</a>
+                        <p class="text-center text-xs text-gray-500 mt-2">PDF · 15 pages · à imprimer</p>
+                    </div>
+                </article>
+
+                <!-- ---------- DEGRÉ 3 ---------- -->
+                <article class="degre bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 md:p-8 grid md:grid-cols-[110px_1fr_auto] gap-6 md:gap-8 items-start">
+                    <div class="text-center">
+                        <svg width="88" height="70" viewBox="0 0 40 32" aria-hidden="true" class="mx-auto">
+                            <defs><clipPath id="a3"><ellipse cx="20" cy="16" rx="17" ry="10.5"/></clipPath></defs>
+                            <g clip-path="url(#a3)">
+                                <rect x="0" y="0" width="40" height="32" fill="#fff1d2"/>
+                                <circle cx="20" cy="16" r="6.5" fill="none" stroke="#284533" stroke-width="1.3"/>
+                                <circle cx="20" cy="16" r="2.6" fill="#1a2e20"/>
+                                <rect x="0" y="0" width="40" height="9.5" fill="#fff"/>
+                                <path d="M0,9.5 H40" stroke="#284533" stroke-width="1.5" fill="none"/>
+                            </g>
+                            <ellipse cx="20" cy="16" rx="17" ry="10.5" fill="none" stroke="#284533" stroke-width="1.5"/>
+                        </svg>
+                        <span class="block mt-2 text-xs uppercase tracking-widest font-bold text-ocre">Degré 3</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs uppercase tracking-widest font-bold text-ocre mb-1">Construire</span>
+                        <h3 class="text-2xl font-bold text-forest mb-2">Premiers pas</h3>
+                        <p class="text-gray-600 mb-4">Pour <strong class="text-gray-800">le berger débutant qui forme son propre chien</strong>, avec quelqu'un d'expérimenté à côté de lui.</p>
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <h4 class="text-xs uppercase tracking-widest font-bold text-primary mb-1">Ce que ça fait</h4>
+                                <p class="text-sm text-gray-700">Seize étapes en cinq parties, du premier contact au mener. Pour chacune : ce qu'on cherche, ce qu'on regarde, le signe qu'on peut avancer, l'erreur classique. Et une partie sur ce que le troupeau subit pendant l'apprentissage.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xs uppercase tracking-widest font-bold mb-1" style="color:#9A4A22;">Ce que ça ne fait pas</h4>
+                                <p class="text-sm" style="color:#7A3D1E;">N'apprend pas à dresser un chien — cela ne s'apprend pas dans un document. Il apprend à regarder pendant qu'on apprend avec quelqu'un.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="acces md:w-44 w-full">
+                        <a href="premiers-pas.html" class="block text-center bg-primary hover:bg-primary-dark text-white font-bold py-3 px-5 rounded-lg transition duration-300">Ouvrir le guide</a>
+                        <p class="text-center text-xs text-gray-500 mt-2">Page · s'imprime aussi</p>
+                    </div>
+                </article>
+
+                <!-- ---------- DEGRÉ 4 ---------- -->
+                <article class="degre a-venir bg-gray-50 dark:bg-gray-800 rounded-lg shadow p-6 md:p-8 grid md:grid-cols-[110px_1fr_auto] gap-6 md:gap-8 items-start">
+                    <div class="text-center">
+                        <svg width="88" height="70" viewBox="0 0 40 32" aria-hidden="true" class="mx-auto">
+                            <defs><clipPath id="a4"><ellipse cx="20" cy="16" rx="17" ry="10.5"/></clipPath></defs>
+                            <g clip-path="url(#a4)">
+                                <rect x="0" y="0" width="40" height="32" fill="#F7F6F2"/>
+                                <circle cx="20" cy="16" r="6.5" fill="none" stroke="#C9C0A8" stroke-width="1.3"/>
+                                <circle cx="20" cy="16" r="2.6" fill="#C9C0A8"/>
+                            </g>
+                            <ellipse cx="20" cy="16" rx="17" ry="10.5" fill="none" stroke="#C9C0A8" stroke-width="1.5" stroke-dasharray="3 2.5"/>
+                        </svg>
+                        <span class="block mt-2 text-xs uppercase tracking-widest font-bold text-gray-400">Degré 4</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs uppercase tracking-widest font-bold text-gray-400 mb-1">Transmettre</span>
+                        <h3 class="text-2xl font-bold text-gray-500 mb-2">L'atelier</h3>
+                        <p class="text-gray-500 mb-4">Pour <strong class="text-gray-600">celui qui enseigne</strong> — formateur, maître de stage, berger qui accompagne un débutant.</p>
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <h4 class="text-xs uppercase tracking-widest font-bold text-gray-400 mb-1">Ce que ce sera</h4>
+                                <p class="text-sm text-gray-500">L'appareil critique complet : le modèle de la séquence prédatrice, ce que l'observation en confirme et en conteste, les sources avec leurs limites, et de quoi bâtir une séance.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xs uppercase tracking-widest font-bold text-gray-400 mb-1">Ce que ce ne sera pas</h4>
+                                <p class="text-sm text-gray-500">Ni un référentiel officiel, ni une certification. Un outil de travail, discutable et daté.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="acces md:w-44 w-full">
+                        <span class="block text-center bg-gray-200 text-gray-500 font-bold py-3 px-5 rounded-lg cursor-default">En construction</span>
+                        <p class="text-center text-xs text-gray-400 mt-2">Automne 2026</p>
+                    </div>
+                </article>
+
+            </div>
+
+            <p class="text-center text-sm text-gray-500 italic mt-8">Aucun degré n'est fermé, aucun n'est un préalable. On peut entrer par le troisième et redescendre au premier.</p>
+        </div>
+    </section>
+
+    <!-- ============ À EMPORTER ============ -->
+    <section class="py-16 px-4" style="background-color:#fff1d2;">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="text-3xl font-bold text-center text-forest section-title">À emporter</h2>
+            <p class="text-center text-forest max-w-2xl mx-auto mb-10">Ce qui se plie, se salit et tient dans une poche. Rien de tout cela n'a besoin de réseau.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg shadow-md p-6 bloc-print">
+                    <svg class="h-10 w-10 mb-3 text-ocre" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    <h3 class="text-lg font-semibold text-forest mb-1">Clé de détermination</h3>
+                    <p class="text-sm text-gray-600 mb-4">Éthogrammes simplifiés, patrons moteurs, réponses adaptées. L'outil de terrain, schématique.</p>
+                    <a href="documents/cle-de-determination.pdf" class="text-primary font-semibold text-sm hover:underline">Télécharger le PDF →</a>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 bloc-print">
+                    <svg class="h-10 w-10 mb-3 text-ocre" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                    <h3 class="text-lg font-semibold text-forest mb-1">Mode d'emploi de l'éleveur</h3>
+                    <p class="text-sm text-gray-600 mb-4">Quinze pages, une fiche par page, avec des cases à remplir pour votre chien.</p>
+                    <a href="documents/mode-emploi-eleveur.pdf" class="text-primary font-semibold text-sm hover:underline">Télécharger le PDF →</a>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 bloc-print">
+                    <svg class="h-10 w-10 mb-3 text-ocre" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+                    </svg>
+                    <h3 class="text-lg font-semibold text-forest mb-1">Premiers pas</h3>
+                    <p class="text-sm text-gray-600 mb-4">Le guide du débutant s'imprime proprement depuis la page, partie par partie.</p>
+                    <a href="premiers-pas.html" class="text-primary font-semibold text-sm hover:underline">Ouvrir puis imprimer →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ LIMITES ============ -->
+    <section class="py-16 px-4 bg-primary text-white">
+        <div class="container mx-auto max-w-3xl">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6">Ce que ces outils valent, et ce qu'ils ne valent pas</h2>
+            <p class="mb-4 text-cream/90">Tout ce qui est écrit ici porte un <strong class="text-white">niveau de preuve</strong> : ce qui est publié et relu par des pairs, ce qui est publié mais repose sur peu de cas, ce qui est un cadre de lecture non vérifié, et ce qui relève du <strong class="text-white">savoir de métier</strong> — transmis, éprouvé, jamais mesuré.</p>
+            <p class="mb-4 text-cream/90">Le cadre de la séquence prédatrice, qui traverse les quatre degrés, est un <strong class="text-white">cadre de lecture, pas un fait démontré</strong> : le premier éthogramme observé de la prédation chez le chien, publié en 2024, ne retrouve pas la chaîne annoncée. Nous le gardons parce que c'est le meilleur outil disponible, et nous le disons.</p>
+            <p class="text-cream/90">Ces documents aident à observer et à décider. Ils ne remplacent ni un examen vétérinaire, ni l'accompagnement d'une personne expérimentée.</p>
+        </div>
+    </section>
+
+    <!-- ============ APPEL ============ -->
+    <section class="py-14 px-4 bg-secondary">
+        <div class="container mx-auto max-w-3xl text-center">
+            <h2 class="text-2xl font-bold text-forest mb-3">Une question sur votre chien ?</h2>
+            <p class="text-forest mb-6">Ces outils aident à observer. Pour le reste, on en parle de vive voix.</p>
+            <a href="contact.html" class="inline-block bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-lg transition duration-300">Nous contacter</a>
+        </div>
+    </section>
+
+    <!-- ============ PIED DE PAGE (identique au reste du site) ============ -->
+    <footer class="py-12 px-4 bg-primary footer-enhanced text-white">
+        <div class="container mx-auto">
+
+            <div class="footer-social-highlight">
+                <h3 class="text-xl font-bold mb-2">Suivez-nous sur nos réseaux sociaux</h3>
+                <p class="text-gray-200 mb-4">Découvrez nos vidéos d'entraînement et restez connectés avec la communauté Artzainak</p>
+                <div class="footer-social-buttons">
+                    <a href="https://youtube.com/@lesdraillesauxloups?si=byronwbqN9pqV_Mg" class="youtube">
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23.498 6.186a2.977 2.977 0 0 0-2.096-2.108C19.548 3.75 12 3.75 12 3.75s-7.548 0-9.402.328A2.977 2.977 0 0 0 .502 6.186C.25 8.072.25 12 .25 12s0 3.928.252 5.814a2.977 2.977 0 0 0 2.096 2.108C4.452 20.25 12 20.25 12 20.25s7.548 0 9.402-.328a2.977 2.977 0 0 0 2.096-2.108C23.75 15.928 23.75 12 23.75 12s0-3.928-.252-5.814zM9.75 15.568V8.432L15.5 12l-5.75 3.568z"/>
+                        </svg>
+                        Notre chaîne YouTube
+                    </a>
+                    <a href="https://www.facebook.com/artzainak.education.des.chiens.de.trou/" class="facebook">
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                        Page Facebook
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="images/logo.png" alt="Artzainak Logo" class="h-16 w-auto mr-3 object-contain">
+                        <div>
+                            <h2 class="text-xl font-bold">ARTZAINAK</h2>
+                            <p class="text-sm text-gray-300">Éducation de chiens de troupeau</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">Spécialiste de la formation des chiens de berger et des services d'écopâturage au Pays Basque. Notre approche respecte l'instinct naturel du chien tout en développant une relation de confiance avec son maître.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Contactez-nous</h3>
+                    <div class="space-y-4">
+                        <p class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-secondary flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Ahetzia (Ordiarp), Pays Basque<br><span class="text-sm text-gray-400">Interventions à domicile (terrain et brebis requis)</span></span>
+                        </p>
+                        <p class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-secondary flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                            </svg>
+                            <span>+33 (0) 608 919 431</span>
+                        </p>
+                        <p class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 mt-1 text-secondary flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                            </svg>
+                            <span>takalowshin@gmail.com</span>
+                        </p>
+                    </div>
+
+                    <div class="mt-8">
+                        <h4 class="font-semibold mb-4">Navigation rapide</h4>
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="reservation.html" class="text-gray-300 hover:text-white transition-colors">Réserver un cours</a>
+                            <a href="location.html" class="text-gray-300 hover:text-white transition-colors">Louer des brebis</a>
+                            <a href="evaluation.html" class="text-gray-300 hover:text-white transition-colors">Évaluation</a>
+                            <a href="ressources.html" class="text-gray-300 hover:text-white transition-colors">Ressources</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm text-gray-400 mb-4 md:mb-0">&copy; 2025 Artzainak. Tous droits réservés.</p>
+                    <div class="flex gap-6">
+                        <a href="mentions-legales.html" class="text-sm text-gray-400 hover:text-white transition-colors">Mentions légales</a>
+                        <a href="politique-confidentialite.html" class="text-sm text-gray-400 hover:text-white transition-colors">Politique de confidentialité</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Métadonnées structurées -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "L'Œil — quatre degrés de regard sur le chien de conduite",
+      "url": "https://artzainak.netlify.app/oeil.html",
+      "inLanguage": "fr",
+      "isPartOf": { "@type": "WebSite", "name": "Artzainak", "url": "https://artzainak.netlify.app/" },
+      "about": "Comportement et éducation du chien de conduite",
+      "publisher": { "@type": "Organization", "name": "Artzainak" }
+    }
+    </script>
+
+    <script src="js/script.js"></script>
+    <script src="js/mobile-optimizations.js"></script>
+    <script src="js/performance-optimizations.js"></script>
+    <script src="js/floating-cta.js"></script>
+    <script src="js/marketing-tracking.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.getElementById('menuToggle');
+            const mobileNav = document.getElementById('mobileNav');
+            if (menuToggle && mobileNav) {
+                menuToggle.addEventListener('click', function () {
+                    mobileNav.classList.toggle('hidden');
+                    const isExpanded = !mobileNav.classList.contains('hidden');
+                    menuToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+                });
+                document.addEventListener('click', function (e) {
+                    if (!mobileNav.classList.contains('hidden') &&
+                        !mobileNav.contains(e.target) &&
+                        !menuToggle.contains(e.target)) {
+                        mobileNav.classList.add('hidden');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

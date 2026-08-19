@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Premiers pas — Guide d'observation pour le berger débutant et son chien</title>
+<style>
+:root{
+  --vert:#284533; --vert-clair:#3A614A; --ocre:#B9812F;
+  --ocre-pale:#FFF1D2; --creme:#FDF9F0; --creme-fonce:#EFE7D6;
+  --encre:#22261F; --gris:#6B6F66;
+  --serif:"Source Serif 4","Source Serif Pro",Georgia,"Times New Roman",serif;
+  --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--creme);color:var(--encre);font-family:var(--sans);font-size:17px;line-height:1.62}
+.page{max-width:840px;margin:0 auto;padding:0 20px 90px}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.18;margin:0}
+a{color:var(--vert-clair)}
+
+header{background:var(--vert);color:var(--creme);padding:52px 0 44px}
+header .page{padding-bottom:0}
+.surtitre{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ocre);margin-bottom:12px}
+h1{font-size:2.7rem;margin-bottom:10px}
+.st{font-family:var(--serif);font-size:1.15rem;color:#CFD8CC;margin:0}
+
+.avant{background:var(--ocre-pale);border-left:5px solid var(--ocre);padding:24px 26px;border-radius:0 6px 6px 0;margin:38px 0 14px}
+.avant h2{font-size:1.2rem;margin-bottom:10px}
+.avant p{margin:0 0 11px;font-size:.98rem}
+.avant p:last-child{margin-bottom:0}
+.note-enr{font-size:.85rem;color:var(--gris);margin:0 0 40px;font-style:italic}
+
+nav.sommaire{background:#fff;border:1px solid var(--creme-fonce);border-radius:8px;padding:18px 24px;margin-bottom:46px}
+nav.sommaire h2{font-size:1rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ocre);margin-bottom:10px}
+nav.sommaire ol{list-style:none;margin:0;padding:0}
+nav.sommaire li{margin:6px 0}
+nav.sommaire a{text-decoration:none;font-family:var(--serif);font-size:1.12rem}
+nav.sommaire a:hover{text-decoration:underline}
+.s-num{display:inline-block;width:34px;color:var(--ocre);font-weight:600}
+
+.partie{margin-bottom:60px}
+.partie-tete{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--vert);padding-bottom:8px;margin-bottom:14px}
+.p-num{font-family:var(--serif);font-size:2rem;color:var(--ocre);line-height:1}
+.partie-tete h2{font-size:1.85rem}
+.partie-intro{color:var(--gris);margin:0 0 26px;font-size:.97rem}
+
+.etape{background:#fff;border:1px solid var(--creme-fonce);border-radius:8px;padding:20px 24px;margin-bottom:16px}
+.etape-tete{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+.etape-tete > div{flex:1}
+.etape-num{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);display:block;margin-bottom:2px}
+.etape h3{font-size:1.3rem}
+
+.coche{position:relative;flex:0 0 auto;margin-top:4px;cursor:pointer}
+.coche input{position:absolute;opacity:0;width:24px;height:24px;margin:0;cursor:pointer}
+.coche span{display:block;width:24px;height:24px;border:2px solid var(--vert-clair);border-radius:5px;background:#fff}
+.coche input:checked + span{background:var(--vert);border-color:var(--vert)}
+.coche input:checked + span::after{content:"";position:absolute;left:8px;top:3px;width:6px;height:12px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(43deg)}
+.coche input:focus-visible + span{outline:3px solid var(--ocre);outline-offset:2px}
+
+.badge{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:3px;white-space:nowrap;flex:0 0 auto}
+.b-a{background:#20502F;color:#fff}
+.b-b{background:#4E7A4C;color:#fff}
+.b-c{background:var(--ocre);color:#fff}
+.b-d{background:#8C8577;color:#fff}
+
+dl.quatre{margin:0;display:grid;grid-template-columns:1fr;gap:0}
+dl.quatre dt{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ocre);font-weight:700;margin-top:14px}
+dl.quatre dt:first-child{margin-top:0}
+dl.quatre dd{margin:4px 0 0;font-size:.97rem}
+dl.quatre .dt-err{color:#9A4A22}
+dl.quatre .dd-err{color:#7A3D1E}
+
+.note{margin:16px 0 0;padding:13px 16px;background:var(--creme);border-radius:6px;font-size:.9rem;color:#3A4438}
+.note-t{display:block;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--vert-clair);font-weight:700;margin-bottom:4px}
+
+.annexe{border-top:3px solid var(--vert);padding-top:30px;margin-top:20px}
+.annexe h2{font-size:1.7rem;margin-bottom:6px}
+.annexe h3{font-size:1.25rem;margin:34px 0 6px}
+.annexe p.intro{color:var(--gris);font-size:.95rem;margin:0 0 16px}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--creme-fonce);border-radius:8px;overflow:hidden;font-size:.93rem}
+th,td{text-align:left;padding:11px 14px;vertical-align:top;border-bottom:1px solid var(--creme-fonce)}
+tr:last-child th,tr:last-child td{border-bottom:none}
+thead th{background:var(--vert);color:var(--creme);font-family:var(--sans);font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:600}
+tbody th{font-family:var(--serif);font-size:1.05rem;font-weight:600;width:24%}
+.en{display:block;font-family:var(--sans);font-size:11px;color:var(--gris);font-style:italic;font-weight:400}
+.appui{color:var(--vert-clair);font-size:.88rem}
+
+.echelle{background:var(--creme-fonce);border-radius:8px;padding:18px 22px;margin:16px 0 10px;font-size:.9rem}
+.echelle div{margin-bottom:8px;display:flex;gap:10px;align-items:baseline}
+.echelle div:last-child{margin-bottom:0}
+
+ul.sources{list-style:none;margin:14px 0 0;padding:0}
+ul.sources li{background:#fff;border:1px solid var(--creme-fonce);border-radius:6px;padding:13px 16px;margin-bottom:10px;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start}
+ul.sources .ref{font-size:.9rem}
+ul.sources .apport{grid-column:2;color:var(--gris);font-size:.86rem}
+
+.pied{margin-top:44px;padding:18px 22px;background:var(--vert);color:#D8DFD5;border-radius:8px;font-size:.88rem}
+footer{margin-top:28px;font-size:.8rem;color:var(--gris);text-align:center}
+
+/* ---------- bandes reprises du site Artzainak ---------- */
+.bande{background:var(--vert);color:#fff;padding:12px 0;position:sticky;top:0;z-index:20;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.bande .page{padding-bottom:0;display:flex;align-items:center;gap:20px;flex-wrap:wrap;max-width:900px}
+.bande .marque{font-family:var(--serif);font-weight:700;font-size:1.05rem;letter-spacing:.04em;color:#fff;text-decoration:none;margin-right:auto}
+.bande nav{display:flex;gap:18px;flex-wrap:wrap}
+.bande a{color:#DCE5DC;text-decoration:none;font-size:.86rem}
+.bande a:hover{text-decoration:underline;color:#fff}
+.bande a.actif{color:var(--ocre);font-weight:600}
+.bande-bas{background:#1F3728;color:#B7C4B5;padding:26px 0;font-size:.85rem;margin-top:56px}
+.bande-bas .page{padding-bottom:0;max-width:900px;display:flex;gap:20px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.bande-bas a{color:#DCE5DC}
+
+@media (max-width:620px){
+  body{font-size:16px} h1{font-size:2rem}
+  .partie-tete h2{font-size:1.5rem}
+  tbody th{width:auto}
+  table,thead,tbody,tr,th,td{display:block}
+  thead{display:none}
+  td{padding-top:0}
+}
+@media print{
+  body{background:#fff;font-size:11pt}
+  header{background:#fff;color:var(--encre);border-bottom:3px solid var(--vert);padding:0 0 16px}
+  .st{color:var(--gris)} .surtitre{color:var(--ocre)}
+  nav.sommaire,.bande,.bande-bas{display:none}
+  .page{max-width:none;padding:0}
+  .etape,.note,table,.echelle,ul.sources li,.avant,.partie-tete,.pied{break-inside:avoid;page-break-inside:avoid}
+  .partie{break-before:page;page-break-before:always}
+  .partie:first-of-type{break-before:auto;page-break-before:auto}
+  .annexe{break-before:page;page-break-before:always}
+  .pied{background:#fff;color:var(--encre);border:2px solid var(--vert)}
+  a{color:var(--encre);text-decoration:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bande">
+  <div class="page">
+    <a class="marque" href="index.html">ARTZAINAK</a>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="index.html#services">Services</a>
+      <a href="oeil.html" class="actif">L'Œil</a>
+      <a href="ressources.html">Ressources</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</div>
+
+<header>
+  <div class="page">
+    <div class="surtitre">L'Œil · degré 3 · version 1.1 · 2026-08-19</div>
+    <h1>Premiers pas</h1>
+    <p class="st">Guide d'observation pour le berger débutant et son chien</p>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="avant">
+    <h2>Lis ceci avant tout le reste</h2>
+    <p>Ce document n'apprend pas à dresser un chien. On n'apprend pas ça dans un document, et quiconque te dit le contraire te vend quelque chose.</p><p>Ce qu'il fait, c'est t'apprendre à <strong>regarder</strong> — pendant que tu apprends à travailler avec quelqu'un qui sait. Un chien de conduite se construit devant des brebis, avec un œil expérimenté à côté. Le reste est du bavardage.</p><p>Alors sers-t'en comme d'un carnet de route : avant la séance pour savoir ce que tu cherches, après la séance pour comprendre ce que tu as vu. Et emmène tes questions à celui ou celle qui t'accompagne.</p>
+  </div>
+  <p class="note-enr">Rien n'est enregistré sur cette page : si tu coches des cases, elles disparaissent à la fermeture. Imprime la page si tu veux garder tes notes.</p>
+
+  <nav class="sommaire">
+    <h2>Les cinq parties</h2>
+    <ol><li><a href="#partie-I"><span class="s-num">I</span> Avant le troupeau</a></li><li><a href="#partie-II"><span class="s-num">II</span> Le premier contact</a></li><li><a href="#partie-III"><span class="s-num">III</span> Construire</a></li><li><a href="#partie-IV"><span class="s-num">IV</span> Quand ça ne va pas</a></li><li><a href="#partie-V"><span class="s-num">V</span> Les brebis</a></li></ol>
+  </nav>
+
+  
+  <section class="partie" id="partie-I">
+    <div class="partie-tete">
+      <span class="p-num">I</span>
+      <h2>Avant le troupeau</h2>
+    </div>
+    <p class="partie-intro">Trois choses à régler avant que le chien voie une brebis. Elles paraissent lentes. Elles font gagner une saison.</p>
+    
+    <article class="etape" id="etape-1">
+      <div class="etape-tete">
+        <label class="coche"><input type="checkbox" aria-label="Étape faite"><span></span></label>
+        <div>
+          <span class="etape-num">Étape 1</span>
+          <h3>Le chien qu'on a, pas celui qu'on voudrait</h3>
+        </div>
+        <span class="badge b-d" title="Savoir de métier">D · Savoir de métier</span>
+      </div>
+      <dl class="quatre">
+        <dt>Ce qu'on cherche</dt><dd>Savoir ce qu'on peut raisonnablement attendre de cet individu-là — pas de la race, pas du chien du voisin.</dd>
+        <dt>Ce qu'on regarde</dt><dd>Son âge, son origine, ce qu'il a déjà vécu. Un chien qui n'a jamais vu de bêtes à dix-huit mois n'est pas un chien de deux mois. Regarde surtout comment il réagit à ce qui bouge vite : un vélo, un chat, un tracteur.</dd>
+        <dt>Le signe qu'on peut passer à la suite</dt><dd>Tu peux dire en trois phrases ce que ce chien est, sans employer le mot « devrait ».</dd>
+        <dt class="dt-err">L'erreur classique</dt><dd class="dd-err">Attendre le chien de la vidéo. Ce que tu vois en concours est le résultat de plusieurs années et d'une sélection sévère.</dd>
+      </dl>
+      <p class="note"><span class="note-t">Ce que disent les sources</span>La sélection joue, mais elle ne décide pas seule : l'expérience acquise peut l'emporter sur la prédisposition de race (Udell et al. 2014). Et il n'existe pas de gène unique de la conduite (Pilarczyk et al. 2026).</p>
+    </article>
+    <article class="etape" id="etape-2">
+      <div class="etape-tete">
+        <label class="coche"><input type="checkbox" aria-label="Étape faite"><span></span></label>
+        <div>
+          <span class="etape-num">Étape 2</span>
+          <h3>Trois choses installées avant les brebis</h3>
+        </div>
+        <span class="badge b-d" title="Savoir de métier">D · Savoir de métier</span>
+      </div>
+      <dl class="quatre">
+        <dt>Ce qu'on cherche</dt><dd>Venir quand on appelle. S'arrêter net. Se coucher et y rester.</dd>
+        <dt>Ce qu'on regarde</dt><dd>Est-ce que ça tient <em>quand il y a autre chose d'intéressant</em> ? Un rappel qui marche dans la cuisine ne vaut rien dans un parc. Teste-le là où ça le distrait, avant les brebis.</dd>
+        <dt>Le signe qu'on peut passer à la suite</dt><dd>Les trois tiennent dehors, avec du mouvement autour, sans que tu aies à crier.</dd>
+        <dt class="dt-err">L'erreur classique</dt><dd class="dd-err">Aller au troupeau parce que le chien « a envie ». L'envie n'est pas le problème : c'est le frein qui manque.</dd>
+      </dl>
+      <p class="note"><span class="note-t">Ce que disent les sources</span>Le renforcement réduit les troubles du comportement ; les méthodes aversives — collier électrique, punition — augmentent la peur et l'agression (Pilarczyk et al. 2026, revue de 64 publications).</p>
+    </article>
+    <article class="etape" id="etape-3">
+      <div class="etape-tete">
+        <label class="coche"><input type="checkbox" aria-label="Étape faite"><span></span></label>
+        <div>
+          <span class="etape-num">Étape 3</span>
+          <h3>Le berger avant le chien</h3>
+        </div>
+        <span class="badge b-d" title="Savoir de métier">D · Savoir de métier</span>
+      </div>
+      <dl class="quatre">
+        <dt>Ce qu'on cherche</dt><dd>Comprendre que ta position dans le parc est la première consigne que le chien reçoit, avant tout mot.</dd>
+        <dt>Ce qu'on regarde</dt><dd>Toi. Où sont tes pieds, vers où pointe ton corps, à quelle distance des bêtes tu te tiens. Filme-toi une fois : la plupart des débutants découvrent qu'ils reculent quand ils croient avancer.</dd>
+        <dt>Le signe qu'on peut passer à la suite</dt><dd>Tu peux annoncer à l'avance ce que ton déplacement va produire sur le lot.</dd>
+        <dt class="dt-err">L'erreur classique</dt><dd class="dd-err">Croire que le travail se fait à la voix. La voix arrive en dernier.</dd>
+      </dl>
+      
+    </article>
+  </section>
+  <section class="partie" id="partie-II">
+    <div class="partie-tete">
+      <span class="p-num">II</span>
+      <h2>Le premier contact</h2>
+    </div>
+    <p class="partie-intro">Le moment le plus regardé et le plus mal lu de toute la progression. Il ne décide de rien à lui seul.</p>
+    
+    <article class="etape" id="etape-4">
+      <div class="etape-tete">
+        <label class="coche"><input type="checkbox" aria-label="Étape faite"><span></span></label>
+        <div>
+          <span class="etape-num">Étape 4</span>
+          <h3>Ce qui va se passer, et ce qui ne doit pas se passer</h3>
+        </div>
+        <span class="badge b-d" title="Savoir de métier">D · Savoir de métier</span>
+      </div>
+      <dl class="quatre">
+        <dt>Ce qu'on cherche</dt><dd>Un lot calme, un espace clos pas trop grand, des bêtes habituées au chien, et quelqu'un d'expérimenté avec toi. C'est tout.</dd>
+        <dt>Ce qu'on regarde</dt><dd>Que personne — ni toi, ni le chien, ni les brebis — ne soit acculé. Un animal sans issue prend des décisions qu'il ne prendrait pas autrement.</dd>
+        <dt>Le signe qu'on peut passer à la suite</dt><dd>La séance dure quelques minutes et se termine sur ta décision, pas sur l'épuisement.</dd>
+        <dt class="dt-err">L'erreur classique</dt><dd class="dd-err">Le grand parc, le gros lot, les brebis neuves, et personne à côté. C'est ainsi qu'on fabrique en dix minutes un problème qui dure deux ans.</dd>
+      </dl>
+      
+    </article>
+    <article class="etape" id="etape-5">
+      <div class="etape-tete">
+        <label class="coche"><input type="checkbox" aria-label="Étape faite"><span></span></label>
+        <div>
+          <span class="etape-num">Étape 5</span>
+          <h3>Lire ce que fait le chien : les quatre phases</h3>
+        </div>
+        <span class="badge b-b" title="Publié, à nuancer">B · Publié, à nuancer</span>
+      </div>
+      <dl class="quatre">
+        <dt>Ce qu'on cherche</dt><dd>Savoir nommer ce que tu vois, au lieu de dire « il est fou » ou « il a l'instinct ».</dd>
+        <dt>Ce qu'on regarde</dt><dd>Chercher, approcher, poursuivre, mordre. Ce sont quatre <em>fonctions</em>, pas quatre gestes obligatoires. Toutes n'apparaissent pas, et pas toujours dans cet ordre. Le tableau de lecture est en fin de guide.</dd>
+        <dt>Le signe qu'on peut passer à la suite</dt><dd>Tu sais dire, après une séance, sur quelle phase ton chien passe le plus de temps et laquelle lui manque.</dd>
+        <dt class="dt-err">L'erreur classique</dt><dd class="dd-err">Chercher une séquence bien rangée. Elle n'est pas rangée. Chez les chiens observés en 2024, l'immobilité du regard et l'avancée lente alternaient sans ordre fixe.</dd>
+      </dl>
+      <p class="note"><span class="note-t">Ce que disent les sources</span>Les quatre phases viennent de Broseghini et al. (2024), premier éthogramme observé de la prédation chez le chien. Attention : cette étude ne portait pas sur des chiens de conduite, écartés à dessein. On s'en sert comme grille de lecture, pas comme preuve.</p>
+    </article>
+    <article class="etape" id="etape-6">
+      <div class="etape-tete">
+        <label class="coche"><input type="checkbox" aria-label="Étape faite"><span></span></label>
+        <div>
+          <span class="etape-num">Étape 6</span>
+          <h3>Les trois issues du premier contact</h3>
+        </div>
+        <span class="badge b-d" title="Savoir de métier">D · Savoir de métier</span>
+      </div>
+      <dl class="quatre">
+        <dt>Ce qu'on cherche</dt><dd>Ranger ce que tu as vu dans l'une des trois issues, sans dramatiser.</dd>
+        <dt>Ce qu'on regarde</dt><dd><strong>Le chien s'intéresse et se règle</strong> : il tourne, il ralentit, il regarde vers toi. Rien à faire de plus aujourd'hui. — <strong>Le chien s'allume</strong> : il fonce, il coupe, il ne t'entend plus. On raccourcit, on rend le parc plus petit, on revient. — <strong>Le chien se détourne</strong> : il renifle, il s'éloigne, il fait autre chose. On arrête, on ne force pas, et on recommence bien plus tard.</dd>
+        <dt>Le signe qu'on peut passer à la suite</dt><dd>Tu as choisi ton issue et tu sais quelle est la séance suivante.</dd>
+        <dt class="dt-err">L'erreur classique</dt><dd class="dd-err">Conclure. Un premier contact ne dit pas si un chien fera un chien de troupeau. Il dit ce qu'on fait la semaine prochaine.</dd>
+      </dl>
+      
+    </article>
+  </section>
+  <section class="partie" id="partie-III">
+    <div class="partie-tete">
+      <span class="p-num">III</span>
+      <h2>Construire</h2>
+    </div>
+    <p class="partie-intro">L'ordre compte plus que la vitesse. On installe le frein avant le moteur, et la distance avant la précision.</p>
+    
+    <article class="etape" id="etape-7">
+      <div class="etape-tete">
+        <label class="coche"><input type="checkbox" aria-label="Étape faite"><span></span></label>
+        <div>
+          <span class="etape-num">Étape 7</span>
+          <h3>L'arrêt dans le travail</h3>
+        </div>
+        <span class="badge b-d" title="Savoir de métier">D · Savoir de métier</span>
+      </div>
+      <dl class="quatre">
+        <dt>Ce qu'on cherche</dt><dd>Un arrêt qui tient <em>pendant</em> le travail, pas seulement à côté.</dd>
+        <dt>Ce qu'on regarde</dt><dd>Le moment où tu le demandes. Un arrêt demandé pendant la poursuite arrive trop tard : le chien lancé entend mal. Demande-le avant, quand il est encore en approche.</dd>
+        <dt>Le signe qu'on peut passer à la suite</dt><dd>Le chien s'arrête une fois sur deux en situation, sans que tu élèves la voix. Une fois sur deux suffit pour continuer.</dd>
+        <dt class="dt-err">L'erreur classique</dt><dd class="dd-err">Répéter l'ordre de plus en plus fort. Chaque répétition apprend au chien que le premier mot ne compte pas.</dd>
+      </dl>
+      
+    </article>
+    <article class="etape" id="etape-8">
+      <div class="etape-tete">
+        <label class="coche"><input type="checkbox" aria-label="Étape faite"><span></span></label>
+        <div>
+          <span class="etape-num">Étape 8</span>
+          <h3>La distance</h3>
+        </div>
+        <span class="badge b-d" title="Savoir de métier">D · Savoir de métier</span>
+      </div>
+      <dl class="quatre">
+        <dt>Ce qu'on cherche</dt><dd>Que le chien travaille loin des bêtes, et qu'il y reste sans qu'on le lui rappelle.</dd>
+        <dt>Ce qu'on regarde</dt><dd>À quelle distance il se stabilise spontanément. C'est la chose la plus difficile à installer et celle qui change tout : un chien qui garde sa distance donne un troupeau qui marche au lieu de courir.</dd>
+        <dt>Le signe qu'on peut passer à la suite</dt><dd>Le chien tient sa distance sur une séance entière, y compris quand les bêtes bougent.</dd>
+        <dt class="dt-err">L'erreur classique</dt><dd class="dd-err">Corriger la distance en criant, ce qui pousse le chien vers les bêtes ou l'écrase complètement. Elle se règle avec tes propres pieds.</dd>
+      </dl>
+      <p class="note"><span class="note-t">Ce que disent les sources</span>Un travail mesuré sur 6 brebis et 10 chiens (Andersson 2015) va dans ce sens : les chiens à œil fort tenaient les bêtes à la marche, les chiens à œil lâche les faisaient trotter. Effectif très faible — c'est un indice, pas une démonstration.</p>
+    </article>
+    <article class="etape" id="etape-9">
+      <div class="etape-tete">
+        <label class="coche"><input type="checkbox" aria-label="Étape faite"><span></span></label>
+        <div>
+          <span class="etape-num">Étape 9</span>
+          <h3>Le contournement</h3>
+        </div>
+        <span class="badge b-d" title="Savoir de métier">D · Savoir de métier</span>
+      </div>
+      <dl class="quatre">
+        <dt>Ce qu'on cherche</dt><dd>Un grand tour large, sans couper, pour arriver de l'autre côté du lot.</dd>
+        <dt>Ce qu'on regarde</dt><dd>La forme du trajet. Un chien qui coupe le coin travaille trop près : reviens à l'étape précédente, ce n'est pas un problème de contournement.</dd>
+        <dt>Le signe qu'on peut passer à la suite</dt><dd>Le tour est large des deux côtés, pas seulement du côté facile.</dd>
+        <dt class="dt-err">L'erreur classique</dt><dd class="dd-err">Ne travailler que le bon côté. Tous les chiens ont un côté préféré ; l'autre se paiera plus tard.</dd>
+      </dl>
+      
+    </article>
+    <article class="etape" id="etape-10">
+      <div class="etape-tete">
+        <label class="coche"><input type="checkbox" aria-label="Étape faite"><span></span></label>
+        <div>
+          <span class="etape-num">Étape 10</span>
+          <h3>Le rassemblement</h3>
+        </div>
+        <span class="badge b-d" title="Savoir de métier">D · Savoir de métier</span>
+      </div>
+      <dl class="quatre">
+        <dt>Ce qu'on cherche</dt><dd>Ramener les bêtes vers toi et les tenir groupées face à toi.</dd>
+        <dt>Ce qu'on regarde</dt><dd>Si le chien s'arrête de lui-même quand le lot est en place. C'est le signe qu'il lit les brebis, pas seulement toi.</dd>
+        <dt>Le signe qu'on peut passer à la suite</dt><dd>Le lot arrive groupé et calme, plusieurs fois de suite.</dd>
+        <dt class="dt-err">L'erreur classique</dt><dd class="dd-err">Reculer en tirant le lot avec soi. Le chien apprend alors à pousser au lieu de tenir.</dd>
+      </dl>
+      
+    </article>
+    <article class="etape" id="etape-11">
+      <div class="etape-tete">
+        <label class="coche"><input type="checkbox" aria-label="Étape faite"><span></span></label>
+        <div>
+          <span class="etape-num">Étape 11</span>
+          <h3>Le mener</h3>
+        </div>
+        <span class="badge b-d" title="Savoir de métier">D · Savoir de métier</span>
+      </div>
+      <dl class="quatre">
+        <dt>Ce qu'on cherche</dt><dd>Pousser le lot devant soi, en s'éloignant du berger.</dd>
+        <dt>Ce qu'on regarde</dt><dd>La difficulté est normale : pour beaucoup de chiens, s'éloigner du berger avec les bêtes va contre ce qu'ils cherchent spontanément à faire, qui est de ramener.</dd>
+        <dt>Le signe qu'on peut passer à la suite</dt><dd>Quelques dizaines de mètres en ligne, sans que le chien revienne devant le lot.</dd>
+        <dt class="dt-err">L'erreur classique</dt><dd class="dd-err">Le demander trop tôt. Le mener se travaille quand le rassemblement est solide, pas avant.</dd>
+      </dl>
+      
+    </article>
+  </section>
+  <section class="partie" id="partie-IV">
+    <div class="partie-tete">
+      <span class="p-num">IV</span>
+      <h2>Quand ça ne va pas</h2>
+    </div>
+    <p class="partie-intro">La grande majorité des blocages du débutant viennent du berger. Ce n'est pas une accusation : c'est une bonne nouvelle, parce que c'est la partie sur laquelle tu peux agir.</p>
+    
+    <article class="etape" id="etape-12">
+      <div class="etape-tete">
+        <label class="coche"><input type="checkbox" aria-label="Étape faite"><span></span></label>
+        <div>
+          <span class="etape-num">Étape 12</span>
+          <h3>Les cinq erreurs, par ordre de fréquence</h3>
+        </div>
+        <span class="badge b-d" title="Savoir de métier">D · Savoir de métier</span>
+      </div>
+      <dl class="quatre">
+        <dt>Ce qu'on cherche</dt><dd>Te reconnaître dans au moins deux d'entre elles. Tout le monde s'y reconnaît.</dd>
+        <dt>Ce qu'on regarde</dt><dd><strong>1.</strong> Des séances trop longues. <strong>2.</strong> Trop de mots. <strong>3.</strong> Travailler dans un espace trop grand, trop tôt. <strong>4.</strong> Ne pas terminer sur quelque chose de réussi. <strong>5.</strong> Changer d'objectif en cours de séance parce que ça se passait bien.</dd>
+        <dt>Le signe qu'on peut passer à la suite</dt><dd>Tu as retiré une de ces cinq erreurs de ta prochaine séance. Une seule.</dd>
+        <dt class="dt-err">L'erreur classique</dt><dd class="dd-err">Vouloir les corriger toutes en même temps.</dd>
+      </dl>
+      
+    </article>
+    <article class="etape" id="etape-13">
+      <div class="etape-tete">
+        <label class="coche"><input type="checkbox" aria-label="Étape faite"><span></span></label>
+        <div>
+          <span class="etape-num">Étape 13</span>
+          <h3>Les signaux d'arrêt</h3>
+        </div>
+        <span class="badge b-d" title="Savoir de métier">D · Savoir de métier</span>
+      </div>
+      <dl class="quatre">
+        <dt>Ce qu'on cherche</dt><dd>Savoir à l'avance à quoi tu arrêtes, pour ne pas décider dans le feu de l'action.</dd>
+        <dt>Ce qu'on regarde</dt><dd><strong>On arrête la séance</strong> si le chien saisit, si une bête est acculée, si tu t'es énervé, ou si le chien halète sans se calmer. <strong>On arrête la journée</strong> si ça s'est produit deux fois. <strong>On arrête et on demande de l'aide</strong> si la saisie revient sur trois séances.</dd>
+        <dt>Le signe qu'on peut passer à la suite</dt><dd>Tu as annoncé à voix haute, avant d'entrer dans le parc, à quoi tu arrêteras.</dd>
+        <dt class="dt-err">L'erreur classique</dt><dd class="dd-err">Vouloir « finir sur du bon » alors que tout se dégrade. On ne rattrape pas une séance qui tourne : on la coupe.</dd>
+      </dl>
+      
+    </article>
+    <article class="etape" id="etape-14">
+      <div class="etape-tete">
+        <label class="coche"><input type="checkbox" aria-label="Étape faite"><span></span></label>
+        <div>
+          <span class="etape-num">Étape 14</span>
+          <h3>Quand on appelle quelqu'un</h3>
+        </div>
+        <span class="badge b-d" title="Savoir de métier">D · Savoir de métier</span>
+      </div>
+      <dl class="quatre">
+        <dt>Ce qu'on cherche</dt><dd>Reconnaître les trois situations où continuer seul aggrave les choses.</dd>
+        <dt>Ce qu'on regarde</dt><dd>La morsure qui s'installe. La peur qui s'installe — chien qui se couche et ne repart pas, qui tremble, qui évite le parc. Et le blocage qui dure : trois semaines sans le moindre progrès sur le même point.</dd>
+        <dt>Le signe qu'on peut passer à la suite</dt><dd>Tu as le nom et le numéro de la personne à appeler, écrits quelque part, avant d'en avoir besoin.</dd>
+        <dt class="dt-err">L'erreur classique</dt><dd class="dd-err">Attendre. Un comportement installé depuis trois mois demande beaucoup plus de travail que le même comportement pris à la deuxième séance.</dd>
+      </dl>
+      <p class="note"><span class="note-t">Ce que disent les sources</span>Si le comportement change brutalement chez un chien qui allait bien — refus de travailler, agressivité nouvelle, boiterie — c'est un vétérinaire qu'on appelle avant un éducateur.</p>
+    </article>
+  </section>
+  <section class="partie" id="partie-V">
+    <div class="partie-tete">
+      <span class="p-num">V</span>
+      <h2>Les brebis</h2>
+    </div>
+    <p class="partie-intro">Il y a deux animaux dans le parc, et un seul t'intéresse pendant que tu apprends. C'est le défaut le plus courant des apprentissages, et le troupeau le paie.</p>
+    
+    <article class="etape" id="etape-15">
+      <div class="etape-tete">
+        <label class="coche"><input type="checkbox" aria-label="Étape faite"><span></span></label>
+        <div>
+          <span class="etape-num">Étape 15</span>
+          <h3>Ce que le troupeau subit pendant qu'on apprend</h3>
+        </div>
+        <span class="badge b-b" title="Publié, à nuancer">B · Publié, à nuancer</span>
+      </div>
+      <dl class="quatre">
+        <dt>Ce qu'on cherche</dt><dd>Prendre l'habitude de regarder les brebis autant que le chien.</dd>
+        <dt>Ce qu'on regarde</dt><dd>L'allure. Des bêtes qui marchent et observent, c'est un travail correct. Des bêtes qui trottent en permanence, qui galopent, qui s'entassent dans un coin ou qui piétinent du pied avant : le chien est trop près ou trop rapide.</dd>
+        <dt>Le signe qu'on peut passer à la suite</dt><dd>Tu peux décrire une séance du point de vue des brebis, sans parler du chien.</dd>
+        <dt class="dt-err">L'erreur classique</dt><dd class="dd-err">Juger la séance à la seule réussite du chien.</dd>
+      </dl>
+      <p class="note"><span class="note-t">Ce que disent les sources</span>Andersson (2015), 6 brebis et 10 chiens : les brebis galopaient davantage avec des chiens qu'elles ne connaissaient pas, et leur fréquence cardiaque montait plus au tri qu'au rassemblement. Conclusion des auteurs : ce qui comptait le plus était la manière dont le chien se comportait, pas le fait qu'il soit connu ou non. Effectif très faible : à prendre comme une piste.</p>
+    </article>
+    <article class="etape" id="etape-16">
+      <div class="etape-tete">
+        <label class="coche"><input type="checkbox" aria-label="Étape faite"><span></span></label>
+        <div>
+          <span class="etape-num">Étape 16</span>
+          <h3>Ce qu'on ne travaille pas en apprentissage</h3>
+        </div>
+        <span class="badge b-d" title="Savoir de métier">D · Savoir de métier</span>
+      </div>
+      <dl class="quatre">
+        <dt>Ce qu'on cherche</dt><dd>Une liste courte de situations où le chien débutant ne sort pas, quel que soit ton besoin du jour.</dd>
+        <dt>Ce qu'on regarde</dt><dd>Agnelage et fin de gestation. Bêtes malades ou boiteuses. Forte chaleur. Bêtes acculées sans issue. Lot inconnu du chien dans un espace ouvert. Et le tri, qui est le geste le plus dur pour les brebis — on le garde pour bien plus tard.</dd>
+        <dt>Le signe qu'on peut passer à la suite</dt><dd>Cette liste est affichée quelque part, pas seulement dans ta tête.</dd>
+        <dt class="dt-err">L'erreur classique</dt><dd class="dd-err">Faire une exception « juste cette fois ». C'est toujours cette fois-là qui laisse une trace.</dd>
+      </dl>
+      <p class="note"><span class="note-t">Ce que disent les sources</span>Le risque de coup de chaleur chez le chien au travail est identifié dans la littérature sur le bien-être des chiens de conduite (Pilarczyk et al. 2026).</p>
+    </article>
+  </section>
+
+  <section class="annexe">
+    <h2>Annexe</h2>
+    <p class="intro">Les tableaux de lecture, l'échelle de preuve et les sources. C'est la partie que tu consultes, pas celle que tu lis d'un bout à l'autre.</p>
+
+    <h3>Les quatre phases de lecture</h3>
+    <p class="intro">Quatre <em>fonctions</em>, pas quatre gestes obligatoires. Toutes n'apparaissent pas chez tous les chiens, ni toujours dans cet ordre.</p>
+    <table>
+      <thead><tr><th>Phase</th><th>Ce que c'est</th><th>Ce qu'on voit</th></tr></thead>
+      <tbody>
+    <tr>
+      <th scope="row">Chercher <span class="en">search</span></th>
+      <td>Le chien balaie le terrain, sans direction précise, pour repérer les bêtes.</td>
+      <td>Allure rapide, trajets en zigzag, tête qui bouge plus que le corps, nez au vent ou au sol.</td>
+    </tr>
+    <tr>
+      <th scope="row">Approcher <span class="en">approach</span></th>
+      <td>Le chien a repéré. Il réduit la distance, en gardant le contact du regard.</td>
+      <td>Allure qui ralentit, corps qui s'abaisse, tête dans l'axe du dos, regard verrouillé. Chez un chien à œil fort, l'immobilité et l'avancée lente alternent sans ordre fixe.</td>
+    </tr>
+    <tr>
+      <th scope="row">Poursuivre <span class="en">chase</span></th>
+      <td>La distance se rompt. Le chien s'élance, déclenché par le mouvement de fuite.</td>
+      <td>Galop, cou tendu vers l'avant à l'approche de la bête. Une fois lancé, le chien entend mal.</td>
+    </tr>
+    <tr>
+      <th scope="row">Mordre <span class="en">bite</span></th>
+      <td>Le chien saisit. Première morsure : attraper, immobiliser, mettre au sol.</td>
+      <td>Pince au jarret, au nez ou à la laine. Chez un chien de conduite, cette phase doit rester exceptionnelle et contrôlée.</td>
+    </tr></tbody>
+    </table>
+
+    <h3>Les six mots de la conduite</h3>
+    <p class="intro">Ceux-là ne décrivent pas le chien : ils décrivent ce que le chien fait du troupeau, vu de ta place. C'est du vocabulaire de métier, pas de l'éthologie.</p>
+    <table>
+      <thead><tr><th>Terme</th><th>Ce que c'est</th><th>Sur quoi ça repose</th></tr></thead>
+      <tbody>
+    <tr>
+      <th scope="row">Contourner <span class="en">outrun, flank</span></th>
+      <td>Le grand tour, à distance, pour se placer à l'opposé du berger avant de toucher au lot.</td>
+      <td class="appui">Phase d'approche, distance conservée.</td>
+    </tr>
+    <tr>
+      <th scope="row">Rassembler <span class="en">gather</span></th>
+      <td>Ramener les bêtes vers le berger et les tenir groupées face à lui.</td>
+      <td class="appui">Poursuite, bornée par l'approche.</td>
+    </tr>
+    <tr>
+      <th scope="row">Mener <span class="en">drive</span></th>
+      <td>Pousser le lot devant soi, en s'éloignant du berger.</td>
+      <td class="appui">Poursuite orientée à l'inverse de la tendance spontanée.</td>
+    </tr>
+    <tr>
+      <th scope="row">Tenir <span class="en">hold, wear</span></th>
+      <td>Maintenir le lot en place, sans le pousser ni le lâcher.</td>
+      <td class="appui">Approche maintenue, poursuite suspendue.</td>
+    </tr>
+    <tr>
+      <th scope="row">Écarter <span class="en">shed</span></th>
+      <td>Séparer une bête ou un petit lot du reste du troupeau.</td>
+      <td class="appui">Entrée dans le lot, levée momentanée de la distance.</td>
+    </tr>
+    <tr>
+      <th scope="row">Arrêter <span class="en">stop, lie down</span></th>
+      <td>Couper la séquence en cours, à la demande.</td>
+      <td class="appui">Interruption apprise, pas un patron moteur.</td>
+    </tr></tbody>
+    </table>
+
+    <h3>À quel titre on sait ce qu'on avance</h3>
+    <div class="echelle"><div><span class="badge b-a">A · Établi</span> Publié, relu par des pairs, reproduit ou largement repris.</div><div><span class="badge b-b">B · Publié, à nuancer</span> Publié, mais source unique ou effectif faible : à citer avec sa limite.</div><div><span class="badge b-c">C · Cadre de lecture</span> Modèle théorique ou observation d'auteur : cohérent, non validé expérimentalement.</div><div><span class="badge b-d">D · Savoir de métier</span> Transmis, éprouvé sur le terrain, jamais mesuré ni publié.</div></div>
+
+    <h3>Sources</h3>
+    <ul class="sources">
+    <li><span class="badge b-c">C</span>
+      <span class="ref">Coppinger R. &amp; Coppinger L. (2002). Dogs: a new understanding of canine origin, behavior and evolution. University of Chicago Press. — Coppinger R. et al. (1987). « Degree of behavioral neoteny differentiates canid polymorphs ». Ethology 75(2) : 89-108.</span>
+      <span class="apport">Le modèle de la séquence prédatrice tronquée par la sélection. Explicitement qualifié d'hypothèse non vérifiée par la littérature ultérieure.</span></li>
+    <li><span class="badge b-c">C</span>
+      <span class="ref">Lord K., Schneider R. A. &amp; Coppinger R. (2016). « Evolution of working dogs », dans The Domestic Dog, 2e éd., Cambridge University Press, p. 42-66.</span>
+      <span class="apport">Formulation la plus récente du modèle par ses propres auteurs.</span></li>
+    <li><span class="badge b-b">B</span>
+      <span class="ref">Broseghini A., Lööke M., Guérineau C., Marinelli L. &amp; Mongillo P. (2024). « Ethogram of the predatory sequence of dogs (Canis familiaris) ». Applied Animal Behaviour Science 279 : 106402.</span>
+      <span class="apport">Premier éthogramme observé : 60 vidéos, chiens d'arrêt, chiens courants, lévriers. Propose les quatre phases retenues ici. Ne porte pas sur les chiens de conduite, écartés à dessein.</span></li>
+    <li><span class="badge b-b">B</span>
+      <span class="ref">Pilarczyk B., Pilarczyk R., Bąkowska M., Tomza-Marciniak A., Kwita E. &amp; Udała J. (2026). « The Influence of Environmental and Genetic Factors and Training Background on the Welfare of Herding Dogs ». Animals 16(4) : 607.</span>
+      <span class="apport">Revue systématique de 64 publications. Le renforcement réduit les troubles du comportement ; les méthodes aversives augmentent peur et agression. Pas de gène unique de la conduite.</span></li>
+    <li><span class="badge b-b">B</span>
+      <span class="ref">Andersson I. (2015). Behaviour and heart rate in sheep when herded by Border collies with different background. Rapport d'étudiant n° 643, Université suédoise des sciences agricoles.</span>
+      <span class="apport">Mémoire de master, 6 brebis et 10 chiens. Chien à œil fort : brebis qui marchent et observent. Chien à œil lâche : brebis qui trottent. Fréquence cardiaque plus haute au tri qu'au rassemblement. Effectif très faible : indicatif, pas démonstratif.</span></li>
+    <li><span class="badge b-b">B</span>
+      <span class="ref">Christiansen F. O., Bakken M. &amp; Braastad B. O. (2001). « Behavioural differences between three breed groups of hunting dogs confronted with domestic sheep ». Applied Animal Behaviour Science 72(2) : 115-129.</span>
+      <span class="apport">Différences entre races de chasse face à des moutons.</span></li>
+    <li><span class="badge b-b">B</span>
+      <span class="ref">Udell M. A., Ewald M., Dorey N. R. &amp; Wynne C. D. (2014). « Exploring breed differences in dogs: does exaggeration or inhibition of predatory response predict performance on human-guided tasks? ». Animal Behaviour 89 : 99-105.</span>
+      <span class="apport">L'expérience acquise peut l'emporter sur la prédisposition de race.</span></li>
+    <li><span class="badge b-b">B</span>
+      <span class="ref">Jeong H. et al. (2025). « Genomic evidence for behavioral adaptation of herding dogs ». Science Advances. doi : 10.1126/sciadv.adp4591.</span>
+      <span class="apport">12 races de conduite contre 91 autres ; huit gènes candidats chez le border collie. Demande réplication sur de plus grandes populations.</span></li>
+    <li><span class="badge b-d">D</span>
+      <span class="ref">Savoir de métier des bergers du Pays basque et du Béarn.</span>
+      <span class="apport">La progression de travail, le vocabulaire de conduite et les seuils d'alerte proposés ici. Rien de tout cela n'est mesuré : c'est transmis, et signé comme tel.</span></li></ul>
+
+    <div class="pied">Ce document aide à observer et à décider. Il ne remplace ni un examen vétérinaire, ni l'accompagnement d'une personne expérimentée.</div>
+  </section>
+
+  <footer>Document produit à partir d'une source unique (socle.json). Pour corriger une donnée, corrige le socle, pas cette page.</footer>
+</div>
+
+<div class="bande-bas">
+  <div class="page">
+    <span>Artzainak — éducation de chiens de troupeau au Pays Basque</span>
+    <span><a href="oeil.html">← Revenir aux quatre degrés</a> &nbsp;·&nbsp; <a href="contact.html">Nous contacter</a></span>
+  </div>
+</div>
+
+</body>
+</html>
