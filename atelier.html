@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'atelier — transmettre, degré 4 | Artzainak</title>
+<meta name="description" content="L'atelier : les 46 dérives du chien de conduite classées, avec le niveau de preuve de chacune. Outil de travail pour formateurs, maîtres de stage et bergers qui accompagnent un débutant. Par Artzainak, Pays Basque.">
+<link rel="canonical" href="https://artzainak.netlify.app/atelier.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="L'atelier — transmettre, degré 4">
+<meta property="og:description" content="46 dérives classées, le niveau de preuve de chacune affiché, et la part de ce qui n'est pas prouvé assumée. Outil de travail pour ceux qui enseignent.">
+<meta property="og:url" content="https://artzainak.netlify.app/atelier.html">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nuit:#16241C; --foret:#27412F; --sauge:#6E8A6B;
+  --ocre:#C4873A; --ocre-clair:#E0B063; --creme:#F2EBDA; --creme-vif:#FBF6E9;
+  --terre:#7C5B36; --alerte:#9C3B24; --trait:rgba(39,65,47,.16);
+  --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--creme);color:var(--nuit);font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.enveloppe{max-width:1120px;margin:0 auto;padding:0 28px}
+
+/* ---------- bandeau ---------- */
+.bandeau{position:sticky;top:0;z-index:60;background:rgba(242,235,218,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--trait)}
+.bandeau .enveloppe{display:flex;align-items:center;gap:26px;height:62px}
+.sigle{font-family:var(--serif);font-weight:900;font-size:21px;letter-spacing:-.02em;color:var(--foret);white-space:nowrap;text-decoration:none}
+.sigle span{color:var(--ocre)}
+.menu{display:flex;gap:19px;margin-left:auto;flex-wrap:wrap}
+.menu a{font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--foret);text-decoration:none;font-weight:500;padding:4px 0;border-bottom:2px solid transparent}
+.menu a:hover,.menu a:focus-visible{border-bottom-color:var(--ocre)}
+
+/* ---------- ouverture ---------- */
+.ouverture{background:var(--foret);color:var(--creme-vif);padding:80px 0 70px;position:relative;overflow:hidden}
+.ouverture::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 78% 30%,rgba(224,176,99,.16),transparent 55%)}
+.ouverture .enveloppe{position:relative;z-index:2}
+.surtitre{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--ocre-clair);margin-bottom:22px}
+.ouverture h1{font-family:var(--serif);font-weight:900;font-size:clamp(40px,7vw,74px);line-height:.98;letter-spacing:-.03em;max-width:15ch}
+.ouverture h1 em{font-style:normal;color:var(--ocre-clair)}
+.chapeau{margin-top:24px;max-width:60ch;font-size:19px;color:rgba(251,246,233,.86)}
+
+/* ---------- signature : la barre des preuves ---------- */
+.aveu{margin-top:54px;padding-top:34px;border-top:1px solid rgba(224,176,99,.28)}
+.aveu-tete{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;margin-bottom:16px}
+.aveu-tete h2{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ocre-clair);font-weight:500}
+.aveu-tete span{font-size:14px;color:rgba(251,246,233,.6)}
+.ruban-preuve{display:flex;height:46px;border-radius:2px;overflow:hidden;background:rgba(0,0,0,.15)}
+.ruban-preuve div{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:500;min-width:30px;overflow:hidden}
+.p-science{background:var(--ocre-clair);color:var(--nuit)}
+.p-clinique{background:var(--sauge);color:var(--nuit)}
+.p-terrain{background:rgba(196,135,58,.6);color:var(--creme-vif)}
+.p-securite{background:var(--alerte);color:var(--creme-vif)}
+.p-reserve{background:rgba(251,246,233,.16);color:rgba(251,246,233,.85)}
+.legende{display:flex;gap:26px;flex-wrap:wrap;margin-top:14px}
+.legende span{font-size:13px;color:rgba(251,246,233,.72);display:flex;align-items:center;gap:8px}
+.legende i{width:11px;height:11px;border-radius:2px;flex:none;display:block}
+.aveu-note{margin-top:20px;max-width:66ch;font-size:15.5px;color:rgba(251,246,233,.72)}
+.aveu-note strong{color:var(--ocre-clair);font-weight:600}
+
+/* ---------- sections ---------- */
+section{padding:74px 0;border-bottom:1px solid var(--trait)}
+.etiquette{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--terre);margin-bottom:14px;display:block}
+h2{font-family:var(--serif);font-weight:900;letter-spacing:-.025em;font-size:clamp(28px,4.4vw,44px);line-height:1.05;color:var(--foret);max-width:20ch}
+h3{font-family:var(--serif);font-weight:600;font-size:22px;color:var(--foret);letter-spacing:-.01em}
+.intro{margin-top:18px;max-width:64ch;font-size:18px;color:rgba(22,36,28,.82)}
+.en-clair{margin-top:22px;max-width:64ch;background:rgba(224,176,99,.15);border-left:4px solid var(--ocre);padding:16px 20px;border-radius:2px;font-size:16px}
+.en-clair b{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--terre);margin-bottom:6px;font-weight:500}
+
+.bouton{font-family:var(--sans);font-size:15px;font-weight:500;background:var(--foret);color:var(--creme-vif);border:none;padding:14px 28px;border-radius:2px;cursor:pointer;transition:.16s}
+.bouton:hover{background:var(--nuit)}
+.bouton.secondaire{background:transparent;color:var(--foret);border:1px solid var(--foret)}
+.bouton.secondaire:hover{background:rgba(39,65,47,.07)}
+
+/* ---------- index : replié sous le questionnaire ---------- */
+.index-derives{margin-top:20px;background:#fff;border:1px solid var(--trait);border-radius:3px}
+.index-derives summary{padding:16px 24px;cursor:pointer;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--terre);font-weight:500}
+.index-derives summary:hover{color:var(--foret)}
+.index-derives>div{padding:4px 24px 26px}
+.filtres{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center}
+.filtres b{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--terre);font-weight:500;margin-right:6px}
+.filtres button{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;padding:7px 13px;border:1px solid var(--trait);background:transparent;color:var(--terre);border-radius:2px;cursor:pointer;transition:.14s}
+.filtres button:hover{border-color:var(--foret);color:var(--foret)}
+.filtres button[aria-pressed="true"]{background:var(--foret);border-color:var(--foret);color:var(--creme-vif)}
+.compte{font-family:var(--mono);font-size:12px;color:var(--terre);margin:22px 0 4px}
+
+.familles-index{margin-top:8px}
+.familles-index h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ocre);margin:22px 0 9px;font-weight:500}
+.liste-index{list-style:none;display:grid;gap:3px}
+.liste-index button{width:100%;text-align:left;font-family:var(--sans);font-size:15px;background:var(--creme-vif);border:1px solid var(--trait);border-left:3px solid transparent;border-radius:2px;padding:12px 16px;cursor:pointer;color:var(--nuit);display:flex;justify-content:space-between;align-items:center;gap:14px;transition:.14s;line-height:1.4}
+.liste-index button:hover{border-color:var(--foret);border-left-color:var(--ocre);background:#fff}
+.pt-alerte{color:var(--alerte);font-weight:700}
+.i-niveau,.v-niveau{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:3.5px 8px;border-radius:2px;font-weight:500;white-space:nowrap}
+.i-niveau.science,.v-niveau.science{background:var(--foret);color:var(--ocre-clair)}
+.i-niveau.clinique,.v-niveau.clinique{background:rgba(110,138,107,.3);color:var(--foret)}
+.i-niveau.terrain,.v-niveau.terrain{background:rgba(196,135,58,.22);color:var(--terre)}
+.i-niveau.securite,.v-niveau.securite{background:rgba(156,59,36,.14);color:var(--alerte)}
+.i-niveau.reserve,.v-niveau.reserve{background:rgba(22,36,28,.1);color:var(--terre)}
+.vide-filtre{font-size:15px;color:var(--terre);padding:22px 0;font-style:italic}
+
+/* ---------- arbre ---------- */
+.arbre{background:var(--creme-vif);border:1px solid var(--trait);border-radius:3px;padding:30px;margin-top:32px}
+.fil{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;font-family:var(--mono);font-size:11px;color:var(--terre);min-height:17px}
+.fil span{background:rgba(124,91,54,.08);padding:3px 8px;border-radius:2px}
+.fil span::after{content:" ›";color:var(--ocre);margin-left:4px}
+.fil span:last-child::after{content:"";margin-left:0}
+.compteur{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ocre);margin-bottom:8px;display:block}
+.arbre .demande{font-family:var(--serif);font-size:24px;font-weight:600;color:var(--foret);max-width:34ch;line-height:1.25;margin-bottom:22px}
+.options{display:grid;gap:9px}
+.options button{font-family:var(--sans);font-size:15.5px;text-align:left;padding:15px 20px;border:1px solid var(--trait);background:#fff;border-radius:2px;cursor:pointer;color:var(--nuit);transition:.15s;display:flex;gap:13px;align-items:flex-start;line-height:1.45}
+.options button:hover{border-color:var(--foret);border-left:4px solid var(--ocre);padding-left:17px}
+.options button i{font-style:normal;color:var(--ocre);font-family:var(--mono);font-size:13px;flex:none;padding-top:2px}
+.pilotage{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap;border-top:1px solid var(--trait);padding-top:20px}
+.pilotage button{font-family:var(--sans);font-size:13.5px;padding:9px 17px;border:1px solid var(--trait);background:transparent;color:var(--foret);border-radius:2px;cursor:pointer}
+.pilotage button:hover:not(:disabled){border-color:var(--foret)}
+.pilotage button:disabled{opacity:.35;cursor:not-allowed}
+
+/* ---------- fiche ---------- */
+.verdict{border-top:3px solid var(--ocre);padding-top:24px}
+.v-tete{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:9px}
+.verdict .nature{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--terre);margin-bottom:0}
+.verdict h3{font-size:27px;font-weight:900;font-family:var(--serif);margin-bottom:16px;line-height:1.15;max-width:26ch}
+.verdict.grave h3{color:var(--alerte)}
+.pave{margin-bottom:20px}
+.pave h5{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--terre);margin-bottom:7px;font-weight:500}
+.pave p{font-size:16px;max-width:66ch}
+.cible{background:var(--foret);color:var(--creme-vif);padding:19px 23px;border-radius:2px;margin-bottom:22px}
+.cible h5{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ocre-clair);margin-bottom:7px;font-weight:500}
+.cible p{color:var(--creme-vif);font-size:16px;max-width:66ch}
+.exercices{display:grid;gap:11px;margin-bottom:20px}
+.exo{background:#fff;border:1px solid var(--trait);border-left:4px solid var(--sauge);padding:17px 21px;border-radius:2px}
+.exo .ou{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ocre);margin-bottom:5px}
+.exo h6{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--foret);margin-bottom:5px}
+.exo p{font-size:15px;color:rgba(22,36,28,.83)}
+.piege{background:rgba(156,59,36,.07);border-left:4px solid var(--alerte);padding:16px 21px;border-radius:2px;margin-bottom:20px;font-size:15px}
+.piege b{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--alerte);margin-bottom:5px;font-weight:500}
+.v-pied{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border-top:1px solid var(--trait);padding-top:14px}
+.v-pied .source{font-family:var(--mono);font-size:11.5px;color:var(--terre)}
+.btn-imp{font-family:var(--sans);font-size:13px;padding:8px 15px;border:1px solid var(--trait);background:transparent;color:var(--foret);border-radius:2px;cursor:pointer}
+.btn-imp:hover{border-color:var(--foret)}
+
+/* ---------- preuves : le détail ---------- */
+.grille-preuve{display:grid;gap:2px;margin-top:34px}
+.rang{display:grid;grid-template-columns:190px 68px 1fr;gap:22px;align-items:start;background:var(--creme-vif);border:1px solid var(--trait);padding:20px 24px}
+.rang .nom{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--foret)}
+.rang .nb{font-family:var(--mono);font-size:26px;color:var(--ocre);line-height:1.1}
+.rang .nb small{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--terre);margin-top:3px}
+.rang p{font-size:15px;color:rgba(22,36,28,.82);max-width:62ch}
+.alerte-bloc{margin-top:34px;background:rgba(156,59,36,.07);border-left:4px solid var(--alerte);padding:22px 26px;border-radius:2px}
+.alerte-bloc h3{color:var(--alerte);margin-bottom:8px;font-size:19px}
+.alerte-bloc p{font-size:15px;max-width:64ch;margin-bottom:14px}
+.liste-plate{list-style:none;display:grid;gap:4px}
+.liste-plate button{font-family:var(--sans);font-size:14.5px;text-align:left;background:transparent;border:none;border-bottom:1px solid rgba(156,59,36,.2);padding:9px 0;cursor:pointer;color:var(--nuit);width:100%}
+.liste-plate button:hover{color:var(--alerte)}
+
+/* ---------- clé de terrain ---------- */
+.carte-cle{margin-top:32px;background:var(--creme-vif);border:1px solid var(--trait);border-left:4px solid var(--ocre);border-radius:2px;padding:26px 30px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.carte-cle h3{margin-bottom:5px}
+.carte-cle p{font-family:var(--mono);font-size:12px;color:var(--terre);letter-spacing:.04em}
+.carte-cle .bouton{text-decoration:none;display:inline-block}
+
+/* ---------- chantier ---------- */
+.chantier{background:var(--nuit);color:var(--creme-vif);border-bottom:none}
+.chantier h2{color:var(--creme-vif)}
+.chantier .etiquette{color:var(--ocre-clair)}
+.chantier .intro{color:rgba(251,246,233,.78)}
+.liste-chantier{margin-top:34px;display:grid;gap:2px;max-width:880px}
+.piece{display:grid;grid-template-columns:34px 1fr;gap:18px;align-items:start;padding:20px 0;border-bottom:1px solid rgba(251,246,233,.12)}
+.piece .num{font-family:var(--mono);font-size:12px;color:var(--ocre-clair);padding-top:5px}
+.piece h4{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ocre-clair);margin-bottom:5px}
+.piece p{font-size:15.5px;color:rgba(251,246,233,.8);max-width:68ch}
+.piece .etat{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(251,246,233,.5);margin-top:7px;display:block}
+
+footer{background:var(--foret);color:rgba(251,246,233,.62);padding:44px 0;font-size:14px}
+footer .enveloppe{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer strong{color:var(--ocre-clair);font-weight:600}
+footer a{color:inherit}
+
+/* ---------- impression ---------- */
+@media print{
+  @page{margin:15mm}
+  html,body{background:#fff!important;color:#000!important;font-size:10.5pt}
+  .bandeau,.ouverture,footer,.btn-imp,.pilotage,.filtres,.options,.index-derives,.chantier,.carte-cle{display:none!important}
+  section{padding:0!important;border:none!important;page-break-inside:avoid}
+  .cible{background:#fff!important;color:#000!important}
+  .cible h5,.cible p{color:#000!important}
+  .verdict,.exo,.piege,.arbre{border-color:#999!important;background:#fff!important}
+  body[data-impression] section{display:none!important}
+  body[data-impression="derive"] section#derives{display:block!important}
+  body[data-impression="derive"] #derives .etiquette,
+  body[data-impression="derive"] #derives h2,
+  body[data-impression="derive"] #derives .intro,
+  body[data-impression="derive"] #derives .en-clair,
+  body[data-impression="derive"] #derives .fil{display:none!important}
+  body[data-impression="derive"] .arbre{border:none!important;padding:0!important}
+}
+@media(max-width:860px){
+  .menu{display:none}
+  section{padding:56px 0}
+  .arbre{padding:22px}
+  .rang{grid-template-columns:1fr;gap:8px}
+  .rang .nb{font-size:22px}
+  .ruban-preuve{height:38px}
+  .ruban-preuve div{font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+:focus-visible{outline:2px solid var(--ocre);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="bandeau">
+  <div class="enveloppe">
+    <a href="oeil.html" class="sigle">L'<span>Œil</span> · Atelier</a>
+    <nav class="menu">
+      <a href="#derives">Dérives</a>
+      <a href="#preuves">Preuves</a>
+      <a href="#reserve">Réserve</a>
+      <a href="#cle">Clé de terrain</a>
+      <a href="#chantier">Chantier</a>
+    </nav>
+  </div>
+</header>
+
+<div class="ouverture">
+  <div class="enveloppe">
+    <p class="surtitre">L'Œil · Degré 4 · Transmettre</p>
+    <h1>L'atelier, et <em>ce qu'on sait vraiment</em></h1>
+    <p class="chapeau">Pour celui qui enseigne : formateur, maître de stage, berger qui accompagne un débutant. Quarante-six dérives du chien de conduite, atteintes par le questionnement : ce qui se passe, ce qu'on vise, trois exercices, le piège classique — et le niveau de preuve derrière chacune, affiché sans arrangement.</p>
+
+    <div class="aveu">
+      <div class="aveu-tete">
+        <h2>Sur quoi reposent les 46 fiches</h2>
+        <span id="aveu-total"></span>
+      </div>
+      <div class="ruban-preuve" id="ruban" role="img" aria-label="Répartition des 46 fiches par niveau de preuve"></div>
+      <div class="legende" id="legende"></div>
+      <p class="aveu-note">Un formateur transmet toujours un mélange de recherche, de clinique et de métier. Le problème n'est pas le mélange : c'est de ne plus savoir <strong>lequel on est en train de transmettre</strong>. Cette barre est là pour qu'on ne l'oublie pas, et elle se recalcule à chaque chargement de la page — elle ne peut pas mentir sur le contenu réel.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DÉRIVES : questionnaire, index en second ============ -->
+<section id="derives">
+  <div class="enveloppe">
+    <span class="etiquette">Dérives</span>
+    <h2>Un problème précis, question après question</h2>
+    <p class="intro">Quarante-six situations qui posent réellement problème aux conducteurs, atteintes par une suite de questions courtes. Chaque issue donne quatre choses : ce qui se passe, ce qu'on vise, trois exercices selon le contexte, et le piège dans lequel presque tout le monde tombe.</p>
+
+    <div class="en-clair">
+      <b>En clair</b>
+      Répondez à deux ou trois questions et vous tombez sur la fiche qui correspond à la situation. Rien n'est enregistré, vous pouvez revenir en arrière ou recommencer autant de fois que vous voulez.
+    </div>
+
+    <div class="arbre">
+      <div class="fil" id="fil"></div>
+      <div id="scene"></div>
+      <div class="pilotage">
+        <button type="button" id="retour" disabled>← Question précédente</button>
+        <button type="button" id="recommencer">Recommencer</button>
+      </div>
+
+      <details class="index-derives">
+        <summary>Voir l'index complet des 46 dérives</summary>
+        <div>
+          <div class="filtres" role="group" aria-label="Filtrer par niveau de preuve">
+            <b>Filtrer</b>
+            <button type="button" data-niv="tous" aria-pressed="true">Tout</button>
+            <button type="button" data-niv="science" aria-pressed="false">Recherche établie</button>
+            <button type="button" data-niv="clinique" aria-pressed="false">Éthologie clinique</button>
+            <button type="button" data-niv="terrain" aria-pressed="false">Savoir de métier</button>
+            <button type="button" data-niv="securite" aria-pressed="false">Principe de sécurité</button>
+            <button type="button" data-niv="reserve" aria-pressed="false">Module non construit</button>
+          </div>
+          <p class="compte" id="compte"></p>
+          <div class="familles-index" id="index-contenu"></div>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PREUVES ============ -->
+<section id="preuves">
+  <div class="enveloppe">
+    <span class="etiquette">Appareil critique</span>
+    <h2>Ce que veut dire chaque étiquette</h2>
+    <p class="intro">Les cinq niveaux ne sont pas cinq degrés de qualité. Ce sont cinq origines différentes, qui n'appellent ni la même confiance ni la même manière d'en parler à un élève. Les chiffres sont comptés dans les fiches elles-mêmes.</p>
+
+    <div class="grille-preuve" id="grille-preuve"></div>
+
+    <div class="alerte-bloc">
+      <h3>Les six fiches marquées graves</h3>
+      <p>Situations où l'attente, l'essai personnel ou le conseil approximatif exposent quelqu'un — le chien, le troupeau ou l'élève. Ce sont celles qu'un formateur doit reconnaître avant de laisser une séance continuer.</p>
+      <ul class="liste-plate" id="liste-graves"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RÉSERVE ============ -->
+<section id="reserve">
+  <div class="enveloppe">
+    <span class="etiquette">Périmètre</span>
+    <h2>Ce que l'atelier ne fait pas</h2>
+    <p class="intro">Quatre fiches n'ouvrent sur aucun protocole : elles disent où chercher et s'arrêtent là. Les rassembler ici évite qu'un formateur découvre le vide au milieu d'une séance. Un outil qui ne dit pas ses trous en fabrique un autre, plus grave : la confiance mal placée.</p>
+    <div class="familles-index"><ul class="liste-index" id="liste-reserve"></ul></div>
+  </div>
+</section>
+
+<!-- ============ CLÉ DE TERRAIN ============ -->
+<section id="cle">
+  <div class="enveloppe">
+    <span class="etiquette">À emporter</span>
+    <h2>La clé de détermination</h2>
+    <p class="intro">Le pendant papier de cette page : éthogrammes simplifiés, patrons moteurs, réponses adaptées. Schématique, pliable, salissable, sans réseau. Elle se télécharge ici et nulle part ailleurs, parce qu'un tableau aussi condensé se lit mal sans ce qui l'entoure — les niveaux de preuve, les six situations graves et les quatre sujets sur lesquels l'outil ne dit rien.</p>
+
+    <div class="carte-cle">
+      <div>
+        <h3>Clé de détermination</h3>
+        <p>PDF de terrain · à imprimer et à plier · aucune donnée collectée</p>
+      </div>
+      <a href="documents/cle-de-determination.pdf" class="bouton">Télécharger le PDF</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHANTIER ============ -->
+<section id="chantier" class="chantier">
+  <div class="enveloppe">
+    <span class="etiquette">Chantier</span>
+    <h2>Ce qui viendra s'accrocher ici</h2>
+    <p class="intro">Cette page est une ossature. Voici les pièces prévues, dans l'ordre où elles se tiennent debout — annoncées ici pour qu'on puisse reprocher à l'atelier ce qui lui manque.</p>
+
+    <div class="liste-chantier">
+      <div class="piece">
+        <span class="num">01</span>
+        <div>
+          <h4>La double couche</h4>
+          <p>Trois blocs séparés au lieu d'un seul : le modèle de Coppinger tel qu'il l'a écrit, ce que l'observation directe en confirme et en conteste depuis Broseghini 2024, et la couche de conduite — gather, drive, hold — qui est notre apport et sera signée comme tel.</p>
+          <span class="etat">Rédigé le 19 août 2026 · en attente de validation</span>
+        </div>
+      </div>
+      <div class="piece">
+        <span class="num">02</span>
+        <div>
+          <h4>Le lexique des deux registres</h4>
+          <p>Quels mots viennent de l'éthogramme prédateur et quels mots viennent du concours de chiens de berger. La confusion entre les deux est l'erreur que ce site a lui-même commise, et c'est la moitié de ce qu'un formateur transmet sans le savoir.</p>
+          <span class="etat">À écrire</span>
+        </div>
+      </div>
+      <div class="piece">
+        <span class="num">03</span>
+        <div>
+          <h4>Bâtir une séance</h4>
+          <p>Durée, ordre, ce qu'on observe avant de commencer, où l'on s'arrête, et le signe qu'il fallait s'arrêter plus tôt. Savoir de métier, signé, étiqueté comme tel — pas déguisé en résultat de recherche.</p>
+          <span class="etat">À écrire</span>
+        </div>
+      </div>
+      <div class="piece">
+        <span class="num">04</span>
+        <div>
+          <h4>Les pièges du transmetteur</h4>
+          <p>Chaque fiche a son piège côté chien ; il manque le pendant côté humain. Corriger le chien à travers l'élève, la démonstration avec son propre chien qui ne prouve rien, le commentaire pendant l'action.</p>
+          <span class="etat">À écrire</span>
+        </div>
+      </div>
+      <div class="piece">
+        <span class="num">05</span>
+        <div>
+          <h4>Le volet « le berger »</h4>
+          <p>Posture, pression, distance, moment. Le plus gros trou du site : rien n'y dit encore ce que fait le corps de l'homme pendant que le chien travaille.</p>
+          <span class="etat">À écrire</span>
+        </div>
+      </div>
+      <div class="piece">
+        <span class="num">06</span>
+        <div>
+          <h4>Le volet « la brebis »</h4>
+          <p>Lecture du troupeau, zone de fuite, point d'équilibre, et ce que les animaux subissent pendant qu'on apprend. Andersson 2015 donne un appui — faible, six brebis — sur les réponses selon un chien à œil fort ou à œil lâche.</p>
+          <span class="etat">À écrire</span>
+        </div>
+      </div>
+      <div class="piece">
+        <span class="num">07</span>
+        <div>
+          <h4>Le journal daté</h4>
+          <p>Ce qui a changé et pourquoi : la séquence de Coppinger rectifiée en août 2026, ce qu'on croyait avant, ce qu'on a corrigé. Un outil de travail se date ou il se périme en silence.</p>
+          <span class="etat">À écrire</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="terrain" style="background:var(--foret);border-bottom:none">
+  <div class="enveloppe" style="text-align:center;max-width:660px">
+    <span class="etiquette" style="color:var(--ocre-clair)">Et après</span>
+    <h2 style="color:var(--creme-vif)">Aucune page ne voit la séance</h2>
+    <p style="color:rgba(251,246,233,.82);margin:0 0 28px">Ces fiches servent à préparer, à nommer, à décider d'arrêter. Elles ne remplacent pas quelqu'un qui regarde travailler le chien au moment où il travaille. Artzainak intervient à domicile au Pays Basque.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="oeil.html" class="bouton" style="background:var(--creme-vif);color:var(--foret);text-decoration:none;display:inline-block">Les quatre degrés</a>
+      <a href="contact.html" class="bouton secondaire" style="color:var(--creme-vif);border-color:rgba(251,246,233,.5);text-decoration:none;display:inline-block">Contacter Artzainak</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="enveloppe">
+    <div><strong>L'atelier</strong> — degré 4 de L'Œil · transmettre</div>
+    <div>46 dérives · niveau de preuve indiqué partout · périmètre assumé</div>
+    <div style="margin-top:10px;font-size:12px;opacity:.75"><a href="index.html">Artzainak</a> · <a href="oeil.html">Les quatre degrés</a> · <a href="oeil-outil.html">Degré 1 — comprendre</a> · <a href="premiers-pas.html">Degré 3 — construire</a> · <a href="mentions-legales.html">Mentions légales</a></div>
+  </div>
+</footer>
+
+<script src="data/derives.js"></script>
+<script>
+"use strict";
+
+/* ============================================================
+   Moteur de l'arbre.
+   Les données viennent de data/derives.js (PREUVE, ARBRE).
+   ============================================================ */
+let chemin = ["depart"];
+const scene = document.getElementById("scene"), fil = document.getElementById("fil");
+const btnRetour = document.getElementById("retour"), btnRecommencer = document.getElementById("recommencer");
+
+/* table des parents : fil d'Ariane, index, liens entrants */
+const PARENT = {depart:null};
+(function(){
+  const file = ["depart"];
+  while(file.length){
+    const c = file.shift(), n = ARBRE[c];
+    if(!n || n.fin) continue;
+    n.o.forEach(op => { if(!(op.v in PARENT)){ PARENT[op.v] = c; file.push(op.v); } });
+  }
+})();
+
+function cheminVers(cible){
+  if(!(cible in PARENT)) return ["depart"];
+  const p = []; let c = cible;
+  while(c){ p.unshift(c); c = PARENT[c]; }
+  return p;
+}
+function libelle(parent, enfant){
+  const n = ARBRE[parent];
+  if(!n || n.fin) return "";
+  const op = n.o.find(o => o.v === enfant);
+  if(!op) return "";
+  return op.l.length > 38 ? op.l.slice(0,36) + "…" : op.l;
+}
+function allerVers(cible, silencieux){
+  chemin = cheminVers(cible);
+  afficher();
+  if(ARBRE[cible] && ARBRE[cible].fin) history.replaceState(null, "", "#" + cible);
+  if(!silencieux) document.getElementById("derives").scrollIntoView({behavior:"smooth", block:"start"});
+}
+function imprimer(mode){
+  document.body.dataset.impression = mode;
+  window.print();
+}
+window.addEventListener("afterprint", () => { delete document.body.dataset.impression; });
+
+function afficher(){
+  const cle = chemin[chemin.length-1], n = ARBRE[cle];
+  let f = "";
+  for(let i = 1; i < chemin.length; i++){
+    const l = libelle(chemin[i-1], chemin[i]);
+    if(l) f += '<span>' + l + '</span>';
+  }
+  fil.innerHTML = f;
+  btnRetour.disabled = chemin.length <= 1;
+
+  if(n.fin){
+    const pr = PREUVE[n.niv] || PREUVE.terrain;
+    let h = '<div class="verdict' + (n.grave ? " grave" : "") + '">' +
+      '<div class="v-tete"><span class="nature">' + n.nature + '</span>' +
+      '<span class="v-niveau ' + pr[0] + '">' + pr[1] + '</span></div><h3>' + n.titre + '</h3>' +
+      '<div class="pave"><h5>Ce qui se passe</h5><p>' + n.quoi + '</p></div>' +
+      '<div class="cible"><h5>Ce qu\'on vise</h5><p>' + n.cible + '</p></div>' +
+      '<div class="exercices">';
+    n.exos.forEach(e => { h += '<div class="exo"><div class="ou">' + e.ou + '</div><h6>' + e.t + '</h6><p>' + e.p + '</p></div>'; });
+    h += '</div><div class="piege"><b>Le piège classique</b>' + n.piege + '</div>' +
+         '<div class="v-pied"><span class="source">' + n.src + '</span>' +
+         '<button type="button" class="btn-imp" onclick="imprimer(\'derive\')">Imprimer cette fiche</button></div></div>';
+    scene.innerHTML = h;
+  } else {
+    let h = '<span class="compteur">Étape ' + chemin.length + '</span>' +
+      '<div class="demande">' + n.q + '</div><div class="options">';
+    n.o.forEach((op,i) => { h += '<button type="button" data-v="' + op.v + '"><i>' + String.fromCharCode(65+i) + '</i>' + op.l + '</button>'; });
+    h += '</div>';
+    scene.innerHTML = h;
+    scene.querySelectorAll('.options button').forEach(b => {
+      b.addEventListener("click", () => { chemin.push(b.dataset.v); afficher(); });
+    });
+  }
+}
+btnRetour.addEventListener("click", () => { if(chemin.length > 1){ chemin.pop(); afficher(); } });
+btnRecommencer.addEventListener("click", () => { chemin = ["depart"]; history.replaceState(null,"",location.pathname); afficher(); });
+
+/* ============================================================
+   Comptages — lus dans les données, jamais écrits à la main
+   ============================================================ */
+const FICHES = Object.keys(ARBRE).filter(c => ARBRE[c].fin);
+const ORDRE_NIV = ["science","clinique","terrain","securite","reserve"];
+const COMPTE = {};
+ORDRE_NIV.forEach(n => COMPTE[n] = 0);
+FICHES.forEach(c => { COMPTE[ARBRE[c].niv] = (COMPTE[ARBRE[c].niv] || 0) + 1; });
+
+const GLOSE = {
+  science:"Des chercheurs ont mesuré, publié, et d'autres ont retrouvé la même chose. On peut le dire à un élève comme un fait, en citant d'où ça vient.",
+  clinique:"Solide et cohérent avec ce qu'on observe en consultation, mais peu testé en conditions contrôlées. On le dit comme un cadre de lecture, pas comme une loi.",
+  terrain:"Des gens très expérimentés obtiennent ce résultat. Personne n'a comparé leur méthode à une autre dans une étude. C'est utile et c'est discutable — les deux à la fois.",
+  securite:"Ni mesuré ni discutable : une règle prise parce que le coût d'avoir tort est trop élevé. On l'applique et on explique pourquoi.",
+  reserve:"Module non construit. La fiche dit où chercher et s'arrête. À ne pas transmettre comme un contenu."
+};
+
+/* --- ruban et légende du bandeau --- */
+(function(){
+  const ruban = document.getElementById("ruban"), leg = document.getElementById("legende");
+  let r = "", l = "";
+  ORDRE_NIV.forEach(n => {
+    if(!COMPTE[n]) return;
+    r += '<div class="p-' + n + '" style="flex-grow:' + COMPTE[n] + '" title="' + PREUVE[n][1] + ' — ' + COMPTE[n] + ' fiches">' + COMPTE[n] + '</div>';
+    l += '<span><i class="p-' + n + '"></i>' + PREUVE[n][1] + '</span>';
+  });
+  ruban.innerHTML = r;
+  leg.innerHTML = l;
+  const dur = COMPTE.science;
+  document.getElementById("aveu-total").textContent =
+    FICHES.length + " fiches · " + dur + " seulement reposent sur de la recherche établie";
+})();
+
+/* --- grille détaillée des niveaux --- */
+(function(){
+  let h = "";
+  ORDRE_NIV.forEach(n => {
+    h += '<div class="rang"><div class="nom">' + PREUVE[n][1] + '</div>' +
+         '<div class="nb">' + COMPTE[n] + '<small>fiche' + (COMPTE[n] > 1 ? "s" : "") + '</small></div>' +
+         '<p>' + GLOSE[n] + '</p></div>';
+  });
+  document.getElementById("grille-preuve").innerHTML = h;
+})();
+
+/* --- liste des fiches graves --- */
+(function(){
+  const graves = FICHES.filter(c => ARBRE[c].grave)
+    .sort((a,b) => ARBRE[a].titre.localeCompare(ARBRE[b].titre,"fr"));
+  document.getElementById("liste-graves").innerHTML = graves.map(c =>
+    '<li><button type="button" data-cible="' + c + '">' + ARBRE[c].titre + '</button></li>').join("");
+})();
+
+/* --- liste des modules en réserve --- */
+(function(){
+  const res = FICHES.filter(c => ARBRE[c].niv === "reserve")
+    .sort((a,b) => ARBRE[a].titre.localeCompare(ARBRE[b].titre,"fr"));
+  document.getElementById("liste-reserve").innerHTML = res.map(c =>
+    '<li><button type="button" data-cible="' + c + '">' + ARBRE[c].titre +
+    '<span class="i-niveau reserve">' + ARBRE[c].nature + '</span></button></li>').join("");
+})();
+
+/* ============================================================
+   Index classé — entrée principale, filtrable
+   ============================================================ */
+const FAMILLES = {
+  trav:"Au travail, sur les animaux",
+  quot:"Au quotidien",
+  edu:"En séance d'éducation",
+  autre:"Autres disciplines"
+};
+const GROUPES = {trav:[], quot:[], edu:[], autre:[]};
+FICHES.forEach(c => {
+  const p = cheminVers(c);
+  const racine = p.length > 1 ? p[1] : "trav";
+  if(GROUPES[racine]) GROUPES[racine].push(c);
+});
+Object.keys(GROUPES).forEach(f =>
+  GROUPES[f].sort((a,b) => ARBRE[a].titre.localeCompare(ARBRE[b].titre,"fr")));
+
+let filtre = "tous";
+function dessinerIndex(){
+  let h = "", n = 0;
+  Object.keys(FAMILLES).forEach(f => {
+    const liste = GROUPES[f].filter(c => filtre === "tous" || ARBRE[c].niv === filtre);
+    if(!liste.length) return;
+    n += liste.length;
+    h += '<h4>' + FAMILLES[f] + ' · ' + liste.length + '</h4><ul class="liste-index">';
+    liste.forEach(c => {
+      const fi = ARBRE[c], pr = PREUVE[fi.niv] || PREUVE.terrain;
+      h += '<li><button type="button" data-cible="' + c + '">' +
+           '<span>' + (fi.grave ? '<span class="pt-alerte">•</span> ' : '') + fi.titre + '</span>' +
+           '<span class="i-niveau ' + pr[0] + '">' + pr[1] + '</span></button></li>';
+    });
+    h += '</ul>';
+  });
+  if(!n) h = '<p class="vide-filtre">Aucune fiche à ce niveau de preuve.</p>';
+  document.getElementById("index-contenu").innerHTML = h;
+  document.getElementById("compte").textContent =
+    n + " fiche" + (n > 1 ? "s" : "") + (filtre === "tous" ? "" : " sur " + FICHES.length);
+}
+document.querySelectorAll('.filtres button').forEach(b => {
+  b.addEventListener("click", () => {
+    filtre = b.dataset.niv;
+    document.querySelectorAll('.filtres button').forEach(x =>
+      x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+    dessinerIndex();
+  });
+});
+dessinerIndex();
+
+/* --- un seul écouteur pour tous les boutons qui ouvrent une fiche --- */
+document.addEventListener("click", e => {
+  const b = e.target.closest("button[data-cible]");
+  if(b) allerVers(b.dataset.cible);
+});
+
+/* ============================================================
+   Ancre directe : atelier.html#d_oeil_colle ouvre la fiche.
+   Sert à partager une fiche précise, pas à être appelé depuis
+   une autre page du site.
+   ============================================================ */
+(function(){
+  const h = location.hash.replace("#","");
+  if(h && ARBRE[h] && ARBRE[h].fin){
+    allerVers(h, true);
+    window.addEventListener("load", () =>
+      document.getElementById("derives").scrollIntoView({block:"start"}));
+  } else {
+    afficher();
+  }
+})();
+</script>
+</body>
+</html>
